@@ -23,7 +23,7 @@
 #
 title: "TODO - Your title"
 abbrev: "TODO - Abbreviation"
-docname: draft-todo-yourname-protocol-latest
+docname: draft-lenders-dns-over-coaps-latest
 category: info
 
 ipr: trust200902
