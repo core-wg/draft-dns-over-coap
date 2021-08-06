@@ -154,6 +154,10 @@ using Content Formats that include the ID field from the DNS message, such as
 message ID takes the same function on the CoAP layer. Dedicated identification
 of DNS message exchanges on the wire is thus not necessary.
 
+### Examples
+
+TBD
+
 Responses
 ---------
 
