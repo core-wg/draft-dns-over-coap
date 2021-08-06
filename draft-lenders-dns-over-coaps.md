@@ -72,16 +72,37 @@ discussed.
 Terminology
 -----------
 
-{::boilerplate bcp14-tagged}
+A server that provides the service specified in this document is called a "DoC
+server" to differentiate it from a classic "DNS server". Correspondingly, a
+client using this protocol to retrieve the DNS information is called a "DoC
+client".
 
 The term "constrained nodes" is used as defined in {{?RFC7228}}.
+
+{::boilerplate bcp14-tagged}
+
+Selection of a DoC server
+=========================
+To be able to reuse configuration mechanisms provided for DoH, a DoC client is
+configured with a URI Template {{!RFC6570}} as well. Likewise, MAY a DoC server
+support more than one URI Template to provide different properties.
+
+The URI Template SHOULD provide a variable "dns" so that GET requests can be
+used to retrieve the DNS information. If the "dns" variable is not provided in
+the URI Template, GET requests can not be used for DoC exchanges.
+
+TBD DoC server identity, key exchange, ...
+
+URI template alternatives
+-------------------------
+TBD:
+
+- CRI {{?I-D.ietf-core-href}} or CoRAL {{?I-D.ietf-core-coral}}
 
 CoAP Messaging
 ==============
 
 - Request SHOULD be CON {{!RFC7252}} to reuse CoAP retransmissions
-- Request are sent to a resource defined by a URI template {{!RFC6570}} (see
-  [](#uri-template-alternatives) for potential alternatives)
 - DNS message ID SHOULD be 0 in query (cache key variance...)
 - Allowed methods: GET, FETCH {{!RFC8132}} (“POST but cacheable”, blockwise
   transfer...), and POST
@@ -131,12 +152,6 @@ Proxies and caching
 -------------------
 - Cache SHOULD support FETCH ("the request body is part of the cache key"
   {{!RFC8132}})
-
-URI template alternatives
--------------------------
-- URI templates {{RFC6570}} have advantage that DoH config mechanisms can be
-  reused (see also {#uri-template-configuration})
-- CRI {{?I-D.ietf-core-href}} or CoRAL {{?I-D.ietf-core-coral}}
 
 OBSERVE (modifications)?
 ------------------------
