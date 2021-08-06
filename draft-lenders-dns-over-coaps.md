@@ -18,6 +18,8 @@ author:
     org: Freie Universität Berlin
     abbrev: FU Berlin
     email: m.lenders@fu-berlin.de
+ -  name: Christian Amsüss
+    email: christian@amsuess.com
  -  name: Cenk Gündoğan
     org: HAW Hamburg
     email: cenk.guendogan@haw-hamburg.de
