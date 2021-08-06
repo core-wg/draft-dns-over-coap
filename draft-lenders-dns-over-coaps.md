@@ -102,37 +102,69 @@ TBD:
 CoAP Messaging
 ==============
 
-- Request SHOULD be CON {{!RFC7252}} to reuse CoAP retransmissions
-- DNS message ID SHOULD be 0 in query (cache key variance...)
-- Allowed methods: GET, FETCH {{!RFC8132}} (“POST but cacheable”, blockwise
-  transfer...), and POST
-
 Queries
 -------
 
-### GET
-- Encode query as `?dns=...` URI query in `base64url` {{!RFC4648}}
-- MUST have Accept option (set to `application/dns-message` content-format ID)
-- Expected successful response code: 2.05 Content
-- Considerations: Cacheable, but no blockwise transfer (URI-Query option can
-  become comparatively large), ...
+A DoH client encodes a single DNS query in one or more CoAP request messages
+using either the CoAP GET, FETCH {{!RFC8132}}, or POST method. More than one
+CoAP request message MAY be used if the FETCH or POST method is used and
+block-wise transfer {{!RFC7959}} is supported by the client. If more than one
+CoAP request message is used to encode the DNS query must be chained together
+using the Block1 option in those CoAP requests. To make use of the recovery
+mechanism of CoAP, the CoAP request SHOULD be carried in a Confirmable (CON)
+message.
 
-### POST and FETCH
-- Query carried in binary "wire" DNS message format {{!RFC1035}} in payload
-- MUST have Content Format option (set to `application/dns-message`
-  content-format ID)
-- MUST have Accept option (set to `application/dns-message` content-format ID)
-- Expected successful response code:
-    - POST: 2.01 Created
-    - FETCH: 2.05 Content
+For a POST or FETCH request the URI Template specified in
+[](#selection-of-a-doc-server) is processed without any variables set. For a GET
+request the URI Template is extended with the "dns" variable set to the content
+of the DNS query, encoded with `base64url` {{!RFC4648}}.
+
+If new Content Formats are specified in the future, the specification MUST
+define the variable used in the URI Template with that new format.
+
+For POST and FETCH methods, the DNS query is included in the payloads of the
+CoAP request messages in the binary format as specified in {{!RFC1035}} and
+Content Format option MUST be included to indicate the message type as
+"application/dns-message". Due to the lack of encoding requirements, both FETCH
+and POST methods are generally smaller than GET requests.
+
+A DoH server MUST implement both the GET and POST method and MAY implement the
+FETCH method.
+
+Using GET enables CoAP proxies en-route to the DoC server to cache a successful
+response.
+However, as the DNS query is carried in the URI and thus in one of the URI-\*
+options within a GET request, block-wise transfer can not be used with that
+method.
+As a cache-friendly alternative, the FETCH method can be used, which is an
+extension to legacy CoAP, specified in {{!RFC8132}}.
+The FETCH method MUST not be used with a URI Template for which the DoC server
+already responded with a 4.05 Method Not Allowed, as the server might only
+implement legacy CoAP and does not support the FETCH method.
+
+Requests of either method type SHOULD include an Accept option to indicate what
+type of content can be parsed in the response. A client MUST be able to parse
+messages of Content Format "application/dns-message" regardless of the provided
+Accept option. Messages of that Content Format are DNS responses in binary
+format as specified in {{!RFC1035}}.
+
+To simplify cache-key calculations at the CoAP proxies en-route, DoH clients
+using Content Formats that include the ID field from the DNS message, such as
+"application/dns-message", SHOULD use DNS ID 0 in every DNS query. The CoAP
+message ID takes the same function on the CoAP layer. Dedicated identification
+of DNS message exchanges on the wire is thus not necessary.
 
 Responses
 ---------
 
-- On success (see [](#queries) for response code):
+- GET: Expected successful response code: 2.05 Content
+- POST/FETCH expected successful response code:
+    - POST: 2.01 Created
+    - FETCH: 2.05 Content
+- On success (see above for response code):
     - DNS response carried as binary "wire" DNS message format {{!RFC1035}} in
       payload
-    - MUST have Content Format option (set to `application/dns-message`)
+    - MUST have Content Format option (set to "application/dns-message")
     - MUST have Max-Age option (set to minimum TTL from DNS response)
 - Only report CoAP layer errors with CoAP error messages.
   Examples:
@@ -182,7 +214,7 @@ IANA Considerations
 
 IANA is requested to assign CoAP Content-Format ID for the DNS message media
 type in the "CoAP Content-Formats" sub-registry, within the "CoRE Parameters"
-registry {{!RFC7252}}, corresponding the `application/dns-message` media
+registry {{!RFC7252}}, corresponding the "application/dns-message" media
 type from the "Media Types" registry:
 
 Media-Type: application/dns-message
