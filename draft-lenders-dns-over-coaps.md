@@ -54,7 +54,7 @@ Terminology
 {::boilerplate bcp14-tagged}
 
 CoAP Messaging
---------------
+==============
 
 - Request SHOULD be CON {{!RFC7252}} to reuse CoAP retransmissions
 - Request are sent to a resource defined by a URI template {{!RFC6570}} (see
