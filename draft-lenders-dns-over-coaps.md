@@ -126,6 +126,7 @@ Responses
 
 CoAP/CoRE Integration
 =====================
+
 Proxies and caching
 -------------------
 - Cache SHOULD support FETCH ("the request body is part of the cache key"
