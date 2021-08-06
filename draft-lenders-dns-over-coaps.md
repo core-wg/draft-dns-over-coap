@@ -51,14 +51,30 @@ CoAPS.
 Introduction
 ============
 
-- DoH ensures encrypted DNS {{?RFC8484}}
-- DoH for IoT: CoAP + DTLS {{!RFC7252}} + DNS
+With DNS over HTTPS {{?RFC8484}} (DoH) a confidential transport for DNS messages
+was specified. However, the use cases provided in that document, preventing
+on-path devices to interfere with DNS operations and getting safe and consistent
+access to DNS information within the application space also apply for
+constrained devices. The constraints on these types devices {{?RFC7228}}
+typically do not allow for a HTTPS deployment. The Constrained Application
+Protocol (CoAP) {{!RFC7252}}, on the other hand, provides RESTful APIs for such
+devices, including a secure version over DTLS {{!RFC6347}}, CoAPS.
 
+This document defines a protocol, DNS over CoAPS (DoC), to send DNS {{!RFC1035}}
+queries and get DNS responses via CoAPS (including DTLS security for integrity
+and confidentiality). Each DNS query-response pair is mapped into a CoAP message
+exchange.
+
+Usage of additional feature sets of CoAP/CoRE to deploy and gather DNS
+information such as caching, block-wise transfer, and resource discovery are
+discussed.
 
 Terminology
 -----------
 
 {::boilerplate bcp14-tagged}
+
+The term "constrained nodes" is used as defined in {{?RFC7228}}.
 
 CoAP Messaging
 ==============
