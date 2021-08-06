@@ -1,7 +1,7 @@
 <note title="Discussion Venues" removeInRFC="true">
-<t>Discussion of this document takes place on the
-    Domain Name System Working Group mailing list (namedroppers@nic.ddn.mil),
-    which is archived at <eref target="nicfs.nic.ddn.mil:~/namedroppers/*.Z"/>.</t>
+<t>Discussion of this document takes place on TODO <!--the
+    Constrained RESTful Environments Working Group mailing list (core@ietf.org),
+    which is archived at <eref target="https://mailarchive.ietf.org/arch/browse/core/"/>.--></t>
 <t>Source for this draft and an issue tracker can be found at
     <eref target="https://github.com/miri64/draft-lenders-dns-over-coaps"/>.</t>
 </note>
