@@ -138,9 +138,6 @@ options within a GET request, block-wise transfer can not be used with that
 method.
 As a cache-friendly alternative, the FETCH method can be used, which is an
 extension to legacy CoAP, specified in {{!RFC8132}}.
-The FETCH method MUST NOT be used with a URI Template for which the DoC server
-already responded with a 4.05 Method Not Allowed, as the server might only
-implement legacy CoAP and does not support the FETCH method.
 
 Requests of either method type SHOULD include an Accept option to indicate what
 type of content can be parsed in the response. A client MUST be able to parse
@@ -154,38 +151,62 @@ using Content Formats that include the ID field from the DNS message, such as
 message ID takes the same function on the CoAP layer. Dedicated identification
 of DNS message exchanges on the wire is thus not necessary.
 
+TBD: ETag option?
+
 ### Examples
 
 TBD
 
 Responses
 ---------
+This document specifies responses of Content Format "application/dns-message"
+which encodes the DNS response in the binary format, specified in {{!RFC1035}}.
+For this type of responses, the Content Format option indicating the
+"application/dns-message" format MUST be included.
+A DoC server MUST be able to parse requests of Content Format
+"application/dns-message".
 
-- GET: Expected successful response code: 2.05 Content
-- POST/FETCH expected successful response code:
-    - POST: 2.01 Created
-    - FETCH: 2.05 Content
-- On success (see above for response code):
-    - DNS response carried as binary "wire" DNS message format {{!RFC1035}} in
-      payload
-    - MUST have Content Format option (set to "application/dns-message")
-    - MUST have Max-Age option (set to minimum TTL from DNS response)
-- Only report CoAP layer errors with CoAP error messages.
-  Examples:
-  - MUSTs for DoC not full-filled by CoAP request: `4.00 Bad Request`
-  - Content Format in Accept option can not be generated: `4.06 Not Acceptable`
-  - Content Format of payload is not as expected: `4.15 Unsupported
-    Content-Format`
-- DNS layer errors MUST be responded with successful CoAP message (cmp.
-  {{?RFC8484}}, section 4.2.1)
-    - On communication error with upstream DNS server (e.g. timeout): respond
-      to query with SERVFAIL message
+Each DNS query-response pair is mapped to a train one or more of CoAP
+request-response pairs. If supported, a DoC server MAY transfer the DNS response
+in more than one CoAP response using the Block2 option {{!RFC7959}}.
+
+### Response Codes and Handling DNS and CoAP errors
+
+A DNS response indicates either success or failure for the DNS query. As such,
+SHOULD CoAP responses carrying any valid DNS response, use a 2.xx Success
+response code. GET and FETCH requests SHOULD be responded to with a 2.05 Content
+response. POST requests SHOULD be responded to with a 2.01 Created response.
+
+CoAP responses with non-successful response codes MUST NOT contain any payload
+and may only be used on errors in the CoAP layer or when a request does not
+fulfill the requirements of the DoC protocol.
+
+For consistency, communications errors with an upstream DNS server such as
+timeouts SHOULD be indicated with a SERVFAIL DNS response in a successful CoAP
+response.
+
+A DoC client might try to repeat a non-successful exchange unless otherwise
+prohibited. For instance, a FETCH request MUST NOT be repeated with a URI
+Template for which the DoC server already responded with a 4.05 Method Not
+Allowed, as the server might only implement legacy CoAP and does not support the
+FETCH method. The DoC client might also elect to repeat a non-successful
+exchange with a different URI Template, for instance, when the response
+indicates an unsupported content format.
+
+### Examples
+
+- ...
+- MUSTs for DoC not full-filled by CoAP request: `4.00 Bad Request`
+- Content Format in Accept option can not be generated: `4.06 Not Acceptable`
+- Content Format of payload is not as expected: `4.15 Unsupported
+  Content-Format`
 
 CoAP/CoRE Integration
 =====================
 
 Proxies and caching
 -------------------
+- responses SHOULD have Max-Age option (set to minimum TTL from DNS response)
 - Cache SHOULD support FETCH ("the request body is part of the cache key"
   {{!RFC8132}})
 
