@@ -217,7 +217,7 @@ OBSERVE (modifications)?
 - OBSERVE does not include the request it would have been generated from ==>
   cannot be cached without corresponding request having been send over the wire.
 - If use case exists: extend OBSERVE with option that contains "promised" request
-  (see [RFC7540], section 8.2)?
+  (see {{?RFC7540}}, section 8.2)?
 - Other caveat: clients can't cache, only proxys
 
 OSCORE
