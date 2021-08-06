@@ -138,7 +138,7 @@ options within a GET request, block-wise transfer can not be used with that
 method.
 As a cache-friendly alternative, the FETCH method can be used, which is an
 extension to legacy CoAP, specified in {{!RFC8132}}.
-The FETCH method MUST not be used with a URI Template for which the DoC server
+The FETCH method MUST NOT be used with a URI Template for which the DoC server
 already responded with a 4.05 Method Not Allowed, as the server might only
 implement legacy CoAP and does not support the FETCH method.
 
