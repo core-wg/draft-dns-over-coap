@@ -1,6 +1,6 @@
-# TODO - Your title
+# DNS Queries over CoAPS (DoC)
 
-This is the working area for the individual Internet-Draft, "TODO - Your title".
+This is the working area for the individual Internet-Draft, "DNS Queries over CoAPS (DoC)".
 
 * [Editor's Copy](https://miri64.github.io/draft-lenders-dns-over-coaps/#go.draft-lenders-dns-over-coaps.html)
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coaps)
