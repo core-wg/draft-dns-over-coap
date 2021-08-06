@@ -133,6 +133,12 @@ URI template configuration
 - DHCP and RA options to deliver? {{?I-D.peterson-doh-dhcp}}
 - CoRE-RD {{?I-D.ietf-core-resource-directory-28}}...
 
+Considerations for Unencrypted Use
+==================================
+- DTLS-transport should be used
+- Non-DTLS can have benefits: Blockwise-transfer for IEEE 802.15.4, additional
+  layer of caching, ...
+
 Security Considerations
 =======================
 
