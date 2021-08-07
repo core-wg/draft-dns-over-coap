@@ -209,6 +209,21 @@ Proxies and caching
 - responses SHOULD have Max-Age option (set to minimum TTL from DNS response)
 - Cache SHOULD support FETCH ("the request body is part of the cache key"
   {{!RFC8132}})
+- General CoAP proxy problem, but what to do when DoC server is a DNS proxy,
+  response came not yet in but retransmission by DoC client was received (see
+  {{rt-problem}})
+
+      DoC client           DoC proxy           DNS server
+           |  CoAP req [rt 1]  |                    |
+           |------------------>|  DNS query [rt 1]  |
+           |                   |------------------->|
+           |  CoAP req [rt 2]  |                    |
+           |------------------>|      DNS resp      |
+           |     CoAP resp     |<-------------------|
+           |<------------------|                    |
+           |                   |                    |
+{: #rt-problem CoAP retransmission (rt) is received before DNS query could have been
+fulfilled.}
 
 OBSERVE (modifications)?
 ------------------------
