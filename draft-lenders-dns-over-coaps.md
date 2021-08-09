@@ -321,7 +321,8 @@ URI template configuration
 ==========================
 - Maybe out-of-scope?
 - DHCP and RA options to deliver? {{?I-D.peterson-doh-dhcp}}
-- CoRE-RD {{?I-D.ietf-core-resource-directory-28}}...
+- CoRE-RD {{?I-D.ietf-core-resource-directory-28}} (...; can not express URI templates)
+- When no actual templating is involved: regular resource discovery (`rt=core.dns`?) through .well-known/core
 
 Considerations for Unencrypted Use
 ==================================
