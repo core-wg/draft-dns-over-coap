@@ -64,9 +64,12 @@ queries and get DNS responses via CoAPS (including DTLS security for integrity
 and confidentiality). Each DNS query-response pair is mapped into a CoAP message
 exchange.
 
-Compared to DNS over DTLS {{?RFC8094}}, advantages of CoAPS can be utilized such
-as on-path caching and block-wise transfer can be used, the latter allowing to
-solve the Path MTU problem of DNS over DTLS (see {{?RFC8094}}, section 5).
+Compared to DNS over DTLS {{?RFC8094}}, advantages of CoAP can be utilized:
+Block-wise transfer allows to solve the Path MTU problem of DNS over DTLS (see
+{{?RFC8094}}, section 5) and an additional level of Caching is provided at CoAP
+proxies. The economic use of memory resources key on constrained nodes: With
+DNS over CoAP applications are re-use the same communication end-point for both
+application traffic as well as retrieving DNS information.
 
 This document also discusses additional feature sets of CoAP/CoRE to deploy and
 gather DNS information such as resource discovery.
