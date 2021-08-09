@@ -64,9 +64,12 @@ queries and get DNS responses via CoAPS (including DTLS security for integrity
 and confidentiality). Each DNS query-response pair is mapped into a CoAP message
 exchange.
 
-Usage of additional feature sets of CoAP/CoRE to deploy and gather DNS
-information such as caching, block-wise transfer, and resource discovery are
-discussed.
+Compared to DNS over DTLS {{?RFC8094}}, advantages of CoAPS can be utilized such
+as on-path caching and block-wise transfer can be used, the latter allowing to
+solve the Path MTU problem of DNS over DTLS (see {{?RFC8094}}, section 5).
+
+This document also discusses additional feature sets of CoAP/CoRE to deploy and
+gather DNS information such as resource discovery.
 
 Terminology
 ===========
@@ -237,6 +240,7 @@ OBSERVE (modifications)?
 OSCORE
 ------
 - TBD
+- With OSCORE DTLS might not be required
 
 URI template configuration
 ==========================
