@@ -200,16 +200,17 @@ For this type of responses, the Content Format option indicating the
 A DoC server MUST be able to parse requests of Content Format
 "application/dns-message".
 
-Each DNS query-response pair is mapped to a train one or more of CoAP
+Each DNS query-response pair is mapped to a train of one or more of CoAP
 request-response pairs. If supported, a DoC server MAY transfer the DNS response
 in more than one CoAP response using the Block2 option {{!RFC7959}}.
 
 ### Response Codes and Handling DNS and CoAP errors
 
 A DNS response indicates either success or failure for the DNS query. As such,
-SHOULD CoAP responses carrying any valid DNS response, use a 2.xx Success
-response code. GET and FETCH requests SHOULD be responded to with a 2.05 Content
-response. POST requests SHOULD be responded to with a 2.01 Created response.
+it is RECOMMENDED that CoAP responses that carry any valid DNS response, use a
+2.xx Success response code. GET and FETCH requests SHOULD be responded to with a
+2.05 Content response. POST requests SHOULD be responded to with a 2.01 Created
+response.
 
 CoAP responses with non-successful response codes MUST NOT contain any payload
 and may only be used on errors in the CoAP layer or when a request does not
@@ -261,8 +262,8 @@ request still indicates success:
     Payload: 00 00 81 a2 00 01 00 00 00 00 00 00 07 65 78 61 [binary]
              6d 70 6c 65 03 6f 72 67 00 00 1c 00 01          [binary]
 
-On a CoAP layer error, the DoC server SHALL respond with an appropriate CoAP
-error, for instance "4.15 Unsupported Content-Format" if the Content Format
+On an error in the CoAP layer, the DoC server SHOULD respond with an appropriate
+CoAP error, for instance "4.15 Unsupported Content-Format" if the Content Format
 option in the request was not set to "application/dns-message".
 
 CoAP/CoRE Integration
