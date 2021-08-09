@@ -50,29 +50,29 @@ Internet of Things (IoT) based on common interfaces.
 Introduction
 ============
 
-With DNS over HTTPS {{?RFC8484}} (DoH) a confidential transport for DNS messages
-was specified. However, the use cases provided in that document, preventing
-on-path devices to interfere with DNS operations and getting safe and consistent
-access to DNS information within the application space also apply for
-constrained devices. The constraints on these types devices {{?RFC7228}}
-typically do not allow for a HTTPS deployment. The Constrained Application
-Protocol (CoAP) {{!RFC7252}}, on the other hand, provides RESTful APIs for such
-devices, including a secure version over DTLS {{!RFC6347}}, CoAPS.
-
 This document defines a protocol, DNS over CoAPS (DoC), to send DNS {{!RFC1035}}
 queries and get DNS responses via CoAPS (including DTLS security for integrity
 and confidentiality). Each DNS query-response pair is mapped into a CoAP message
 exchange.
 
-Compared to DNS over DTLS {{?RFC8094}}, advantages of CoAP can be utilized:
-Block-wise transfer allows to solve the Path MTU problem of DNS over DTLS (see
-{{?RFC8094}}, section 5) and an additional level of Caching is provided at CoAP
-proxies. The economic use of memory resources key on constrained nodes: With
-DNS over CoAP applications are re-use the same communication end-point for both
-application traffic as well as retrieving DNS information.
+With DNS over HTTPS {{?RFC8484}} (DoH) a similar confidential transport for DNS
+messages is specified. However, he constraints on typical IoT devices
+{{?RFC7228}} do not allow for a HTTPS deployment. The Constrained Application
+Protocol (CoAP) {{!RFC7252}}, on the other hand, provides RESTful APIs for such
+devices, including a secure version over DTLS {{!RFC6347}}, CoAPS.
 
-This document also discusses additional feature sets of CoAP/CoRE to deploy and
-gather DNS information such as resource discovery.
+Compared to DNS over DTLS {{?RFC8094}}, features of CoAP can be utilized to
+solve drawbacks of datagram-based communitation: With block-wise transfer the
+Path MTU problem of DNS over DTLS (see {{?RFC8094}}, section 5).
+Furthermore, an additional level of Caching can be provided at CoAP proxies.
+Lastly, the economic use of memory resources is key on constrained nodes: With
+DNS over CoAP, applications are able to re-use the same communication end-point
+and thus data structures for both application traffic as well as for retrieving
+DNS information.
+
+TBD: additional feature sets of CoAP/CoRE
+- resource directory for DoC service discovery,
+- ...
 
 Terminology
 ===========
