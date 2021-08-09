@@ -228,11 +228,11 @@ indicates an unsupported content format.
 
 ### Examples
 
-This section shows examples for successful and unsuccessful queries for the IN
-AAAA record for "example.org" with recursion turned on. Successful responses
-carry one answer record with address 2001:db8:1::1:2:3:4 and TTL 58719.
+The following examples illustrate the replies to the query "example.org. IN
+AAAA record", recursion turned on. Successful responses carry one answer
+record including address 2001:db8:1::1:2:3:4 and TTL 58719.
 
-First, a successful response to a GET or FETCH request:
+A successful response to a GET or FETCH request:
 
     2.05 Content
     Content-Format: application/dns-message
@@ -242,7 +242,7 @@ First, a successful response to a GET or FETCH request:
              1c 00 01 00 01 37 49 00 10 20 01 0d b8 00 01 00 [binary]
              00 00 01 00 02 00 03 00 04
 
-The successful response to a POST request just uses a different response code:
+A successful response to a POST request uses a different response code:
 
     2.03 Created
     Content-Format: application/dns-message
@@ -260,9 +260,10 @@ request still indicates success:
     Payload: 00 00 81 a2 00 01 00 00 00 00 00 00 07 65 78 61 [binary]
              6d 70 6c 65 03 6f 72 67 00 00 1c 00 01          [binary]
 
-On an error in the CoAP layer, the DoC server SHOULD respond with an appropriate
-CoAP error, for instance "4.15 Unsupported Content-Format" if the Content Format
-option in the request was not set to "application/dns-message".
+When an error occurs on the CoAP layer, the DoC server SHOULD respond with
+an appropriate CoAP error, for instance "4.15 Unsupported Content-Format"
+if the Content Format option in the request was not set to
+"application/dns-message".
 
 CoAP/CoRE Integration
 =====================
