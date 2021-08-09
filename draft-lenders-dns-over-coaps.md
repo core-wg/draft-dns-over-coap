@@ -70,7 +70,7 @@ information such as caching, block-wise transfer, and resource discovery are
 discussed.
 
 Terminology
------------
+===========
 
 A server that provides the service specified in this document is called a "DoC
 server" to differentiate it from a classic "DNS server". Correspondingly, a
