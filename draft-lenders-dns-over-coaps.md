@@ -110,7 +110,7 @@ CoAP Messaging
 Queries
 -------
 
-A DoH client encodes a single DNS query in one or more CoAP request messages
+A DoC client encodes a single DNS query in one or more CoAP request messages
 using either the CoAP GET, FETCH {{!RFC8132}}, or POST method. More than one
 CoAP request message MAY be used if the FETCH or POST method is used and
 block-wise transfer {{!RFC7959}} is supported by the client. If more than one
