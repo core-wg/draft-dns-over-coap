@@ -273,16 +273,16 @@ Proxies and caching
 -------------------
 DoC exchanges may be cached by CoAP proxies and DNS caches en-route. It is
 desirable that DoC exchanges follow the same paradigm as all CoAP exchanges so
-they do not need any special handling at a CoAP cache.
+they do not need any special handling by a CoAP cache implementation.
 
 Two requirements to a DoC exchange are necessary to that goal: First, the ID
 field of the DNS header SHOULD always be 0, when using the
 "application/dns-message" Content Format.  This allows for both GET URIs and
-FETCH payload to always have the same value for the same DNS query, and thus do
-not interfere with cache key generation. Second, it is RECOMMENDED to set the
-Max-Age option of a response to the minimum TTL in the Answer section of a DNS
-response. This prevents expired records unintentionally being served from a CoAP
-cache.
+FETCH payload to always have the same value for the same DNS query, and thus
+they do not interfere with cache key generation. Second, it is RECOMMENDED to
+set the Max-Age option of a response to the minimum TTL in the Answer section of
+a DNS response. This prevents expired records unintentionally being served from
+a CoAP cache.
 
 TBD:
 - Responses that are not globally valid
