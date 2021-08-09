@@ -86,7 +86,7 @@ The term "constrained nodes" is used as defined in {{?RFC7228}}.
 
 {::boilerplate bcp14-tagged}
 
-Selection of a DoC server
+Selection of a DoC Server
 =========================
 A DoC client is configured with a URI Template {{!RFC6570}}. This allows us to
 reuse configuration mechanisms provided for DoH.
@@ -99,17 +99,17 @@ TBD:
 - Support for more than one URI Template by DoC server.
 - DoC server identity, key exchange, ...
 
-URI template alternatives
+URI Template Alternatives
 -------------------------
 TBD:
 
 - CRI {{?I-D.ietf-core-href}} or CoRAL {{?I-D.ietf-core-coral}}
 
-CoAP Messaging
-==============
+Basic Message Exchange
+======================
 
-Queries
--------
+DNS Queries in CoAP Requests
+----------------------------
 
 A DoC client encodes a single DNS query in one or more CoAP request messages
 using either the CoAP GET, FETCH {{!RFC8132}}, or POST method. More than one
@@ -157,7 +157,7 @@ using Content Formats that include the ID field from the DNS message, such as
 message ID takes the same function on the CoAP layer. Dedicated identification
 of DNS message exchanges on the wire is thus not necessary.
 
-### Request Examples
+### Examples
 
 These examples resolve an IN AAAA record from a DoC server identified by the URI
 template "`coaps://[2001:db8::1]/{?dns}`".
@@ -191,8 +191,8 @@ method used:
              01 00 01                                        [binary]
 
 
-Responses
----------
+DNS Responses in CoAP Responses
+-------------------------------
 This document specifies responses of Content Format "application/dns-message"
 which encodes the DNS response in the binary format, specified in {{!RFC1035}}.
 For this type of responses, the Content Format option indicating the
