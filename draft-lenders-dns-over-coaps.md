@@ -156,7 +156,15 @@ using Content Formats that include the ID field from the DNS message, such as
 message ID takes the same function on the CoAP layer. Dedicated identification
 of DNS message exchanges on the wire is thus not necessary.
 
-TBD: ETag option?
+It is RECOMMENDED that servers set an ETag option on large responses (TBD: more concrete guidance) that have a short Max-Age relative to the expected clients' caching time.
+Thus, clients that need to revalidate a response can do so using the established ETag mechanism.
+<!--
+With short responses, a usable ETag might be almost as long as the response.
+With long-lived responses, the client does not need to revalidate often.
+-->
+With responses large enough to be fragmented,
+it's best practice for servers to set an ETag anyway.
+
 
 ### Request Examples
 
