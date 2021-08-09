@@ -38,12 +38,11 @@ informative:
 
 --- abstract
 
-The Constrained Application Protocol (CoAP) is the de-facto transfer protocol
-for the Internet of Things (IoT). Besides providing REST capabilities for
-constrained nodes it provides an encrypted transport utilizing DTLS known as
-CoAPS. This transport can be used for encrypted DNS communication within the
-IoT. This documents defines how to transport DNS queries and responses via
-CoAPS.
+This document defines a protocol for sending DNS messages over the
+DTLS-Secured Constrained Application Protocol (CoAPS). Using the REST
+architecture specified in CoAP and the security features of DTLS, DNS over
+CoAPS provides encrypted DNS messages for constrained devices in the
+Internet of Things (IoT) based on common interfaces.
 
 
 --- middle
