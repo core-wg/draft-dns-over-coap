@@ -113,12 +113,12 @@ Queries
 
 A DoC client encodes a single DNS query in one or more CoAP request messages
 using either the CoAP GET, FETCH {{!RFC8132}}, or POST method. More than one
-CoAP request message MAY be used if the FETCH or POST method is used and
+CoAP request message MAY be used if the FETCH or POST method are used and
 block-wise transfer {{!RFC7959}} is supported by the client. If more than one
-CoAP request message is used to encode the DNS query must be chained together
-using the Block1 option in those CoAP requests. To make use of the recovery
-mechanism of CoAP, the CoAP request SHOULD be carried in a Confirmable (CON)
-message.
+CoAP request message is used to encode the DNS query, it must be chained
+together using the Block1 option in those CoAP requests. To make use of the
+recovery mechanism of CoAP, the CoAP request SHOULD be carried in a Confirmable
+(CON) messages.
 
 For a POST or FETCH request the URI Template specified in
 [](#selection-of-a-doc-server) is processed without any variables set. For a GET
@@ -129,7 +129,7 @@ If new Content Formats are specified in the future, the specification MUST
 define the variable used in the URI Template with that new format.
 
 For POST and FETCH methods, the DNS query is included in the payloads of the
-CoAP request messages in the binary format as specified in {{!RFC1035}} and
+CoAP request messages in the binary format as specified in {{!RFC1035}}. The
 Content Format option MUST be included to indicate the message type as
 "application/dns-message". Due to the lack of encoding requirements, both FETCH
 and POST methods are generally smaller than GET requests.
@@ -151,7 +151,7 @@ messages of Content Format "application/dns-message" regardless of the provided
 Accept option. Messages of that Content Format are DNS responses in binary
 format as specified in {{!RFC1035}}.
 
-To simplify cache-key calculations at the CoAP proxies en-route, DoH clients
+To simplify cache-key calculations at the CoAP proxies en-route, DoC clients
 using Content Formats that include the ID field from the DNS message, such as
 "application/dns-message", SHOULD use DNS ID 0 in every DNS query. The CoAP
 message ID takes the same function on the CoAP layer. Dedicated identification
@@ -159,8 +159,8 @@ of DNS message exchanges on the wire is thus not necessary.
 
 ### Request Examples
 
-These examples request resolve an IN AAAA record from a DoC server identified by
-the URI template "`coaps://[2001:db8::1]/{?dns}`".
+These examples resolve an IN AAAA record from a DoC server identified by the URI
+template "`coaps://[2001:db8::1]/{?dns}`".
 
 The body is encoded in "application/dns-message" Content Format.
 
