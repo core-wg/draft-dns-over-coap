@@ -310,6 +310,7 @@ OBSERVE (modifications)?
 - If use case exists: extend OBSERVE with option that contains "promised" request
   (see {{?RFC7540}}, section 8.2)?
 - Other caveat: clients can't cache, only proxys so value needs to be evaluated
+- Potential use case: {{?RFC8490}} Section 4.1.2
 
 OSCORE
 ------
