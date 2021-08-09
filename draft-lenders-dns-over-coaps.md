@@ -159,18 +159,18 @@ of DNS message exchanges on the wire is thus not necessary.
 
 ### Examples
 
-These examples resolve an IN AAAA record from a DoC server identified by the URI
-template "`coaps://[2001:db8::1]/{?dns}`".
+The following examples illustrate the usage of different CoAP messages to
+resolve "example.org. IN AAAA" based on the URI template
+"coaps://[2001:db8::1]/{?dns}". The CoAP body is encoded in
+"application/dns-message" Content Format.
 
-The body is encoded in "application/dns-message" Content Format.
-
-First, a GET request to resolve "example.org" is shown:
+GET request:
 
     GET coaps://[2001::db8::1]/
     URI-Query: dns=AAABIAABAAAAAAAAB2V4YW1wbGUDb3JnAAAcAAE
     Accept: application/dns-message
 
-The same DNS query for "example.org" as a POST request:
+POST request:
 
     POST coaps://[2001::db8::1]/
     Content-Format: application/dns-message
@@ -179,9 +179,7 @@ The same DNS query for "example.org" as a POST request:
              6d 70 6c 65 03 6f 72 67 00 00 1c 00 01 c0 0c 00 [binary]
              01 00 01                                        [binary]
 
-
-With FETCH the query is identical to the POST request, just with the FETCH
-method used:
+FETCH request:
 
     FETCH coaps://[2001::db8::1]/
     Content-Format: application/dns-message
