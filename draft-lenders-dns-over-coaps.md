@@ -50,25 +50,25 @@ Internet of Things (IoT) based on common interfaces.
 Introduction
 ============
 
-This document defines a protocol, DNS over CoAPS (DoC), to send DNS {{!RFC1035}}
-queries and get DNS responses via CoAPS (including DTLS security for integrity
-and confidentiality). Each DNS query-response pair is mapped into a CoAP message
-exchange.
+This document defines DNS over CoAPS (DoC), a protocol to send DNS
+{{!RFC1035}} queries and get DNS responses over the Constrained Application
+Protocol (CoAP) {{!RFC7252}}. Each DNS query-response pair is mapped into a
+CoAP message exchange and secured by DTLS {{!RFC6347}} to ensure message
+integrity and confidentiality.
 
-With DNS over HTTPS {{?RFC8484}} (DoH) a similar confidential transport for DNS
-messages is specified. However, he constraints on typical IoT devices
-{{?RFC7228}} do not allow for a HTTPS deployment. The Constrained Application
-Protocol (CoAP) {{!RFC7252}}, on the other hand, provides RESTful APIs for such
-devices, including a secure version over DTLS {{!RFC6347}}, CoAPS.
+The application use case of DoC is inspired by DNS over HTTPS {{?RFC8484}}
+(DoH). DoC, however, aims for the deployment in the constrained Internet of
+Things (IoT), which usually conflicts with the requirements introduced by
+HTTPS.
 
-Compared to DNS over DTLS {{?RFC8094}}, features of CoAP can be utilized to
-solve drawbacks of datagram-based communitation: With block-wise transfer the
-Path MTU problem of DNS over DTLS (see {{?RFC8094}}, section 5).
-Furthermore, an additional level of Caching can be provided at CoAP proxies.
-Lastly, the economic use of memory resources is key on constrained nodes: With
-DNS over CoAP, applications are able to re-use the same communication end-point
-and thus data structures for both application traffic as well as for retrieving
-DNS information.
+To prevent TCP and HTTPS resource requirements, constrained IoT devices
+could use DNS over DTLS {{?RFC8094}}. In contrast to DNS over DTLS, DoC
+utilizes CoAP features to mitigate drawbacks of datagram-based
+communication. These features include: block-wise transfer, which solves
+the Path MTU problem of DNS over DTLS (see {{?RFC8094}}, section 5); CoAP
+proxies, which provide an additional level of caching; re-use of data
+structures for application traffic and DNS information, which saves memory
+on constrained devices.
 
 TBD: additional feature sets of CoAP/CoRE
 - resource directory for DoC service discovery,
