@@ -158,9 +158,39 @@ of DNS message exchanges on the wire is thus not necessary.
 
 TBD: ETag option?
 
-### Examples
+### Request Examples
 
-TBD
+These examples request resolve an IN AAAA record from a DoC server identified by
+the URI template "`coaps://[2001:db8::1]/{?dns}`".
+
+The body is encoded in "application/dns-message" Content Format.
+
+First, a GET request to resolve "example.org" is shown:
+
+    GET coaps://[2001::db8::1]/
+    URI-Query: dns=AAABIAABAAAAAAAAB2V4YW1wbGUDb3JnAAAcAAE
+    Accept: application/dns-message
+
+The same DNS query for "example.org" as a POST request:
+
+    POST coaps://[2001::db8::1]/
+    Content-Format: application/dns-message
+    Accept: application/dns-message
+    Payload: 00 00 01 20 00 02 00 00 00 00 00 00 07 65 78 61 [binary]
+             6d 70 6c 65 03 6f 72 67 00 00 1c 00 01 c0 0c 00 [binary]
+             01 00 01                                        [binary]
+
+
+With FETCH the query is identical to the POST request, just with the FETCH
+method used:
+
+    FETCH coaps://[2001::db8::1]/
+    Content-Format: application/dns-message
+    Accept: application/dns-message
+    Payload: 00 00 01 20 00 02 00 00 00 00 00 00 07 65 78 61 [binary]
+             6d 70 6c 65 03 6f 72 67 00 00 1c 00 01 c0 0c 00 [binary]
+             01 00 01                                        [binary]
+
 
 Responses
 ---------
@@ -200,11 +230,41 @@ indicates an unsupported content format.
 
 ### Examples
 
-- ...
-- MUSTs for DoC not full-filled by CoAP request: `4.00 Bad Request`
-- Content Format in Accept option can not be generated: `4.06 Not Acceptable`
-- Content Format of payload is not as expected: `4.15 Unsupported
-  Content-Format`
+This section shows examples for successful and unsuccessful queries for the IN
+AAAA record for "example.org" with recursion turned on. Successful responses
+carry one answer record with address 2001:db8:1::1:2:3:4 and TTL 58719.
+
+First, a successful response to a GET or FETCH request:
+
+    2.05 Content
+    Content-Format: application/dns-message
+    Max-Age: 58719
+    Payload: 00 00 81 a0 00 01 00 01 00 00 00 00 07 65 78 61 [binary]
+             6d 70 6c 65 03 6f 72 67 00 00 1c 00 01 c0 0c 00 [binary]
+             1c 00 01 00 01 37 49 00 10 20 01 0d b8 00 01 00 [binary]
+             00 00 01 00 02 00 03 00 04
+
+The successful response to a POST request just uses a different response code:
+
+    2.03 Created
+    Content-Format: application/dns-message
+    Max-Age: 58719
+    Payload: 00 00 81 a0 00 01 00 01 00 00 00 00 07 65 78 61 [binary]
+             6d 70 6c 65 03 6f 72 67 00 00 1c 00 01 c0 0c 00 [binary]
+             1c 00 01 00 01 37 49 00 10 20 01 0d b8 00 01 00 [binary]
+             00 00 01 00 02 00 03 00 04
+
+When a DNS error (SERVFAIL in this case) is noted in the DNS response, the CoAP
+request still indicates success:
+
+    2.05 Content
+    Content-Format: application/dns-message
+    Payload: 00 00 81 a2 00 01 00 00 00 00 00 00 07 65 78 61 [binary]
+             6d 70 6c 65 03 6f 72 67 00 00 1c 00 01          [binary]
+
+On a CoAP layer error, the DoC server SHALL respond with an appropriate CoAP
+error, for instance "4.15 Unsupported Content-Format" if the Content Format
+option in the request was not set to "application/dns-message".
 
 CoAP/CoRE Integration
 =====================
