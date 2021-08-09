@@ -285,7 +285,6 @@ cache.
 
 TBD:
 - Responses that are not globally valid
-- ETag option?
 - General CoAP proxy problem, but what to do when DoC server is a DNS proxy,
   response came not yet in but retransmission by DoC client was received (see
   {{rt-problem}})
@@ -301,6 +300,16 @@ TBD:
            |                   |                    |
 {: #rt-problem CoAP retransmission (rt) is received before DNS query could have been
 fulfilled.}
+
+
+It is RECOMMENDED that servers set an ETag option on large responses (TBD: more concrete guidance) that have a short Max-Age relative to the expected clients' caching time.
+Thus, clients that need to revalidate a response can do so using the established ETag mechanism.
+<!--
+With short responses, a usable ETag might be almost as long as the response.
+With long-lived responses, the client does not need to revalidate often.
+-->
+With responses large enough to be fragmented,
+it's best practice for servers to set an ETag anyway.
 
 OBSERVE (modifications)?
 ------------------------
