@@ -89,14 +89,15 @@ The term "constrained nodes" is used as defined in {{?RFC7228}}.
 Selection of a DoC server
 =========================
 A DoC client is configured with a URI Template {{!RFC6570}}. This allows us to
-reuse configuration mechanisms provided for DoH. Likewise, MAY a DoC server
-support more than one URI Template to provide different properties.
+reuse configuration mechanisms provided for DoH.
 
 The URI Template SHOULD provide a variable "dns" so that GET requests can be
 used to retrieve the DNS information. If the "dns" variable is not provided in
 the URI Template, GET requests can not be used for DoC exchanges.
 
-TBD: DoC server identity, key exchange, ...
+TBD:
+- Support for more than one URI Template by DoC server.
+- DoC server identity, key exchange, ...
 
 URI template alternatives
 -------------------------
