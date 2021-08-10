@@ -336,6 +336,7 @@ it's best practice for servers to set an ETag anyway.
 
 OBSERVE (modifications)?
 ------------------------
+- TBD
 - DoH has considerations on Server Push to deliver additional, potentially
   outstanding requests + response to the DoC client for caching
 - OBSERVE does not include the request it would have been generated from ==>
@@ -352,6 +353,7 @@ OSCORE
 
 URI template configuration
 ==========================
+- TBD
 - Maybe out-of-scope?
 - DHCP and RA options to deliver? {{?I-D.peterson-doh-dhcp}}
 - CoRE-RD {{?I-D.ietf-core-resource-directory}} (...; can not express URI templates)
@@ -359,6 +361,7 @@ URI template configuration
 
 Considerations for Unencrypted Use
 ==================================
+- TBD
 - DTLS-transport should be used
 - Non-DTLS can have benefits: Blockwise-transfer for IEEE 802.15.4, additional
   layer of caching, ...
