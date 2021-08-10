@@ -1,7 +1,7 @@
 ---
 title: "DNS Queries over CoAP (DoC)"
 abbrev: DoC
-docname: draft-lenders-dns-over-coaps-latest
+docname: draft-lenders-dns-over-coap-latest
 category: std
 
 ipr: trust200902
