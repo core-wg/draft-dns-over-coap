@@ -72,16 +72,15 @@ on constrained devices.
 
 ~~~ drawing
 
-                       - GET|POST|FETCH coaps://[2001::db8::1]/?dns=example.org
-                      /
-                     /
-                    CoAP request
-    +------------+   [DNS query]   +------------+   DNS query    +------------+
-    |            |---------------->|            |...............>|            |
-    | DoC client |                 | DoC server |                | DNS Server |
-    |            |<----------------|            |<...............|            |
-    +------------+  CoAP response  +------------+  DNS response  +------------+
-                    [DNS response]
+                - GET coaps://[2001::db8::1]/?dns=example.org
+               /- POST/FETCH coaps://[2001::db8::1]/
+              /
+            CoAP request
++--------+  [DNS query]  +--------+  DNS query   +--------+
+|  DoC   |-------------->|  DoC   |.............>|  DNS   |
+| Client |<--------------| Server |<.............| Server |
++--------+ CoAP response +--------+ DNS response +--------+
+           [DNS response]
 
 ~~~
 {: #fig-overview-arch title="Basic DoC architecture"}
