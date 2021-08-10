@@ -70,19 +70,22 @@ proxies, which provide an additional level of caching; re-use of data
 structures for application traffic and DNS information, which saves memory
 on constrained devices.
 
+~~~ drawing
+
+                       - GET|POST|FETCH coaps://[2001::db8::1]/?dns=example.org
+                      /
+                     /
                     CoAP request
-     ____________   [DNS query]    ____________
-    |            |--------------->|            |
-    | DoC client |                | DoC server |
-    |____________|<---------------|____________|
-                   CoAP response    .        ^
-                   [DNS response]   . DNS    . DNS
-                                    . query  . response
-                                   _v__________
-                                  |            |
-                                  | DNS server |
-                                  |____________|
-{: #doc-compontents title="DoC architecture"}
+    +------------+   [DNS query]   +------------+   DNS query    +------------+
+    |            |---------------->|            |...............>|            |
+    | DoC client |                 | DoC server |                | DNS Server |
+    |            |<----------------|            |<...............|            |
+    +------------+  CoAP response  +------------+  DNS response  +------------+
+                    [DNS response]
+
+~~~
+{: #fig-overview-arch title="Basic DoC architecture"}
+
 
 The most important components of DoC can be seen in {{doc-compontents}}: A DoC
 client tries to resolve DNS information by sending DNS queries carried within
