@@ -390,6 +390,14 @@ Reference: [TBD-this-spec]
 
 --- back
 
+# Change Log
+
+TBD:
+
+- [Get rid of GET/POST](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/issues/2)?
+- [Request text duplication](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/issues/4)
+- [TTL vs. Max-Age](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/issues/5)
+
 # Acknowledgments
 {:numbered="false"}
 
