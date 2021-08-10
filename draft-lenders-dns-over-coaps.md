@@ -92,6 +92,7 @@ The DoC server then replies to the DNS queries with DNS responses carried within
 CoAP responses.
 
 TBD: additional feature sets of CoAP/CoRE
+
 - resource directory for DoC service discovery,
 - ...
 
@@ -117,6 +118,7 @@ used to retrieve the DNS information. If the "dns" variable is not provided in
 the URI Template, GET requests can not be used for DoC exchanges.
 
 TBD:
+
 - Support for more than one URI Template by DoC server.
 - DoC server identity, key exchange, ...
 
@@ -304,12 +306,6 @@ set the Max-Age option of a response to the minimum TTL in the Answer section of
 a DNS response. This prevents expired records unintentionally being served from
 a CoAP cache.
 
-TBD:
-- Responses that are not globally valid
-- General CoAP proxy problem, but what to do when DoC server is a DNS proxy,
-  response came not yet in but retransmission by DoC client was received (see
-  {{rt-problem}})
-
       DoC client           DoC proxy           DNS server
            |  CoAP req [rt 1]  |                    |
            |------------------>|  DNS query [rt 1]  |
@@ -322,6 +318,12 @@ TBD:
 {: #rt-problem title="CoAP retransmission (rt) is received before DNS query could have been
 fulfilled."}
 
+TBD:
+
+- Responses that are not globally valid
+- General CoAP proxy problem, but what to do when DoC server is a DNS proxy,
+  response came not yet in but retransmission by DoC client was received (see
+  {{rt-problem}})
 
 It is RECOMMENDED that servers set an ETag option on large responses (TBD: more concrete guidance) that have a short Max-Age relative to the expected clients' caching time.
 Thus, clients that need to revalidate a response can do so using the established ETag mechanism.
