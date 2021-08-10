@@ -265,7 +265,7 @@ A successful response to a GET or FETCH request:
     Payload: 00 00 81 a0 00 01 00 01 00 00 00 00 07 65 78 61 [binary]
              6d 70 6c 65 03 6f 72 67 00 00 1c 00 01 c0 0c 00 [binary]
              1c 00 01 00 01 37 49 00 10 20 01 0d b8 00 01 00 [binary]
-             00 00 01 00 02 00 03 00 04
+             00 00 01 00 02 00 03 00 04                      [binary]
 
 A successful response to a POST request uses a different response code:
 
@@ -275,7 +275,7 @@ A successful response to a POST request uses a different response code:
     Payload: 00 00 81 a0 00 01 00 01 00 00 00 00 07 65 78 61 [binary]
              6d 70 6c 65 03 6f 72 67 00 00 1c 00 01 c0 0c 00 [binary]
              1c 00 01 00 01 37 49 00 10 20 01 0d b8 00 01 00 [binary]
-             00 00 01 00 02 00 03 00 04
+             00 00 01 00 02 00 03 00 04                      [binary]
 
 When a DNS error (SERVFAIL in this case) is noted in the DNS response, the CoAP
 request still indicates success:
