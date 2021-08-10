@@ -75,12 +75,12 @@ on constrained devices.
                 - GET coaps://[2001::db8::1]/?dns=example.org
                /- POST/FETCH coaps://[2001::db8::1]/
               /
-            CoAP request
-+--------+  [DNS query]  +--------+  DNS query   +--------+
-|  DoC   |-------------->|  DoC   |.............>|  DNS   |
-| Client |<--------------| Server |<.............| Server |
-+--------+ CoAP response +--------+ DNS response +--------+
-           [DNS response]
+             CoAP request
++--------+   [DNS query]   +--------+  DNS query   +--------+
+|  DoC   |---------------->|  DoC   |.............>|  DNS   |
+| Client |<----------------| Server |<.............| Server |
++--------+  CoAP response  +--------+ DNS response +--------+
+            [DNS response]
 
 ~~~
 {: #fig-overview-arch title="Basic DoC architecture"}
