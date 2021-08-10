@@ -87,7 +87,7 @@ on constrained devices.
 {: #fig-overview-arch title="Basic DoC architecture"}
 
 
-The most important components of DoC can be seen in {{doc-compontents}}: A DoC
+The most important components of DoC can be seen in {{fig-overview-arch}}: A DoC
 client tries to resolve DNS information by sending DNS queries carried within
 CoAP requests to a DoC server. That DoC server may or may not resolve that DNS
 information itself by using other DNS transports with an upstream DNS server.
