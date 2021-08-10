@@ -298,8 +298,8 @@ TBD:
            |     CoAP resp     |<-------------------|
            |<------------------|                    |
            |                   |                    |
-{: #rt-problem CoAP retransmission (rt) is received before DNS query could have been
-fulfilled.}
+{: #rt-problem title="CoAP retransmission (rt) is received before DNS query could have been
+fulfilled."}
 
 
 It is RECOMMENDED that servers set an ETag option on large responses (TBD: more concrete guidance) that have a short Max-Age relative to the expected clients' caching time.
