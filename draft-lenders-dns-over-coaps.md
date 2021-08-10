@@ -397,7 +397,7 @@ Reference: [TBD-this-spec]
 
 TBD:
 
-- [Get rid of GET/POST](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/issues/2)?
+- [Reconsider usage of GET/POST](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/issues/2)?
 - [Request text duplication](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/issues/4)
 - [TTL vs. Max-Age](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/issues/5)
 
