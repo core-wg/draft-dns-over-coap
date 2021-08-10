@@ -85,8 +85,8 @@ on constrained devices.
 {: #doc-compontents title="DoC architecture"}
 
 The most important components of DoC can be seen in {{doc-compontents}}: A DoC
-client tries to resolve DNS information by sending CoAP requests carrying DNS
-queries to a DoC server. That DoC server may or may not resolve that DNS
+client tries to resolve DNS information by sending DNS queries carried within
+CoAP requests to a DoC server. That DoC server may or may not resolve that DNS
 information itself by using other DNS transports with an upstream DNS server.
 The DoC server then replies to the DNS queries with DNS responses carried within
 CoAP responses.
