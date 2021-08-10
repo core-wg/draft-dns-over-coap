@@ -1,5 +1,5 @@
 ---
-title: "DNS Queries over CoAPS (DoC)"
+title: "DNS Queries over CoAP (DoC)"
 abbrev: DoC
 docname: draft-lenders-dns-over-coaps-latest
 category: std
@@ -39,22 +39,22 @@ informative:
 --- abstract
 
 This document defines a protocol for sending DNS messages over the
-DTLS-Secured Constrained Application Protocol (CoAPS). Using the REST
-architecture specified in CoAP and the security features of DTLS, DNS over
-CoAPS provides encrypted DNS messages for constrained devices in the
-Internet of Things (IoT) based on common interfaces.
-
+Constrained Application Protocol (CoAP). These CoAP messages are protected
+by DTLS-Secured CoAP (CoAPS) or Object Security for Constrained RESTful
+Environments (OSCORE) to provide encrypted DNS message exchange for
+constrained devices in the Internet of Things (IoT).
 
 --- middle
 
 Introduction
 ============
 
-This document defines DNS over CoAPS (DoC), a protocol to send DNS
+This document defines DNS over CoAP (DoC), a protocol to send DNS
 {{!RFC1035}} queries and get DNS responses over the Constrained Application
 Protocol (CoAP) {{!RFC7252}}. Each DNS query-response pair is mapped into a
-CoAP message exchange and secured by DTLS {{!RFC6347}} to ensure message
-integrity and confidentiality.
+CoAP message exchange. Each CoAP message is secured by DTLS {{!RFC6347}} or
+Object Security for Constrained RESTful Environments (OSCORE) {{!RFC7252}}
+to ensure message integrity and confidentiality.
 
 The application use case of DoC is inspired by DNS over HTTPS {{?RFC8484}}
 (DoH). DoC, however, aims for the deployment in the constrained Internet of
