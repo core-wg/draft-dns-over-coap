@@ -70,6 +70,27 @@ proxies, which provide an additional level of caching; re-use of data
 structures for application traffic and DNS information, which saves memory
 on constrained devices.
 
+                    CoAP request
+     ____________   [DNS query]    ____________
+    |            |--------------->|            |
+    | DoC client |                | DoC server |
+    |____________|<---------------|____________|
+                   CoAP response    .        ^
+                   [DNS response]   . DNS    . DNS
+                                    . query  . response
+                                   _v__________
+                                  |            |
+                                  | DNS server |
+                                  |____________|
+{: #doc-compontents title="DoC architecture"}
+
+The most important components of DoC can be seen in {{doc-compontents}}: A DoC
+client tries to resolve DNS information by sending CoAP requests carrying DNS
+queries to a DoC server. That DoC server may or may not resolve that DNS
+information itself by using other DNS transports with an upstream DNS server.
+The DoC server then replies to the DNS queries with DNS responses carried within
+CoAP responses.
+
 TBD: additional feature sets of CoAP/CoRE
 - resource directory for DoC service discovery,
 - ...
