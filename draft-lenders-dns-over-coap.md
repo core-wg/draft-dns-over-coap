@@ -308,6 +308,16 @@ set the Max-Age option of a response to the minimum TTL in the Answer section of
 a DNS response. This prevents expired records unintentionally being served from
 a CoAP cache.
 
+
+TBD:
+
+- Responses that are not globally valid
+- General CoAP proxy problem, but what to do when DoC server is a DNS proxy,
+  response came not yet in but retransmission by DoC client was received (see
+  {{rt-problem}})
+    - send empty ACK ([maybe move to best practices appendix](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/issues/6#issuecomment-895880206))
+
+~~~ drawing
       DoC client           DoC proxy           DNS server
            |  CoAP req [rt 1]  |                    |
            |------------------>|  DNS query [rt 1]  |
@@ -317,16 +327,9 @@ a CoAP cache.
            |     CoAP resp     |<-------------------|
            |<------------------|                    |
            |                   |                    |
+~~~
 {: #rt-problem title="CoAP retransmission (rt) is received before DNS query could have been
 fulfilled."}
-
-TBD:
-
-- Responses that are not globally valid
-- General CoAP proxy problem, but what to do when DoC server is a DNS proxy,
-  response came not yet in but retransmission by DoC client was received (see
-  {{rt-problem}})
-    - send empty ACK ([maybe move to best practices appendix](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/issues/6#issuecomment-895880206))
 
 It is RECOMMENDED that servers set an ETag option on large responses (TBD: more concrete guidance) that have a short Max-Age relative to the expected clients' caching time.
 Thus, clients that need to revalidate a response can do so using the established ETag mechanism.
