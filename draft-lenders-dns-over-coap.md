@@ -162,25 +162,23 @@ and POST methods are generally smaller than GET requests.
 A DoH server MUST implement both the GET and POST method and MAY implement the
 FETCH method.
 
-Using GET enables CoAP proxies en-route to the DoC server to cache a successful
-response.
-However, as the DNS query is carried in the URI and thus in one of the URI-\*
-options within a GET request, block-wise transfer can not be used with that
-method.
-As a cache-friendly alternative, the FETCH method can be used, which is an
-extension to legacy CoAP, specified in {{!RFC8132}}.
-
 Requests of either method type SHOULD include an Accept option to indicate what
 type of content can be parsed in the response. A client MUST be able to parse
 messages of Content Format "application/dns-message" regardless of the provided
 Accept option. Messages of that Content Format are DNS responses in binary
 format as specified in {{!RFC1035}}.
 
-To simplify cache-key calculations at the CoAP proxies en-route, DoC clients
-using Content Formats that include the ID field from the DNS message, such as
-"application/dns-message", SHOULD use DNS ID 0 in every DNS query. The CoAP
-message ID takes the same function on the CoAP layer. Dedicated identification
-of DNS message exchanges on the wire is thus not necessary.
+### Support of CoAP Caching
+
+The DoC client SHOULD set the ID field of the DNS header always to 0 to
+enable a CoAP cache (e.g., a CoAP proxy en-route) to respond to the same
+DNS queries with a cache entry. This ensures that the CoAP Cache-Key (for
+GET see {{!RFC7252}} Section 5.6, for FETCH see {{!RFC8132}} Section 2)
+does not change when multiple DNS queries for the same DNS data, carried in
+CoAP requests, are issued. Technically, using the POST method does not
+require the DNS ID set to 0 because the payload of a POST message is not
+part of the Cache-Key. For consistency reasons, however, it is RECOMMENDED
+to use the same constant DNS ID.
 
 ### Examples
 
@@ -251,6 +249,19 @@ FETCH method. The DoC client might also elect to repeat a non-successful
 exchange with a different URI Template, for instance, when the response
 indicates an unsupported content format.
 
+### Support of CoAP Caching
+
+It is RECOMMENDED to set the Max-Age option of a response to the minimum TTL in the Answer section of a DNS response. This prevents expired records unintentionally being served from a CoAP cache.
+
+It is RECOMMENDED that DoC servers set an ETag option on large responses (TBD: more concrete guidance) that have a short Max-Age relative to the expected clients' caching time.
+Thus, clients that need to revalidate a response can do so using the established ETag mechanism.
+<!--
+With short responses, a usable ETag might be almost as long as the response.
+With long-lived responses, the client does not need to revalidate often.
+-->
+With responses large enough to be fragmented,
+it's best practice for servers to set an ETag anyway.
+
 ### Examples
 
 The following examples illustrate the replies to the query "example.org. IN
@@ -295,19 +306,6 @@ CoAP/CoRE Integration
 
 Proxies and caching
 -------------------
-DoC exchanges may be cached by CoAP proxies and DNS caches en-route. It is
-desirable that DoC exchanges follow the same paradigm as all CoAP exchanges so
-they do not need any special handling by a CoAP cache implementation.
-
-Two requirements to a DoC exchange are necessary to that goal: First, the ID
-field of the DNS header SHOULD always be 0, when using the
-"application/dns-message" Content Format.  This allows for both GET URIs and
-FETCH payload to always have the same value for the same DNS query, and thus
-they do not interfere with cache key generation. Second, it is RECOMMENDED to
-set the Max-Age option of a response to the minimum TTL in the Answer section of
-a DNS response. This prevents expired records unintentionally being served from
-a CoAP cache.
-
 
 TBD:
 
@@ -331,15 +329,6 @@ TBD:
 ~~~
 {: #rt-problem title="CoAP retransmission (rt) is received before DNS query could have been
 fulfilled."}
-
-It is RECOMMENDED that servers set an ETag option on large responses (TBD: more concrete guidance) that have a short Max-Age relative to the expected clients' caching time.
-Thus, clients that need to revalidate a response can do so using the established ETag mechanism.
-<!--
-With short responses, a usable ETag might be almost as long as the response.
-With long-lived responses, the client does not need to revalidate often.
--->
-With responses large enough to be fragmented,
-it's best practice for servers to set an ETag anyway.
 
 OBSERVE (modifications)?
 ------------------------
