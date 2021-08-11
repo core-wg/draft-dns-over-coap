@@ -311,6 +311,7 @@ a CoAP cache.
 
 TBD:
 
+- [TTL vs. Max-Age](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/issues/5)
 - Responses that are not globally valid
 - General CoAP proxy problem, but what to do when DoC server is a DNS proxy,
   response came not yet in but retransmission by DoC client was received (see
@@ -402,7 +403,6 @@ TBD:
 
 - [Reconsider usage of GET/POST](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/issues/2)?
 - [Request text duplication](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/issues/4)
-- [TTL vs. Max-Age](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/issues/5)
 
 # Acknowledgments
 {:numbered="false"}
