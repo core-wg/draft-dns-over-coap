@@ -230,8 +230,8 @@ FETCH request:
 
 DNS Responses in CoAP Responses
 -------------------------------
-This document specifies responses of Content Format "application/dns-message"
-which encodes the DNS response in the binary format, specified in {{!RFC1035}}.
+DNS responses are provided in the "application/dns-message" (see
+{{sec:content-format}}) Content Format within the payload of a CoAP response.
 For this type of responses, the Content Format option indicating the
 "application/dns-message" format MUST be included.
 A DoC server MUST be able to parse requests of Content Format
