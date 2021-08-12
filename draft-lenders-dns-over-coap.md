@@ -320,7 +320,8 @@ request still indicates success:
 When an error occurs on the CoAP layer, the DoC server SHOULD respond with
 an appropriate CoAP error, for instance "4.15 Unsupported Content-Format"
 if the Content Format option in the request was not set to
-"application/dns-message".
+"application/dns-message" and the Content Format is not otherwise supported by
+the server.
 
 CoAP/CoRE Integration
 =====================
