@@ -207,7 +207,7 @@ to use the same constant DNS ID.
 
 The following examples illustrate the usage of different CoAP messages to
 resolve "example.org. IN AAAA" based on the URI template
-"coaps://[2001:db8::1]/{?dns}". The CoAP body is encoded in
+"coaps://\[2001:db8::1\]/{?dns}". The CoAP body is encoded in
 "application/dns-message" Content Format.
 
 GET request:
@@ -403,7 +403,7 @@ Encoding: -
 
 Id: TBD
 
-Reference: [TBD-this-spec]
+Reference: \[TBD-this-spec\]
 
 --- back
 
