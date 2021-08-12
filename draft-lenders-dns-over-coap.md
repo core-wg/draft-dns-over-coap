@@ -174,6 +174,16 @@ type of content can be parsed in the response. A client MUST be able to parse
 messages of Content Format "application/dns-message" regardless of the provided
 Accept option.
 
+Method | Cacheable | Block-wise transferable | No URI Template variable needed
+-----: | :-------: | :---------------------: | :-----------------------------:
+GET    | x         |                         |
+POST   |           | x                       | x
+FETCH  | x         | x                       | x
+{: #tab:comp-methods title="Request methods compared"}
+
+The method type used decides the CoAP feature sets that are available for the
+DoC exchange. See {{tab:comp-methods}}.
+
 ### Support of CoAP Caching
 
 The DoC client SHOULD set the ID field of the DNS header always to 0 to
