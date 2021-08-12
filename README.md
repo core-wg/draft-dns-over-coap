@@ -2,15 +2,15 @@
 
 This is the working area for the individual Internet-Draft, "DNS Queries over CoAPS (DoC)".
 
-* [Editor's Copy](https://anr-bmbf-pivot.github.io/draft-dns-over-coaps/#go.draft-lenders-dns-over-coap.html)
+* [Editor's Copy](https://anr-bmbf-pivot.github.io/draft-dns-over-coap/#go.draft-lenders-dns-over-coap.html)
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap)
-* [Compare Editor's Copy to Individual Draft](https://anr-bmbf-pivot.github.io/draft-dns-over-coaps/#go.draft-lenders-dns-over-coap.diff)
+* [Compare Editor's Copy to Individual Draft](https://anr-bmbf-pivot.github.io/draft-dns-over-coap/#go.draft-lenders-dns-over-coap.diff)
 
 
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/blob/main/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/anr-bmbf-pivot/draft-dns-over-coap/blob/main/CONTRIBUTING.md).
 
 Contributions can be made by editing markdown through the GitHub interface.
 
