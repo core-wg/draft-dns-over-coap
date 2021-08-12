@@ -133,6 +133,12 @@ TBD:
 Basic Message Exchange
 ======================
 
+The "application/dns-message" Content Format    {#sec:content-format}
+--------------------------------------------
+This document defines the "application/dns-message" Content Format which
+corresponds to the "application/dns-message" Media Type {{?RFC8484}}. It is a
+binary format which encodes a DNS message in the format defined in {{!RFC1035}}.
+
 DNS Queries in CoAP Requests
 ----------------------------
 
@@ -148,16 +154,17 @@ recovery mechanism of CoAP, the CoAP request SHOULD be carried in a Confirmable
 For a POST or FETCH request the URI Template specified in
 [](#selection-of-a-doc-server) is processed without any variables set. For a GET
 request the URI Template is extended with the "dns" variable set to the content
-of the DNS query, encoded with `base64url` {{!RFC4648}}.
+of the DNS query in the "application/dns-message" Content Format (see
+{{sec:content-format}}), encoded with "base64url" {{!RFC4648}}.
 
 If new Content Formats are specified in the future, the specification MUST
 define the variable used in the URI Template with that new format.
 
-For POST and FETCH methods, the DNS query is included in the payloads of the
-CoAP request messages in the binary format as specified in {{!RFC1035}}. The
-Content Format option MUST be included to indicate the message type as
-"application/dns-message". Due to the lack of encoding requirements, both FETCH
-and POST methods are generally smaller than GET requests.
+For POST and FETCH methods, the DNS query is included in the
+"application/dns-message" Content Format.
+The Content Format option MUST be included to indicate the message type as
+"application/dns-message". Due to the lack of "base64url" encoding requirements,
+both FETCH and POST methods are generally smaller than GET requests.
 
 A DoC server MUST implement both the GET and POST method and MAY implement the
 FETCH method.
@@ -165,8 +172,7 @@ FETCH method.
 Requests of either method type SHOULD include an Accept option to indicate what
 type of content can be parsed in the response. A client MUST be able to parse
 messages of Content Format "application/dns-message" regardless of the provided
-Accept option. Messages of that Content Format are DNS responses in binary
-format as specified in {{!RFC1035}}.
+Accept option.
 
 ### Support of CoAP Caching
 
