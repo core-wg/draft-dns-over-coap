@@ -184,7 +184,7 @@ FETCH  | x         | x                       | x
 The method type used decides the CoAP feature sets that are available for the
 DoC exchange. See {{tab:comp-methods}}.
 
-### Support of CoAP Caching
+### Support of CoAP Caching {#sec:req-caching}
 
 The DoC client SHOULD set the ID field of the DNS header always to 0 to
 enable a CoAP cache (e.g., a CoAP proxy en-route) to respond to the same
@@ -265,7 +265,7 @@ FETCH method. The DoC client might also elect to repeat a non-successful
 exchange with a different URI Template, for instance, when the response
 indicates an unsupported content format.
 
-### Support of CoAP Caching
+### Support of CoAP Caching {#sec:resp-caching}
 
 It is RECOMMENDED to set the Max-Age option of a response to the minimum TTL in the Answer section of a DNS response. This prevents expired records unintentionally being served from a CoAP cache.
 
@@ -402,12 +402,25 @@ Reference: [TBD-this-spec]
 
 --- back
 
-# Change Log
+Change Log
+==========
 
 TBD:
 
 - [Reconsider usage of GET/POST](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/issues/2)?
 - [Request text duplication](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/issues/4)
+
+Since [draft-lenders-dns-over-coaps-00](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coaps-00)
+---------------------------------------
+
+- Clarification in abstract that both DTLS and OSCORE can be used as secure transport
+- Restructuring of {{basic-message-exchange}}:
+    - Add dedicated {{sec:content-format}} on Content Format
+    - Add overview table about usable and required features for request method
+      types to {{dns-queries-in-coap-requests}}
+    - Add dedicated {{sec:req-caching}} and {{sec:resp-caching}} on caching
+      requirements for CoAP requests and responses
+- Fix nits and typos
 
 # Acknowledgments
 {:numbered="false"}
