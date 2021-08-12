@@ -159,7 +159,7 @@ Content Format option MUST be included to indicate the message type as
 "application/dns-message". Due to the lack of encoding requirements, both FETCH
 and POST methods are generally smaller than GET requests.
 
-A DoH server MUST implement both the GET and POST method and MAY implement the
+A DoC server MUST implement both the GET and POST method and MAY implement the
 FETCH method.
 
 Requests of either method type SHOULD include an Accept option to indicate what
