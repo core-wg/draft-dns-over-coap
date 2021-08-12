@@ -337,7 +337,7 @@ TBD:
   {{rt-problem}})
     - send empty ACK ([maybe move to best practices appendix](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/issues/6#issuecomment-895880206))
 
-~~~ drawing
+      ~~~ drawing
       DoC client           DoC proxy           DNS server
            |  CoAP req [rt 1]  |                    |
            |------------------>|  DNS query [rt 1]  |
@@ -347,9 +347,9 @@ TBD:
            |     CoAP resp     |<-------------------|
            |<------------------|                    |
            |                   |                    |
-~~~
-{: #rt-problem title="CoAP retransmission (rt) is received before DNS query could have been
-fulfilled."}
+      ~~~
+      {: #rt-problem title="CoAP retransmission (rt) is received before DNS query could have been
+      fulfilled."}
 
 OBSERVE (modifications)?
 ------------------------
