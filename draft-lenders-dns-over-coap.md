@@ -188,6 +188,8 @@ FETCH  | Y         | Y                       | Y
 No)"}
 
 A DoC server MUST implement the GET, POST, and FETCH method.
+Content Format within the payload of a CoAP response.
+A DoC server MUST be able to parse requests of Content-Format `application/dns-message^.
 
 ### Support of CoAP Caching {#sec:req-caching}
 
@@ -235,40 +237,38 @@ FETCH request:
 
 DNS Responses in CoAP Responses
 -------------------------------
-DNS responses are provided in the "application/dns-message" (see
-{{sec:content-format}}) Content Format within the payload of a CoAP response.
-For this type of responses, the Content Format option indicating the
-"application/dns-message" format MUST be included.
-A DoC server MUST be able to parse requests of Content Format
-"application/dns-message".
 
 Each DNS query-response pair is mapped to a train of one or more of CoAP
-request-response pairs. If supported, a DoC server MAY transfer the DNS response
-in more than one CoAP response using the Block2 option {{!RFC7959}}.
+request-response pairs.  DNS responses are provided in the payload of CoAP
+responses. A DoC server MUST use the Content-Format
+"application/dns-message" (see {{sec:content-format}}). 
+
+If supported, a DoC server MAY transfer the DNS response in more than one
+CoAP responses using the Block2 option {{!RFC7959}}.
 
 ### Response Codes and Handling DNS and CoAP errors
 
-A DNS response indicates either success or failure for the DNS query. As such,
-it is RECOMMENDED that CoAP responses that carry any valid DNS response, use a
-2.xx Success response code. GET and FETCH requests SHOULD be responded to with a
-2.05 Content response. POST requests SHOULD be responded to with a 2.01 Created
-response.
+A DNS response indicates either success or failure in the Response code of
+the DNS header (see {{!RFC1035}} Section 4.1.1). It is RECOMMENDED that
+CoAP responses that carry any valid DNS response use a `2.xx Success`
+response code. A response to a GET or FETCH request SHOULD use the `2.05
+Content` code. A response to a POST request SHOULD use the ^2.01 Created`
+code.
 
-CoAP responses with non-successful response codes MUST NOT contain any payload
+CoAP responses use non-successful response codes MUST NOT contain any payload
 and may only be used on errors in the CoAP layer or when a request does not
 fulfill the requirements of the DoC protocol.
 
-For consistency, communications errors with an upstream DNS server such as
-timeouts SHOULD be indicated with a SERVFAIL DNS response in a successful CoAP
-response.
+Communication errors with a DNS server (e.g., timeouts) SHOULD be indicated
+by including a SERVFAIL DNS response in a successful CoAP response.
 
 A DoC client might try to repeat a non-successful exchange unless otherwise
 prohibited. For instance, a FETCH request MUST NOT be repeated with a URI
-Template for which the DoC server already responded with a 4.05 Method Not
-Allowed, as the server might only implement legacy CoAP and does not support the
-FETCH method. The DoC client might also elect to repeat a non-successful
-exchange with a different URI Template, for instance, when the response
-indicates an unsupported content format.
+Template for which the DoC server already responded with `4.05 Method Not
+Allowed` since the server might only implement legacy CoAP and does not
+support the FETCH method. The DoC client might also decide to repeat a
+non-successful exchange with a different URI Template, for instance, when
+the response indicates an unsupported Content-format.
 
 ### Support of CoAP Caching {#sec:resp-caching}
 
