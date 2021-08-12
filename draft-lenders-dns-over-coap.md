@@ -133,56 +133,61 @@ TBD:
 Basic Message Exchange
 ======================
 
-The "application/dns-message" Content Format    {#sec:content-format}
+The "application/dns-message" Content-Format    {#sec:content-format}
 --------------------------------------------
-This document defines the "application/dns-message" Content Format which
-corresponds to the "application/dns-message" Media Type {{?RFC8484}}. It is a
-binary format which encodes a DNS message in the format defined in {{!RFC1035}}.
+This document defines the Internet media type "application/dns-message" for
+the CoAP Content-Format. This media type is defined as in {{?RFC8484}}
+Section 6, i.e., a single DNS message encoded in the DNS on-the-wire format
+{{!RFC1035}}.
 
 DNS Queries in CoAP Requests
 ----------------------------
 
-A DoC client encodes a single DNS query in one or more CoAP request messages
-using either the CoAP GET, FETCH {{!RFC8132}}, or POST method. More than one
-CoAP request message MAY be used if the FETCH or POST method are used and
-block-wise transfer {{!RFC7959}} is supported by the client. If more than one
-CoAP request message is used to encode the DNS query, it must be chained
-together using the Block1 option in those CoAP requests. To make use of the
-recovery mechanism of CoAP, the CoAP request SHOULD be carried in a Confirmable
-(CON) messages.
+A DoC client encodes a single DNS query in one or more CoAP request
+messages using either the CoAP GET {{!RFC7252}}, POST {{!RFC7252}}, or
+FETCH {{!RFC8132}} methods. Requests of either method type SHOULD include
+an Accept option to indicate the type of content that can be parsed in the
+response. A client MUST be able to parse messages of Content Format
+`application/dns-message` regardless of the provided Accept option.
+
+To enable reliable message exchange, the CoAP request SHOULD be carried in a Confirmable (CON) message.
+
+### CoAP Methods
+
+When sending a CoAP request using the POST or FETCH method, a DoC client
+MUST use the Content-Format `application/dns-message` in the request.  The
+DNS query is included in the payload.
+
+If the FETCH or POST method are used and block-wise transfer {{!RFC7959}}
+is supported by the client, more than one CoAP request message MAY be used.
+If more than one CoAP request message is used to encode the DNS query, it
+must be chained together using the Block1 option in those CoAP requests.
 
 For a POST or FETCH request the URI Template specified in
-[](#selection-of-a-doc-server) is processed without any variables set. For a GET
-request the URI Template is extended with the "dns" variable set to the content
-of the DNS query in the "application/dns-message" Content Format (see
-{{sec:content-format}}), encoded with "base64url" {{!RFC4648}}.
+[](#selection-of-a-doc-server) is processed without any variables set. 
 
-If new Content Formats are specified in the future, the specification MUST
-define the variable used in the URI Template with that new format.
+When sending a CoAP request using the GET method, the URI Template
+specified in [](#selection-of-a-doc-server) is extended by the variable
+`dns`. A DoC client MUST use the `dns` variable in the URI-Query followed
+by the DNS query encoded with `base64url` (details see {{!RFC8484}} Section
+6). If new Content Formats are specified in the future, the specification
+MUST define the variable used in the URI Template with that new format.
 
-For POST and FETCH methods, the DNS query is included in the
-"application/dns-message" Content Format.
-The Content Format option MUST be included to indicate the message type as
-"application/dns-message". Due to the lack of "base64url" encoding requirements,
-both FETCH and POST methods are generally smaller than GET requests.
-
-A DoC server MUST implement both the GET and POST method and MAY implement the
-FETCH method.
-
-Requests of either method type SHOULD include an Accept option to indicate what
-type of content can be parsed in the response. A client MUST be able to parse
-messages of Content Format "application/dns-message" regardless of the provided
-Accept option.
+A DoC client must implement the GET, POST, or FETCH method.  Due to the
+lack of "base64url" encoding requirements, both FETCH and POST methods are
+generally smaller than GET requests. Using the FETCH method is RECOMMENDED
+because this method provides caching and block-wise transfer without
+introducing the overhead of URI templates (see {{tab:comp-methods}}).
 
 Method | Cacheable | Block-wise transferable | No URI Template variable needed
 -----: | :-------: | :---------------------: | :-----------------------------:
-GET    | x         |                         |
-POST   |           | x                       | x
-FETCH  | x         | x                       | x
-{: #tab:comp-methods title="Request methods compared"}
+GET    | Y         | N                       | N
+POST   | N         | Y                       | Y
+FETCH  | Y         | Y                       | Y
+{: #tab:comp-methods title="Comparison of CoAP method features (Y: Yes, N:
+No)"}
 
-The method type used decides the CoAP feature sets that are available for the
-DoC exchange. See {{tab:comp-methods}}.
+A DoC server MUST implement the GET, POST, and FETCH method.
 
 ### Support of CoAP Caching {#sec:req-caching}
 
