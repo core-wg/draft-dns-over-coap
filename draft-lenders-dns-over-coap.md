@@ -188,7 +188,6 @@ FETCH  | Y         | Y                       | Y
 No)"}
 
 A DoC server MUST implement the GET, POST, and FETCH method.
-Content-Format within the payload of a CoAP response.
 A DoC server MUST be able to parse requests of Content-Format
 "application/dns-message".
 
