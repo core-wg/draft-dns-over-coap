@@ -76,10 +76,10 @@ on constrained devices.
                /- POST/FETCH coaps://[2001::db8::1]/
               /
              CoAP request
-+--------+   [DNS query]   +--------+  DNS query   +--------+
-|  DoC   |---------------->|  DoC   |.............>|  DNS   |
-| Client |<----------------| Server |<.............| Server |
-+--------+  CoAP response  +--------+ DNS response +--------+
++--------+   [DNS query]   +--------+   DNS query    +--------+
+|  DoC   |---------------->|  DoC   |...............>|  DNS   |
+| Client |<----------------| Server |<...............| Server |
++--------+  CoAP response  +--------+  DNS response  +--------+
             [DNS response]
 
 ~~~
