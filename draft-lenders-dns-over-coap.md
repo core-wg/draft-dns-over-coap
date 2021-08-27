@@ -53,7 +53,7 @@ This document defines DNS over CoAP (DoC), a protocol to send DNS
 {{!RFC1035}} queries and get DNS responses over the Constrained Application
 Protocol (CoAP) {{!RFC7252}}. Each DNS query-response pair is mapped into a
 CoAP message exchange. Each CoAP message is secured by DTLS {{!RFC6347}} or
-Object Security for Constrained RESTful Environments (OSCORE) {{!RFC7252}}
+Object Security for Constrained RESTful Environments (OSCORE) {{!RFC8613}}
 to ensure message integrity and confidentiality.
 
 The application use case of DoC is inspired by DNS over HTTPS {{?RFC8484}}
