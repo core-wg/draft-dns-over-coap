@@ -419,6 +419,12 @@ TBD:
 - [Reconsider usage of GET/POST](https://github.com/anr-bmbf-pivot/draft-dns-over-coap/issues/2)?
 - [Request text duplication](https://github.com/anr-bmbf-pivot/draft-dns-over-coap/issues/4)
 
+Since [draft-lenders-dns-over-coap-00](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap-00)
+---------------------------------------
+
+- Soften Content-Format requirements in {{coap-methods}} and {{dns-responses-in-coap-responses}}
+- Fix nits and typos
+
 Since [draft-lenders-dns-over-coaps-00](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coaps-00)
 ---------------------------------------
 
