@@ -72,8 +72,8 @@ on constrained devices.
 
 ~~~ drawing
 
-                - GET coaps://[2001::db8::1]/?dns=example.org
-               /- POST/FETCH coaps://[2001::db8::1]/
+                - GET coaps://[2001:db8::1]/?dns=example.org
+               /- POST/FETCH coaps://[2001:db8::1]/
               /
              CoAP request
 +--------+   [DNS query]   +--------+   DNS query    +--------+
@@ -214,13 +214,13 @@ resolve "example.org. IN AAAA" based on the URI template
 
 GET request:
 
-    GET coaps://[2001::db8::1]/
+    GET coaps://[2001:db8::1]/
     URI-Query: dns=AAABIAABAAAAAAAAB2V4YW1wbGUDb3JnAAAcAAE
     Accept: application/dns-message
 
 POST request:
 
-    POST coaps://[2001::db8::1]/
+    POST coaps://[2001:db8::1]/
     Content-Format: application/dns-message
     Accept: application/dns-message
     Payload: 00 00 01 20 00 02 00 00 00 00 00 00 07 65 78 61 [binary]
@@ -229,7 +229,7 @@ POST request:
 
 FETCH request:
 
-    FETCH coaps://[2001::db8::1]/
+    FETCH coaps://[2001:db8::1]/
     Content-Format: application/dns-message
     Accept: application/dns-message
     Payload: 00 00 01 20 00 02 00 00 00 00 00 00 07 65 78 61 [binary]
