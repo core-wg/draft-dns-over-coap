@@ -155,10 +155,10 @@ To enable reliable message exchange, the CoAP request SHOULD be carried in a Con
 ### CoAP Methods
 
 When sending a CoAP request using the POST or FETCH method, a DoC client
-MUST include the DNS query in the payload. The type of content of the payload
-MUST be indicated using the Content-Format option. This document specifies the
-usage of Content-Format "application/dns-message" (details see
-{{sec:content-format}}).
+MUST include the DNS query in the body (i.e. the payload, or the concatenated
+payloads) of the CoAP request. The type of content of the body MUST be indicated
+using the Content-Format option. This document specifies the usage of
+Content-Format "application/dns-message" (details see {{sec:content-format}}).
 
 If the FETCH or POST method are used and block-wise transfer {{!RFC7959}}
 is supported by the client, more than one CoAP request message MAY be used.
