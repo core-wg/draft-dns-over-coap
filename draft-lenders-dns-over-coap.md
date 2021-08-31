@@ -108,6 +108,8 @@ client".
 
 The term "constrained nodes" is used as defined in {{?RFC7228}}.
 
+The terms "CoAP payload" and "CoAP body" are used as defined in [RFC7959].
+
 {::boilerplate bcp14-tagged}
 
 Selection of a DoC Server
