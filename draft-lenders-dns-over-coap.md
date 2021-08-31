@@ -240,11 +240,13 @@ FETCH request:
 DNS Responses in CoAP Responses
 -------------------------------
 
-Each DNS query-response pair is mapped to a train of one or more of CoAP
-request-response pairs.  DNS responses are provided in the payload of CoAP
-responses. A DoC server MUST indicate the type of content of the payload using
-the Content-Format option. This document specifies the usage of Content-Format
-"application/dns-message" (details see {{sec:content-format}}).
+Each DNS query-response pair is mapped to a CoAP REST request-response
+operation, which may consist of several CoAP request-response pairs if
+block-wise transfer is involved.  DNS responses are provided in the body (i.e. the
+payload, or the concatenated payloads) of the CoAP response. A DoC server MUST
+indicate the type of content of the body using the Content-Format option. This
+document specifies the usage of Content-Format "application/dns-message"
+(details see {{sec:content-format}}).
 
 If supported, a DoC server MAY transfer the DNS response in more than one
 CoAP responses using the Block2 option {{!RFC7959}}.
