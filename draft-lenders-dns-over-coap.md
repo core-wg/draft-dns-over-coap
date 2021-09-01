@@ -427,6 +427,7 @@ Since [draft-lenders-dns-over-coap-00](https://datatracker.ietf.org/doc/html/dra
 ---------------------------------------
 
 - Soften Content-Format requirements in {{coap-methods}} and {{dns-responses-in-coap-responses}}
+- Clarify "CoAP payload"/"CoAP body" terminology
 - Fix nits and typos
 
 Since [draft-lenders-dns-over-coaps-00](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coaps-00)
