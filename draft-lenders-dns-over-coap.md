@@ -146,10 +146,10 @@ A client MUST be able to parse messages of Content-Format "application/dns-messa
 
 To enable reliable message exchange, the CoAP request SHOULD be carried in a Confirmable (CON) message.
 
-### CoAP Methods
+### Request Format
 
 When sending a CoAP request, a DoC client MUST include the DNS query in the body (i.e. the payload, or the concatenated payloads) of the CoAP request.
-The type of content of the body MUST be indicated using the Content-Format option.
+As specified in {{!RFC8132}} Section 2.3.1, the type of content of the body MUST be indicated using the Content-Format option.
 This document specifies the usage of Content-Format "application/dns-message" (details see {{sec:content-format}}).
 
 If block-wise transfer {{!RFC7959}} is supported by the client, more than one CoAP request message MAY be used.
@@ -354,7 +354,7 @@ Since [draft-lenders-dns-over-coap-01](https://datatracker.ietf.org/doc/html/dra
 Since [draft-lenders-dns-over-coap-00](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap-00)
 ---------------------------------------
 
-- Soften Content-Format requirements in {{coap-methods}} and {{dns-responses-in-coap-responses}}
+- Soften Content-Format requirements in {{request-format}} and {{dns-responses-in-coap-responses}}
 - Clarify "CoAP payload"/"CoAP body" terminology
 - Fix nits and typos
 
