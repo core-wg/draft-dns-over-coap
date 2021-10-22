@@ -290,8 +290,8 @@ With long-lived responses, the client does not need to revalidate often.
 With responses large enough to be fragmented,
 it's best practice for servers to set an ETag anyway.
 As specified in {{!RFC7252}} and {{!RFC8132}}, if the response associated with
-the ETag is still valid, the response MUST use the "2.03 Valid" code and MUST
-NOT carry any payload.
+the ETag is still valid, the response uses the "2.03 Valid" code and consequently
+carries no payload.
 
 ### Examples
 
