@@ -72,8 +72,8 @@ on constrained devices.
 
 ~~~ drawing
 
-                - GET coaps://[2001:db8::1]/?dns=example.org
-               /- POST/FETCH coaps://[2001:db8::1]/
+                - FETCH coaps://[2001:db8::1]/
+               /
               /
              CoAP request
 +--------+   [DNS query]   +--------+   DNS query    +--------+
@@ -114,20 +114,15 @@ The terms "CoAP payload" and "CoAP body" are used as defined in [RFC7959].
 
 Selection of a DoC Server
 =========================
-A DoC client is configured with a URI Template {{!RFC6570}}. This allows us to
-reuse configuration mechanisms provided for DoH.
-
-The URI Template SHOULD provide a variable "dns" so that GET requests can be
-used to retrieve the DNS information. If the "dns" variable is not provided in
-the URI Template, GET requests can not be used for DoC exchanges.
 
 TBD:
 
-- Support for more than one URI Template by DoC server.
+- URI or should we rather go straight to CRI?
+- Support for more than one URI by DoC server.
 - DoC server identity, key exchange, ...
 
-URI Template Alternatives
--------------------------
+URI Alternatives
+----------------
 TBD:
 
 - CRI {{?I-D.ietf-core-href}} or CoRAL {{?I-D.ietf-core-coral}}
@@ -145,91 +140,37 @@ Section 6, i.e., a single DNS message encoded in the DNS on-the-wire format
 DNS Queries in CoAP Requests
 ----------------------------
 
-A DoC client encodes a single DNS query in one or more CoAP request
-messages using either the CoAP GET {{!RFC7252}}, POST {{!RFC7252}}, or
-FETCH {{!RFC8132}} methods. Requests of either method type SHOULD include
-an Accept option to indicate the type of content that can be parsed in the
-response. A client MUST be able to parse messages of Content-Format
-"application/dns-message" regardless of the provided Accept option.
+A DoC client encodes a single DNS query in one or more CoAP request messages the CoAP FETCH {{!RFC8132}} method.
+Requests SHOULD include an Accept option to indicate the type of content that can be parsed in the response.
+A client MUST be able to parse messages of Content-Format "application/dns-message" regardless of the provided Accept option.
 
 To enable reliable message exchange, the CoAP request SHOULD be carried in a Confirmable (CON) message.
 
-### CoAP Methods
+### Request Format
 
-When sending a CoAP request using the POST or FETCH method, a DoC client
-MUST include the DNS query in the body (i.e. the payload, or the concatenated
-payloads) of the CoAP request. The type of content of the body MUST be indicated
-using the Content-Format option. This document specifies the usage of
-Content-Format "application/dns-message" (details see {{sec:content-format}}).
+When sending a CoAP request, a DoC client MUST include the DNS query in the body (i.e. the payload, or the concatenated payloads) of the CoAP request.
+As specified in {{!RFC8132}} Section 2.3.1, the type of content of the body MUST be indicated using the Content-Format option.
+This document specifies the usage of Content-Format "application/dns-message" (details see {{sec:content-format}}).
 
-If the FETCH or POST method are used and block-wise transfer {{!RFC7959}}
-is supported by the client, more than one CoAP request message MAY be used.
+If block-wise transfer {{!RFC7959}} is supported by the client, more than one CoAP request message MAY be used.
 If more than one CoAP request message is used to encode the DNS query, it
 must be chained together using the Block1 option in those CoAP requests.
 
-For a POST or FETCH request the URI Template specified in
-{{selection-of-a-doc-server}} is processed without any variables set.
+The FETCH request is sent to the URI specified in {{selection-of-a-doc-server}}.
 
-When sending a CoAP request using the GET method, the URI Template
-specified in {{selection-of-a-doc-server}} is extended by the variable
-"dns". A DoC client MUST use the "dns" variable in the URI-Query followed
-by the DNS query encoded with "base64url" (details see {{!RFC8484}} Section
-6). If new Content-Formats are specified in the future, the specification
-MUST define the variable used in the URI Template with that new format.
-
-A DoC client must implement the GET, POST, or FETCH method.  Due to the
-lack of "base64url" encoding requirements, both FETCH and POST methods are
-generally smaller than GET requests. Using the FETCH method is RECOMMENDED
-because this method provides caching and block-wise transfer without
-introducing the overhead of URI templates (see {{tab:comp-methods}}).
-
-Method | Cacheable | Block-wise transferable | No URI Template variable needed
------: | :-------: | :---------------------: | :-----------------------------:
-GET    | Y         | N                       | N
-POST   | N         | Y                       | Y
-FETCH  | Y         | Y                       | Y
-{: #tab:comp-methods title="Comparison of CoAP method features (Y: Yes, N:
-No)"}
-
-A DoC server MUST implement the GET, POST, and FETCH method.
 A DoC server MUST be able to parse requests of Content-Format
 "application/dns-message".
 
 ### Support of CoAP Caching {#sec:req-caching}
 
-The DoC client SHOULD set the ID field of the DNS header always to 0 to
-enable a CoAP cache (e.g., a CoAP proxy en-route) to respond to the same
-DNS queries with a cache entry. This ensures that the CoAP Cache-Key (for
-GET see {{!RFC7252}} Section 5.6, for FETCH see {{!RFC8132}} Section 2)
-does not change when multiple DNS queries for the same DNS data, carried in
-CoAP requests, are issued. Technically, using the POST method does not
-require the DNS ID set to 0 because the payload of a POST message is not
-part of the Cache-Key. For consistency reasons, however, it is RECOMMENDED
-to use the same constant DNS ID.
+The DoC client SHOULD set the ID field of the DNS header always to 0 to enable a CoAP cache (e.g., a CoAP proxy en-route) to respond to the same DNS queries with a cache entry.
+This ensures that the CoAP Cache-Key (see {{!RFC8132}} Section 2) does not change when multiple DNS queries for the same DNS data, carried in CoAP requests, are issued.
 
 ### Examples
 
-The following examples illustrate the usage of different CoAP messages to
-resolve "example.org. IN AAAA" based on the URI template
-"coaps://\[2001:db8::1\]/{?dns}". The CoAP body is encoded in
-"application/dns-message" Content-Format.
-
-GET request:
-
-    GET coaps://[2001:db8::1]/
-    URI-Query: dns=AAABIAABAAAAAAAAB2V4YW1wbGUDb3JnAAAcAAE
-    Accept: application/dns-message
-
-POST request:
-
-    POST coaps://[2001:db8::1]/
-    Content-Format: application/dns-message
-    Accept: application/dns-message
-    Payload: 00 00 01 20 00 02 00 00 00 00 00 00 07 65 78 61 [binary]
-             6d 70 6c 65 03 6f 72 67 00 00 1c 00 01 c0 0c 00 [binary]
-             01 00 01                                        [binary]
-
-FETCH request:
+The following example illustrates the usage of a CoAP message to
+resolve "example.org. IN AAAA" based on the URI "coaps://\[2001:db8::1\]/". The
+CoAP body is encoded in "application/dns-message" Content Format.
 
     FETCH coaps://[2001:db8::1]/
     Content-Format: application/dns-message
@@ -257,10 +198,8 @@ CoAP responses using the Block2 option {{!RFC7959}}.
 
 A DNS response indicates either success or failure in the Response code of
 the DNS header (see {{!RFC1035}} Section 4.1.1). It is RECOMMENDED that
-CoAP responses that carry any valid DNS response use a "2.xx Success"
-response code. A response to a GET or FETCH request SHOULD use the "2.05
-Content" code. A response to a POST request SHOULD use the "2.01 Created"
-code.
+CoAP responses that carry any valid DNS response use a "2.05 Content"
+response code.
 
 CoAP responses use non-successful response codes MUST NOT contain any payload
 and may only be used on errors in the CoAP layer or when a request does not
@@ -269,13 +208,8 @@ fulfill the requirements of the DoC protocol.
 Communication errors with a DNS server (e.g., timeouts) SHOULD be indicated
 by including a SERVFAIL DNS response in a successful CoAP response.
 
-A DoC client might try to repeat a non-successful exchange unless otherwise
-prohibited. For instance, a FETCH request MUST NOT be repeated with a URI
-Template for which the DoC server already responded with "4.05 Method Not
-Allowed" since the server might only implement legacy CoAP and does not
-support the FETCH method. The DoC client might also decide to repeat a
-non-successful exchange with a different URI Template, for instance, when
-the response indicates an unsupported Content-Format.
+A DoC client might try to repeat a non-successful exchange unless otherwise prohibited.
+The DoC client might also decide to repeat a non-successful exchange with a different URI, for instance, when the response indicates an unsupported Content-Format.
 
 ### Support of CoAP Caching {#sec:resp-caching}
 
@@ -296,7 +230,7 @@ The following examples illustrate the replies to the query "example.org. IN
 AAAA record", recursion turned on. Successful responses carry one answer
 record including address 2001:db8:1::1:2:3:4 and TTL 58719.
 
-A successful response to a GET or FETCH request:
+A successful response:
 
     2.05 Content
     Content-Format: application/dns-message
@@ -306,18 +240,8 @@ A successful response to a GET or FETCH request:
              1c 00 01 00 01 37 49 00 10 20 01 0d b8 00 01 00 [binary]
              00 00 01 00 02 00 03 00 04                      [binary]
 
-A successful response to a POST request uses a different response code:
-
-    2.03 Created
-    Content-Format: application/dns-message
-    Max-Age: 58719
-    Payload: 00 00 81 a0 00 01 00 01 00 00 00 00 07 65 78 61 [binary]
-             6d 70 6c 65 03 6f 72 67 00 00 1c 00 01 c0 0c 00 [binary]
-             1c 00 01 00 01 37 49 00 10 20 01 0d b8 00 01 00 [binary]
-             00 00 01 00 02 00 03 00 04                      [binary]
-
 When a DNS error (SERVFAIL in this case) is noted in the DNS response, the CoAP
-request still indicates success:
+response still indicates success:
 
     2.05 Content
     Content-Format: application/dns-message
@@ -376,8 +300,8 @@ OSCORE
 - TBD
 - With OSCORE DTLS might not be required
 
-URI template configuration
-==========================
+URI configuration
+=================
 - TBD
 - Maybe out-of-scope?
 - DHCP and RA options to deliver? {{?I-D.peterson-doh-dhcp}}
@@ -420,13 +344,17 @@ Change Log
 
 TBD:
 
-- [Reconsider usage of GET/POST](https://github.com/anr-bmbf-pivot/draft-dns-over-coap/issues/2)?
 - [Request text duplication](https://github.com/anr-bmbf-pivot/draft-dns-over-coap/issues/4)
+
+Since [draft-lenders-dns-over-coap-01](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap-01)
+---------------------------------------
+
+- Remove GET and POST methods
 
 Since [draft-lenders-dns-over-coap-00](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap-00)
 ---------------------------------------
 
-- Soften Content-Format requirements in {{coap-methods}} and {{dns-responses-in-coap-responses}}
+- Soften Content-Format requirements in {{request-format}} and {{dns-responses-in-coap-responses}}
 - Clarify "CoAP payload"/"CoAP body" terminology
 - Fix nits and typos
 
