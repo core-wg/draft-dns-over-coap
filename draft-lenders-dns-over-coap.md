@@ -193,7 +193,7 @@ payload, or the concatenated payloads) of the CoAP response. A DoC server MUST
 indicate the type of content of the body using the Content-Format option,
 and MUST be able to produce responses in the "application/dns-message"
 Content-Format (details see {{sec:content-format}}) when requested.
-A DoC client MUST be prepared to process responses in application/dns-message format
+A DoC client MUST understand responses in application/dns-message format
 when it does not send an Accept option.
 
 If supported, a DoC server MAY transfer the DNS response in more than one
