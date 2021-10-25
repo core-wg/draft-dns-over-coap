@@ -70,6 +70,10 @@ proxies, which provide an additional level of caching; re-use of data
 structures for application traffic and DNS information, which saves memory
 on constrained devices.
 
+To prevent resource requirements of DTLS or TLS on top of UDP (e.g.,
+introduced by DNS over QUIC {{?I-D.ietf-dprive-dnsoquic}}), DoC allows
+for lightweight end-to-end payload encryption based on OSCORE.
+
 ~~~ drawing
 
                 - FETCH coaps://[2001:db8::1]/
