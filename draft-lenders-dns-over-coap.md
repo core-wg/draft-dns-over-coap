@@ -358,6 +358,9 @@ Since [draft-lenders-dns-over-coap-01](https://datatracker.ietf.org/doc/html/dra
 ---------------------------------------
 
 - Remove GET and POST methods
+- Add note on ETag and response codes
+- Provide requirement conflict for DNS over QUIC
+- Clarify Content-Format / Accept handling
 
 Since [draft-lenders-dns-over-coap-00](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap-00)
 ---------------------------------------
