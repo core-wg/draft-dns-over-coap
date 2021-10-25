@@ -146,7 +146,6 @@ DNS Queries in CoAP Requests
 
 A DoC client encodes a single DNS query in one or more CoAP request messages the CoAP FETCH {{!RFC8132}} method.
 Requests SHOULD include an Accept option to indicate the type of content that can be parsed in the response.
-A client MUST be able to parse messages of Content-Format "application/dns-message" regardless of the provided Accept option.
 
 To enable reliable message exchange, the CoAP request SHOULD be carried in a Confirmable (CON) message.
 
@@ -191,9 +190,11 @@ Each DNS query-response pair is mapped to a CoAP REST request-response
 operation, which may consist of several CoAP request-response pairs if
 block-wise transfer is involved.  DNS responses are provided in the body (i.e. the
 payload, or the concatenated payloads) of the CoAP response. A DoC server MUST
-indicate the type of content of the body using the Content-Format option. This
-document specifies the usage of Content-Format "application/dns-message"
-(details see {{sec:content-format}}).
+indicate the type of content of the body using the Content-Format option,
+and MUST be able to produce responses in the "application/dns-message"
+Content-Format (details see {{sec:content-format}}) when requested.
+A DoC client MUST understand responses in "application/dns-message" format
+when it does not send an Accept option.
 
 If supported, a DoC server MAY transfer the DNS response in more than one
 CoAP responses using the Block2 option {{!RFC7959}}.
