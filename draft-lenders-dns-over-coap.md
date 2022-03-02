@@ -269,10 +269,18 @@ CoAP/CoRE Integration
 Proxies and caching
 -------------------
 
-TBD:
+After caching at one or more proxies, the Max-Age option in the CoAP header and the TTLs in the DNS
+message (set as specified in {{sec:resp-caching}}) may become out of sync. Both values are relative
+from the original send, but only the Max-Age option is updated at each intermediate cache.
+A DoC client MUST, as such, on reception of a DNS response check if the value of the Max-Age option
+in the CoAP header is less than the minimum TTL in the DNS message. In that case, it MUST subtract
+the difference of the minimum TTL and the value of the Max-Age option from all TTLs within the DNS
+response. All records for which resulting TTLs is equal to or less than 0, are to be considered to
+be out of date.
 
-- [TTL vs. Max-Age](https://github.com/anr-bmbf-pivot/draft-dns-over-coap/issues/5)
-- Responses that are not globally valid
+DoC server and response timeouts
+--------------------------------
+
 - General CoAP proxy problem, but what to do when DoC server is a DNS proxy,
   response came not yet in but retransmission by DoC client was received (see
   {{rt-problem}})
