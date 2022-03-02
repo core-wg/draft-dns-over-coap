@@ -319,10 +319,10 @@ URI configuration
 
 Considerations for Unencrypted Use
 ==================================
-- TBD
-- DTLS-transport should be used
-- Non-DTLS can have benefits: Blockwise-transfer for IEEE 802.15.4, additional
-  layer of caching, ...
+While not recommended, using DoC with unencrypted CoAP can also have its benefits in very
+constrained environments where encryption is not possible or necessary. Potential benefits of
+unencrypted DoC usage over classic DNS are e.g. block-wise transfer or alternative CoAP
+Content-Formats to overcome link-layer constraints.
 
 Security Considerations
 =======================
