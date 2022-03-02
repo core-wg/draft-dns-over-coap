@@ -119,17 +119,11 @@ The terms "CoAP payload" and "CoAP body" are used as defined in [RFC7959].
 Selection of a DoC Server
 =========================
 
-TBD:
-
-- URI or should we rather go straight to CRI?
-- Support for more than one URI by DoC server.
-- DoC server identity, key exchange, ...
-
-URI Alternatives
-----------------
-TBD:
-
-- CRI {{?I-D.ietf-core-href}} or CoRAL {{?I-D.ietf-core-coral}}
+It is assumed in this document that the DoC server, as well as the DNS query resource at the DoC
+server, is known to the DoC client. Possible ways to configure could be manual configuration with a
+URI {{?RFC3986}} or CRI {{?I-D.ietf-core-href}} or via a CoRE resource directory
+{{?I-D.ietf-core-resource-directory}}. Automatic configuration SHOULD only be done from a trusted
+source.
 
 Basic Message Exchange
 ======================
@@ -307,14 +301,6 @@ OSCORE
 ------
 - TBD
 - With OSCORE DTLS might not be required
-
-URI configuration
-=================
-- TBD
-- Maybe out-of-scope?
-- DHCP and RA options to deliver? {{?I-D.peterson-doh-dhcp}}
-- CoRE-RD {{?I-D.ietf-core-resource-directory}} (...; can not express URI templates)
-- When no actual templating is involved: regular resource discovery ("rt=core.dns"?) through .well-known/core
 
 Considerations for Unencrypted Use
 ==================================
