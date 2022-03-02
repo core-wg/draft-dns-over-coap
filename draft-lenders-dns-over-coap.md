@@ -319,8 +319,12 @@ URI configuration
 
 Considerations for Unencrypted Use
 ==================================
-While not recommended, using DoC with unencrypted CoAP can also have its benefits in very
-constrained environments where encryption is not possible or necessary. Potential benefits of
+While not recommended,
+DoC can be without any encryption
+(e.g., in very constrained environments where encryption is not possible or necessary).
+It can also be used when lower layers provide secure communication between client and server.
+In both cases,
+potential benefits of
 unencrypted DoC usage over classic DNS are e.g. block-wise transfer or alternative CoAP
 Content-Formats to overcome link-layer constraints.
 
