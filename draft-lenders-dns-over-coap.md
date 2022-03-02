@@ -320,7 +320,7 @@ URI configuration
 Considerations for Unencrypted Use
 ==================================
 While not recommended,
-DoC can be without any encryption
+DoC can be used without any encryption
 (e.g., in very constrained environments where encryption is not possible or necessary).
 It can also be used when lower layers provide secure communication between client and server.
 In both cases,
