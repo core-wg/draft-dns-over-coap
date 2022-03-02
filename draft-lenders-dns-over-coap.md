@@ -3,6 +3,7 @@ title: "DNS Queries over CoAP (DoC)"
 abbrev: DoC
 docname: draft-lenders-dns-over-coap-latest
 category: std
+submissiontype: IETF
 
 ipr: trust200902
 area: Applications
