@@ -270,13 +270,15 @@ Proxies and caching
 -------------------
 
 After caching at one or more proxies, the Max-Age option in the CoAP header and the TTLs in the DNS
-message (set as specified in {{sec:resp-caching}}) may become out of sync. Both values are relative
-from the original send, but only the Max-Age option is updated at each intermediate cache.
-A DoC client MUST, as such, on reception of a DNS response check if the value of the Max-Age option
-in the CoAP header is less than the minimum TTL in the DNS message. In that case, it MUST subtract
-the difference of the minimum TTL and the value of the Max-Age option from all TTLs within the DNS
-response. All records for which resulting TTLs is equal to or less than 0, are to be considered to
-be out of date.
+message (set as specified in {{sec:resp-caching}}) may become out of sync.
+Both values are relative from the original send, but only the Max-Age option is updated at each
+intermediate cache.
+If a Max-Age option is present in the CoAP header, a DoC client MUST, as such, on reception of a DNS
+response check if the value of the Max-Age option in the CoAP header is less than the minimum TTL in
+the DNS message.
+In that case, it MUST subtract the difference of the minimum TTL and the value of the Max-Age option
+from all TTLs within the DNS response. All records for which resulting TTL is equal to 0, are to be
+considered to be out of date.
 
 DoC server and response timeouts
 --------------------------------
