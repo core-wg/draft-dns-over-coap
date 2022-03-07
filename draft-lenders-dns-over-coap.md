@@ -271,11 +271,9 @@ In the case of CNAME records in a DNS response, a DoC server SHOULD follow commo
 behavior {{?RFC1034}} by resolving a CNAME until the originally requested resource record type is
 reached. This reduces the number of message exchanges within an LLN.
 
-If not explicitly requested in the DNS query, it is RECOMMENDED to strip all record entries of type
-NS and class IN and all associated A and AAAA records from DNS responses received from upstream DNS
-resolvers.
-The NS record can not be used effectively by DoC anyway and tend to increase DNS response sizes
-unnecessarily.
+The DoC server SHOULD send compact answers, i.e., add additional or authority sections in the DNS
+reply should only be sent if needed or anticipated that they help the DoC client to reduce
+additional queries. Any additional information MAY be stripped from the DNS response.
 
 Proxies and caching
 -------------------
