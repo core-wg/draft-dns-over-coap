@@ -120,17 +120,16 @@ The terms "CoAP payload" and "CoAP body" are used as defined in [RFC7959].
 Selection of a DoC Server
 =========================
 
-TBD:
+In this document, it is assumed that the DoC client knows the DoC server and the DNS resource at the
+DoC server.
+Possible options could be manual configuration of a URI {{?RFC3986}} or CRI {{?I-D.ietf-core-href}},
+or automatic configuration, e.g., using a CoRE resource directory
+{{?I-D.ietf-core-resource-directory}}.
+Automatic configuration SHOULD only be done from a trusted source.
 
-- URI or should we rather go straight to CRI?
-- Support for more than one URI by DoC server.
-- DoC server identity, key exchange, ...
-
-URI Alternatives
-----------------
-TBD:
-
-- CRI {{?I-D.ietf-core-href}} or CoRAL {{?I-D.ietf-core-coral}}
+When discovering the DNS resource through a link mechanism that allows describing a resource type
+(e.g., the Resource Type Attribute in {{?RFC6690}}), the resource type "core.dns" can be used to
+identify a generic DNS resolver that is available to the client.
 
 Basic Message Exchange
 ======================
@@ -309,14 +308,6 @@ OSCORE
 - TBD
 - With OSCORE DTLS might not be required
 
-URI configuration
-=================
-- TBD
-- Maybe out-of-scope?
-- DHCP and RA options to deliver? {{?I-D.peterson-doh-dhcp}}
-- CoRE-RD {{?I-D.ietf-core-resource-directory}} (...; can not express URI templates)
-- When no actual templating is involved: regular resource discovery ("rt=core.dns"?) through .well-known/core
-
 Considerations for Unencrypted Use
 ==================================
 While not recommended,
@@ -337,6 +328,9 @@ TODO Security
 IANA Considerations
 ===================
 
+New "application/dns-message" Content-Format
+--------------------------------------------
+
 IANA is requested to assign CoAP Content-Format ID for the DNS message media
 type in the "CoAP Content-Formats" sub-registry, within the "CoRE Parameters"
 registry {{!RFC7252}}, corresponding the "application/dns-message" media
@@ -349,6 +343,20 @@ Encoding: -
 Id: TBD
 
 Reference: \[TBD-this-spec\]
+
+New "core.dns" Resource Type
+----------------------------
+
+IANA is requested to assign an new Resource Type (rt=) Link Target Attribute, "core.dns" in the
+"Resource Type (rt=) Link Target Attribute Values" sub-registry, within the "CoRE Parameters"
+register {{?RFC6690}}.
+
+Attribute Value: core.dns
+
+Description: DNS over CoAP resource.
+
+Reference: [TBD-this-spec] {{selection-of-a-doc-server}}
+
 
 --- back
 
