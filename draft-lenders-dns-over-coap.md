@@ -273,7 +273,7 @@ reached. This reduces the number of message exchanges within an LLN.
 
 The DoC server SHOULD send compact answers, i.e., add additional or authority sections in the DNS
 reply should only be sent if needed or anticipated that they help the DoC client to reduce
-additional queries. Any additional information MAY be stripped from the DNS response.
+additional queries. Any excessive information MAY be stripped from the DNS response.
 
 Proxies and caching
 -------------------
