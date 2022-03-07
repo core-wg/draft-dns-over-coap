@@ -265,6 +265,16 @@ the server.
 CoAP/CoRE Integration
 =====================
 
+DoC server considerations
+-------------------------
+In the case of CNAME records in a DNS response, a DoC server SHOULD follow common DNS resolver
+behavior {{?RFC1034}} by resolving a CNAME until the originally requested resource record type is
+reached. This reduces the number of message exchanges within an LLN.
+
+The DoC server SHOULD send compact answers, i.e., additional or authority sections in the DNS
+response should only be sent if needed or if it is anticipated that they help the DoC client to
+reduce additional queries.
+
 Proxies and caching
 -------------------
 
