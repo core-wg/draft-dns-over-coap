@@ -125,6 +125,7 @@ URI {{?RFC3986}} or CRI {{?I-D.ietf-core-href}} or via a CoRE resource directory
 {{?I-D.ietf-core-resource-directory}}. Automatic configuration SHOULD only be done from a trusted
 source.
 
+When discovering the URI through a link mechanism such as where the {{?RFC6690}} attribute "resource type" is available, the resource type TBDcore.dns can be used to identify a generic DNS resolver that is available to the client.
 Basic Message Exchange
 ======================
 
