@@ -203,10 +203,17 @@ The DoC client might also decide to repeat a non-successful exchange with a diff
 
 ### Support of CoAP Caching {#sec:resp-caching}
 
-It is RECOMMENDED to set the Max-Age option of a response to the minimum TTL in the Answer section of a DNS response. This prevents expired records unintentionally being served from a CoAP cache.
+The DoC server MUST ensure that any sum of the Max-Age value of a CoAP response and any TTL in the
+DNS response is less or equal to the corresponding TTL received from an upstream DNS server.
+This also includes the default Max-Age value of 60 seconds (see {{!RFC7252}}, section 5.10.5) when no Max-Age option is provided.
+The DoC client MUST then add the Max-Age value of the carrying CoAP response to all TTLs in a DNS response on reception and use these calculated TTLs for the associated records.
 
-<!-- It is RECOMMENDED that DoC servers set an ETag option on large responses (TBD: more concrete guidance) that have a short Max-Age relative to the expected clients' caching time.
-Thus, clients that need to revalidate a response can do so using the established ETag mechanism.
+The RECOMMENDED algorithm to assure the requirement for the DoC is to set the Max-Age option of a response to the minimum TTL of a DNS response and to subtract this value from all TTLs of that DNS response.
+This prevents expired records unintentionally being served from an intermediate CoAP cache.
+Additionally, it allows for the ETag value to not change if it is based on the content and the TTL values are updated by an upstream DNS cache.
+
+
+<!--
 With short responses, a usable ETag might be almost as long as the response.
 With long-lived responses, the client does not need to revalidate often.
 With responses large enough to be fragmented,
@@ -264,7 +271,6 @@ Proxies and caching
 
 TBD:
 
-- [TTL vs. Max-Age](https://github.com/anr-bmbf-pivot/draft-dns-over-coap/issues/5)
 - Responses that are not globally valid
 - General CoAP proxy problem, but what to do when DoC server is a DNS proxy,
   response came not yet in but retransmission by DoC client was received (see
