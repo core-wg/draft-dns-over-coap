@@ -267,8 +267,9 @@ CoAP/CoRE Integration
 
 DoC server considerations
 -------------------------
-To reduce the number of message exchanges within an LLN, a DoC server MAY try
-to resolve CNAME chains received in DNS responses from an upstream DNS resolver.
+In the case of CNAME records n a DNS response, a DoC server SHOULD follow common DNS resolver
+behavior {{?RFC1034}} by resolving a CNAME until the originally requested resource record type is
+reached. This reduces the number of message exchanges within an LLN.
 
 If not explicitly requested in the DNS query, it is RECOMMENDED to strip all record entries of type
 NS and class IN and all associated A and AAAA records from DNS responses received from upstream DNS
