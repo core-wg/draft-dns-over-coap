@@ -119,13 +119,16 @@ The terms "CoAP payload" and "CoAP body" are used as defined in [RFC7959].
 Selection of a DoC Server
 =========================
 
-It is assumed in this document that the DoC server, as well as the DNS query resource at the DoC
-server, is known to the DoC client. Possible ways to configure could be manual configuration with a
-URI {{?RFC3986}} or CRI {{?I-D.ietf-core-href}} or via a CoRE resource directory
-{{?I-D.ietf-core-resource-directory}}. Automatic configuration SHOULD only be done from a trusted
-source.
+In this document it is assumed that the DoC client knows the DoC server and the DNS resource at the
+DoC server.
+Possible options could be manual configuration of a URI {{?RFC3986}} or CRI {{?I-D.ietf-core-href}},
+or automatic configuration e.g., using a CoRE resource directory
+{{?I-D.ietf-core-resource-directory}}.
+Automatic configuration SHOULD only be done from a trusted source.
 
-When discovering the URI through a link mechanism such as where the {{?RFC6690}} attribute "resource type" is available, the resource type "core.dns" can be used to identify a generic DNS resolver that is available to the client.
+When discovering the DNS resource through a link mechanism that allows describing a resource type
+(e.g., the Resource Type Attribute in {{?RFC6690}}), the resource type "core.dns" can be used to
+identify a generic DNS resolver that is available to the client.
 
 Basic Message Exchange
 ======================
