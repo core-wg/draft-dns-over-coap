@@ -267,7 +267,7 @@ CoAP/CoRE Integration
 
 DoC server considerations
 -------------------------
-In the case of CNAME records n a DNS response, a DoC server SHOULD follow common DNS resolver
+In the case of CNAME records in a DNS response, a DoC server SHOULD follow common DNS resolver
 behavior {{?RFC1034}} by resolving a CNAME until the originally requested resource record type is
 reached. This reduces the number of message exchanges within an LLN.
 
