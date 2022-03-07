@@ -125,7 +125,8 @@ URI {{?RFC3986}} or CRI {{?I-D.ietf-core-href}} or via a CoRE resource directory
 {{?I-D.ietf-core-resource-directory}}. Automatic configuration SHOULD only be done from a trusted
 source.
 
-When discovering the URI through a link mechanism such as where the {{?RFC6690}} attribute "resource type" is available, the resource type TBDcore.dns can be used to identify a generic DNS resolver that is available to the client.
+When discovering the URI through a link mechanism such as where the {{?RFC6690}} attribute "resource type" is available, the resource type "core.dns" can be used to identify a generic DNS resolver that is available to the client.
+
 Basic Message Exchange
 ======================
 
@@ -319,6 +320,9 @@ TODO Security
 IANA Considerations
 ===================
 
+New "application/dns-message" Content-Format
+--------------------------------------------
+
 IANA is requested to assign CoAP Content-Format ID for the DNS message media
 type in the "CoAP Content-Formats" sub-registry, within the "CoRE Parameters"
 registry {{!RFC7252}}, corresponding the "application/dns-message" media
@@ -331,6 +335,20 @@ Encoding: -
 Id: TBD
 
 Reference: \[TBD-this-spec\]
+
+New "core.dns" Resource Type
+----------------------------
+
+IANA is requested to assign an new Resource Type (rt=) Link Target Attribute, "core.dns" in the
+"Resource Type (rt=) Link Target Attribute Values" sub-registry, within the "CoRE Parameters"
+register {{?RFC6690}}.
+
+Attribute Value: core.dns
+
+Description: DNS over CoAP resource.
+
+Reference: [TBD-this-spec] {{selection-of-a-doc-server}}
+
 
 --- back
 
