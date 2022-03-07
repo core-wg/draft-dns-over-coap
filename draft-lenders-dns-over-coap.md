@@ -357,7 +357,7 @@ Reference: \[TBD-this-spec\]
 New "core.dns" Resource Type
 ----------------------------
 
-IANA is requested to assign an new Resource Type (rt=) Link Target Attribute, "core.dns" in the
+IANA is requested to assign a new Resource Type (rt=) Link Target Attribute, "core.dns" in the
 "Resource Type (rt=) Link Target Attribute Values" sub-registry, within the "CoRE Parameters"
 register {{?RFC6690}}.
 
