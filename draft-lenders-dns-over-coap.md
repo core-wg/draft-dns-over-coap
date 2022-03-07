@@ -271,9 +271,9 @@ In the case of CNAME records in a DNS response, a DoC server SHOULD follow commo
 behavior {{?RFC1034}} by resolving a CNAME until the originally requested resource record type is
 reached. This reduces the number of message exchanges within an LLN.
 
-The DoC server SHOULD send compact answers, i.e., add additional or authority sections in the DNS
-reply should only be sent if needed or anticipated that they help the DoC client to reduce
-additional queries. Any excessive information MAY be stripped from the DNS response.
+The DoC server SHOULD send compact answers, i.e., additional or authority sections in the DNS
+response should only be sent if needed or if it is anticipated that they help the DoC client to
+reduce additional queries. Any excessive information MAY be stripped from the DNS response.
 
 Proxies and caching
 -------------------
