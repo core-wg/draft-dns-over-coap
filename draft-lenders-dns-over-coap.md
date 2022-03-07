@@ -377,6 +377,14 @@ TBD:
 
 - [Request text duplication](https://github.com/anr-bmbf-pivot/draft-dns-over-coap/issues/4)
 
+Since [draft-lenders-dns-over-coap-02](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap-02)
+--------------------------------------
+
+- Clarify server selection to be out-of-band and define "core.dns" resource type in
+  {{selection-of-a-doc-server}} and {{new-coredns-resource-type}}
+- Add message manipulation considerations for DoC servers in {{doc-server-considerations}}
+- Update Considerations for Unencrypted Use in {{considerations-for-unencrypted-use}}
+
 Since [draft-lenders-dns-over-coap-01](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap-01)
 ---------------------------------------
 
