@@ -119,7 +119,7 @@ The terms "CoAP payload" and "CoAP body" are used as defined in [RFC7959].
 Selection of a DoC Server
 =========================
 
-In this document it is assumed that the DoC client knows the DoC server and the DNS resource at the
+In this document, it is assumed that the DoC client knows the DoC server and the DNS resource at the
 DoC server.
 Possible options could be manual configuration of a URI {{?RFC3986}} or CRI {{?I-D.ietf-core-href}},
 or automatic configuration, e.g., using a CoRE resource directory
