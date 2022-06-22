@@ -297,17 +297,12 @@ TBD:
       {: #rt-problem title="CoAP retransmission (rt) is received before DNS query could have been
       fulfilled."}
 
-OBSERVE (modifications)?
-------------------------
-- TBD
-- DoH has considerations on Server Push to deliver additional, potentially
-  outstanding requests + response to the DoC client for caching
-- OBSERVE does not include the request it would have been generated from ==>
-  cannot be cached without corresponding request having been send over the wire.
-- If use case exists: extend OBSERVE with option that contains "promised" request
-  (see {{?RFC7540}}, section 8.2)?
-- Other caveat: clients can't cache, only proxys so value needs to be evaluated
-- Potential use case: {{?RFC8490}} Section 4.1.2
+Observing the DNS Resource
+--------------------------
+There are use cases where updating a DNS record might be necessary on the fly.
+Examples of this include e.g. {{?RFC8490}}, Section 4.1.2, but just saving messages by omitting the
+query for a subscribed name might also be valid.
+As such, the DNS resource MAY be observable as specified in {{!RFC7641}}.
 
 OSCORE
 ------
