@@ -369,10 +369,6 @@ Reference: [TBD-this-spec] {{selection-of-a-doc-server}}
 Change Log
 ==========
 
-TBD:
-
-- [Request text duplication](https://github.com/anr-bmbf-pivot/draft-dns-over-coap/issues/4)
-
 Since [draft-lenders-dns-over-coap-02](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap-02)
 --------------------------------------
 
