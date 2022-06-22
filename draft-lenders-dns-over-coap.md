@@ -72,7 +72,7 @@ structures for application traffic and DNS information, which saves memory
 on constrained devices.
 
 To prevent resource requirements of DTLS or TLS on top of UDP (e.g.,
-introduced by DNS over QUIC {{?I-D.ietf-dprive-dnsoquic}}), DoC allows
+introduced by DNS over QUIC {{?RFC9250}}), DoC allows
 for lightweight end-to-end payload encryption based on OSCORE.
 
 ~~~ drawing
@@ -124,7 +124,7 @@ In this document, it is assumed that the DoC client knows the DoC server and the
 DoC server.
 Possible options could be manual configuration of a URI {{?RFC3986}} or CRI {{?I-D.ietf-core-href}},
 or automatic configuration, e.g., using a CoRE resource directory
-{{?I-D.ietf-core-resource-directory}}, DHCP or Router Advertisement options {{?I-D.ietf-add-dnr}}.
+{{?RFC9176}}, DHCP or Router Advertisement options {{?I-D.ietf-add-dnr}}.
 Automatic configuration SHOULD only be done from a trusted source.
 
 When discovering the DNS resource through a link mechanism that allows describing a resource type
