@@ -98,10 +98,6 @@ information itself by using other DNS transports with an upstream DNS server.
 The DoC server then replies to the DNS queries with DNS responses carried within
 CoAP responses.
 
-TBD: additional feature sets of CoAP/CoRE
-
-- resource directory for DoC service discovery,
-- ...
 
 Terminology
 ===========
