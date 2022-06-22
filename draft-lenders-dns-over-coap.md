@@ -311,8 +311,8 @@ OBSERVE (modifications)?
 
 OSCORE
 ------
-- TBD
-- With OSCORE DTLS might not be required
+It is RECOMMENDED to carry DNS messages end-to-end encrypted using OSCORE {{?RFC8611}}.
+The exchange of the security context is out of scope of this document.
 
 Considerations for Unencrypted Use
 ==================================
