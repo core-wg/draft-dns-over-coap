@@ -267,31 +267,6 @@ The DoC server SHOULD send compact answers, i.e., additional or authority sectio
 response should only be sent if needed or if it is anticipated that they help the DoC client to
 reduce additional queries.
 
-Proxies and caching
--------------------
-
-TBD:
-
-- Responses that are not globally valid
-- General CoAP proxy problem, but what to do when DoC server is a DNS proxy,
-  response came not yet in but retransmission by DoC client was received (see
-  {{rt-problem}})
-    - send empty ACK ([maybe move to best practices appendix](https://github.com/anr-bmbf-pivot/draft-dns-over-coap/issues/6#issuecomment-895880206))
-
-      ~~~ drawing
-      DoC client           DoC proxy           DNS server
-           |  CoAP req [rt 1]  |                    |
-           |------------------>|  DNS query [rt 1]  |
-           |                   |------------------->|
-           |  CoAP req [rt 2]  |                    |
-           |------------------>|      DNS resp      |
-           |     CoAP resp     |<-------------------|
-           |<------------------|                    |
-           |                   |                    |
-      ~~~
-      {: #rt-problem title="CoAP retransmission (rt) is received before DNS query could have been
-      fulfilled."}
-
 Observing the DNS Resource
 --------------------------
 There are use cases where updating a DNS record might be necessary on the fly.
