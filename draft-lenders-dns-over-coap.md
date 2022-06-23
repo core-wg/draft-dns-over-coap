@@ -136,6 +136,7 @@ This document defines the Internet media type "application/dns-message" for
 the CoAP Content-Format. This media type is defined as in {{?RFC8484}}
 Section 6, i.e., a single DNS message encoded in the DNS on-the-wire format
 {{!RFC1035}}.
+Both DoC client and DoC server MUST be able to parse contents in the "application/dns-message" format.
 
 DNS Queries in CoAP Requests
 ----------------------------
