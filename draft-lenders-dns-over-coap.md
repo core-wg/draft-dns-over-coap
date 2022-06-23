@@ -1,5 +1,5 @@
 ---
-title: "DNS Queries over CoAP (DoC)"
+title: "DNS over CoAP (DoC)"
 abbrev: DoC
 docname: draft-lenders-dns-over-coap-latest
 category: std
