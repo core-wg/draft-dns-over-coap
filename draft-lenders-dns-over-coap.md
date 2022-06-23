@@ -205,17 +205,16 @@ The DoC client might also decide to repeat a non-successful exchange with a diff
 
 It is RECOMMENDED to set the Max-Age option of a response to the minimum TTL in the Answer section of a DNS response. This prevents expired records unintentionally being served from a CoAP cache.
 
-It is RECOMMENDED that DoC servers set an ETag option on large responses (TBD: more concrete guidance) that have a short Max-Age relative to the expected clients' caching time.
+<!-- It is RECOMMENDED that DoC servers set an ETag option on large responses (TBD: more concrete guidance) that have a short Max-Age relative to the expected clients' caching time.
 Thus, clients that need to revalidate a response can do so using the established ETag mechanism.
-<!--
 With short responses, a usable ETag might be almost as long as the response.
 With long-lived responses, the client does not need to revalidate often.
--->
 With responses large enough to be fragmented,
 it's best practice for servers to set an ETag anyway.
 As specified in {{!RFC7252}} and {{!RFC8132}}, if the response associated with
 the ETag is still valid, the response uses the "2.03 Valid" code and consequently
 carries no payload.
+-->
 
 ### Examples
 
