@@ -148,18 +148,10 @@ To enable reliable message exchange, the CoAP request SHOULD be carried in a Con
 
 ### Request Format
 
-When sending a CoAP request, a DoC client MUST include the DNS query in the body (i.e. the payload, or the concatenated payloads) of the CoAP request.
+When sending a CoAP request, a DoC client MUST include the DNS query in the body of the CoAP request.
 As specified in {{!RFC8132}} Section 2.3.1, the type of content of the body MUST be indicated using the Content-Format option.
 This document specifies the usage of Content-Format "application/dns-message" (details see {{sec:content-format}}).
-
-If block-wise transfer {{!RFC7959}} is supported by the client, more than one CoAP request message MAY be used.
-If more than one CoAP request message is used to encode the DNS query, it
-must be chained together using the Block1 option in those CoAP requests.
-
-The FETCH request is sent to the URI specified in {{selection-of-a-doc-server}}.
-
-A DoC server MUST be able to parse requests of Content-Format
-"application/dns-message".
+A DoC server MUST be able to parse requests of Content-Format "application/dns-message".
 
 ### Support of CoAP Caching {#sec:req-caching}
 
@@ -184,17 +176,13 @@ DNS Responses in CoAP Responses
 -------------------------------
 
 Each DNS query-response pair is mapped to a CoAP REST request-response
-operation, which may consist of several CoAP request-response pairs if
-block-wise transfer is involved.  DNS responses are provided in the body (i.e. the
-payload, or the concatenated payloads) of the CoAP response. A DoC server MUST
-indicate the type of content of the body using the Content-Format option,
-and MUST be able to produce responses in the "application/dns-message"
+operation. DNS responses are provided in the body of the CoAP response.
+A DoC server MUST be able to produce responses in the "application/dns-message"
 Content-Format (details see {{sec:content-format}}) when requested.
 A DoC client MUST understand responses in "application/dns-message" format
 when it does not send an Accept option.
-
-If supported, a DoC server MAY transfer the DNS response in more than one
-CoAP responses using the Block2 option {{!RFC7959}}.
+Any other response format than "application/dns-message" MUST be indicated with
+the Content-Format option by the DoC server.
 
 ### Response Codes and Handling DNS and CoAP errors
 
@@ -203,8 +191,8 @@ the DNS header (see {{!RFC1035}} Section 4.1.1). It is RECOMMENDED that
 CoAP responses that carry any valid DNS response use a "2.05 Content"
 response code.
 
-CoAP responses use non-successful response codes MUST NOT contain any payload
-and may only be used on errors in the CoAP layer or when a request does not
+CoAP responses use non-successful response codes MUST NOT contain a DNS response
+and MUST only be used on errors in the CoAP layer or when a request does not
 fulfill the requirements of the DoC protocol.
 
 Communication errors with a DNS server (e.g., timeouts) SHOULD be indicated
