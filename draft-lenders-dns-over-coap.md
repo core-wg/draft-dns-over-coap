@@ -210,7 +210,8 @@ The DoC client MUST then add the Max-Age value of the carrying CoAP response to 
 
 The RECOMMENDED algorithm to assure the requirement for the DoC is to set the Max-Age option of a response to the minimum TTL of a DNS response and to subtract this value from all TTLs of that DNS response.
 This prevents expired records unintentionally being served from an intermediate CoAP cache.
-Additionally, it allows for the ETag value to not change if it is based on the content and the TTL values are updated by an upstream DNS cache.
+Additionally, it allows for the ETag value for cache validation, if it is based on the content of the response, not to change even if the TTL values are updated by an upstream DNS cache.
+If only one record set per DNS response is assumed, a simplification of this algorithm is to just set all TTLs in the response to 0 and set the TTLs at the DoC client to the value of the Max-Age option.
 
 
 <!--
