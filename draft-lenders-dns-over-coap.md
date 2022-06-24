@@ -144,7 +144,7 @@ DNS Queries in CoAP Requests
 A DoC client encodes a single DNS query in one or more CoAP request messages the CoAP FETCH {{!RFC8132}} method.
 Requests SHOULD include an Accept option to indicate the type of content that can be parsed in the response.
 
-To enable reliable message exchange, the CoAP request SHOULD be carried in a Confirmable (CON) message.
+The CoAP request SHOULD be carried in a Confirmable (CON) message, if the transport used does not provide reliable message exchange.
 
 ### Request Format
 
