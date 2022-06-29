@@ -1,6 +1,6 @@
-# DNS Queries over CoAPS (DoC)
+# DNS over CoAP (DoC)
 
-This is the working area for the individual Internet-Draft, "DNS Queries over CoAPS (DoC)".
+This is the working area for the individual Internet-Draft, "DNS over CoAP (DoC)".
 
 * [Editor's Copy](https://anr-bmbf-pivot.github.io/draft-dns-over-coap/#go.draft-lenders-dns-over-coap.html)
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap)
