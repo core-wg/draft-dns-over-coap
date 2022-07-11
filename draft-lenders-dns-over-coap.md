@@ -334,6 +334,25 @@ Reference: [TBD-this-spec] {{selection-of-a-doc-server}}
 Change Log
 ==========
 
+Since [draft-lenders-dns-over-coap-03](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap-03)
+--------------------------------------
+
+- Remove TBD on CoRE resource directory in {{introduction}}. Optional usage of CoRE-RD is already
+  discussed in {{selection-of-a-doc-server}}
+- Remove TBD on "request text duplication" in {{change-log}}. This issue will be handled in a
+  separate draft on a new CBOR-based content format
+- Add note on OSCORE in {{oscore}}
+- Add note on Observe in {{observing-the-dns-resource}}
+- Change title from "DNS queries over CoAP" to "DNS over CoAP"
+- Mention "application/dns-message" parsing requirement in {{sec:content-format}}
+- Remove obvious CoAP behavior restatements from {{basic-message-exchange}}
+- Remove ETag specifications in {{sec:resp-caching}}
+- Caching: specify Max-Age / TTL calculation including simplified version in {{sec:resp-caching}}
+- Remove subsection on "Proxies and caching". All relevant things on caching were discussed in
+  {{sec:req-caching}} and {{sec:resp-caching}}, considerations on proxy / DoC server behavior and
+  late responses are general CoAP problems.
+- Be more precise when Confirmable (CON) messages SHOULD be used in {{dns-queries-in-coap-requests}}
+
 Since [draft-lenders-dns-over-coap-02](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap-02)
 --------------------------------------
 
