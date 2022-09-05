@@ -129,8 +129,7 @@ Basic Message Exchange
 
 The "application/dns-message" Content-Format    {#sec:content-format}
 --------------------------------------------
-This document defines the Internet media type "application/dns-message" for
-the CoAP Content-Format. This media type is defined as in {{?RFC8484}}
+This document defines a CoAP Content-Format number for the Internet media type "application/dns-message". This media type is defined as in {{?RFC8484}}
 Section 6, i.e., a single DNS message encoded in the DNS on-the-wire format
 {{!RFC1035}}.
 Both DoC client and DoC server MUST be able to parse contents in the "application/dns-message" format.
@@ -138,7 +137,8 @@ Both DoC client and DoC server MUST be able to parse contents in the "applicatio
 DNS Queries in CoAP Requests
 ----------------------------
 
-A DoC client encodes a single DNS query in one or more CoAP request messages the CoAP FETCH {{!RFC8132}} method.
+A DoC client encodes a single DNS query in one or more CoAP request
+messages that use the CoAP FETCH {{!RFC8132}} method.
 Requests SHOULD include an Accept option to indicate the type of content that can be parsed in the response.
 
 The CoAP request SHOULD be carried in a Confirmable (CON) message, if the transport used does not provide reliable message exchange.
@@ -273,7 +273,7 @@ As such, the DNS resource MAY be observable as specified in {{!RFC7641}}.
 
 OSCORE
 ------
-It is RECOMMENDED to carry DNS messages end-to-end encrypted using OSCORE {{?RFC8611}}.
+It is RECOMMENDED to carry DNS messages end-to-end encrypted using OSCORE {{?RFC8613}}.
 The exchange of the security context is out of scope of this document.
 
 Considerations for Unencrypted Use
@@ -301,7 +301,7 @@ New "application/dns-message" Content-Format
 
 IANA is requested to assign CoAP Content-Format ID for the DNS message media
 type in the "CoAP Content-Formats" sub-registry, within the "CoRE Parameters"
-registry {{!RFC7252}}, corresponding the "application/dns-message" media
+registry {{!RFC7252}}, corresponding to the "application/dns-message" media
 type from the "Media Types" registry:
 
 Media-Type: application/dns-message
