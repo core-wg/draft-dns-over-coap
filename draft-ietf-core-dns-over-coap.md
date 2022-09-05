@@ -141,7 +141,12 @@ A DoC client encodes a single DNS query in one or more CoAP request
 messages that use the CoAP FETCH {{!RFC8132}} method.
 Requests SHOULD include an Accept option to indicate the type of content that can be parsed in the response.
 
-The CoAP request SHOULD be carried in a Confirmable (CON) message, if the transport used does not provide reliable message exchange.
+The CoAP request SHOULD be carried in a Confirmable (CON) message, if the transport used does not provide reliable message exchange.[^layer-violation]
+
+{: source=" -- cabo"}
+[^layer-violation]: I'm not sure we need this layer violation here; if
+    the client doesn't really need the response, why require it?
+    Also: What are the cases where the "SHoULD" can be ignored?
 
 ### Request Format
 
