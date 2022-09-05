@@ -292,6 +292,9 @@ Security Considerations
 
 TODO Security
 
+(Discuss implications of setting ID=0, specifically for the
+unprotected case.)
+
 
 IANA Considerations
 ===================
