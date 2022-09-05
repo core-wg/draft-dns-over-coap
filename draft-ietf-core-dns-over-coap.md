@@ -1,18 +1,15 @@
 ---
+v: 3
+
 title: "DNS over CoAP (DoC)"
 abbrev: DoC
 docname: draft-ietf-core-dns-over-coap-latest
 category: std
 submissiontype: IETF
 
-ipr: trust200902
 area: Applications
 workgroup: CoRE
 keyword: Internet-Draft
-
-stand_alone: yes
-smart_quotes: no
-pi: [toc, sortrefs, symrefs]
 
 author:
  -  name: Martine Sophie Lenders
@@ -335,6 +332,6 @@ Change Log
 ==========
 
 # Acknowledgments
-{:numbered="false"}
+{:unnumbered}
 
 TODO acknowledge.
