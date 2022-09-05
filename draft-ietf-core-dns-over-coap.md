@@ -1,7 +1,7 @@
 ---
 title: "DNS over CoAP (DoC)"
 abbrev: DoC
-docname: draft-lenders-dns-over-coap-latest
+docname: draft-ietf-core-dns-over-coap-latest
 category: std
 submissiontype: IETF
 
@@ -333,60 +333,6 @@ Reference: [TBD-this-spec] {{selection-of-a-doc-server}}
 
 Change Log
 ==========
-
-Since [draft-lenders-dns-over-coap-03](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap-03)
---------------------------------------
-
-- Remove TBD on CoRE resource directory in {{introduction}}. Optional usage of CoRE-RD is already
-  discussed in {{selection-of-a-doc-server}}
-- Remove TBD on "request text duplication" in {{change-log}}. This issue will be handled in a
-  separate draft on a new CBOR-based content format
-- Add note on OSCORE in {{oscore}}
-- Add note on Observe in {{observing-the-dns-resource}}
-- Change title from "DNS queries over CoAP" to "DNS over CoAP"
-- Mention "application/dns-message" parsing requirement in {{sec:content-format}}
-- Remove obvious CoAP behavior restatements from {{basic-message-exchange}}
-- Remove ETag specifications in {{sec:resp-caching}}
-- Caching: specify Max-Age / TTL calculation including simplified version in {{sec:resp-caching}}
-- Remove subsection on "Proxies and caching". All relevant things on caching were discussed in
-  {{sec:req-caching}} and {{sec:resp-caching}}, considerations on proxy / DoC server behavior and
-  late responses are general CoAP problems.
-- Be more precise when Confirmable (CON) messages SHOULD be used in {{dns-queries-in-coap-requests}}
-
-Since [draft-lenders-dns-over-coap-02](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap-02)
---------------------------------------
-
-- Clarify server selection to be out-of-band and define "core.dns" resource type in
-  {{selection-of-a-doc-server}} and {{new-coredns-resource-type}}
-- Add message manipulation considerations for DoC servers in {{doc-server-considerations}}
-- Update Considerations for Unencrypted Use in {{considerations-for-unencrypted-use}}
-
-Since [draft-lenders-dns-over-coap-01](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap-01)
----------------------------------------
-
-- Remove GET and POST methods
-- Add note on ETag and response codes
-- Provide requirement conflict for DNS over QUIC
-- Clarify Content-Format / Accept handling
-
-Since [draft-lenders-dns-over-coap-00](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap-00)
----------------------------------------
-
-- Soften Content-Format requirements in {{request-format}} and {{dns-responses-in-coap-responses}}
-- Clarify "CoAP payload"/"CoAP body" terminology
-- Fix nits and typos
-
-Since [draft-lenders-dns-over-coaps-00](https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coaps-00)
----------------------------------------
-
-- Clarification in abstract that both DTLS and OSCORE can be used as secure transport
-- Restructuring of {{basic-message-exchange}}:
-    - Add dedicated {{sec:content-format}} on Content-Format
-    - Add overview table about usable and required features for request method
-      types to {{dns-queries-in-coap-requests}}
-    - Add dedicated {{sec:req-caching}} and {{sec:resp-caching}} on caching
-      requirements for CoAP requests and responses
-- Fix nits and typos
 
 # Acknowledgments
 {:numbered="false"}
