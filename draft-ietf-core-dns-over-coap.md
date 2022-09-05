@@ -72,9 +72,9 @@ To prevent resource requirements of DTLS or TLS on top of UDP (e.g.,
 introduced by DNS over QUIC {{?RFC9250}}), DoC allows
 for lightweight end-to-end payload encryption based on OSCORE.
 
-~~~ drawing
+~~~ aasvg
 
-                - FETCH coaps://[2001:db8::1]/
+                . FETCH coaps://[2001:db8::1]/
                /
               /
              CoAP request
