@@ -79,8 +79,8 @@ for lightweight end-to-end payload encryption based on OSCORE.
               /
              CoAP request
 +--------+   [DNS query]   +--------+   DNS query    +--------+
-|  DoC   |---------------->|  DoC   |...............>|  DNS   |
-| Client |<----------------| Server |<...............| Server |
+|  DoC   |---------------->|  DoC   |--- --- --- --->|  DNS   |
+| Client |<----------------| Server |<--- --- --- ---| Server |
 +--------+  CoAP response  +--------+  DNS response  +--------+
             [DNS response]
 
