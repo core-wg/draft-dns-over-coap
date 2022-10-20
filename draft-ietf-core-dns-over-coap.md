@@ -30,7 +30,6 @@ author:
     email: m.waehlisch@fu-berlin.de
 
 normative:
-  RFC1034: dns-concept
   RFC1035: dns
   RFC7228: constr-nodes
   RFC7252: coap
@@ -159,12 +158,8 @@ A DoC client encodes a single DNS query in one or more CoAP request
 messages that use the CoAP FETCH {{-coap-fetch}} method.
 Requests SHOULD include an Accept option to indicate the type of content that can be parsed in the response.
 
-The CoAP request SHOULD be carried in a Confirmable (CON) message, if the transport used does not provide reliable message exchange.[^layer-violation]
-
-{: source=" -- cabo"}
-[^layer-violation]: I'm not sure we need this layer violation here; if
-    the client doesn't really need the response, why require it?
-    Also: What are the cases where the "SHoULD" can be ignored?
+Since CoAP provides reliability of the message layer (e.g. CON) the retransmission mechanism of the
+DNS protocol as defined in {{-dns}} is not needed.
 
 ### Request Format
 
@@ -277,16 +272,6 @@ the server.
 CoAP/CoRE Integration
 =====================
 
-DoC Server Considerations
--------------------------
-In the case of CNAME records in a DNS response, a DoC server SHOULD follow common DNS resolver
-behavior {{-dns-concept}} by resolving a CNAME until the originally requested resource record type
-is reached. This reduces the number of message exchanges within an LLN.
-
-The DoC server SHOULD send compact answers, i.e., additional or authority sections in the DNS
-response should only be sent if needed or if it is anticipated that they help the DoC client to
-reduce additional queries.
-
 Observing the DNS Resource
 --------------------------
 There are use cases where updating a DNS record might be necessary on the fly.
@@ -349,7 +334,7 @@ Attribute Value: core.dns
 
 Description: DNS over CoAP resource.
 
-Reference: [TBD-this-spec] {{selection-of-a-doc-server}}
+Reference: \[TBD-this-spec\] {{selection-of-a-doc-server}}
 
 
 --- back
@@ -357,7 +342,25 @@ Reference: [TBD-this-spec] {{selection-of-a-doc-server}}
 Change Log
 ==========
 
+Since [draft-ietf-core-dns-over-coap-00]
+----------------------------------------
+
+- SVGify ASCII art
+- Move section on "DoC Server Considerations" (was Section 5.1) to its own draft
+  (\[TBD-draft-lenders-dns-cns\])
+- Replace layer violating statement for CON with statement of fact
+
+Since [draft-lenders-dns-over-coap-04]
+--------------------------------------
+
+- Removed change log of draft-lenders-dns-over-coap
+
 # Acknowledgments
 {:unnumbered}
 
 TODO acknowledge.
+
+[draft-lenders-dns-over-coap-04]: https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap-04
+[draft-ietf-core-dns-over-coap-00]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-00
+<!-- TBD -->
+<!-- [draft-lenders-dns-cns]: # -->
