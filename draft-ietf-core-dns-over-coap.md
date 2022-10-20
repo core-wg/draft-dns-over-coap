@@ -284,7 +284,7 @@ OSCORE
 It is RECOMMENDED to carry DNS messages end-to-end encrypted using OSCORE {{-oscore}}.
 The exchange of the security context is out of scope of this document.
 
-Considerations for Unencrypted Use
+Considerations for Unencrypted Use {#sec:unencrypted-coap}
 ==================================
 While not recommended,
 DoC can be used without any encryption
@@ -294,14 +294,24 @@ In both cases,
 potential benefits of
 unencrypted DoC usage over classic DNS are e.g. block-wise transfer or alternative CoAP
 Content-Formats to overcome link-layer constraints.
+For unencrypted DoC usage the ID field MUST not be set to a fixed value as suggested in
+{{sec:req-caching}}, but changed with every query.
 
 Security Considerations
 =======================
 
-TODO Security
+When using unencrypted CoAP (see {{sec:unencrypted-coap}}), setting the ID of a DNS message to 0 as
+specified in {{sec:req-caching}} opens the DNS cache of a DoC client to cache poisoning attacks via
+response spoofing
+Because of that, this documents requires the ID to be changed with every query when CoAP is not
+secured.
 
-(Discuss implications of setting ID=0, specifically for the
-unprotected case.)
+For encrypted usage with DTLS or OSCORE the impact of a fixed ID on security is limited, as both
+harden against injecting spoofed responses.
+Consequently, it is of little concern to leverage the benefits of CoAP caching by setting the ID to
+0.
+
+TODO more security
 
 
 IANA Considerations
@@ -349,6 +359,7 @@ Since [draft-ietf-core-dns-over-coap-00]
 - Move section on "DoC Server Considerations" (was Section 5.1) to its own draft
   (\[TBD-draft-lenders-dns-cns\])
 - Replace layer violating statement for CON with statement of fact
+- Add security considerations on ID=0
 
 Since [draft-lenders-dns-over-coap-04]
 --------------------------------------
