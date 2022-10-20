@@ -30,8 +30,26 @@ author:
     email: m.waehlisch@fu-berlin.de
 
 normative:
+  RFC1034: dns-concept
+  RFC1035: dns
+  RFC6347: dtls12
+  RFC7228: constr-nodes
+  RFC7252: coap
+  RFC7641: coap-observe
+  RFC7959: coap-blockwise
+  RFC8132: coap-fetch
+  RFC8613: oscore
 
 informative:
+  RFC3986: uri
+  RFC6690: core-link-format
+  RFC8490: dso
+  RFC8094: dodtls
+  RFC8484: doh
+  RFC9176: core-rd
+  RFC9250: doq
+  I-D.ietf-add-dnr: dnr
+  I-D.ietf-core-href: cri
 
 
 --- abstract
@@ -48,28 +66,28 @@ Introduction
 ============
 
 This document defines DNS over CoAP (DoC), a protocol to send DNS
-{{!RFC1035}} queries and get DNS responses over the Constrained Application
-Protocol (CoAP) {{!RFC7252}}. Each DNS query-response pair is mapped into a
-CoAP message exchange. Each CoAP message is secured by DTLS {{!RFC6347}} or
-Object Security for Constrained RESTful Environments (OSCORE) {{!RFC8613}}
+{{-dns}} queries and get DNS responses over the Constrained Application
+Protocol (CoAP) {{-coap}}. Each DNS query-response pair is mapped into a
+CoAP message exchange. Each CoAP message is secured by DTLS {{-dtls12}} or
+Object Security for Constrained RESTful Environments (OSCORE) {{-oscore}}
 to ensure message integrity and confidentiality.
 
-The application use case of DoC is inspired by DNS over HTTPS {{?RFC8484}}
+The application use case of DoC is inspired by DNS over HTTPS {{-doh}}
 (DoH). DoC, however, aims for the deployment in the constrained Internet of
 Things (IoT), which usually conflicts with the requirements introduced by
 HTTPS.
 
 To prevent TCP and HTTPS resource requirements, constrained IoT devices
-could use DNS over DTLS {{?RFC8094}}. In contrast to DNS over DTLS, DoC
+could use DNS over DTLS {{-dodtls}}. In contrast to DNS over DTLS, DoC
 utilizes CoAP features to mitigate drawbacks of datagram-based
 communication. These features include: block-wise transfer, which solves
-the Path MTU problem of DNS over DTLS (see {{?RFC8094}}, section 5); CoAP
+the Path MTU problem of DNS over DTLS (see {{-dodtls}}, section 5); CoAP
 proxies, which provide an additional level of caching; re-use of data
 structures for application traffic and DNS information, which saves memory
 on constrained devices.
 
 To prevent resource requirements of DTLS or TLS on top of UDP (e.g.,
-introduced by DNS over QUIC {{?RFC9250}}), DoC allows
+introduced by DNS over QUIC {{-doq}}), DoC allows
 for lightweight end-to-end payload encryption based on OSCORE.
 
 ~~~ aasvg
@@ -104,9 +122,9 @@ server" to differentiate it from a classic "DNS server". Correspondingly, a
 client using this protocol to retrieve the DNS information is called a "DoC
 client".
 
-The term "constrained nodes" is used as defined in {{?RFC7228}}.
+The term "constrained nodes" is used as defined in {{-constr-nodes}}.
 
-The terms "CoAP payload" and "CoAP body" are used as defined in {{!RFC7959}}.
+The terms "CoAP payload" and "CoAP body" are used as defined in {{-coap-blockwise}}, Section 2.
 
 {::boilerplate bcp14-tagged}
 
@@ -115,30 +133,30 @@ Selection of a DoC Server
 
 In this document, it is assumed that the DoC client knows the DoC server and the DNS resource at the
 DoC server.
-Possible options could be manual configuration of a URI {{?RFC3986}} or CRI {{?I-D.ietf-core-href}},
+Possible options could be manual configuration of a URI {{-uri}} or CRI {{-cri}},
 or automatic configuration, e.g., using a CoRE resource directory
-{{?RFC9176}}, DHCP or Router Advertisement options {{?I-D.ietf-add-dnr}}.
+{{-core-rd}}, DHCP or Router Advertisement options {{-dnr}}.
 Automatic configuration SHOULD only be done from a trusted source.
 
 When discovering the DNS resource through a link mechanism that allows describing a resource type
-(e.g., the Resource Type Attribute in {{?RFC6690}}), the resource type "core.dns" can be used to
-identify a generic DNS resolver that is available to the client.
+(e.g., the Resource Type Attribute in {{-core-link-format}}), the resource type "core.dns" can be
+used to identify a generic DNS resolver that is available to the client.
 
 Basic Message Exchange
 ======================
 
 The "application/dns-message" Content-Format    {#sec:content-format}
 --------------------------------------------
-This document defines a CoAP Content-Format number for the Internet media type "application/dns-message". This media type is defined as in {{?RFC8484}}
+This document defines a CoAP Content-Format number for the Internet media type "application/dns-message". This media type is defined as in {{-doh}}
 Section 6, i.e., a single DNS message encoded in the DNS on-the-wire format
-{{!RFC1035}}.
+{{-dns}}.
 Both DoC client and DoC server MUST be able to parse contents in the "application/dns-message" format.
 
 DNS Queries in CoAP Requests
 ----------------------------
 
 A DoC client encodes a single DNS query in one or more CoAP request
-messages that use the CoAP FETCH {{!RFC8132}} method.
+messages that use the CoAP FETCH {{-coap-fetch}} method.
 Requests SHOULD include an Accept option to indicate the type of content that can be parsed in the response.
 
 The CoAP request SHOULD be carried in a Confirmable (CON) message, if the transport used does not provide reliable message exchange.[^layer-violation]
@@ -151,14 +169,14 @@ The CoAP request SHOULD be carried in a Confirmable (CON) message, if the transp
 ### Request Format
 
 When sending a CoAP request, a DoC client MUST include the DNS query in the body of the CoAP request.
-As specified in {{!RFC8132}} Section 2.3.1, the type of content of the body MUST be indicated using the Content-Format option.
+As specified in {{-coap-fetch}} Section 2.3.1, the type of content of the body MUST be indicated using the Content-Format option.
 This document specifies the usage of Content-Format "application/dns-message" (details see {{sec:content-format}}).
 A DoC server MUST be able to parse requests of Content-Format "application/dns-message".
 
 ### Support of CoAP Caching {#sec:req-caching}
 
 The DoC client SHOULD set the ID field of the DNS header always to 0 to enable a CoAP cache (e.g., a CoAP proxy en-route) to respond to the same DNS queries with a cache entry.
-This ensures that the CoAP Cache-Key (see {{!RFC8132}} Section 2) does not change when multiple DNS queries for the same DNS data, carried in CoAP requests, are issued.
+This ensures that the CoAP Cache-Key (see {{-coap-fetch}} Section 2) does not change when multiple DNS queries for the same DNS data, carried in CoAP requests, are issued.
 
 ### Examples
 
@@ -189,7 +207,7 @@ the Content-Format option by the DoC server.
 ### Response Codes and Handling DNS and CoAP errors
 
 A DNS response indicates either success or failure in the Response code of
-the DNS header (see {{!RFC1035}} Section 4.1.1). It is RECOMMENDED that
+the DNS header (see {{-dns}} Section 4.1.1). It is RECOMMENDED that
 CoAP responses that carry any valid DNS response use a "2.05 Content"
 response code.
 
@@ -207,7 +225,7 @@ The DoC client might also decide to repeat a non-successful exchange with a diff
 
 The DoC server MUST ensure that any sum of the Max-Age value of a CoAP response and any TTL in the
 DNS response is less or equal to the corresponding TTL received from an upstream DNS server.
-This also includes the default Max-Age value of 60 seconds (see {{!RFC7252}}, section 5.10.5) when no Max-Age option is provided.
+This also includes the default Max-Age value of 60 seconds (see {{-coap}}, section 5.10.5) when no Max-Age option is provided.
 The DoC client MUST then add the Max-Age value of the carrying CoAP response to all TTLs in a DNS response on reception and use these calculated TTLs for the associated records.
 
 The RECOMMENDED algorithm to assure the requirement for the DoC is to set the Max-Age option of a response to the minimum TTL of a DNS response and to subtract this value from all TTLs of that DNS response.
@@ -221,7 +239,7 @@ With short responses, a usable ETag might be almost as long as the response.
 With long-lived responses, the client does not need to revalidate often.
 With responses large enough to be fragmented,
 it's best practice for servers to set an ETag anyway.
-As specified in {{!RFC7252}} and {{!RFC8132}}, if the response associated with
+As specified in {{-coap}} and {{-coap-fetch}}, if the response associated with
 the ETag is still valid, the response uses the "2.03 Valid" code and consequently
 carries no payload.
 -->
@@ -262,8 +280,8 @@ CoAP/CoRE Integration
 DoC Server Considerations
 -------------------------
 In the case of CNAME records in a DNS response, a DoC server SHOULD follow common DNS resolver
-behavior {{?RFC1034}} by resolving a CNAME until the originally requested resource record type is
-reached. This reduces the number of message exchanges within an LLN.
+behavior {{-dns-concept}} by resolving a CNAME until the originally requested resource record type
+is reached. This reduces the number of message exchanges within an LLN.
 
 The DoC server SHOULD send compact answers, i.e., additional or authority sections in the DNS
 response should only be sent if needed or if it is anticipated that they help the DoC client to
@@ -272,13 +290,13 @@ reduce additional queries.
 Observing the DNS Resource
 --------------------------
 There are use cases where updating a DNS record might be necessary on the fly.
-Examples of this include e.g. {{?RFC8490}}, Section 4.1.2, but just saving messages by omitting the
+Examples of this include e.g. {{-dso}}, Section 4.1.2, but just saving messages by omitting the
 query for a subscribed name might also be valid.
-As such, the DNS resource MAY be observable as specified in {{!RFC7641}}.
+As such, the DNS resource MAY be observable as specified in {{-coap-observe}}.
 
 OSCORE
 ------
-It is RECOMMENDED to carry DNS messages end-to-end encrypted using OSCORE {{?RFC8613}}.
+It is RECOMMENDED to carry DNS messages end-to-end encrypted using OSCORE {{-oscore}}.
 The exchange of the security context is out of scope of this document.
 
 Considerations for Unencrypted Use
@@ -309,7 +327,7 @@ New "application/dns-message" Content-Format
 
 IANA is requested to assign CoAP Content-Format ID for the DNS message media
 type in the "CoAP Content-Formats" sub-registry, within the "CoRE Parameters"
-registry {{!RFC7252}}, corresponding to the "application/dns-message" media
+registry {{-coap}}, corresponding to the "application/dns-message" media
 type from the "Media Types" registry:
 
 Media-Type: application/dns-message
@@ -325,7 +343,7 @@ New "core.dns" Resource Type
 
 IANA is requested to assign a new Resource Type (rt=) Link Target Attribute, "core.dns" in the
 "Resource Type (rt=) Link Target Attribute Values" sub-registry, within the "CoRE Parameters"
-register {{?RFC6690}}.
+register {{-core-link-format}}.
 
 Attribute Value: core.dns
 
