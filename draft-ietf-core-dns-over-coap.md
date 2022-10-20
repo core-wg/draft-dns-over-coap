@@ -32,13 +32,13 @@ author:
 normative:
   RFC1034: dns-concept
   RFC1035: dns
-  RFC6347: dtls12
   RFC7228: constr-nodes
   RFC7252: coap
   RFC7641: coap-observe
   RFC7959: coap-blockwise
   RFC8132: coap-fetch
   RFC8613: oscore
+  RFC9147: dtls13
 
 informative:
   RFC3986: uri
@@ -68,7 +68,7 @@ Introduction
 This document defines DNS over CoAP (DoC), a protocol to send DNS
 {{-dns}} queries and get DNS responses over the Constrained Application
 Protocol (CoAP) {{-coap}}. Each DNS query-response pair is mapped into a
-CoAP message exchange. Each CoAP message is secured by DTLS {{-dtls12}} or
+CoAP message exchange. Each CoAP message is secured by DTLS {{-dtls13}} or
 Object Security for Constrained RESTful Environments (OSCORE) {{-oscore}}
 to ensure message integrity and confidentiality.
 
