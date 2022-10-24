@@ -15,6 +15,11 @@ author:
  -  name: Martine Sophie Lenders
     org: Freie Universität Berlin
     abbrev: FU Berlin
+    street: Takustrasse 9
+    city: Berlin
+    code: D-14195
+    country: Germany
+    email: t.schmidt@haw-hamburg.de
     email: m.lenders@fu-berlin.de
  -  name: Christian Amsüss
     email: christian@amsuess.com
@@ -23,13 +28,24 @@ author:
     street: Riesstrasse 25
     city: Munich
     code: D-80992
+    country: Germany
+    email: t.schmidt@haw-hamburg.de
     email: cenk.gundogan@huawei.com
  -  name: Thomas C. Schmidt
     org: HAW Hamburg
+    street: Berliner Tor 7
+    city: Hamburg
+    code: D-20099
+    country: Germany
     email: t.schmidt@haw-hamburg.de
  -  name: Matthias Wählisch
     org: Freie Universität Berlin
     abbrev: FU Berlin
+    street: Takustrasse 9
+    city: Berlin
+    code: D-14195
+    country: Germany
+    email: t.schmidt@haw-hamburg.de
     email: m.waehlisch@fu-berlin.de
 
 normative:
