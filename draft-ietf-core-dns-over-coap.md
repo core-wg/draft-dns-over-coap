@@ -19,8 +19,11 @@ author:
  -  name: Christian Amsüss
     email: christian@amsuess.com
  -  name: Cenk Gündoğan
-    org: HAW Hamburg
-    email: cenk.guendogan@haw-hamburg.de
+    org: Huawei Technologies
+    street: Riesstrasse 25
+    city: Munich
+    code: D-80992
+    email: cenk.gundogan@huawei.com
  -  name: Thomas C. Schmidt
     org: HAW Hamburg
     email: t.schmidt@haw-hamburg.de
