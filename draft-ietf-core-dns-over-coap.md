@@ -321,9 +321,9 @@ Security Considerations
 
 When using unencrypted CoAP (see {{sec:unencrypted-coap}}), setting the ID of a DNS message to 0 as
 specified in {{sec:req-caching}} opens the DNS cache of a DoC client to cache poisoning attacks via
-response spoofing
+response spoofing.
 Because of that, this documents requires the ID to be changed with every query when CoAP is not
-secured.
+secured (see {{sec:unencrypted-coap}}).
 
 For encrypted usage with DTLS or OSCORE the impact of a fixed ID on security is limited, as both
 harden against injecting spoofed responses.
