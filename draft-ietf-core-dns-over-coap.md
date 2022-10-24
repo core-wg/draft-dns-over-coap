@@ -376,7 +376,7 @@ Since [draft-ietf-core-dns-over-coap-00]
 
 - SVGify ASCII art
 - Move section on "DoC Server Considerations" (was Section 5.1) to its own draft
-  (\[TBD-draft-lenders-dns-cns\])
+  ([draft-lenders-dns-cns])
 - Replace layer violating statement for CON with statement of fact
 - Add security considerations on ID=0
 
@@ -390,7 +390,6 @@ Since [draft-lenders-dns-over-coap-04]
 
 TODO acknowledge.
 
-[draft-lenders-dns-over-coap-04]: https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap-04
 [draft-ietf-core-dns-over-coap-00]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-00
-<!-- TBD -->
-<!-- [draft-lenders-dns-cns]: # -->
+[draft-lenders-dns-cns]: https://datatracker.ietf.org/doc/draft-lenders-dns-cns/
+[draft-lenders-dns-over-coap-04]: https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap-04
