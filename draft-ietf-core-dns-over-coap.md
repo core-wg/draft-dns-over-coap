@@ -133,9 +133,10 @@ Terminology
 ===========
 
 A server that provides the service specified in this document is called a "DoC
-server" to differentiate it from a classic "DNS server". Correspondingly, a
-client using this protocol to retrieve the DNS information is called a "DoC
-client".
+server" to differentiate it from a classic "DNS server".
+In DNS terms, this DoC server acts purely as a stub resolver.
+Corresponding to the server, a client using the service specified in this document to retrieve the
+DNS information is called a "DoC client".
 
 The term "constrained nodes" is used as defined in {{-constr-nodes}}.
 
