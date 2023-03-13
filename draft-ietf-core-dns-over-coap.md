@@ -298,7 +298,8 @@ CoAP/CoRE Integration
 DNS Push
 --------
 DNS Push requires additional overhead, which conflicts with constrained resources,
-This is the reason why it is RECOMMENDED to use CoAP Observe {{-coap-observe}} instead of DNS Push in DoC domain.
+This is the reason why it is RECOMMENDED to use CoAP Observe {{-coap-observe}} instead of DNS Push
+in the DoC domain.
 
 If the CoAP request indicates that the DoC client wants to observe a resource record, a DoC server
 MAY use a DNS Subscribe message {{-dns-push}} instead of a classic DNS query to fetch the
