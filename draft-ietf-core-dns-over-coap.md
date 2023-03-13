@@ -380,6 +380,13 @@ a [DoC server implementation in Python][aiodnsprox].
 Change Log
 ==========
 
+Since [draft-ietf-core-dns-over-coap-01]
+----------------------------------------
+
+- Specify DoC server role in terms of DNS terminology
+- Clarify transport agnosticity of upstream to DNS infrastructure
+- Add appendix on reference implementation
+
 Since [draft-ietf-core-dns-over-coap-00]
 ----------------------------------------
 
@@ -399,6 +406,7 @@ Since [draft-lenders-dns-over-coap-04]
 
 TODO acknowledge.
 
+[draft-ietf-core-dns-over-coap-01]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-01
 [draft-ietf-core-dns-over-coap-00]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-00
 [draft-lenders-dns-cns]: https://datatracker.ietf.org/doc/draft-lenders-dns-cns/
 [draft-lenders-dns-over-coap-04]: https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap-04
