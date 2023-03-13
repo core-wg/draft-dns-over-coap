@@ -370,6 +370,13 @@ Reference: \[TBD-this-spec\] {{selection-of-a-doc-server}}
 
 --- back
 
+Reference Implementations
+=========================
+
+The authors of this document provide two reference implemetations,
+a [DoC client implementation available in the IoT operating system RIOT][gcoap_dns] and
+a [DoC server implementation in Python][aiodnsprox].
+
 Change Log
 ==========
 
@@ -395,3 +402,5 @@ TODO acknowledge.
 [draft-ietf-core-dns-over-coap-00]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-00
 [draft-lenders-dns-cns]: https://datatracker.ietf.org/doc/draft-lenders-dns-cns/
 [draft-lenders-dns-over-coap-04]: https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-coap-04
+[gcoap_dns]: https://doc.riot-os.org/group__net__gcoap__dns.html
+[aiodnsprox]: https://github.com/anr-bmbf-pivot/aiodnsprox
