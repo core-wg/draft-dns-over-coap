@@ -63,6 +63,7 @@ informative:
   RFC8484: doh
   RFC9176: core-rd
   RFC9250: doq
+  RFC8499: dns-terminology
   I-D.ietf-add-dnr: dnr
   I-D.ietf-core-href: cri
 
@@ -126,8 +127,8 @@ for lightweight end-to-end payload encryption based on OSCORE.
 The most important components of DoC can be seen in {{fig-overview-arch}}: A DoC
 client tries to resolve DNS information by sending DNS queries carried within
 CoAP requests to a DoC server.
-That DoC server is a DNS resolver that resolves DNS information by using other DNS transports such
-as classic DNS {{-dns}}, DNS over HTTPS {{-doh}}, DNS over QUIC {{-doq}}, etc., with the upstream
+That DoC server is a DNS client (i.e., a stub or recursive resolver) that resolves DNS information by using other DNS transports such
+as DNS over UDP {{-dns}}, DNS over HTTPS {{-doh}}, or DNS over QUIC {{-doq}} when communicating with the upstream
 DNS infrastructure.
 Using that information, the DoC server then replies to the queries of the DoC client with DNS
 responses carried within CoAP responses.
@@ -138,13 +139,10 @@ Terminology
 
 A server that provides the service specified in this document is called a "DoC
 server" to differentiate it from a classic "DNS server".
-Corresponding to the server, a client using the service specified in this document to retrieve the
-DNS information is called a "DoC client".
+A DoC server acts either as a DNS stub resolver {{-dns-terminology}} or a DNS recursive resolver {{-dns-terminology}}.
 
-In DNS terms, a DoC server acts either as a stub resolver, when it handles queries from only pure
-DoC clients, or a recursive resolver when its clients also act as DoC servers to DoC clients further
-down the line. Note, that this not necessarily includes all CoAP proxies, which may be agnostic to
-DoC and only see the CoAP part of the DoC message.
+A client using the service specified in this document to retrieve the
+DNS information is called a "DoC client".
 
 The term "constrained nodes" is used as defined in {{-constr-nodes}}.
 
