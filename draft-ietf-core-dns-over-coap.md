@@ -404,7 +404,8 @@ Since [draft-lenders-dns-over-coap-04]
 # Acknowledgments
 {:unnumbered}
 
-TODO acknowledge.
+The authors of this document want to thank Ben Schwartz and Tim Wicinski for their feedback and
+comments.
 
 [draft-ietf-core-dns-over-coap-01]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-01
 [draft-ietf-core-dns-over-coap-00]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-00
