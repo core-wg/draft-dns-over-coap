@@ -107,15 +107,17 @@ for lightweight end-to-end payload encryption based on OSCORE.
 
 ~~~ aasvg
 
-                . FETCH coaps://[2001:db8::1]/
-               /
-              /
-             CoAP request
-+--------+   [DNS query]   +--------+   DNS query    +--------+
-|  DoC   |---------------->|  DoC   |--- --- --- --->|  DNS   |
-| Client |<----------------| Server |<--- --- --- ---| Server |
-+--------+  CoAP response  +--------+  DNS response  +--------+
-            [DNS response]
+              . FETCH coaps://[2001:db8::1]/
+             /
+            /
+           CoAP request
++------+   [DNS query]   +------+   DNS query     .---------------.
+| DoC  |---------------->| DoC  |--- --- --- --->|      DNS        |
+|Client|<----------------|Server|<--- --- --- ---| Infrastructure  |
++------+  CoAP response  +------+  DNS response   '---------------'
+          [DNS response]
+
+|<========DNS over CoAP========>|<==DNS over UDP/HTTPS/QUIC/...==>|
 
 ~~~
 {: #fig-overview-arch title="Basic DoC architecture"}
@@ -123,10 +125,12 @@ for lightweight end-to-end payload encryption based on OSCORE.
 
 The most important components of DoC can be seen in {{fig-overview-arch}}: A DoC
 client tries to resolve DNS information by sending DNS queries carried within
-CoAP requests to a DoC server. That DoC server may or may not resolve that DNS
-information itself by using other DNS transports with an upstream DNS server.
-The DoC server then replies to the DNS queries with DNS responses carried within
-CoAP responses.
+CoAP requests to a DoC server.
+That DoC server is a stub resolver that resolves DNS information by using other DNS transports such
+as classic DNS {{-dns}}, DNS over HTTPS {{-doh}}, DNS over QUIC {{-doq}}, etc., with the upstream
+DNS infrastructure.
+Using that information, the DoC server then replies to the queries of the DoC client with DNS
+responses carried within CoAP responses.
 
 
 Terminology
