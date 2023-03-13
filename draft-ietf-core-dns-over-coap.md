@@ -58,7 +58,7 @@ normative:
 informative:
   RFC3986: uri
   RFC6690: core-link-format
-  RFC8490: dso
+  RFC8765: dns-push
   RFC8094: dodtls
   RFC8484: doh
   RFC9176: core-rd
@@ -296,9 +296,26 @@ CoAP/CoRE Integration
 Observing the DNS Resource
 --------------------------
 There are use cases where updating a DNS record might be necessary on the fly.
-Examples of this include e.g. {{-dso}}, Section 4.1.2, but just saving messages by omitting the
-query for a subscribed name might also be valid.
 As such, the DNS resource MAY be observable as specified in {{-coap-observe}}.
+
+### DoC and DNS Push
+
+DNS Push {{-dns-push}} is an example for when DoC might need observable resource records.
+Due to the additional overhead required by DNS Push, it is RECOMMENDED to use the classic
+query-response-paradigm but with CoAP Observe in DoC domain instead:
+
+If the CoAP request indicates, that the DoC client wants to observe a resource record, a DoC server
+MAY elect to use a DNS Subscribe message {{-dns-push}} instead of a classic DNS query to fetch the
+information for the query from a DoC client.
+If this is not supported by the DoC server, it MUST act as if the resource were not observable.
+
+Whenever the DoC server receives a DNS Push message {{-dns-push}} from the upstream DNS
+infrastructure for an observed resource record, the DoC server sends an appropriate Observe response
+to the DoC client.
+
+If no more DoC clients observe a resource record for which the DoC server has an open subscription,
+the DoC server MUST use a DNS Unsubscribe message {{-dns-push}} to close its subscription to the
+resource record as well.
 
 OSCORE
 ------
@@ -385,6 +402,7 @@ Since [draft-ietf-core-dns-over-coap-01]
 
 - Specify DoC server role in terms of DNS terminology
 - Clarify transport agnosticity of upstream to DNS infrastructure
+- Add subsection on DoC and DNS Push
 - Add appendix on reference implementation
 
 Since [draft-ietf-core-dns-over-coap-00]
