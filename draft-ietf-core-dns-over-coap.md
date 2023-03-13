@@ -398,8 +398,8 @@ Since [draft-ietf-core-dns-over-coap-01]
 ----------------------------------------
 
 - Specify DoC server role in terms of DNS terminology
-- Clarify that upstream to DNS infrastructure is agnostic of the DNS transport
-- Add subsection on DoC and DNS Push
+- Clarify communication of DoC to DNS infrastructure is agnostic of the transport
+- Add subsection on how to implement DNS Push in DoC
 - Add appendix on reference implementation
 
 Since [draft-ietf-core-dns-over-coap-00]
