@@ -117,8 +117,8 @@ for lightweight end-to-end payload encryption based on OSCORE.
 |Client|<----------------|Server|<--- --- --- ---| Infrastructure  |
 +------+  CoAP response  +------+  DNS response   '---------------'
           [DNS response]
-
-   |------DNS over CoAP------|---DNS over UDP/HTTPS/QUIC/...---|
+   \                        /\                                 /
+    '-----DNS over CoAP----'  '--DNS over UDP/HTTPS/QUIC/...--'
 
 ~~~
 {: #fig-overview-arch title="Basic DoC architecture"}
