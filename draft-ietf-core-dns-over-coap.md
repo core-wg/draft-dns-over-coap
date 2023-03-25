@@ -64,6 +64,7 @@ informative:
   RFC9176: core-rd
   RFC9250: doq
   RFC8499: dns-terminology
+  RFC7942: impl-status-section
   I-D.ietf-add-dnr: dnr
   I-D.ietf-core-href: cri
 
@@ -332,6 +333,68 @@ Content-Formats to overcome link-layer constraints.
 For unencrypted DoC usage the ID field MUST not be set to a fixed value as suggested in
 {{sec:req-caching}}, but changed with every query.
 
+Implementation Status
+=====================
+
+This section records the status of known implementations of the protocol
+defined by this specification at the time of posting of this
+Internet-Draft, and is based on a proposal described in
+{{-impl-status-section}}.  The description of implementations in this
+section is intended to assist the IETF in its decision processes in
+progressing drafts to RFCs.  Please note that the listing of any individual
+implementation here does not imply endorsement by the IETF.  Furthermore,
+no effort has been spent to verify the information presented here that was
+supplied by IETF contributors.  This is not intended as, and must not be
+construed to be, a catalog of available implementations or their features.
+Readers are advised to note that other implementations may exist.
+
+According to {{-impl-status-section}}, "this will allow reviewers and
+working groups to assign due consideration to documents that have the
+benefit of running code, which may serve as evidence of valuable
+experimentation and feedback that have made the implemented protocols more
+mature.  It is up to the individual working groups to use this information
+as they see fit".
+
+DoC Client
+----------
+The authors of this document provide a [DoC client implementation available
+in the IoT operating system RIOT][gcoap_dns].
+
+Level of maturity:
+: production
+
+Version compability:
+: draft-ietf-core-dns-over-coap-02
+
+License:
+: LGPL-2.1
+
+Contact information:
+: `Martine Lenders <m.lenders@fu-berlin.de>`
+
+Last update of this information:
+: March 2023
+
+Doc Server
+----------
+The authors of this document provide a [DoC server implementation in
+Python][aiodnsprox].
+
+Level of maturity:
+: production
+
+Version compability:
+: draft-ietf-core-dns-over-coap-02
+
+License:
+: MIT
+
+Contact information:
+: `Martine Lenders <m.lenders@fu-berlin.de>`
+
+Last update of this information:
+: March 2023
+
 Security Considerations
 =======================
 
@@ -383,13 +446,6 @@ Reference: \[TBD-this-spec\] {{selection-of-a-doc-server}}
 
 
 --- back
-
-Reference Implementations
-=========================
-
-The authors of this document provide two reference implementations,
-a [DoC client implementation available in the IoT operating system RIOT][gcoap_dns] and
-a [DoC server implementation in Python][aiodnsprox].
 
 Change Log
 ==========
