@@ -333,6 +333,31 @@ Content-Formats to overcome link-layer constraints.
 For unencrypted DoC usage the ID field MUST not be set to a fixed value as suggested in
 {{sec:req-caching}}, but changed with every query.
 
+TBD: Address DNSOP Discussion
+=============================
+
+Put at appropriate places for `-03`:
+
+- Why isn’t DoH via CoAP gateway sufficient? The draft should explain.
+    - Apart from FETCH and cache handling DoC is basically DoH: The question should rather be: How
+      to translate DoC to DoH at CoAP proxy.
+- Explain why TTL rewriting proposed is notably different from DoH.
+    - Reference paper
+    - HTTP proxys are not of the same importance as in CoAP
+- Does DoC live at a URI path? If so, consider defining a default path, if this is a
+common practice in CoAP.
+    - It is not, we have RD
+    - Root path is best option, because no path option needed (should only be RECOMMENDED)
+    - Note that the root URI _is_ a path (if that is the question)
+    - May be inconvinient but so it would be the other way around (ACE)
+- Recommendation to add a section describing how to bootstrap DoC in a
+  SVCB-DNS record. May require to allocate a new ALPN ID for CoAP/DTLS.
+    - `coap` Exists already in TLS Application-Layer Protocol Negotiation (ALPN) Protocol IDs
+      registry
+    - Never mandated for DTLS, but we can overrule
+    - SVCB: Will do, but also considering OSCORE/EDHOC
+        - Talk with LAKE WG about EDHOC, should not be part of this draft
+
 Implementation Status
 =====================
 
