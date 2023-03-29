@@ -409,7 +409,7 @@ Contact information:
 Last update of this information:
 : March 2023
 
-Doc Server
+DoC Server
 ----------
 The authors of this document provide a [DoC server implementation in
 Python][aiodnsprox].
