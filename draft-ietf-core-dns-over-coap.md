@@ -134,6 +134,14 @@ DNS infrastructure.
 Using that information, the DoC server then replies to the queries of the DoC client with DNS
 responses carried within CoAP responses.
 
+Note that this is an orthogonal specification to DoH, as it the CoRE-specific FETCH method is used.
+This was done to take benefit from having the DNS query in the payload as with POST, but still
+having the caching advantages we would gain with GET.
+Having the DNS query in the payload means we do not need extra base64 encoding, which would increase
+code complexity and message sizes and are able to transfer a query block-wise.
+{{sec:coap-http-proxy}} provides guidance on how to translate between DoC and DoH at a CoAP-HTTP
+proxy.
+
 
 Terminology
 ===========
@@ -252,6 +260,10 @@ The DoC client might also decide to repeat a non-successful exchange with a diff
 
 ### Support of CoAP Caching {#sec:resp-caching}
 
+For reliability and energy saving measures content decoupling and thus en-route caching on proxies takes a far greater role than it does, e.g., in HTTP.
+Likewise, CoAP utilizes cache validation to refresh stale cache entries without large messages which often uses hashing over the message content for ETag generation.
+As such, the approach to guarantee the same cache key for DNS responses as proposed in DoH ({{-doh}}, section 5.1) is not sufficient and needs to be updated so that the TTLs in the response are more often the same regardless of query time.
+
 The DoC server MUST ensure that any sum of the Max-Age value of a CoAP response and any TTL in the
 DNS response is less or equal to the corresponding TTL received from an upstream DNS server.
 This also includes the default Max-Age value of 60 seconds (see {{-coap}}, section 5.10.5) when no Max-Age option is provided.
@@ -330,11 +342,22 @@ OSCORE
 It is RECOMMENDED to carry DNS messages end-to-end encrypted using OSCORE {{-oscore}}.
 The exchange of the security context is out of scope of this document.
 
+Using a CoAP-HTTP proxy to translate to DoH {#sec:coap-http-proxy}
+-------------------------------------------
+
+TBD:
+
+- FETCH needs to be translated to GET/POST
+    - Can we just take one or the other?
+    - Is there a preference in DoH?
+    - Should it be dependent on use case?
+- TTLs need to be readapted in response
+
 Considerations for Unencrypted Use {#sec:unencrypted-coap}
 ==================================
 While not recommended,
 DoC can be used without any encryption
-(e.g., in very constrained environments where encryption is not possible or necessary).
+e.g., in very constrained environments where encryption is not possible or necessary.
 It can also be used when lower layers provide secure communication between client and server.
 In both cases,
 potential benefits of
@@ -343,17 +366,6 @@ Content-Formats to overcome link-layer constraints.
 For unencrypted DoC usage the ID field MUST not be set to a fixed value as suggested in
 {{sec:req-caching}}, but changed with every query.
 
-TBD: Address DNSOP Discussion
-=============================
-
-Put at appropriate places for `-03`:
-
-- Why isn’t DoH via CoAP gateway sufficient? The draft should explain.
-    - Apart from FETCH and cache handling DoC is basically DoH: The question should rather be: How
-      to translate DoC to DoH at CoAP proxy.
-- Explain why TTL rewriting proposed is notably different from DoH.
-    - Reference paper
-    - HTTP proxys are not of the same importance as in CoAP
 
 Implementation Status
 =====================
