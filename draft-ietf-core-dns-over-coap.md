@@ -165,6 +165,9 @@ When discovering the DNS resource through a link mechanism that allows describin
 (e.g., the Resource Type Attribute in {{-core-link-format}}), the resource type "core.dns" can be
 used to identify a generic DNS resolver that is available to the client.
 
+While there is no path specified it is RECOMMENDED to use the root path "/" for the DNS resource to
+keep the CoAP header small.
+
 Basic Message Exchange
 ======================
 
@@ -344,12 +347,6 @@ Put at appropriate places for `-03`:
 - Explain why TTL rewriting proposed is notably different from DoH.
     - Reference paper
     - HTTP proxys are not of the same importance as in CoAP
-- Does DoC live at a URI path? If so, consider defining a default path, if this is a
-common practice in CoAP.
-    - It is not, we have RD
-    - Root path is best option, because no path option needed (should only be RECOMMENDED)
-    - Note that the root URI _is_ a path (if that is the question)
-    - May be inconvinient but so it would be the other way around (ACE)
 - Recommendation to add a section describing how to bootstrap DoC in a
   SVCB-DNS record. May require to allocate a new ALPN ID for CoAP/DTLS.
     - `coap` Exists already in TLS Application-Layer Protocol Negotiation (ALPN) Protocol IDs
