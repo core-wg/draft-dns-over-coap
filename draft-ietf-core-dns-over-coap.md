@@ -161,6 +161,14 @@ or automatic configuration, e.g., using a CoRE resource directory
 {{-core-rd}}, DHCP or Router Advertisement options {{-dnr}}.
 Automatic configuration SHOULD only be done from a trusted source.
 
+TBD DNR Service Parameters + SVCB Resource Records (also see [#22](https://github.com/core-wg/draft-dns-over-coap/issues/22)):
+
+- `coap` Exists already in TLS Application-Layer Protocol Negotiation (ALPN) Protocol IDs
+  registry {{?RFC8323}}
+- Never mandated for DTLS, also: how to distinguish CoAP over DTLS from CoAP over TLS in service
+  parameters?
+- SVCB: Also needs to considering OSCORE/EDHOC
+
 When discovering the DNS resource through a link mechanism that allows describing a resource type
 (e.g., the Resource Type Attribute in {{-core-link-format}}), the resource type "core.dns" can be
 used to identify a generic DNS resolver that is available to the client.
@@ -346,13 +354,6 @@ Put at appropriate places for `-03`:
 - Explain why TTL rewriting proposed is notably different from DoH.
     - Reference paper
     - HTTP proxys are not of the same importance as in CoAP
-- Recommendation to add a section describing how to bootstrap DoC in a
-  SVCB-DNS record. May require to allocate a new ALPN ID for CoAP/DTLS.
-    - `coap` Exists already in TLS Application-Layer Protocol Negotiation (ALPN) Protocol IDs
-      registry
-    - Never mandated for DTLS, but we can overrule
-    - SVCB: Will do, but also considering OSCORE/EDHOC
-        - Talk with LAKE WG about EDHOC, should not be part of this draft
 
 Implementation Status
 =====================
