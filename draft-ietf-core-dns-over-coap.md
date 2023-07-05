@@ -105,7 +105,7 @@ on constrained devices.
 
 To prevent resource requirements of DTLS or TLS on top of UDP (e.g.,
 introduced by DNS over QUIC {{-doq}}), DoC allows
-for lightweight end-to-end payload encryption based on OSCORE.
+for lightweight payload encryption based on OSCORE.
 
 ~~~ aasvg
 
@@ -336,7 +336,7 @@ resource record as well.
 
 OSCORE
 ------
-It is RECOMMENDED to carry DNS messages end-to-end encrypted using OSCORE {{-oscore}}.
+It is RECOMMENDED to carry DNS messages encrypted using OSCORE {{-oscore}} between the DoC client and the DoC server.
 The exchange of the security context is out of scope of this document.
 
 Mapping DoC to DoH
