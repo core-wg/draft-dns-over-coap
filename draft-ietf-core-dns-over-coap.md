@@ -179,7 +179,7 @@ When discovering the DNS resource through a link mechanism that allows describin
 used to identify a generic DNS resolver that is available to the client.
 
 While there is no path specified it is RECOMMENDED to use the root path "/" for the DNS resource to
-keep the CoAP header small.
+keep the CoAP requests small.
 
 Basic Message Exchange
 ======================
