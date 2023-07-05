@@ -187,7 +187,7 @@ Basic Message Exchange
 
 The "application/dns-message" Content-Format    {#sec:content-format}
 --------------------------------------------
-This document defines a CoAP Content-Format number for the Internet media type "application/dns-message" to be the mnemonic 35353--based on the port assignment of DNS.
+This document defines a CoAP Content-Format number for the Internet media type "application/dns-message" to be the mnemonic 553--based on the port assignment of DNS.
 This media type is defined as in {{-doh}} Section 6, i.e., a single DNS message encoded in the DNS on-the-wire format {{-dns}}.
 Both DoC client and DoC server MUST be able to parse contents in the "application/dns-message" format.
 
@@ -457,7 +457,7 @@ Media-Type: application/dns-message
 
 Encoding: -
 
-Id: 35353
+Id: 553
 
 Reference: \[TBD-this-spec\]
 
