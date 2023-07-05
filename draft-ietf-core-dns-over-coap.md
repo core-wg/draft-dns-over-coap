@@ -430,7 +430,7 @@ Security Considerations
 =======================
 
 When using unencrypted CoAP (see {{sec:unencrypted-coap}}), setting the ID of a DNS message to 0 as
-specified in {{sec:req-caching}} could open the DNS cache of a DoC client to cache poisoning attacks
+specified in {{sec:req-caching}} opens open the DNS cache of a DoC client to cache poisoning attacks
 via response spoofing.
 This documents requires an unpredictable CoAP token in each DoC query from the client when CoAP is
 not secured to mitigate such an attack over DoC (see {{sec:unencrypted-coap}}).
