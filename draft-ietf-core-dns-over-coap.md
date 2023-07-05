@@ -171,8 +171,7 @@ TBD DNR Service Parameters + SVCB Resource Records (also see [#22](https://githu
 
 - `coap` Exists already in TLS Application-Layer Protocol Negotiation (ALPN) Protocol IDs
   registry {{?RFC8323}}
-- Never mandated for DTLS, also: how to distinguish CoAP over DTLS from CoAP over TLS in service
-  parameters?
+- Never mandated for DTLS, should be kept for CoAP over TLS; DTLS needs its own ALPN ID
 - SVCB: Also needs to considering OSCORE/EDHOC
 
 When discovering the DNS resource through a link mechanism that allows describing a resource type
