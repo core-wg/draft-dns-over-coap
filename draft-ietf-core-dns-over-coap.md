@@ -139,8 +139,6 @@ This was done to take benefit from having the DNS query in the payload as with P
 having the caching advantages we would gain with GET.
 Having the DNS query in the payload means we do not need extra base64 encoding, which would increase
 code complexity and message sizes and are able to transfer a query block-wise.
-{{sec:coap-http-proxy}} provides guidance on how to translate between DoC and DoH at a CoAP-HTTP
-proxy.
 
 
 Terminology
@@ -193,7 +191,7 @@ This document defines a CoAP Content-Format number for the Internet media type "
 This media type is defined as in {{-doh}} Section 6, i.e., a single DNS message encoded in the DNS on-the-wire format {{-dns}}.
 Both DoC client and DoC server MUST be able to parse contents in the "application/dns-message" format.
 
-DNS Queries in CoAP Requests
+DNS Queries in CoAP Requests    {#sec:queries}
 ----------------------------
 
 A DoC client encodes a single DNS query in one or more CoAP request
@@ -342,16 +340,14 @@ OSCORE
 It is RECOMMENDED to carry DNS messages end-to-end encrypted using OSCORE {{-oscore}}.
 The exchange of the security context is out of scope of this document.
 
-Using a CoAP-HTTP proxy to translate to DoH {#sec:coap-http-proxy}
--------------------------------------------
-
-TBD:
-
-- FETCH needs to be translated to GET/POST
-    - Can we just take one or the other?
-    - Is there a preference in DoH?
-    - Should it be dependent on use case?
-- TTLs need to be readapted in response
+Mapping DoC to DoH
+------------------
+This document provides no specification how to map between DoC and DoH, e.g., at a CoAP-HTTP-proxy,
+and it is NOT RECOMMENDED.
+Rewriting the FETCH method ({{sec:queries}}) and the TTL rewriting ({{sec:resp-caching}}) specified
+in this draft for performance benefits would be non-trivial.
+It is RECOMMENDED to use a DNS forwarder to map between DoC and DoH, as would be done to map between
+any other DNS transport.
 
 Considerations for Unencrypted Use {#sec:unencrypted-coap}
 ==================================
