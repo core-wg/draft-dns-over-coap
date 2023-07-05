@@ -358,8 +358,10 @@ In both cases,
 potential benefits of
 unencrypted DoC usage over classic DNS are e.g. block-wise transfer or alternative CoAP
 Content-Formats to overcome link-layer constraints.
-For unencrypted DoC usage the ID field MUST not be set to a fixed value as suggested in
-{{sec:req-caching}}, but changed with every query.
+For unencrypted DoC usage the ID of the DNS message MAY still be set to 0 to leverage the cache
+benefits described in {{sec:req-caching}}.
+In this case an unpredictable token MUST be picked for each CoAP request that carries such a DNS
+message.
 
 
 Implementation Status
@@ -428,10 +430,10 @@ Security Considerations
 =======================
 
 When using unencrypted CoAP (see {{sec:unencrypted-coap}}), setting the ID of a DNS message to 0 as
-specified in {{sec:req-caching}} opens the DNS cache of a DoC client to cache poisoning attacks via
-response spoofing.
-Because of that, this documents requires the ID to be changed with every query when CoAP is not
-secured (see {{sec:unencrypted-coap}}).
+specified in {{sec:req-caching}} could open the DNS cache of a DoC client to cache poisoning attacks
+via response spoofing.
+This documents requires an unpredictable CoAP token in each DoC query from the client when CoAP is
+not secured to mitigate such an attack over DoC (see {{sec:unencrypted-coap}}).
 
 For encrypted usage with DTLS or OSCORE the impact of a fixed ID on security is limited, as both
 harden against injecting spoofed responses.
