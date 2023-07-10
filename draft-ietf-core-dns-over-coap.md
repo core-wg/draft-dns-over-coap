@@ -351,18 +351,12 @@ mapping between any other DNS transport.
 
 Considerations for Unencrypted Use {#sec:unencrypted-coap}
 ==================================
-While not recommended,
-DoC can be used without any encryption
-e.g., in very constrained environments where encryption is not possible or necessary.
-It can also be used when lower layers provide secure communication between client and server.
-In both cases,
-potential benefits of
-unencrypted DoC usage over classic DNS are e.g. block-wise transfer or alternative CoAP
-Content-Formats to overcome link-layer constraints.
-For unencrypted DoC usage the ID of the DNS message MAY still be set to 0 to leverage the cache
-benefits described in {{sec:req-caching}}.
-In this case an unpredictable token MUST be picked for each CoAP request that carries such a DNS
-message.
+The use of DoC without a security mode of CoAP is NOT RECOMMENDED.
+Without a security mode, a large number of possible attacks need to be evaluate in the context of
+the application's threat model.
+This includes threats that are mitigated even by DNS over UDP:
+For example, the random ID of the DNS header afford some protection against off-path cache poisoning
+attacks---a threat that might be mitigated by using random large token values in the CoAP request.
 
 
 Implementation Status
