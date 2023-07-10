@@ -476,6 +476,19 @@ Reference: \[TBD-this-spec\] {{selection-of-a-doc-server}}
 Change Log
 ==========
 
+Since [draft-ietf-core-dns-over-coap-02]
+----------------------------------------
+
+- Move implementation details to Implementation Status (in accordance with {{-impl-status-section}})
+- Recommend root path to keep the CoAP options small
+- Set Content-Format for application/dns-message to 553
+- SVCB/DNR: Move to Server Selection Section but leave TBD based on DNSOP discussion for now
+- Clarify that DoC and DoC are disjunct
+- Clarify mapping between DoC and DoH
+- Update considerations on unencrypted use
+- Don't call OSCORE end-to-end encrypted
+
+
 Since [draft-ietf-core-dns-over-coap-01]
 ----------------------------------------
 
@@ -504,6 +517,7 @@ Since [draft-lenders-dns-over-coap-04]
 The authors of this document want to thank Ben Schwartz and Tim Wicinski for their feedback and
 comments.
 
+[draft-ietf-core-dns-over-coap-02]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-02
 [draft-ietf-core-dns-over-coap-01]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-01
 [draft-ietf-core-dns-over-coap-00]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-00
 [draft-lenders-dns-cns]: https://datatracker.ietf.org/doc/draft-lenders-dns-cns/
