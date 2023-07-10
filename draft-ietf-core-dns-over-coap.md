@@ -134,11 +134,12 @@ DNS infrastructure.
 Using that information, the DoC server then replies to the queries of the DoC client with DNS
 responses carried within CoAP responses.
 
-Note that this is an orthogonal specification to DoH, as it the CoRE-specific FETCH method is used.
+Note that this specification is disjunct from DoH since the CoRE-specific FETCH method is used.
 This was done to take benefit from having the DNS query in the payload as with POST, but still
 having the caching advantages we would gain with GET.
 Having the DNS query in the payload means we do not need extra base64 encoding, which would increase
-code complexity and message sizes and are able to transfer a query block-wise.
+code complexity and message sizes.
+We are also able to transfer a query block-wise.
 
 
 Terminology
