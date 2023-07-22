@@ -37,13 +37,13 @@ author:
     country: Germany
     email: t.schmidt@haw-hamburg.de
  -  name: Matthias Wählisch
-    org: Freie Universität Berlin
-    abbrev: FU Berlin
-    street: Takustrasse 9
-    city: Berlin
-    code: D-14195
+    org: TUD Dresden University of Technology
+    abbrev: TU Dresden
+    street: Helmholtzstr. 10
+    city: Dresden
+    code: D-01069
     country: Germany
-    email: m.waehlisch@fu-berlin.de
+    email: m.waehlisch@tu-dresden.de
 
 normative:
   RFC1035: dns
