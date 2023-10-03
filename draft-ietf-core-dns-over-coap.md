@@ -37,8 +37,8 @@ author:
     country: Germany
     email: t.schmidt@haw-hamburg.de
  -  name: Matthias Wählisch
-    org: TUD Dresden University of Technology
-    abbrev: TU Dresden
+    org: TUD Dresden University of Technology & Barkhausen Institut
+    abbrev: TU Dresden & Barkhausen Institut
     street: Helmholtzstr. 10
     city: Dresden
     code: D-01069
