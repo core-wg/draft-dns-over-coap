@@ -67,6 +67,7 @@ informative:
   RFC7942: impl-status-section
   I-D.ietf-add-dnr: dnr
   I-D.ietf-core-href: cri
+  DoC-paper: DOI.10.1145/3609423
 
 
 --- abstract
@@ -358,7 +359,6 @@ This includes threats that are mitigated even by DNS over UDP:
 For example, the random ID of the DNS header afford some protection against off-path cache poisoning
 attacks---a threat that might be mitigated by using random large token values in the CoAP request.
 
-
 Implementation Status
 =====================
 
@@ -472,6 +472,11 @@ Reference: \[TBD-this-spec\] {{selection-of-a-doc-server}}
 
 
 --- back
+
+Evaluation
+==========
+The authors of this document presented the design, implementation, and analysis of DoC in their
+paper "Securing Name Resolution in the IoT: DNS over CoAP" {{DoC-paper}}.
 
 Change Log
 ==========
