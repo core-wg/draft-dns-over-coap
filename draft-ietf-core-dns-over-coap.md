@@ -100,7 +100,7 @@ only have a handful kilobyte of both RAM and ROM. They may sleep for long
 durations of time, after which they need to refresh the named resources they
 know about. Name resolution in such scenarios must take into account link
 layer frame sizes of only a few hundred bytes, bit rates in the magnitute
-of kBit/s, and latencies of several seconds {{-constr-nodes}}.
+of kilobits per second, and latencies of several seconds {{-constr-nodes}}.
 
 To prevent TCP and HTTPS resource requirements, constrained IoT devices
 could use DNS over DTLS {{-dodtls}}. In contrast to DNS over DTLS, DoC
