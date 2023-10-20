@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 5 April 2024                                                   
+Expires: 22 April 2024                                                  
                                                              C. Gündoğan
                                                      Huawei Technologies
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                          3 October 2023
+                                                         20 October 2023
 
 
                           DNS over CoAP (DoC)
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 April 2024.
+   This Internet-Draft will expire on 22 April 2024.
 
 Copyright Notice
 
@@ -99,11 +99,12 @@ Table of Contents
    10. References
      10.1.  Normative References
      10.2.  Informative References
-   Appendix A.  Change Log
-     A.1.  Since draft-ietf-core-dns-over-coap-02
-     A.2.  Since draft-ietf-core-dns-over-coap-01
-     A.3.  Since draft-ietf-core-dns-over-coap-00
-     A.4.  Since draft-lenders-dns-over-coap-04
+   Appendix A.  Evaluation
+   Appendix B.  Change Log
+     B.1.  Since draft-ietf-core-dns-over-coap-02
+     B.2.  Since draft-ietf-core-dns-over-coap-01
+     B.3.  Since draft-ietf-core-dns-over-coap-00
+     B.4.  Since draft-lenders-dns-over-coap-04
    Acknowledgments
    Authors' Addresses
 
@@ -120,7 +121,14 @@ Table of Contents
    The application use case of DoC is inspired by DNS over HTTPS
    [RFC8484] (DoH).  DoC, however, aims for the deployment in the
    constrained Internet of Things (IoT), which usually conflicts with
-   the requirements introduced by HTTPS.
+   the requirements introduced by HTTPS.  Constrained IoT devices may be
+   restricted in memory, power consumption, link layer frame sizes,
+   throughput, and latency.  They may only have a handful kilobyte of
+   both RAM and ROM.  They may sleep for long durations of time, after
+   which they need to refresh the named resources they know about.  Name
+   resolution in such scenaries must take into account link layer frame
+   sizes of only a few hundred bytes, bit rates in the magnitute of
+   kBit/s, and latencies of several seconds [RFC7228].
 
    To prevent TCP and HTTPS resource requirements, constrained IoT
    devices could use DNS over DTLS [RFC8094].  In contrast to DNS over
@@ -567,6 +575,14 @@ Table of Contents
 
 10.2.  Informative References
 
+   [DoC-paper]
+              Lenders, M., Amsüss, C., Gündogan, C., Nawrocki, M.,
+              Schmidt, T., and M. Wählisch, "Securing Name Resolution in
+              the IoT: DNS over CoAP", Association for Computing
+              Machinery (ACM), Proceedings of the ACM on Networking vol.
+              1, no. CoNEXT2, pp. 1-25, DOI 10.1145/3609423, September
+              2023, <https://doi.org/10.1145/3609423>.
+
    [I-D.ietf-add-dnr]
               Boucadair, M., Reddy.K, T., Wing, D., Cook, N., and T.
               Jensen, "DHCP and Router Advertisement Options for the
@@ -629,9 +645,15 @@ Table of Contents
               DOI 10.17487/RFC9250, May 2022,
               <https://www.rfc-editor.org/rfc/rfc9250>.
 
-Appendix A.  Change Log
+Appendix A.  Evaluation
 
-A.1.  Since draft-ietf-core-dns-over-coap-02
+   The authors of this document presented the design, implementation,
+   and analysis of DoC in their paper "Securing Name Resolution in the
+   IoT: DNS over CoAP" [DoC-paper].
+
+Appendix B.  Change Log
+
+B.1.  Since draft-ietf-core-dns-over-coap-02
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-02)
 
@@ -653,7 +675,7 @@ A.1.  Since draft-ietf-core-dns-over-coap-02
 
    *  Don't call OSCORE end-to-end encrypted
 
-A.2.  Since draft-ietf-core-dns-over-coap-01
+B.2.  Since draft-ietf-core-dns-over-coap-01
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-01)
 
@@ -666,7 +688,7 @@ A.2.  Since draft-ietf-core-dns-over-coap-01
 
    *  Add appendix on reference implementation
 
-A.3.  Since draft-ietf-core-dns-over-coap-00
+B.3.  Since draft-ietf-core-dns-over-coap-00
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-00)
 
@@ -680,7 +702,7 @@ A.3.  Since draft-ietf-core-dns-over-coap-00
 
    *  Add security considerations on ID=0
 
-A.4.  Since draft-lenders-dns-over-coap-04
+B.4.  Since draft-lenders-dns-over-coap-04
       (https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-
       coap-04)
 
