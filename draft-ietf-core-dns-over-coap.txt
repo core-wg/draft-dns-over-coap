@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 22 April 2024                                                  
+Expires: 25 April 2024                                                  
                                                              C. Gündoğan
                                                      Huawei Technologies
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                         20 October 2023
+                                                         23 October 2023
 
 
                           DNS over CoAP (DoC)
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 April 2024.
+   This Internet-Draft will expire on 25 April 2024.
 
 Copyright Notice
 
@@ -101,10 +101,11 @@ Table of Contents
      10.2.  Informative References
    Appendix A.  Evaluation
    Appendix B.  Change Log
-     B.1.  Since draft-ietf-core-dns-over-coap-02
-     B.2.  Since draft-ietf-core-dns-over-coap-01
-     B.3.  Since draft-ietf-core-dns-over-coap-00
-     B.4.  Since draft-lenders-dns-over-coap-04
+     B.1.  Since draft-ietf-core-dns-over-coap-03
+     B.2.  Since draft-ietf-core-dns-over-coap-02
+     B.3.  Since draft-ietf-core-dns-over-coap-01
+     B.4.  Since draft-ietf-core-dns-over-coap-00
+     B.5.  Since draft-lenders-dns-over-coap-04
    Acknowledgments
    Authors' Addresses
 
@@ -452,13 +453,13 @@ Table of Contents
 
    Level of maturity:  production
 
-   Version compability:  draft-ietf-core-dns-over-coap-02
+   Version compability:  draft-ietf-core-dns-over-coap-04
 
    License:  LGPL-2.1
 
    Contact information:  Martine Lenders <m.lenders@fu-berlin.de>
 
-   Last update of this information:  March 2023
+   Last update of this information:  October 2023
 
 7.2.  DoC Server
 
@@ -467,13 +468,13 @@ Table of Contents
 
    Level of maturity:  production
 
-   Version compability:  draft-ietf-core-dns-over-coap-02
+   Version compability:  draft-ietf-core-dns-over-coap-04
 
    License:  MIT
 
    Contact information:  Martine Lenders <m.lenders@fu-berlin.de>
 
-   Last update of this information:  March 2023
+   Last update of this information:  October 2023
 
 8.  Security Considerations
 
@@ -653,7 +654,16 @@ Appendix A.  Evaluation
 
 Appendix B.  Change Log
 
-B.1.  Since draft-ietf-core-dns-over-coap-02
+B.1.  Since draft-ietf-core-dns-over-coap-03
+      (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
+      coap-03)
+
+   *  Amended Introduction with short contextualization of constrained
+      environments
+
+   *  Add Appendix A on evaluation
+
+B.2.  Since draft-ietf-core-dns-over-coap-02
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-02)
 
@@ -675,7 +685,7 @@ B.1.  Since draft-ietf-core-dns-over-coap-02
 
    *  Don't call OSCORE end-to-end encrypted
 
-B.2.  Since draft-ietf-core-dns-over-coap-01
+B.3.  Since draft-ietf-core-dns-over-coap-01
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-01)
 
@@ -688,7 +698,7 @@ B.2.  Since draft-ietf-core-dns-over-coap-01
 
    *  Add appendix on reference implementation
 
-B.3.  Since draft-ietf-core-dns-over-coap-00
+B.4.  Since draft-ietf-core-dns-over-coap-00
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-00)
 
@@ -702,7 +712,7 @@ B.3.  Since draft-ietf-core-dns-over-coap-00
 
    *  Add security considerations on ID=0
 
-B.4.  Since draft-lenders-dns-over-coap-04
+B.5.  Since draft-lenders-dns-over-coap-04
       (https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-
       coap-04)
 
