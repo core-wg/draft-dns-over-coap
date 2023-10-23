@@ -3,7 +3,7 @@ v: 3
 
 title: "DNS over CoAP (DoC)"
 abbrev: DoC
-docname: draft-ietf-core-dns-over-coap-latest
+docname: draft-ietf-core-dns-over-coap-04
 category: std
 submissiontype: IETF
 
