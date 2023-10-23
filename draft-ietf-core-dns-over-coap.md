@@ -480,13 +480,18 @@ Reference: \[TBD-this-spec\] {{selection-of-a-doc-server}}
 
 --- back
 
-Evaluation
+Evaluation {#sec:evaluation}
 ==========
 The authors of this document presented the design, implementation, and analysis of DoC in their
 paper "Securing Name Resolution in the IoT: DNS over CoAP" {{DoC-paper}}.
 
 Change Log
 ==========
+
+Since [draft-ietf-core-dns-over-coap-03]
+----------------------------------------
+- Amended Introduction with short contextualization of constrained environments
+- Add {{sec:evaluation}} on evaluation
 
 Since [draft-ietf-core-dns-over-coap-02]
 ----------------------------------------
@@ -529,6 +534,7 @@ Since [draft-lenders-dns-over-coap-04]
 The authors of this document want to thank Ben Schwartz and Tim Wicinski for their feedback and
 comments.
 
+[draft-ietf-core-dns-over-coap-03]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-03
 [draft-ietf-core-dns-over-coap-02]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-02
 [draft-ietf-core-dns-over-coap-01]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-01
 [draft-ietf-core-dns-over-coap-00]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-00
