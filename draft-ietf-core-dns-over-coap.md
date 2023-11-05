@@ -67,6 +67,7 @@ informative:
   RFC7942: impl-status-section
   I-D.ietf-add-dnr: dnr
   I-D.ietf-core-href: cri
+  I-D.amsuess-core-cachable-oscore: cachable-oscore
   DoC-paper: DOI.10.1145/3609423
 
 
@@ -347,6 +348,9 @@ OSCORE
 ------
 It is RECOMMENDED to carry DNS messages encrypted using OSCORE {{-oscore}} between the DoC client and the DoC server.
 The exchange of the security context is out of scope of this document.
+
+If cache retrieval of OSCORE responses is desired, consider following the guidances described in {{-cachable-oscore}}.
+These have, however, implications on message sizes and security, which you will find in that document.
 
 Mapping DoC to DoH
 ------------------
