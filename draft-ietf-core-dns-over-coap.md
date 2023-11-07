@@ -448,8 +448,6 @@ harden against injecting spoofed responses.
 Consequently, it is of little concern to leverage the benefits of CoAP caching by setting the ID to
 0.
 
-TODO more security
-
 
 IANA Considerations
 ===================
