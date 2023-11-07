@@ -464,7 +464,7 @@ Media-Type: application/dns-message
 
 Encoding: -
 
-Id: 553
+Id: 553 (suggested)
 
 Reference: \[TBD-this-spec\]
 
