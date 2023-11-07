@@ -65,9 +65,13 @@ informative:
   RFC9250: doq
   RFC8499: dns-terminology
   RFC7942: impl-status-section
-  I-D.ietf-add-dnr: dnr
+  RFC9460: svcb
+  RFC9461: svcb-dns
+  RFC9462: ddr
+  RFC9463: dnr
   I-D.ietf-core-href: cri
   I-D.amsuess-core-cachable-oscore: cachable-oscore
+  I-D.lenders-core-dnr: core-dnr
   DoC-paper: DOI.10.1145/3609423
 
 
@@ -174,15 +178,12 @@ In this document, it is assumed that the DoC client knows the DoC server and the
 DoC server.
 Possible options could be manual configuration of a URI {{-uri}} or CRI {{-cri}},
 or automatic configuration, e.g., using a CoRE resource directory
-{{-core-rd}}, DHCP or Router Advertisement options {{-dnr}}.
+{{-core-rd}}, DHCP or Router Advertisement options {{-dnr}} or discovery of designated resolvers
+{{-ddr}}.
 Automatic configuration SHOULD only be done from a trusted source.
 
-TBD DNR Service Parameters + SVCB Resource Records (also see [#22](https://github.com/core-wg/draft-dns-over-coap/issues/22)):
-
-- `coap` Exists already in TLS Application-Layer Protocol Negotiation (ALPN) Protocol IDs
-  registry {{?RFC8323}}
-- Never mandated for DTLS, should be kept for CoAP over TLS; DTLS needs its own ALPN ID
-- SVCB: Also needs to considering OSCORE/EDHOC
+Support for SVCB Resource Records {{-svcb}}, {{-svcb-dns}} or DNR Service Parameters {{-dnr}}
+are not specified in this document.
 
 When discovering the DNS resource through a link mechanism that allows describing a resource type
 (e.g., the Resource Type Attribute in {{-core-link-format}}), the resource type "core.dns" can be
