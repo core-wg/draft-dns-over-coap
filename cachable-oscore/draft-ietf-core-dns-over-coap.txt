@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 9 May 2024                                                     
+Expires: 10 May 2024                                                    
                                                              C. Gündoğan
                                                      Huawei Technologies
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                         6 November 2023
+                                                         7 November 2023
 
 
                           DNS over CoAP (DoC)
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 May 2024.
+   This Internet-Draft will expire on 10 May 2024.
 
 Copyright Notice
 
@@ -404,8 +404,10 @@ Table of Contents
    [RFC8613] between the DoC client and the DoC server.  The exchange of
    the security context is out of scope of this document.
 
-   The guidances from [I-D.amsuess-core-cachable-oscore] SHOULD be used
-   to ensure that cached OSCORE responses can be retrieved.
+   If cache retrieval of OSCORE responses is desired, consider following
+   the guidances described in [I-D.amsuess-core-cachable-oscore].  These
+   have, however, implications on message sizes and security, which you
+   will find in that document.
 
 5.3.  Mapping DoC to DoH
 
