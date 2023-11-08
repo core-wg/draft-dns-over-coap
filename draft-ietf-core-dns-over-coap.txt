@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 25 April 2024                                                  
+Expires: 11 May 2024                                                    
                                                              C. Gündoğan
                                                      Huawei Technologies
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                         23 October 2023
+                                                         8 November 2023
 
 
                           DNS over CoAP (DoC)
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 April 2024.
+   This Internet-Draft will expire on 11 May 2024.
 
 Copyright Notice
 
@@ -401,8 +401,15 @@ Table of Contents
 5.2.  OSCORE
 
    It is RECOMMENDED to carry DNS messages encrypted using OSCORE
-   [RFC8613] between the DoC client and the DoC server.  The exchange of
-   the security context is out of scope of this document.
+   [RFC8613] between the DoC client and the DoC server.  The
+   establishment and maintenance of the OSCORE Security Context is out
+   of the scope of this document.
+
+   If cache retrieval of OSCORE responses is desired, it can be
+   achieved, for instance, by using the method defined in
+   [I-D.amsuess-core-cachable-oscore].  This has, however, implications
+   on message sizes and security properties, which are compiled in that
+   document.
 
 5.3.  Mapping DoC to DoH
 
@@ -583,6 +590,13 @@ Table of Contents
               Machinery (ACM), Proceedings of the ACM on Networking vol.
               1, no. CoNEXT2, pp. 1-25, DOI 10.1145/3609423, September
               2023, <https://doi.org/10.1145/3609423>.
+
+   [I-D.amsuess-core-cachable-oscore]
+              Amsüss, C. and M. Tiloca, "Cacheable OSCORE", Work in
+              Progress, Internet-Draft, draft-amsuess-core-cachable-
+              oscore-07, 10 July 2023,
+              <https://datatracker.ietf.org/doc/html/draft-amsuess-core-
+              cachable-oscore-07>.
 
    [I-D.ietf-add-dnr]
               Boucadair, M., Reddy.K, T., Wing, D., Cook, N., and T.
