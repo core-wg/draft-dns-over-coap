@@ -346,11 +346,13 @@ resource record as well.
 
 OSCORE
 ------
-It is RECOMMENDED to carry DNS messages encrypted using OSCORE {{-oscore}} between the DoC client and the DoC server.
-The exchange of the security context is out of scope of this document.
+It is RECOMMENDED to carry DNS messages encrypted using OSCORE {{-oscore}} between the DoC client
+and the DoC server. The establishment and maintenance of the OSCORE Security Context is out of the
+scope of this document.
 
-If cache retrieval of OSCORE responses is desired, consider following the guidances described in {{-cachable-oscore}}.
-These have, however, implications on message sizes and security, which you will find in that document.
+If cache retrieval of OSCORE responses is desired, it can be achieved, for instance, by using the
+method defined in {{-cachable-oscore}}. This has, however, implications on message sizes and
+security properties, which are compiled in that document.
 
 Mapping DoC to DoH
 ------------------
