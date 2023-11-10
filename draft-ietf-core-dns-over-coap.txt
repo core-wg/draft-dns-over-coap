@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 12 May 2024                                                    
+Expires: 13 May 2024                                                    
                                                              C. Gündoğan
                                                      Huawei Technologies
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                         9 November 2023
+                                                        10 November 2023
 
 
                           DNS over CoAP (DoC)
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 May 2024.
+   This Internet-Draft will expire on 13 May 2024.
 
 Copyright Notice
 
@@ -732,8 +732,9 @@ B.5.  Since draft-lenders-dns-over-coap-04
 
 Acknowledgments
 
-   The authors of this document want to thank Ben Schwartz, Marco
-   Tiloca, and Tim Wicinski for their feedback and comments.
+   The authors of this document want to thank Carsten Bormann, Ben
+   Schwartz, Marco Tiloca, and Tim Wicinski for their feedback and
+   comments.
 
 Authors' Addresses
 
