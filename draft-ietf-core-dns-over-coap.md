@@ -492,6 +492,11 @@ paper "Securing Name Resolution in the IoT: DNS over CoAP" {{DoC-paper}}.
 Change Log
 ==========
 
+Since [draft-ietf-core-dns-over-coap-04]
+----------------------------------------
+- Add note on cachable OSCORE
+- Address early IANA review
+
 Since [draft-ietf-core-dns-over-coap-03]
 ----------------------------------------
 - Amended Introduction with short contextualization of constrained environments
