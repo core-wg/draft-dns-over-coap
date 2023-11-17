@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 13 May 2024                                                    
+Expires: 20 May 2024                                                    
                                                              C. Gündoğan
                                                      Huawei Technologies
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                        10 November 2023
+                                                        17 November 2023
 
 
                           DNS over CoAP (DoC)
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 May 2024.
+   This Internet-Draft will expire on 20 May 2024.
 
 Copyright Notice
 
@@ -101,11 +101,12 @@ Table of Contents
      10.2.  Informative References
    Appendix A.  Evaluation
    Appendix B.  Change Log
-     B.1.  Since draft-ietf-core-dns-over-coap-03
-     B.2.  Since draft-ietf-core-dns-over-coap-02
-     B.3.  Since draft-ietf-core-dns-over-coap-01
-     B.4.  Since draft-ietf-core-dns-over-coap-00
-     B.5.  Since draft-lenders-dns-over-coap-04
+     B.1.  Since [draft-ietf-core-dns-over-coap-04]
+     B.2.  Since draft-ietf-core-dns-over-coap-03
+     B.3.  Since draft-ietf-core-dns-over-coap-02
+     B.4.  Since draft-ietf-core-dns-over-coap-01
+     B.5.  Since draft-ietf-core-dns-over-coap-00
+     B.6.  Since draft-lenders-dns-over-coap-04
    Acknowledgments
    Authors' Addresses
 
@@ -666,7 +667,13 @@ Appendix A.  Evaluation
 
 Appendix B.  Change Log
 
-B.1.  Since draft-ietf-core-dns-over-coap-03
+B.1.  Since [draft-ietf-core-dns-over-coap-04]
+
+   *  Add note on cachable OSCORE
+
+   *  Address early IANA review
+
+B.2.  Since draft-ietf-core-dns-over-coap-03
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-03)
 
@@ -675,7 +682,7 @@ B.1.  Since draft-ietf-core-dns-over-coap-03
 
    *  Add Appendix A on evaluation
 
-B.2.  Since draft-ietf-core-dns-over-coap-02
+B.3.  Since draft-ietf-core-dns-over-coap-02
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-02)
 
@@ -697,7 +704,7 @@ B.2.  Since draft-ietf-core-dns-over-coap-02
 
    *  Don't call OSCORE end-to-end encrypted
 
-B.3.  Since draft-ietf-core-dns-over-coap-01
+B.4.  Since draft-ietf-core-dns-over-coap-01
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-01)
 
@@ -710,7 +717,7 @@ B.3.  Since draft-ietf-core-dns-over-coap-01
 
    *  Add appendix on reference implementation
 
-B.4.  Since draft-ietf-core-dns-over-coap-00
+B.5.  Since draft-ietf-core-dns-over-coap-00
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-00)
 
@@ -724,7 +731,7 @@ B.4.  Since draft-ietf-core-dns-over-coap-00
 
    *  Add security considerations on ID=0
 
-B.5.  Since draft-lenders-dns-over-coap-04
+B.6.  Since draft-lenders-dns-over-coap-04
       (https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-
       coap-04)
 
