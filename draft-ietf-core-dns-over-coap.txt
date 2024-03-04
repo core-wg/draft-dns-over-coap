@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 20 May 2024                                                    
+Expires: 5 September 2024                                               
                                                              C. Gündoğan
                                                      Huawei Technologies
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                        17 November 2023
+                                                            4 March 2024
 
 
                           DNS over CoAP (DoC)
@@ -53,11 +53,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 May 2024.
+   This Internet-Draft will expire on 5 September 2024.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -205,19 +205,13 @@ Table of Contents
    could be manual configuration of a URI [RFC3986] or CRI
    [I-D.ietf-core-href], or automatic configuration, e.g., using a CoRE
    resource directory [RFC9176], DHCP or Router Advertisement options
-   [I-D.ietf-add-dnr].  Automatic configuration SHOULD only be done from
-   a trusted source.
+   [RFC9463] or discovery of designated resolvers [RFC9462].  Automatic
+   configuration SHOULD only be done from a trusted source.
 
-   TBD DNR Service Parameters + SVCB Resource Records (also see #22
-   (https://github.com/core-wg/draft-dns-over-coap/issues/22)):
-
-   *  coap Exists already in TLS Application-Layer Protocol Negotiation
-      (ALPN) Protocol IDs registry [RFC8323]
-
-   *  Never mandated for DTLS, should be kept for CoAP over TLS; DTLS
-      needs its own ALPN ID
-
-   *  SVCB: Also needs to considering OSCORE/EDHOC
+   Support for SVCB Resource Records [RFC9460], [RFC9461] or DNR Service
+   Parameters [RFC9463] are not specified in this document.
+   [I-D.lenders-core-dnr] explores solutions for CoAP for these
+   mechanisms.
 
    When discovering the DNS resource through a link mechanism that
    allows describing a resource type (e.g., the Resource Type Attribute
@@ -593,24 +587,24 @@ Table of Contents
    [I-D.amsuess-core-cachable-oscore]
               Amsüss, C. and M. Tiloca, "Cacheable OSCORE", Work in
               Progress, Internet-Draft, draft-amsuess-core-cachable-
-              oscore-07, 10 July 2023,
+              oscore-08, 10 January 2024,
               <https://datatracker.ietf.org/doc/html/draft-amsuess-core-
-              cachable-oscore-07>.
-
-   [I-D.ietf-add-dnr]
-              Boucadair, M., Reddy.K, T., Wing, D., Cook, N., and T.
-              Jensen, "DHCP and Router Advertisement Options for the
-              Discovery of Network-designated Resolvers (DNR)", Work in
-              Progress, Internet-Draft, draft-ietf-add-dnr-16, 27 April
-              2023, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              add-dnr-16>.
+              cachable-oscore-08>.
 
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
               Identifiers", Work in Progress, Internet-Draft, draft-
-              ietf-core-href-13, 10 July 2023,
+              ietf-core-href-14, 9 January 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              href-13>.
+              href-14>.
+
+   [I-D.lenders-core-dnr]
+              Lenders, M. S., Amsüss, C., Schmidt, T. C., and M.
+              Wählisch, "Discovery of Network-designated CoRE
+              Resolvers", Work in Progress, Internet-Draft, draft-
+              lenders-core-dnr-00, 4 March 2024,
+              <https://datatracker.ietf.org/doc/html/draft-lenders-core-
+              dnr-00>.
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
@@ -630,12 +624,6 @@ Table of Contents
               Transport Layer Security (DTLS)", RFC 8094,
               DOI 10.17487/RFC8094, February 2017,
               <https://www.rfc-editor.org/rfc/rfc8094>.
-
-   [RFC8323]  Bormann, C., Lemay, S., Tschofenig, H., Hartke, K.,
-              Silverajan, B., and B. Raymor, Ed., "CoAP (Constrained
-              Application Protocol) over TCP, TLS, and WebSockets",
-              RFC 8323, DOI 10.17487/RFC8323, February 2018,
-              <https://www.rfc-editor.org/rfc/rfc8323>.
 
    [RFC8484]  Hoffman, P. and P. McManus, "DNS Queries over HTTPS
               (DoH)", RFC 8484, DOI 10.17487/RFC8484, October 2018,
@@ -658,6 +646,26 @@ Table of Contents
               Dedicated QUIC Connections", RFC 9250,
               DOI 10.17487/RFC9250, May 2022,
               <https://www.rfc-editor.org/rfc/rfc9250>.
+
+   [RFC9460]  Schwartz, B., Bishop, M., and E. Nygren, "Service Binding
+              and Parameter Specification via the DNS (SVCB and HTTPS
+              Resource Records)", RFC 9460, DOI 10.17487/RFC9460,
+              November 2023, <https://www.rfc-editor.org/rfc/rfc9460>.
+
+   [RFC9461]  Schwartz, B., "Service Binding Mapping for DNS Servers",
+              RFC 9461, DOI 10.17487/RFC9461, November 2023,
+              <https://www.rfc-editor.org/rfc/rfc9461>.
+
+   [RFC9462]  Pauly, T., Kinnear, E., Wood, C. A., McManus, P., and T.
+              Jensen, "Discovery of Designated Resolvers", RFC 9462,
+              DOI 10.17487/RFC9462, November 2023,
+              <https://www.rfc-editor.org/rfc/rfc9462>.
+
+   [RFC9463]  Boucadair, M., Ed., Reddy.K, T., Ed., Wing, D., Cook, N.,
+              and T. Jensen, "DHCP and Router Advertisement Options for
+              the Discovery of Network-designated Resolvers (DNR)",
+              RFC 9463, DOI 10.17487/RFC9463, November 2023,
+              <https://www.rfc-editor.org/rfc/rfc9463>.
 
 Appendix A.  Evaluation
 
