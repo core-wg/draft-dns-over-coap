@@ -184,6 +184,7 @@ Automatic configuration SHOULD only be done from a trusted source.
 
 Support for SVCB Resource Records {{-svcb}}, {{-svcb-dns}} or DNR Service Parameters {{-dnr}}
 are not specified in this document.
+{{-core-dnr}} explores solutions for CoAP for these mechanisms.
 
 When discovering the DNS resource through a link mechanism that allows describing a resource type
 (e.g., the Resource Type Attribute in {{-core-link-format}}), the resource type "core.dns" can be
