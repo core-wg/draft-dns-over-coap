@@ -171,7 +171,7 @@ The terms "CoAP payload" and "CoAP body" are used as defined in {{-coap-blockwis
 
 {::boilerplate bcp14-tagged}
 
-Selection of a DoC Server
+Selection of a DoC Server   {#sec:doc-server-selection}
 =========================
 
 In this document, it is assumed that the DoC client knows the DoC server and the DNS resource at the
@@ -182,9 +182,14 @@ or automatic configuration, e.g., using a CoRE resource directory
 {{-ddr}}.
 Automatic configuration SHOULD only be done from a trusted source.
 
-Support for SVCB Resource Records {{-svcb}}, {{-svcb-dns}} or DNR Service Parameters {{-dnr}}
-are not specified in this document.
-{{-core-dnr}} explores solutions for CoAP for these mechanisms.
+A DoC server can also be discovered using SVCB Resource Records {{-svcb}}, {{-svcb-dns}} or DNR
+Service Parameters {{-dnr}}.
+\[TBD: draft-lenders-core-coap-dtls-svcb\] provides solutions
+to discover CoAP over (D)TLS servers using the "alpn" SvcParam. This document specifies "docpath" as
+a single-valued SvcParamKey whose value (in both presentation and wire format) MUST be a URI
+reference ({{-uri}}) in its path-abempty form. To use the service binding, the DoC client MUST send
+any DoC request to the CoAP resource identified by the URI constructed from the "docpath" SvcParam
+as described in \[TBD: draft-lenders-core-coap-dtls-svcb\].
 
 When discovering the DNS resource through a link mechanism that allows describing a resource type
 (e.g., the Resource Type Attribute in {{-core-link-format}}), the resource type "core.dns" can be
@@ -470,6 +475,16 @@ Id: 553 (suggested)
 
 Reference: \[TBD-this-spec\]
 
+New "docpath" SVCB Service Parameter
+------------------------------------
+
+This document adds the following entry to the SVCB Service Parameters
+registry ({{-svcb}}). The definition of this parameter can be found in {{sec:doc-server-selection}}.
+
+| Number  | Name           | Meaning                            | Reference       |
+| ------- | -------------- | ---------------------------------- | --------------- |
+| 9 (suggested)      | docpath        | DNS over CoAP resource path        | \[TBD-this-spec\] {{sec:doc-server-selection}} |
+
 New "core.dns" Resource Type
 ----------------------------
 
@@ -481,8 +496,7 @@ Attribute Value: core.dns
 
 Description: DNS over CoAP resource.
 
-Reference: \[TBD-this-spec\] {{selection-of-a-doc-server}}
-
+Reference: \[TBD-this-spec\] {{sec:doc-server-selection}}
 
 --- back
 
