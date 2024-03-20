@@ -525,14 +525,14 @@ Table of Contents
    registry ([RFC9460]).  The definition of this parameter can be found
    in Section 3.
 
-   +========+=========+=============================+=================+
-   | Number | Name    | Meaning                     | Reference       |
-   +========+=========+=============================+=================+
-   | 9      | docpath | DNS over CoAP resource path | [TBD-this-spec] |
-   |        |         |                             | Section 3       |
-   +--------+---------+-----------------------------+-----------------+
+       +===============+=========+===============+=================+
+       | Number        | Name    | Meaning       | Reference       |
+       +===============+=========+===============+=================+
+       | 9 (suggested) | docpath | DNS over CoAP | [TBD-this-spec] |
+       |               |         | resource path | Section 3       |
+       +---------------+---------+---------------+-----------------+
 
-                                 Table 1
+                                  Table 1
 
 9.3.  New "core.dns" Resource Type
 
