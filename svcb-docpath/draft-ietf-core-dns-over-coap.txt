@@ -217,7 +217,7 @@ Table of Contents
    servers using the "alpn" SvcParam.  This document specifies "docpath"
    as a single-valued SvcParamKey whose value (in both presentation and
    wire format) MUST be a CoAP resource path.  The DoC client MUST send
-   any DoC request to the CoAP resource identified by with the scheme
+   any DoC request to the CoAP resource identified with the scheme
    associated with protocol identified with the "alpn" SvcParam or a
    comparable SvcParam, the authentication name as the host, the port
    from the "port" SvcParam (if present), and the path from the
