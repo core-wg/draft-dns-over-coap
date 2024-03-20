@@ -1,0 +1,1224 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2021-10-26T00:09:03.810894+00:00",
+  "repo": "anr-bmbf-pivot/draft-dns-over-coap",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 1,
+      "id": "MDU6SXNzdWU5NjM4NTYwODA=",
+      "title": "Create OSCORE section",
+      "url": "https://github.com/anr-bmbf-pivot/draft-dns-over-coap/issues/1",
+      "state": "OPEN",
+      "author": "chrysn",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "chrysn"
+      ],
+      "labels": [
+        "enhancement"
+      ],
+      "body": "It *probably* doesn't need to say much more than that it largely does the same as DTLS with the respective security considerations applied -- and that applications can just use whatever they already ship code for.\r\n\r\nPotential aspects to point out for the reader's convenience:\r\n* It's relatively cheap to have a dedicated security context for DNS separate from other applications, making it easy to separate privileges on the server side. In such cases, the URI path that lends itself to the application is `/` as that makes the most compact requests.\r\n* ... anything else?",
+      "createdAt": "2021-08-09T10:29:10Z",
+      "updatedAt": "2021-08-10T10:05:50Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> * ... anything else?\r\n\r\nCan we validate server identity with OSCORE? If not, DTLS+OSCORE still has a use case that should be mentioned (given of course DTLS is used in a mode where the server identity can be validated ;-)).",
+          "createdAt": "2021-08-10T09:03:29Z",
+          "updatedAt": "2021-08-10T09:03:29Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Can we validate server identity with OSCORE?\n\nYes; that's determined at setup time. (For example, when established\nthrough EDHOC, the client has authenticated the server from a\ncertificate or a known RPK).\n\n(Server identity is even validated in group mode).\n",
+          "createdAt": "2021-08-10T10:05:50Z",
+          "updatedAt": "2021-08-10T10:05:50Z"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "MDU6SXNzdWU5NjM4NjEyNTQ=",
+      "title": "Is it practical to have the GET version altogether?",
+      "url": "https://github.com/anr-bmbf-pivot/draft-dns-over-coap/issues/2",
+      "state": "CLOSED",
+      "author": "chrysn",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "All I've found so far on why there's both the GET and the POST version of DoH in HTTP is that GETs are cachable.\r\n\r\nIn CoAP, we have [FETCH](https://datatracker.ietf.org/doc/html/rfc8132), which is just there for cases like this, and does away with both contender's downsides:\r\n* Compared to POST, it's cachable (and safe and thus idempotent)\r\n* Compared to GET, it doesn't need\r\n  * URI template handling (which I'd discourage in an embedded context -- it's reasonably simple here, but I wouldn't want to have to think of the different rules that'd apply if the template occurs in the path or query string), and\r\n  * base64 encoding (which adds both processing and wire overhead).\r\n\r\nThe only upside I see of keeping GET/POST over FETCH is that DoC could then be implemented by just cross-proxying to a DoH server, but given that such a proxy is unconstrained, reasonably straightforward to implement on its own and can thus take load off the constrained client, I advocate going all FETCH.",
+      "createdAt": "2021-08-09T10:36:35Z",
+      "updatedAt": "2021-10-22T12:53:38Z",
+      "closedAt": "2021-10-22T12:53:38Z",
+      "comments": [
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I was also thinking about getting rid of GET. However, apart from the cross-proxying argument you gave, I also wanted to provide a method for \"legacy CoAP\" (so a CoAP implementation where FETCH is not implemented).\r\n\r\nBut then again, FETCH-support is relatively easy to deploy on the client side (you literally just need to provide the number for it). Mhh...",
+          "createdAt": "2021-08-09T11:08:38Z",
+          "updatedAt": "2021-08-09T11:08:38Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> * URI template handling (which I'd discourage in an embedded context -- it's reasonably simple here, but I wouldn't want to have to think of the different rules that'd apply if the template occurs in the path or query string), and\r\n\r\nIMHO a URI template processor does not need to have more complexity than say a URI parser (which in some cases we need with CoAP). The one [I provided for RIOT](https://github.com/RIOT-OS/RIOT/pull/16702) takes ~400 bytes of ROM on a Cortex-M0. Once that's there, the question of adding a URI-Query option is just a matter of checking if the `dns` query is there or not when the URI template is resolved.",
+          "createdAt": "2021-08-09T11:13:06Z",
+          "updatedAt": "2021-08-09T11:13:41Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "There haven't been implementer complaints about FETCH in 2019 when\nOSCORE was finalized, which indicates that FETCH was indeed simple to\nsupport.\n\n> IMHO a URI template processor does not need to have more complexity\n> than say a URI parser (which in some cases we need with CoAP).\n\nI have hopes that many CoAP clients can do without a URI parser when the\nefforts of CoRAL and [CRI](https://datatracker.ietf.org/doc/draft-ietf-core-href/) bear fruit.\n\n> The one [I provided for\n> RIOT](https://github.com/RIOT-OS/RIOT/pull/16702) takes ~400 bytes of\n> ROM on a Cortex-M0. Once that's there the question of adding a\n> URI-Query option is just a matter of checking if the `dns` query is\n> there or not when the URI template is resolved.\n\nThat does indeed look like a comprehensive implementation testing for\nseveral of the pitfalls. But it's still 400 byte (and a lot of\ncode-to-be-maintained), and compatibility dangers from implementers who\ndon't go all the way but just `s/{?dns}/?dns=$QUERY/` because that's all\nthey've ever seen -- especially when the alternative is so much easier.\n",
+          "createdAt": "2021-08-09T11:37:38Z",
+          "updatedAt": "2021-08-09T11:37:38Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Another drawback of GET (as [pointed out in the current draft version](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/blob/f5950cf75af68c6a4addec55942b76573aac27ec/draft-lenders-dns-over-coaps.md#dns-queries-in-coap-requests)) is that with it block-wise transfer is not possible with large requests.",
+          "createdAt": "2021-08-10T06:18:32Z",
+          "updatedAt": "2021-08-10T06:18:32Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Ok, I think we agree for now that in the long run, we should remove GET and POST. However, at least for version `-00` of the draft I would like to keep it in for two reasons: a) to document our thought process for posterity and b) in case we find a use case that requires GET and need to revert back to the current version of CoAP messaging. I documented the future removal of GET and POST by linking this issue in the future Change Log section in https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/commit/a8dcfd4ab3087682aa2191169ff2cb93554b4616. ",
+          "createdAt": "2021-08-10T08:40:38Z",
+          "updatedAt": "2021-08-10T08:41:11Z"
+        },
+        {
+          "author": "waehlisch",
+          "authorAssociation": "MEMBER",
+          "body": "Do we have an overview of `FETCH` support in CoAP implementations?",
+          "createdAt": "2021-08-10T09:04:48Z",
+          "updatedAt": "2021-08-10T09:04:48Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I don't; Francesca and I started [preparing a survey](https://github.com/core-wg/wiki/wiki/Implementations-overview), but didn't even finish the requirements.",
+          "createdAt": "2021-08-10T09:30:52Z",
+          "updatedAt": "2021-08-10T09:30:52Z"
+        },
+        {
+          "author": "waehlisch",
+          "authorAssociation": "MEMBER",
+          "body": "oops, ... then we do a brief survey offline. we need an overview, which implementation supports `FETCH`, for example.",
+          "createdAt": "2021-08-10T09:37:31Z",
+          "updatedAt": "2021-08-10T09:37:31Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "If it's a helpful data point: In all the interops and implementation discussions around OSCORE that I can remember (and I've been in many of them), never has any implementer complained about the use of FETCH that'd have kept them from using OSCORE with that library.",
+          "createdAt": "2021-08-10T09:40:14Z",
+          "updatedAt": "2021-08-10T09:40:14Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> oops, ... then we do a brief survey offline. we need an overview, which implementation supports FETCH, for example.\r\n\r\nIs that really necessary? As [mentioned above](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/issues/2#issuecomment-895136457), adding `FETCH` support is just a matter of adding a FETCH = 5 constant and using it in an application in accordance with RFC 8132. Checking all implementations in [the list](http://coap.technology/impls.html) if they do that, on the other hand, seems like much more work.",
+          "createdAt": "2021-08-10T09:42:52Z",
+          "updatedAt": "2021-08-10T09:45:13Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The only nodes where FETCH is interesting is at proxies that cache. Here an (equally minor) adaptation needs to be made, that the payload of a FETCH request is considered for the cache key.",
+          "createdAt": "2021-08-10T09:46:35Z",
+          "updatedAt": "2021-08-10T09:46:35Z"
+        },
+        {
+          "author": "waehlisch",
+          "authorAssociation": "MEMBER",
+          "body": "hard to follow. will talk offline.",
+          "createdAt": "2021-08-10T13:28:39Z",
+          "updatedAt": "2021-08-10T13:28:39Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Is that really necessary? As [mentioned above](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/issues/2#issuecomment-895136457), adding `FETCH` support is just a matter of adding a FETCH = 5 constant and using it in an application in accordance with RFC 8132. Checking all implementations in [the list](http://coap.technology/impls.html) if they do that, on the other hand, seems like much more work.\r\n\r\nRegardless, I looked a bit into this, and the data is a bit crushing. Of the 19 implementations I looked into so far, only 6 support FETCH. Granted, most of these implementations haven't received an update in years (many last before the publication of RFC8132), but even some implementations I would call reference implementations such as Erbium (in all its flavors known to me, Contiki, Contiki-NG, and Wakaama) do not support FETCH. :confused: ",
+          "createdAt": "2021-08-11T13:30:32Z",
+          "updatedAt": "2021-08-11T13:30:32Z"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "MDU6SXNzdWU5NjM5OTY0MTM=",
+      "title": "Request text duplication",
+      "url": "https://github.com/anr-bmbf-pivot/draft-dns-over-coap/issues/4",
+      "state": "OPEN",
+      "author": "chrysn",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Using the application/dns-message format means following general DNS practice that the request is more or less echoed in the response. (The queries are part of the response). This makes sense in DNS where there's only the transaction ID, but less so in CoAP where there's cryptographic request/response protection.\r\n\r\nAre there any mechanisms of DNS that'd allow us to elide the queries from the response?\r\n\r\nIf so, I suggest we recommend them with some level of normativity.\r\n\r\nIf not, then this probably won't change short of using alternative serializations (which I understand to be in scope for add-ons in this document), but should be pointed out, stating that wire efficiency is traded here for cognitive (transferring established DNS concepts) and implementation (where responses are fed to a local DNS-ish processor) complexity.",
+      "createdAt": "2021-08-09T13:27:09Z",
+      "updatedAt": "2021-09-07T11:22:54Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Looking a bit deeper into how DNS packets are made up, I learned that there is internal lookup compression used when a name's text starts with 0b11 (where otherwise there are zeros from a label being less than 64 byte long). I found no specification that'd describe other use of other patterns there (say, a 0b01 that'd indicate a string offset in the request rather the response), so probably there's no such specification and we fall to the \"If not\" branch.\r\n\r\n(It would barely pay to send responses without the requests without such cross-references, as without the internal lookup the response records would just again contain all the long text from the requests).",
+          "createdAt": "2021-08-09T13:51:38Z",
+          "updatedAt": "2021-08-09T13:51:38Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "One could just set `qdcount` field of a DNS response to 0 and not include the question section. All information needed to figure out to what question the record is an answer for should be present in the answer section. However, any change to the message format makes the implementation of a simple DoC-to-DNS-proxy more complicated. Currently such a proxy would only need to replace the transaction ID of the DNS query and response (in case the client implementation decides to honor the SHALL on setting that field to 0 for cache-friendlyness) as the only modification to the DNS messages.",
+          "createdAt": "2021-08-09T13:59:06Z",
+          "updatedAt": "2021-08-09T13:59:06Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "With the compression inside the response, that alone won't do much good; it'd turn a response that currently has a `c0 xx` name reference into one that repeats the name just again.\r\n\r\nAs for implementation complexity, the nice thing about application/dns-message is that a simpler server can just not do any of these tricks -- but alas, there seem to be no existing viable tricks.",
+          "createdAt": "2021-08-09T14:23:40Z",
+          "updatedAt": "2021-08-09T14:23:40Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "So the question is if we should skip `application/dns-message` altogether in the draft opting for a more compressed format or to move the latter to a follow-up draft. In my opinion, we should stick to `application/dns-message` for now, point out the drawbacks and add considerations on a later format (e.g. based on CBOR).",
+          "createdAt": "2021-08-10T08:08:45Z",
+          "updatedAt": "2021-08-10T08:08:45Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I agree with you. As we can't do anything *within the existing* dns-message (that we can recommend or even make mandatory), all this becomes just a point to be documented. Text suggestion:\r\n\r\n> For a CoAP based protocol, the use of application/dns-message is suboptimal: The requested names are sent in the response, even though the protocol and its security mechanisms provide strong request-response bindings that this information could be implied.\r\n> The message format is used nonetheless because its ease of integration with existing DNS applications. Alternative media types can be used that perform better on the wire, but they can not be expected to be supported by DoC servers unless advertised.\r\n> Note that just leaving the question section of the response empty would do little for the message sizes, as the names are part of the response. They are usually compressed using the DNS format's internal message compression ({{rfc1035}} Section 4.1.4), so eliding questions would just make larger answers.\r\n\r\nAlternative formats (either DNS serialized in CBOR with consideration for request-response binding, or even more getaddrinfo-like subsets of DNS) can still be added later on, in follow-ups or appendices, and be optional and to-be-negotiated.",
+          "createdAt": "2021-08-10T08:29:24Z",
+          "updatedAt": "2021-08-10T08:29:24Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": ">> The message format is used nonetheless because its ease of integration with existing DNS applications. Alternative media types can be used that perform better on the wire, but they can not be expected to be supported by DoC servers unless advertised.\r\n\r\n\"[\u2026] existing DNS applicaitons *and use cases*.\", I would say, but otherwise it makes sense to add this. Question is where.\r\n",
+          "createdAt": "2021-08-10T08:34:59Z",
+          "updatedAt": "2021-08-10T08:34:59Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Question is where\r\n\r\nThat's why this is not a PR ;-) -- I'll just try to keep it in mind while the document grows and place it when the right point presents itself.",
+          "createdAt": "2021-08-10T08:47:13Z",
+          "updatedAt": "2021-08-10T08:47:13Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "[RFC 8427](https://datatracker.ietf.org/doc/html/rfc8427) (Representing DNS Messages in JSON) could be of interest when it comes to other serialization formats of DNS messages ;-).",
+          "createdAt": "2021-09-07T11:22:54Z",
+          "updatedAt": "2021-09-07T11:22:54Z"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "MDU6SXNzdWU5NjQwNDQ3NjE=",
+      "title": "TTL vs. Max-Age",
+      "url": "https://github.com/anr-bmbf-pivot/draft-dns-over-coap/issues/5",
+      "state": "OPEN",
+      "author": "chrysn",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Interpreting times relative to a cached request's request time is tricky, and AFAIK there is no good precedent in CoRE. ([SenML](https://www.rfc-editor.org/rfc/rfc8428.html) speaks of 'roughly \"now\"', without talking about Max-Age). Trouble arises when there's an application-unaware caching proxy on the line (which is generally to be expected).\r\n\r\nThe simple thing to do (and I think that's the direction currently taken, but just not in text or I missed it) is that clients generally ignore the stated DNS lifetimes, and only use the request for Max-Age. The downside here is that a) information about longer-lived parts of the response is lost (not sure if that's an issue), and b) that the response can't be plugged as-is into a local DNS system (for that'd see the times and happily cache for 5 more minutes, even though the response may have been sitting in a cache for almost that time).\r\n\r\nOptions IMO are:\r\n* State that we want it to behave like this, and that any client is to consider all lifetimes in the response clamped to Max-Age.\r\n* About the same, but ask it from the server. (\"MUST NOT set a longer Max-Age than the shortest lifetime, and MUST zero all lifetimes\").\r\n* (Most complex server-side, but still easy to use minimally on the client and IMO most powerful) Interpret all times relative to the expiry of the cache, and ask DoC servers to pick a Max-Age such that the smallest lifetime become zero (or as small as practical).\r\n  This allows an unaware cache (typically in a proxy) to keep the response available for as long as it is usable, and still allows aware clients to push the limits.\r\n\r\nIf you even want to explore the 3rd option, I can start a discussion on core@ietf.org on whether taking the max-age expiry as a reference point is a practical pattern.",
+      "createdAt": "2021-08-09T14:16:45Z",
+      "updatedAt": "2021-08-10T11:59:38Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "In [DoH](https://datatracker.ietf.org/doc/html/rfc8484#section-5.1) this is accounted for by using the Age header.\r\n\r\n>    [RFC7234] when calculating the DNS TTL of a response.  For example,\r\n>    if an RRset is received with a DNS TTL of 600, but the Age header\r\n>    field indicates that the response has been cached for 250 seconds,\r\n>    the remaining lifetime of the RRset is 350 seconds.  This requirement\r\n>    applies to both DoH client HTTP caches and DoH client DNS caches.\r\n\r\nCouldn't we do something similar with `Max-Age`? If `Max-Age` is lesser than the smallest TTL in the response, the difference between that smallest TTL and the `Max-Age` option value must be subtracted from all TTLs in the DNS response by the client.",
+          "createdAt": "2021-08-09T14:45:32Z",
+          "updatedAt": "2021-08-09T14:51:16Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think that'd amount to the same thing, and may be easier to implement. Asking on core@ for experience there.",
+          "createdAt": "2021-08-09T14:49:23Z",
+          "updatedAt": "2021-08-09T14:49:23Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I'd assume that it's easier for a client to add Max-Age than to traverse all records to find the difference, but let's see what CoRE says.",
+          "createdAt": "2021-08-09T14:59:58Z",
+          "updatedAt": "2021-08-09T14:59:58Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "See also https://mailarchive.ietf.org/arch/msg/core/CzRQTARwPgIwJN0s_kmlLRCNMKY",
+          "createdAt": "2021-08-09T15:05:47Z",
+          "updatedAt": "2021-08-09T15:05:47Z"
+        },
+        {
+          "author": "ektrah",
+          "authorAssociation": "NONE",
+          "body": "@chrysn makes a good point about application-unaware caching proxies on the path. I guess, as soon as you have multiple such proxies involved that all do their own Max-Age and ETag processing, any kind of time indications relative to the time of a request (that is not visible to the whole chain of proxies) or a response (that may have been cached for a while and then validated via ETag) become pretty meaningless...\r\n\r\nWhile DNS resolvers can update responses on the granularity of record, the caching in CoAP really revolves around avoiding the transmission of whole responses (either by reusing a previous response from a cache because it\u2019s still valid for the same request or because it can be quickly validated to be still valid).\r\n\r\nMaybe it would be possible to define a FETCH format where the client states what is has and what is missing, so that the server can \u201cpatch\u201d the information the client already has, but that sounds like a lot of work to specify. IMHO, the easiest solution would be to acknowledge that DNS over CoAP isn\u2019t as powerful and efficient as the original DNS protocol (whole-response caching only) and to optimize the whole thing for use cases where using the original DNS protocol isn\u2019t feasible (\u201cbetter this than nothing\u201d).\r\n\r\nOver OSCORE, this would mean that there\u2019s no caching happening on the path between the client and the origin server. Over everything else, this would mean any non-absolute time information in representations is meaningless.",
+          "createdAt": "2021-08-10T11:59:38Z",
+          "updatedAt": "2021-08-10T11:59:38Z"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "MDU6SXNzdWU5NjQxNDE0NjI=",
+      "title": "Retransmission Issue",
+      "url": "https://github.com/anr-bmbf-pivot/draft-dns-over-coap/issues/6",
+      "state": "OPEN",
+      "author": "cgundogan",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": ">General CoAP proxy problem, but what to do when DoC server is a DNS proxy, response came not yet in but retransmission by DoC client was received\r\n\r\nThe CoAP spec does not really flesh out \"corner cases\"  of certain proxy operations.  In previous work, we addressed this retransmission issue in two different ways:\r\n\r\n1. a proxy immediately sends an empty response, thereby stopping the retransmission of the DoC client.  Any (later) response from the proxy SHOULD then be confirmable.\r\n2. a proxy keeps request state and aggregates request retransmissions from downstream (similar to what NDN is doing).  Therefore, no additional retransmissions propagate upstream.",
+      "createdAt": "2021-08-09T15:58:56Z",
+      "updatedAt": "2021-08-10T10:17:38Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "\"General CoAP proxy problem\" ... well, that's exactly what empty ACKs do and are designed for. Depending on the complexity of the proxy, the ACK can be sent right away, or a bit later depending on the retransmission characteristics. Working with CONs without keeping state isn't much of an option anyway.",
+          "createdAt": "2021-08-09T16:02:59Z",
+          "updatedAt": "2021-08-09T16:02:59Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Then this might not be a problem at all. Do we want to remove that TBD then?",
+          "createdAt": "2021-08-10T09:18:55Z",
+          "updatedAt": "2021-08-10T09:18:55Z"
+        },
+        {
+          "author": "cgundogan",
+          "authorAssociation": "COLLABORATOR",
+          "body": "While `empty ACKs are designed for it`, I think there is no proper explanation in the CoAP spec (w.r.t. proxy operation).  Would probably be helpful to mention the empty ACK usage for this specific use case in this draft.  Maybe as appendix on \"best practices\".",
+          "createdAt": "2021-08-10T09:33:23Z",
+          "updatedAt": "2021-08-10T09:33:43Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The CoAP spec doesn't talk about it because it's nothing that is particular to a proxy. Reliable and unreliable transmission are things handled hop-by-hop, so as far as the proxy case is concerned, it is \"just\" a server that doesn't know precisely when it will have a response ready.\r\n\r\nI do see value in pointing these things out as matters of best practice, possibly in this document (that is, unless there is a better suited document around, say \"lightweight implementation guidance for CoAP proxies\").",
+          "createdAt": "2021-08-10T10:11:55Z",
+          "updatedAt": "2021-08-10T10:11:55Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "In the meantime [I added a bullet point](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/commit/6047281c3a871d3fc6d8b974de27fb400e42ca3f) to the TBD list in the proxy-section on that.",
+          "createdAt": "2021-08-10T10:17:38Z",
+          "updatedAt": "2021-08-10T10:17:38Z"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "MDU6SXNzdWU5NjQzOTc4OTU=",
+      "title": "overview figure",
+      "url": "https://github.com/anr-bmbf-pivot/draft-dns-over-coap/issues/7",
+      "state": "CLOSED",
+      "author": "waehlisch",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "the introduction should include an overview figure that presents all important components. the current state makes it surprisingly hard to follow. for example, reading the Introduction and then Selection of DoC Server, i doubt that the reader easily understands what a URI template is and why it is needed. a decent figure could easily close this gap. (i know that RFC 8484 is not a good poster child here.)",
+      "createdAt": "2021-08-09T21:19:36Z",
+      "updatedAt": "2021-08-10T10:38:44Z",
+      "closedAt": "2021-08-10T10:38:44Z",
+      "comments": [
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "See d1a8674.",
+          "createdAt": "2021-08-10T05:56:19Z",
+          "updatedAt": "2021-08-10T05:56:19Z"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "id": "MDU6SXNzdWU5ODI5NDgxNzc=",
+      "title": "CoRE technology dependencies",
+      "url": "https://github.com/anr-bmbf-pivot/draft-dns-over-coap/issues/10",
+      "state": "OPEN",
+      "author": "chrysn",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I find some text around CoRE dependencies needlessly constraining -- not without precedent in CoRE documents, but maybe we can do better.\r\n\r\nExample:\r\n\r\n> If the FETCH or POST method are used and block-wise transfer [RFC7959] is supported by the client, more than one CoAP request message MAY be used. If more than one CoAP request message is used to encode the DNS query, it must be chained together using the Block1 option in those CoAP requests.\r\n\r\nI see no good reason why CoD can't be used with any successor to the original Block options -- but this text rules it out. (Yeah it's not a normative MUST but still strong-worded).\r\n\r\nI think it'd be better for general composability of the components if we phrased this more openly; the strictness can still be in an MTI set of base things, maybe like this:\r\n\r\n> The block-wise transfer mechsnism of CoAP [RFC7959] enables the transfer of large DNS requests in FETCH and POST; DoC servers SHOULD support it. Clients MAY use any mechanism to send large requests \\<!-- just as they MAY try really any CoAP mechanism -->, but (if they send large requests in the first place) SHOULD fall back to using Block1 if the server does not support them.\r\n\r\n(We can discuss whether these are to be SHOULDs or MUSTs, but that's not this discussion.)",
+      "createdAt": "2021-08-30T16:00:07Z",
+      "updatedAt": "2021-08-30T16:00:07Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 3,
+      "id": "MDExOlB1bGxSZXF1ZXN0NzA2NTEwOTgy",
+      "title": "Text for ETag",
+      "url": "https://github.com/anr-bmbf-pivot/draft-dns-over-coap/pull/3",
+      "state": "MERGED",
+      "author": "chrysn",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-08-09T13:14:17Z",
+      "updatedAt": "2021-08-09T14:29:04Z",
+      "baseRepository": "anr-bmbf-pivot/draft-dns-over-coap",
+      "baseRefName": "main",
+      "baseRefOid": "045462286afadbcacbf3ec4ad7a7dafe48733a1e",
+      "headRepository": "anr-bmbf-pivot/draft-dns-over-coap",
+      "headRefName": "etag",
+      "headRefOid": "53e31c8e315e6410dbebb108c32bb2ed04e891f6",
+      "closedAt": "2021-08-09T14:29:00Z",
+      "mergedAt": "2021-08-09T14:29:00Z",
+      "mergedBy": "miri64",
+      "mergeCommit": {
+        "oid": "e007e87399cfba2963de64e69cd5b78efb7e4c80"
+      },
+      "comments": [
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Yes, moved. (Positioning / text flow is probably not perfect, but then again, the caching/proxy chapter will likely get more structure anyway as it grows).",
+          "createdAt": "2021-08-09T14:20:12Z",
+          "updatedAt": "2021-08-09T14:20:12Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzI1MzY5MTQ0",
+          "commit": {
+            "abbreviatedOid": "85cac16"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Now that the Caching section is [somewhat written out](https://github.com/anr-bmbf-pivot/draft-dns-over-coaps/commit/c0fed40ba3303f0dd69a81a7dfea9f9ea7532ad8), does it make sense to move it there?",
+          "createdAt": "2021-08-09T13:19:00Z",
+          "updatedAt": "2021-08-09T13:19:00Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "MDExOlB1bGxSZXF1ZXN0NzA3NDUzMzE1",
+      "title": "Removal of GET and POST usage",
+      "url": "https://github.com/anr-bmbf-pivot/draft-dns-over-coap/pull/8",
+      "state": "MERGED",
+      "author": "miri64",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Resolves #2.",
+      "createdAt": "2021-08-10T15:40:24Z",
+      "updatedAt": "2021-10-22T12:54:49Z",
+      "baseRepository": "anr-bmbf-pivot/draft-dns-over-coap",
+      "baseRefName": "main",
+      "baseRefOid": "2020578671e000961ba9b2a45a2733641da54569",
+      "headRepository": "miri64/draft-dns-over-coap",
+      "headRefName": "rm-get-post",
+      "headRefOid": "a4bacc7975d3fa52b755e15b18f56fee16430f11",
+      "closedAt": "2021-10-22T12:53:38Z",
+      "mergedAt": "2021-10-22T12:53:38Z",
+      "mergedBy": "chrysn",
+      "mergeCommit": {
+        "oid": "14bac2882c81525f765dd02152969d477eb450ee"
+      },
+      "comments": [
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I've rebased and adapted the PR to the current state in master.",
+          "createdAt": "2021-08-12T10:24:15Z",
+          "updatedAt": "2021-08-12T10:24:15Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "And another rebase. If we agree with the current state, I'd like to have this merged soon (and maybe even publish `-01` soon after).",
+          "createdAt": "2021-08-12T17:12:45Z",
+          "updatedAt": "2021-08-12T17:12:45Z"
+        },
+        {
+          "author": "waehlisch",
+          "authorAssociation": "MEMBER",
+          "body": "> And another rebase. If we agree with the current state, I'd like to have this merged soon (and maybe even publish `-01` soon after).\r\n\r\nas i said earlier. i would like to have a discussion in the CoRE WG before we change this. this discussion can be kicked off after your vacation @miri64.",
+          "createdAt": "2021-08-12T20:31:36Z",
+          "updatedAt": "2021-08-12T20:31:36Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Rebased and adapted in accordance to the points raised during the [CoRE interim](https://notes.ietf.org/notes-ietf-interim-2021-core-12-core#DNS-over-CoAP-20-min).",
+          "createdAt": "2021-10-13T16:39:11Z",
+          "updatedAt": "2021-10-13T16:39:11Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Note to self: Need to check if the current text is contradicting the [MUST for the Content-Format option of FETCH requests](https://datatracker.ietf.org/doc/html/rfc8132#section-2.3.1).",
+          "createdAt": "2021-10-15T10:44:00Z",
+          "updatedAt": "2021-10-15T10:44:00Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Note to self: Need to check if the current text is contradicting the [MUST for the Content-Format option of FETCH requests](https://datatracker.ietf.org/doc/html/rfc8132#section-2.3.1).\r\n\r\nAdded a clarifying half-sentence in a4bacc7975d3fa52b755e15b18f56fee16430f11.",
+          "createdAt": "2021-10-15T13:22:41Z",
+          "updatedAt": "2021-10-15T13:22:41Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Ping? Reminder that [draft cutoff is on Monday](https://datatracker.ietf.org/meeting/important-dates/). Can this go in?",
+          "createdAt": "2021-10-22T10:58:33Z",
+          "updatedAt": "2021-10-22T10:58:33Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzI3NDMwMzEz",
+          "commit": {
+            "abbreviatedOid": "1b05ac8"
+          },
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-08-11T12:38:58Z",
+          "updatedAt": "2021-08-11T12:39:08Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "I'm fine with this appendix, but why is PUT introduced? Unlike POST which has intentionally vague semantics, PUT has defined semantics (\"that the resource [...] be updated or created with the enclosed representation\") that don't match what's being done here.",
+              "createdAt": "2021-08-11T12:38:58Z",
+              "updatedAt": "2021-08-11T12:39:08Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzI3NDM1MTAz",
+          "commit": {
+            "abbreviatedOid": "b41c7e7"
+          },
+          "author": "waehlisch",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-08-11T12:43:50Z",
+          "updatedAt": "2021-08-11T12:43:51Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "i agree that this approach could be a good compromise. but this also means that we abandon the C-H-Proxy argument right away.",
+              "createdAt": "2021-08-11T12:43:51Z",
+              "updatedAt": "2021-08-11T12:43:51Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzI3NDQwMDc4",
+          "commit": {
+            "abbreviatedOid": "b41c7e7"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-08-11T12:48:38Z",
+          "updatedAt": "2021-08-11T12:48:38Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "> I'm fine with this appendix, but why is PUT introduced?\r\n\r\nI guess I was in \"people might do anything if they don't get propper instructions\"-mode here. I can remove it again, if it is more distracting than useful.\r\n\r\n> but this also means that we abandon the C-H-Proxy argument right away.\r\n\r\nI was thinking about adding a sentence or two about how C-H-Proxies could be implemented in \u00a75. Of course, for this recommendations should be amended here as well then.",
+              "createdAt": "2021-08-11T12:48:38Z",
+              "updatedAt": "2021-08-11T12:48:38Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzI3NDQyMDg0",
+          "commit": {
+            "abbreviatedOid": "b41c7e7"
+          },
+          "author": "waehlisch",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-08-11T12:50:33Z",
+          "updatedAt": "2021-08-11T12:50:34Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "we cannot propose  C-H-Proxies in the body of the draft and specify the required building blocks in the Appendix. if we move GET to the Appendix, the proxy option is out-of-scope for the draft.",
+              "createdAt": "2021-08-11T12:50:34Z",
+              "updatedAt": "2021-08-11T12:50:34Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzI3NDUwMTkx",
+          "commit": {
+            "abbreviatedOid": "b41c7e7"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-08-11T12:58:10Z",
+          "updatedAt": "2021-08-11T12:58:10Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "> we cannot propose C-H-Proxies in the body of the draft and specify the required building blocks in the Appendix.\r\n\r\nThat was not what I intended. The building blocks specific to the main part of the draft would of course be specified in the main part of the draft. Recommendations specific to the appendix (such as how to handle GET/POST at a C-H-Proxy) would go to the appendix.",
+              "createdAt": "2021-08-11T12:58:10Z",
+              "updatedAt": "2021-08-11T12:58:10Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzI4OTI2ODM3",
+          "commit": {
+            "abbreviatedOid": "6059e02"
+          },
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-08-12T18:06:25Z",
+          "updatedAt": "2021-08-12T18:06:25Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "MDExOlB1bGxSZXF1ZXN0NzIyNjAzMjU0",
+      "title": "reword: Successful responses can't disobey Accept",
+      "url": "https://github.com/anr-bmbf-pivot/draft-dns-over-coap/pull/9",
+      "state": "MERGED",
+      "author": "chrysn",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-08-30T15:45:17Z",
+      "updatedAt": "2021-10-25T19:24:35Z",
+      "baseRepository": "anr-bmbf-pivot/draft-dns-over-coap",
+      "baseRefName": "main",
+      "baseRefOid": "25cee27c8a30b6f59691e3302488921be432b5c0",
+      "headRepository": "anr-bmbf-pivot/draft-dns-over-coap",
+      "headRefName": "accept-must-be-followed",
+      "headRefOid": "0d22da5fccfe101cfa9ce08cbade78d887507e9e",
+      "closedAt": "2021-10-25T19:24:32Z",
+      "mergedAt": "2021-10-25T19:24:32Z",
+      "mergedBy": "miri64",
+      "mergeCommit": {
+        "oid": "bbc713e9862c6effffdf59d4794c7b53f218a64c"
+      },
+      "comments": [
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Moving the server-side requirement over (and referencing it here) sounds good.\r\n\r\nOn the understanding side, maybe the confusion (quite possibly me misunderstanding the current text) is that the use of Accept kind of implies that different C-Fs could be in use too. For example, the client may first using a hypothetical application/dns+cbor -- and then the server needs to err back rather than accepting the request but providing the response in another format.\r\n\r\nGotta go over all involved sections again...",
+          "createdAt": "2021-08-31T07:39:54Z",
+          "updatedAt": "2021-08-31T07:39:54Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> [\u2026] that the use of Accept kind of implies that different C-Fs could be in use too.\r\n\r\nThat is the intention, yes.\r\n\r\n\r\n\r\n\r\n\r\n> For example, the client may first using a hypothetical application/dns+cbor -- and then the server needs to err back rather than accepting the request but providing the response in another format.\r\n\r\nThat would be the way to go... not sure how the current text contradicts that...",
+          "createdAt": "2021-08-31T08:29:11Z",
+          "updatedAt": "2021-08-31T08:29:11Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I didn't find any mention that the sever needs to support application/dns-message for output, adding that to get this PR mergable and updating the rest to match.\r\n\r\n(Although personally I'd prefer to say less about representation negotiation at all, as that's provided by CoAP, and leave it at an elaborate version of \"We describe application/dns-message, which is MTI for interoperability for requests and responses, server- and client-side; use CoAP's advertisement and negotiation if you want more.\")",
+          "createdAt": "2021-10-14T15:43:29Z",
+          "updatedAt": "2021-10-14T15:43:29Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I've moved the client-side requirement to the response part because only there it made sense to add the server mandate to be able to produce that response format.",
+          "createdAt": "2021-10-14T16:48:35Z",
+          "updatedAt": "2021-10-14T16:48:35Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Needs rebase, due to #8 being merged.",
+          "createdAt": "2021-10-25T18:47:56Z",
+          "updatedAt": "2021-10-25T18:47:56Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzQxOTQzMDQy",
+          "commit": {
+            "abbreviatedOid": "dccda0f"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "DISMISSED",
+          "body": "We discussed this issue offline, but I am still not quite 100% sure what the problem is. From how I understood it in our conversation offline, the problem is this sentence in [RFC 7252, section 5.10.4](https://www.rfc-editor.org/rfc/rfc7252#section-5.10.4):\r\n\r\n> If the preferred Content-Format cannot be returned, then a 4.06 \"Not Acceptable\" MUST be sent as a response, unless another error code takes precedence for this response.\r\n\r\nSo, if the server (for what ever reason) is unable to send \"application/dns-message\", we have a problem. However, (1) as the text currently stands, the Accept option is optional (but \"defaults\" to \"application/dns-message\") and (2) I don't see how the new wording fixes that issue.\r\n\r\nShouldn't there rather be an additional requirement for the DoC Server in 4.3 that it MUST be able to compose responses in the \"application/dns-message\" to alleviate this issue?",
+          "createdAt": "2021-08-30T18:27:38Z",
+          "updatedAt": "2021-10-14T16:58:17Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "I don't think the Accept option is strictly necessary (\"MUST [\u2026] request with Accept [option?]\", however, can be read as such) and as it stands it somewhat contradicts the sentence before \"[\u2026] SHOULD include an Accept option [\u2026]\".",
+              "createdAt": "2021-08-30T18:27:39Z",
+              "updatedAt": "2021-08-30T18:34:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs4ufwxR",
+          "commit": {
+            "abbreviatedOid": "ba74219"
+          },
+          "author": "waehlisch",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-14T17:52:50Z",
+          "updatedAt": "2021-10-14T17:53:04Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "i'm confused. my understanding was (1) if a client does not send the `Accept` field, a server replies with  `application/dns-message` by default, and (2) a client implements at least CF `application/dns-message`.\r\n\r\nre: (1): the current text (\"when requested\") leaves it open which CF the server must use if no `Accept` field was set.\r\n\r\nre: (2): the current text (\"when it does not send an Accept option.\") does not require that client understands CF  `application/dns-message`.  \r\n\r\nalso, i  suggest to replace \"that format\" by \"in the Content-Format \"application/dns-message\"\" to be more precise.",
+              "createdAt": "2021-10-14T17:52:50Z",
+              "updatedAt": "2021-10-14T17:53:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs4uxbJR",
+          "commit": {
+            "abbreviatedOid": "ba74219"
+          },
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-20T16:08:52Z",
+          "updatedAt": "2021-10-20T16:08:52Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "Currently we have a choice to prescribe whether\r\n\r\na) not sending anything forces the default (which means ever requesting application/dns-message is wastefully overexplicit), or\r\nb) no Accept means that the server can send whatever it thinks is best (but still stating that application/dns-message is MTI, so a client better fall back to it if all else fails).\r\n\r\nPreviously I think we're not clear about it, and for the PR I've picked b) which I prefer because it interferes less with CoAP's selections. (In particular, it doesn't raise any question in case an Accept-Any-Of ever gets added).\r\n\r\nIf you think a) is the better choice I can change it over, I can change it.\r\n\r\n---\r\n\r\nI'm revisiting the PR to ensure (2) is covered (it was my intention to keep it MTI for the client, even in the b) variation) and the \"that format\" edit.",
+              "createdAt": "2021-10-20T16:08:52Z",
+              "updatedAt": "2021-10-20T16:08:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs4uxdpE",
+          "commit": {
+            "abbreviatedOid": "4bd27bc"
+          },
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-20T16:17:52Z",
+          "updatedAt": "2021-10-20T16:17:53Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "\"that format\" clarified.\r\n\r\nAs for (2), the current \"A DoC client MUST be prepared to process responses in a/d-m format when it does not send an Accept option.\" implies understanding it to me. (Or is this just about the wording \"prepared to process\"? Would \"MUST understand\" be better?). Sure we could add \"or when it explicitly requests [the format] via Accept\", but that already follows from the semantics of Accept.",
+              "createdAt": "2021-10-20T16:17:53Z",
+              "updatedAt": "2021-10-20T16:17:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs4u_T1I",
+          "commit": {
+            "abbreviatedOid": "4bd27bc"
+          },
+          "author": "waehlisch",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-25T16:22:35Z",
+          "updatedAt": "2021-10-25T16:22:35Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "yes, \"MUST understand\" sounds less ambiguous.",
+              "createdAt": "2021-10-25T16:22:35Z",
+              "updatedAt": "2021-10-25T16:22:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs4u_9SU",
+          "commit": {
+            "abbreviatedOid": "d9ae74c"
+          },
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-25T19:17:57Z",
+          "updatedAt": "2021-10-25T19:17:57Z",
+          "comments": [
+            {
+              "originalPosition": 21,
+              "body": "Rebased and old change squashed; with the change to \"MUST understand\" now applied as a yet-to-be-squashed commit.",
+              "createdAt": "2021-10-25T19:17:57Z",
+              "updatedAt": "2021-10-25T19:17:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs4u_-aR",
+          "commit": {
+            "abbreviatedOid": "0d22da5"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Added a minor formatting fix. IMHO this can go in now.",
+          "createdAt": "2021-10-25T19:23:16Z",
+          "updatedAt": "2021-10-25T19:23:16Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "MDExOlB1bGxSZXF1ZXN0NzIyNjE5MzA2",
+      "title": "train of pairs: Use block-wise terminology",
+      "url": "https://github.com/anr-bmbf-pivot/draft-dns-over-coap/pull/11",
+      "state": "MERGED",
+      "author": "chrysn",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "\"body\" and \"payload\" are distinguished there, as are \"operation\" and\r\n\"exchange\"; both explained here briefly.\r\n\r\n(As much as I like the train metaphor, there *is* already terminology.)",
+      "createdAt": "2021-08-30T16:06:54Z",
+      "updatedAt": "2021-08-31T14:31:06Z",
+      "baseRepository": "anr-bmbf-pivot/draft-dns-over-coap",
+      "baseRefName": "main",
+      "baseRefOid": "c31c990d32ce7df932200d2ecbbf5ced31c228c2",
+      "headRepository": "anr-bmbf-pivot/draft-dns-over-coap",
+      "headRefName": "train-is-leaving",
+      "headRefOid": "e667d52aa9f4a4632b6aedbd2bb244ebddb528a9",
+      "closedAt": "2021-08-31T14:15:01Z",
+      "mergedAt": "2021-08-31T14:15:01Z",
+      "mergedBy": "miri64",
+      "mergeCommit": {
+        "oid": "229e8cfb92d7e7a2ac8e619ca4b1a7814aeabc9f"
+      },
+      "comments": [
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks, all applied and squashed.",
+          "createdAt": "2021-08-31T07:35:31Z",
+          "updatedAt": "2021-08-31T07:35:31Z"
+        },
+        {
+          "author": "waehlisch",
+          "authorAssociation": "MEMBER",
+          "body": "we should add a reference to the terminology in \\S 2. Terminology.",
+          "createdAt": "2021-08-31T07:55:38Z",
+          "updatedAt": "2021-08-31T07:55:38Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> we should add a reference to the terminology in \\S 2. Terminology.\r\n\r\nSo something like\r\n\r\n> The terms CoAP payload and CoAP body are used as defined in RFC7959.\r\n\r\n?\r\n\r\nWe maybe also should have a closer look into the rest of the text where we use \"payload\" and mean actually \"body\".",
+          "createdAt": "2021-08-31T08:19:56Z",
+          "updatedAt": "2021-08-31T08:33:57Z"
+        },
+        {
+          "author": "waehlisch",
+          "authorAssociation": "MEMBER",
+          "body": "> The terms CoAP payload and CoAP body are used as defined in RFC7959.\r\n\r\nuse quotation marks (\"CoAP payload\" and \"CoAP body\"). otherwise, it is fine.",
+          "createdAt": "2021-08-31T14:17:44Z",
+          "updatedAt": "2021-08-31T14:17:44Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> > The terms CoAP payload and CoAP body are used as defined in RFC7959.\r\n> \r\n> use quotation marks (\"CoAP payload\" and \"CoAP body\"). otherwise, it is fine.\r\n\r\nSee 424aacc\r\n\r\n> We maybe also should have a closer look into the rest of the text where we use \"payload\" and mean actually \"body\".\r\n\r\nOnly the request section did it wrong, see 8db32998f9c343a70ab2a3ed6",
+          "createdAt": "2021-08-31T14:28:53Z",
+          "updatedAt": "2021-08-31T14:30:55Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "(updated body/payload commit hash in edit)",
+          "createdAt": "2021-08-31T14:31:06Z",
+          "updatedAt": "2021-08-31T14:31:06Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzQxOTQ5Njc2",
+          "commit": {
+            "abbreviatedOid": "3f0fb20"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Mostly wording nits.",
+          "createdAt": "2021-08-30T18:35:28Z",
+          "updatedAt": "2021-08-30T18:36:41Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "```suggestion\r\nblock-wise transfer is involved.  DNS responses are provided in the body (which is the\r\n```\r\n?",
+              "createdAt": "2021-08-30T18:35:28Z",
+              "updatedAt": "2021-08-30T18:36:41Z"
+            },
+            {
+              "originalPosition": 11,
+              "body": "```suggestion\r\nblock-wise is involved.  DNS responses are provided in the body (i.e. the\r\n```\r\n?",
+              "createdAt": "2021-08-30T18:35:59Z",
+              "updatedAt": "2021-08-30T18:36:41Z"
+            },
+            {
+              "originalPosition": 12,
+              "body": "```suggestion\r\npayload, or the concatenated payloads) of a CoAP response. A DoC server MUST\r\n```\r\n\r\nor\r\n\r\n```suggestion\r\npayload, or the concatenated payloads) of the CoAP response. A DoC server MUST\r\n```",
+              "createdAt": "2021-08-30T18:36:27Z",
+              "updatedAt": "2021-08-30T18:36:41Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzQyMzk3NDky",
+          "commit": {
+            "abbreviatedOid": "639f4b0"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-08-31T07:55:36Z",
+          "updatedAt": "2021-08-31T07:55:36Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "This one is still there.",
+              "createdAt": "2021-08-31T07:55:36Z",
+              "updatedAt": "2021-08-31T07:55:36Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzQyNzc4MzI5",
+          "commit": {
+            "abbreviatedOid": "e667d52"
+          },
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-08-31T14:07:26Z",
+          "updatedAt": "2021-08-31T14:07:26Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "Sorry, committed.",
+              "createdAt": "2021-08-31T14:07:26Z",
+              "updatedAt": "2021-08-31T14:07:26Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzQyNzg4MDg3",
+          "commit": {
+            "abbreviatedOid": "e667d52"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "ACK. Will fix @waehlisch's comment out-of-band.",
+          "createdAt": "2021-08-31T14:14:48Z",
+          "updatedAt": "2021-08-31T14:14:48Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOF27TLs4tcdXo",
+      "title": "Expand for DoQ and DoT",
+      "url": "https://github.com/anr-bmbf-pivot/draft-dns-over-coap/pull/12",
+      "state": "MERGED",
+      "author": "miri64",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "During the CoRE interim it was argued that we need to stronger distinguish DoC from the other DNS-over-X approaches. For the most part, this was already done (DoH, DoT, and DNS-over-DTLS). This adds a few sentences on DNS over QUIC (DoQ), mostly arguing on similar size requirement problems as we do for DoH/DoT.",
+      "createdAt": "2021-10-20T14:50:56Z",
+      "updatedAt": "2021-10-25T19:14:44Z",
+      "baseRepository": "anr-bmbf-pivot/draft-dns-over-coap",
+      "baseRefName": "main",
+      "baseRefOid": "c6d4ea2ed011de4777082e00d48e2b7e05738870",
+      "headRepository": "anr-bmbf-pivot/draft-dns-over-coap",
+      "headRefName": "doq",
+      "headRefOid": "52168e83d9bb3979a2c0aeebe9a21132fa89eb8f",
+      "closedAt": "2021-10-25T19:14:40Z",
+      "mergedAt": "2021-10-25T19:14:40Z",
+      "mergedBy": "miri64",
+      "mergeCommit": {
+        "oid": "25cee27c8a30b6f59691e3302488921be432b5c0"
+      },
+      "comments": [
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> I was about to complain about the 50KiB (\"the optimized version is only 32 KiB\"), but adding picotls again it's really at least 50KiB.\r\n\r\nEven 32 KiB could be too much for just the transport, IMHO. I can change the value if you like.\r\n\r\nAfter thinking about this a bit more, I think it might also be of value to add the classic congestion control vs. lossy networks here. People not as familiar with the subject matter might need a hint in that direction for HTTPS, TLS, and QUIC.",
+          "createdAt": "2021-10-20T17:20:04Z",
+          "updatedAt": "2021-10-20T17:20:04Z"
+        },
+        {
+          "author": "waehlisch",
+          "authorAssociation": "MEMBER",
+          "body": "not sure that the text serves the purpose. another implementation might need less resources?\r\n\r\n@chrysn, what do you mean with \"again\"?",
+          "createdAt": "2021-10-20T17:27:03Z",
+          "updatedAt": "2021-10-20T17:27:03Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "ad \"again\": I looked at at the figure 1 numbers, where the \"QUIC\" block started out as 50k but went down to 32k. But when later I looked more closely, I saw that there's still ~20k of TLS implementation too (not counting cifra and micro-ecc as something like these would be shared across any security layer), which then brings the number up to ~50k \"again\".",
+          "createdAt": "2021-10-20T17:45:26Z",
+          "updatedAt": "2021-10-20T17:45:26Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> not sure that the text serves the purpose. another implementation might need less resources?\r\n\r\nYes, that was my concern as well. That's why I (also) wanted to add the congestion control argument.",
+          "createdAt": "2021-10-20T17:54:13Z",
+          "updatedAt": "2021-10-20T17:54:13Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> > not sure that the text serves the purpose. another implementation might need less resources?\r\n> \r\n> Yes, that was my concern as well. That's why I (also) wanted to add the congestion control argument.\r\n\r\nDone. I also removed the size argumentation altogether.",
+          "createdAt": "2021-10-21T10:05:44Z",
+          "updatedAt": "2021-10-21T10:05:44Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Rebased, squashed and applied changes proposed by @waehlisch offline. This should be ready to merge now.",
+          "createdAt": "2021-10-25T18:46:21Z",
+          "updatedAt": "2021-10-25T18:46:21Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOF27TLs4uxRCf",
+          "commit": {
+            "abbreviatedOid": "5eaa4d4"
+          },
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "state": "DISMISSED",
+          "body": "I was about to complain about the 50KiB (\"the optimized version is only 32 KiB\"), but adding picotls again it's really at least 50KiB.",
+          "createdAt": "2021-10-20T15:35:24Z",
+          "updatedAt": "2021-10-20T17:20:25Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOF27TLs4u56xC",
+          "commit": {
+            "abbreviatedOid": "2f25a49"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-22T14:39:39Z",
+          "updatedAt": "2021-10-22T14:39:39Z",
+          "comments": [
+            {
+              "originalPosition": 19,
+              "body": "Added this quantifier, since CoAP also is datagram-based communication, just with a message recovery layer on top.",
+              "createdAt": "2021-10-22T14:39:39Z",
+              "updatedAt": "2021-10-22T14:39:39Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "id": "PR_kwDOF27TLs4ti12j",
+      "title": "Add note on ETag and response codes",
+      "url": "https://github.com/anr-bmbf-pivot/draft-dns-over-coap/pull/13",
+      "state": "MERGED",
+      "author": "miri64",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "enhancement"
+      ],
+      "body": "While reading up on ETags again, I noticed, that our statements on response codes in 4.3.1 might cause confusion, when it comes to the ETag options in responses:\r\n\r\n> It is RECOMMENDED that CoAP responses that carry any valid DNS response use a \"2.xx Success\" response code. A response to a GET or FETCH request SHOULD use the \"2.05 Content\" code. A response to a POST request SHOULD use the \"2.01 Created\" code.\r\n\r\nor\r\n\r\n> It is RECOMMENDED that CoAP responses that carry any valid DNS response use a \"2.05 Content\" response code.\r\n\r\nin https://github.com/anr-bmbf-pivot/draft-dns-over-coap/pull/8 respectively.\r\n\r\nThis serves as a reminder, that in accordance with RFCs 7252 and 8132, servers that respond to a requested ETag that is valid, MUST use the \"2.03 Valid\" response code and that the response MUST NOT carry any payload.",
+      "createdAt": "2021-10-22T11:24:12Z",
+      "updatedAt": "2021-10-22T14:24:27Z",
+      "baseRepository": "anr-bmbf-pivot/draft-dns-over-coap",
+      "baseRefName": "main",
+      "baseRefOid": "2020578671e000961ba9b2a45a2733641da54569",
+      "headRepository": "anr-bmbf-pivot/draft-dns-over-coap",
+      "headRefName": "etag-response",
+      "headRefOid": "ee9c56d198ecb399cb0a300f7178e0942a5764b2",
+      "closedAt": "2021-10-22T14:24:24Z",
+      "mergedAt": "2021-10-22T14:24:24Z",
+      "mergedBy": "miri64",
+      "mergeCommit": {
+        "oid": "c6d4ea2ed011de4777082e00d48e2b7e05738870"
+      },
+      "comments": [
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Ad \"general advice\", do you mean by that to change the sentence in\n> 4.3.1 to something more in line to what you suggested?\n\nI was not referring to any concrete line but the general tone -- but\nyes, the \"A response to a GET or FETCH...\" sentences are what I'd\nsuggest to remove or tone down. (It just says before that 2.xx is how\nresponses are to come in, and unless a component like ETag / 2.03 Valid\nsays else, 2.05 *is* the successful response for a GET).\n\nAlso next paragraph: Why force no payload in the response? During\ndebugging that could well contain a stack trace. \"SHOULD be empty / MUST\nignore unrecognized payloads\" allows this to play nice with any other\nCoAP components like core-problem-details.\n\n-- \nTo use raw power is to make yourself infinitely vulnerable to greater powers.\n  -- Bene Gesserit axiom\n",
+          "createdAt": "2021-10-22T12:21:01Z",
+          "updatedAt": "2021-10-22T12:21:01Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "In that case, maybe it is better to reword the whole response code stuff with the responses instead of adding the sentence here. What do you think?",
+          "createdAt": "2021-10-22T13:25:22Z",
+          "updatedAt": "2021-10-22T13:25:22Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The current text is a gradual improvement; I think we should merge this here and take the time to work on #10 in a separate step (possibly after this submission).",
+          "createdAt": "2021-10-22T13:34:16Z",
+          "updatedAt": "2021-10-22T13:34:16Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOF27TLs4u5KMq",
+          "commit": {
+            "abbreviatedOid": "231c8bc"
+          },
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-22T11:33:45Z",
+          "updatedAt": "2021-10-22T11:33:46Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\nthe ETag is still valid, the response uses the \"2.03 Valid\" code and consequently\r\ncarries no payload.\r\n```\r\n\r\nI wouldn't use normative language here: We're pointing things out to readers who don't know these details of CoAP off their heads, not making any requirements that are ours to make.\r\n\r\n(My general advice on these things would be to talk normatively in terms of abstract CoAP interactions, in the style of \"the DNS message is transported as a representation in a successful response\", where concrete options like the use of ETag to revalidate, of block-wise and observation as possibilities pointed out, and not as normative components).",
+              "createdAt": "2021-10-22T11:33:46Z",
+              "updatedAt": "2021-10-22T11:33:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs4u5Nt7",
+          "commit": {
+            "abbreviatedOid": "ee9c56d"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-22T11:50:36Z",
+          "updatedAt": "2021-10-22T11:50:36Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "Sounds sensible. Applied as suggested.\r\n\r\nAd \"general advice\", do you mean by that to change the sentence in 4.3.1 to something more in line to what you suggested?",
+              "createdAt": "2021-10-22T11:50:36Z",
+              "updatedAt": "2021-10-22T11:50:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs4u5caP",
+          "commit": {
+            "abbreviatedOid": "ee9c56d"
+          },
+          "author": "chrysn",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-10-22T12:55:20Z",
+          "updatedAt": "2021-10-22T12:55:20Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
+}
