@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 21 September 2024                                              
+Expires: 22 September 2024                                              
                                                              C. Gündoğan
                                                      Huawei Technologies
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                           20 March 2024
+                                                           21 March 2024
 
 
                           DNS over CoAP (DoC)
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 September 2024.
+   This Internet-Draft will expire on 22 September 2024.
 
 Copyright Notice
 
@@ -216,10 +216,10 @@ Table of Contents
    CoAP over (D)TLS servers using the "alpn" SvcParam.  This document
    specifies "docpath" as a single-valued SvcParamKey whose value (in
    both presentation and wire format) MUST be a URI reference
-   ([RFC3986]) in its path-abempty form.  The DoC client MUST send any
-   DoC request to the CoAP resource identified by the URI constructed
-   from the "docpath" SvcParam as described in [TBD: draft-lenders-core-
-   coap-dtls-svcb].
+   ([RFC3986]) in its path-abempty form.  To use the service binding,
+   the DoC client MUST send any DoC request to the CoAP resource
+   identified by the URI constructed from the "docpath" SvcParam as
+   described in [TBD: draft-lenders-core-coap-dtls-svcb].
 
    When discovering the DNS resource through a link mechanism that
    allows describing a resource type (e.g., the Resource Type Attribute
@@ -653,8 +653,8 @@ Table of Contents
               <https://www.rfc-editor.org/rfc/rfc8484>.
 
    [RFC8499]  Hoffman, P., Sullivan, A., and K. Fujiwara, "DNS
-              Terminology", BCP 219, RFC 8499, DOI 10.17487/RFC8499,
-              January 2019, <https://www.rfc-editor.org/rfc/rfc8499>.
+              Terminology", RFC 8499, DOI 10.17487/RFC8499, January
+              2019, <https://www.rfc-editor.org/rfc/rfc8499>.
 
    [RFC8765]  Pusateri, T. and S. Cheshire, "DNS Push Notifications",
               RFC 8765, DOI 10.17487/RFC8765, June 2020,
