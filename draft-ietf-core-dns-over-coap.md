@@ -209,7 +209,7 @@ resource identifier constructed from the SvcParams including "docpath" as descri
 draft-lenders-core-coap-dtls-svcb\].
 
 While there is no path specified for the DoC resource, it is RECOMMENDED to use the root path "/"
-for the DNS resource to keep the CoAP requests small.
+to keep the CoAP requests small.
 
 Basic Message Exchange
 ======================
