@@ -53,6 +53,7 @@ normative:
   RFC7959: coap-blockwise
   RFC8132: coap-fetch
   RFC8613: oscore
+  RFC8949: cbor
   RFC9147: dtls13
 
 informative:
@@ -71,7 +72,6 @@ informative:
   RFC9463: dnr
   I-D.ietf-core-href: cri
   I-D.amsuess-core-cachable-oscore: cachable-oscore
-  I-D.lenders-core-dnr: core-dnr
   DoC-paper: DOI.10.1145/3609423
 
 
@@ -182,21 +182,34 @@ or automatic configuration, e.g., using a CoRE resource directory
 {{-ddr}}.
 Automatic configuration SHOULD only be done from a trusted source.
 
-A DoC server can also be discovered using SVCB Resource Records {{-svcb}}, {{-svcb-dns}} or DNR
-Service Parameters {{-dnr}}.
-\[TBD: draft-lenders-core-coap-dtls-svcb\] provides solutions
-to discover CoAP over (D)TLS servers using the "alpn" SvcParam. This document specifies "docpath" as
-a single-valued SvcParamKey whose value (in both presentation and wire format) MUST be a URI
-reference ({{-uri}}) in its path-abempty form. To use the service binding, the DoC client MUST send
-any DoC request to the CoAP resource identified by the URI constructed from the "docpath" SvcParam
-as described in \[TBD: draft-lenders-core-coap-dtls-svcb\].
-
 When discovering the DNS resource through a link mechanism that allows describing a resource type
 (e.g., the Resource Type Attribute in {{-core-link-format}}), the resource type "core.dns" can be
 used to identify a generic DNS resolver that is available to the client.
 
-While there is no path specified it is RECOMMENDED to use the root path "/" for the DNS resource to
-keep the CoAP requests small.
+A DoC server can also be discovered using SVCB Resource Records (RR) {{-svcb}}, {{-svcb-dns}} or DNR
+Service Parameters {{-dnr}}.
+\[TBD: draft-lenders-core-coap-dtls-svcb\] provides solutions
+to discover CoAP over (D)TLS servers using the "alpn" SvcParam. This document specifies "docpath" as
+a single-valued SvcParamKey whose value MUST be a CBOR sequence of 0 or more text strings (see
+{{-cbor}}), delimited by length (in total octets) for the the SvcParamValue field. If the
+SvcParamValue ends within a CBOR text string, the SVCB RR MUST be considered as malformed.
+
+Note, that this specifically does not surround the text string sequence with a CBOR array or similar
+CBOR data item. This path format was chosen to coincide with the path representation in CRIs
+({{-cri}}). Furthermore, it is easily transferable into a sequence of CoAP Uri-Path options by
+mapping the initial byte of any present CBOR text string (see {{-cbor, Section 3}}) into the Option
+Delta and Option Length of the CoAP option, provided these CBOR text strings are all of a length
+between 0 and 12 octets (see {{-coap, Section 3.1}}). Likewise, it can be transfered into a URI
+path-abempty form (see {{-uri, Section 3.3}}) by replacing the initial byte of any present CBOR text
+string with the "/" character, provided these CBOR text strings are all of a length lesser than 24
+octets.
+
+To use the service binding from a SVCB RR, the DoC client MUST send any DoC request to the CoAP
+resource identifier constructed from the SvcParams including "docpath" as described in \[TBD:
+draft-lenders-core-coap-dtls-svcb\].
+
+While there is no path specified for the DoC resource, it is RECOMMENDED to use the root path "/"
+for the DNS resource to keep the CoAP requests small.
 
 Basic Message Exchange
 ======================
