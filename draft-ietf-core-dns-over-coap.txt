@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 5 September 2024                                               
+Expires: 23 September 2024                                              
                                                              C. Gündoğan
                                                      Huawei Technologies
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                            4 March 2024
+                                                           22 March 2024
 
 
                           DNS over CoAP (DoC)
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 September 2024.
+   This Internet-Draft will expire on 23 September 2024.
 
 Copyright Notice
 
@@ -500,15 +500,16 @@ Table of Contents
    IANA is requested to assign CoAP Content-Format ID for the DNS
    message media type in the "CoAP Content-Formats" sub-registry, within
    the "CoRE Parameters" registry [RFC7252], corresponding to the
-   "application/dns-message" media type from the "Media Types" registry:
+   "application/dns-message" media type from the "Media Types" registry
+   (see [RFC8484])
 
-   Media-Type: application/dns-message
+   Content Type: application/dns-message
 
-   Encoding: -
+   Content Coding: -
 
    Id: 553 (suggested)
 
-   Reference: [TBD-this-spec]
+   Reference: [RFC8484][TBD-this-spec]
 
 9.2.  New "core.dns" Resource Type
 
@@ -603,9 +604,9 @@ Table of Contents
               Lenders, M. S., Amsüss, C., Schmidt, T. C., and M.
               Wählisch, "Discovery of Network-designated CoRE
               Resolvers", Work in Progress, Internet-Draft, draft-
-              lenders-core-dnr-00, 4 March 2024,
+              lenders-core-dnr-01, 19 March 2024,
               <https://datatracker.ietf.org/doc/html/draft-lenders-core-
-              dnr-00>.
+              dnr-01>.
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
@@ -631,8 +632,8 @@ Table of Contents
               <https://www.rfc-editor.org/rfc/rfc8484>.
 
    [RFC8499]  Hoffman, P., Sullivan, A., and K. Fujiwara, "DNS
-              Terminology", BCP 219, RFC 8499, DOI 10.17487/RFC8499,
-              January 2019, <https://www.rfc-editor.org/rfc/rfc8499>.
+              Terminology", RFC 8499, DOI 10.17487/RFC8499, January
+              2019, <https://www.rfc-editor.org/rfc/rfc8499>.
 
    [RFC8765]  Pusateri, T. and S. Cheshire, "DNS Push Notifications",
               RFC 8765, DOI 10.17487/RFC8765, June 2020,
