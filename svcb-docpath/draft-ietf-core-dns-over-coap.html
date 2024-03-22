@@ -1037,7 +1037,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Lenders, et al.</td>
-<td class="center">Expires 22 September 2024</td>
+<td class="center">Expires 23 September 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1050,12 +1050,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-core-dns-over-coap-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-03-21" class="published">21 March 2024</time>
+<time datetime="2024-03-22" class="published">22 March 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-09-22">22 September 2024</time></dd>
+<dd class="expires"><time datetime="2024-09-23">23 September 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1119,7 +1119,7 @@ constrained devices in the Internet of Things (IoT).<a href="#section-abstract-1
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 22 September 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 23 September 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1446,19 +1446,30 @@ or automatic configuration, e.g., using a CoRE resource directory
 <span>[<a href="#RFC9176" class="cite xref">RFC9176</a>]</span>, DHCP or Router Advertisement options <span>[<a href="#RFC9463" class="cite xref">RFC9463</a>]</span> or discovery of designated resolvers
 <span>[<a href="#RFC9462" class="cite xref">RFC9462</a>]</span>.
 Automatic configuration <span class="bcp14">SHOULD</span> only be done from a trusted source.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">A DoC server can also be discovered using SVCB Resource Records <span>[<a href="#RFC9460" class="cite xref">RFC9460</a>]</span>, <span>[<a href="#RFC9461" class="cite xref">RFC9461</a>]</span> or DNR
+<p id="section-3-2">When discovering the DNS resource through a link mechanism that allows describing a resource type
+(e.g., the Resource Type Attribute in <span>[<a href="#RFC6690" class="cite xref">RFC6690</a>]</span>), the resource type "core.dns" can be
+used to identify a generic DNS resolver that is available to the client.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-3">A DoC server can also be discovered using SVCB Resource Records (RR) <span>[<a href="#RFC9460" class="cite xref">RFC9460</a>]</span>, <span>[<a href="#RFC9461" class="cite xref">RFC9461</a>]</span> or DNR
 Service Parameters <span>[<a href="#RFC9463" class="cite xref">RFC9463</a>]</span>.
 [TBD: draft-lenders-core-coap-dtls-svcb] provides solutions
 to discover CoAP over (D)TLS servers using the "alpn" SvcParam. This document specifies "docpath" as
-a single-valued SvcParamKey whose value (in both presentation and wire format) <span class="bcp14">MUST</span> be a URI
-reference (<span>[<a href="#RFC3986" class="cite xref">RFC3986</a>]</span>) in its path-abempty form. To use the service binding, the DoC client <span class="bcp14">MUST</span> send
-any DoC request to the CoAP resource identified by the URI constructed from the "docpath" SvcParam
-as described in [TBD: draft-lenders-core-coap-dtls-svcb].<a href="#section-3-2" class="pilcrow">¶</a></p>
-<p id="section-3-3">When discovering the DNS resource through a link mechanism that allows describing a resource type
-(e.g., the Resource Type Attribute in <span>[<a href="#RFC6690" class="cite xref">RFC6690</a>]</span>), the resource type "core.dns" can be
-used to identify a generic DNS resolver that is available to the client.<a href="#section-3-3" class="pilcrow">¶</a></p>
-<p id="section-3-4">While there is no path specified it is <span class="bcp14">RECOMMENDED</span> to use the root path "/" for the DNS resource to
-keep the CoAP requests small.<a href="#section-3-4" class="pilcrow">¶</a></p>
+a single-valued SvcParamKey whose value <span class="bcp14">MUST</span> be a CBOR sequence of 0 or more text strings (see
+<span>[<a href="#RFC8949" class="cite xref">RFC8949</a>]</span>), delimited by length (in total octets) for the the SvcParamValue field. If the
+SvcParamValue ends within a CBOR text string, the SVCB RR <span class="bcp14">MUST</span> be considered as malformed.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-4">Note, that this specifically does not surround the text string sequence with a CBOR array or similar
+CBOR data item. This path format was chosen to coincide with the path representation in CRIs
+(<span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>). Furthermore, it is easily transferable into a sequence of CoAP Uri-Path options by
+mapping the initial byte of any present CBOR text string (see <span>[<a href="#RFC8949" class="cite xref">RFC8949</a>], <a href="https://rfc-editor.org/rfc/rfc8949#section-3" class="relref">Section 3</a></span>) into the Option
+Delta and Option Length of the CoAP option, provided these CBOR text strings are all of a length
+between 0 and 12 octets (see <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>], <a href="https://rfc-editor.org/rfc/rfc7252#section-3.1" class="relref">Section 3.1</a></span>). Likewise, it can be transfered into a URI
+path-abempty form (see <span>[<a href="#RFC3986" class="cite xref">RFC3986</a>], <a href="https://rfc-editor.org/rfc/rfc3986#section-3.3" class="relref">Section 3.3</a></span>) by replacing the initial byte of any present CBOR text
+string with the "/" character, provided these CBOR text strings are all of a length lesser than 24
+octets.<a href="#section-3-4" class="pilcrow">¶</a></p>
+<p id="section-3-5">To use the service binding from a SVCB RR, the DoC client <span class="bcp14">MUST</span> send any DoC request to the CoAP
+resource identifier constructed from the SvcParams including "docpath" as described in [TBD:
+draft-lenders-core-coap-dtls-svcb].<a href="#section-3-5" class="pilcrow">¶</a></p>
+<p id="section-3-6">While there is no path specified for the DoC resource, it is <span class="bcp14">RECOMMENDED</span> to use the root path "/"
+for the DNS resource to keep the CoAP requests small.<a href="#section-3-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="basic-message-exchange">
@@ -1906,6 +1917,10 @@ register <span>[<a href="#RFC6690" class="cite xref">RFC6690</a>]</span>.<a href
         <dd>
 <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Mattsson, J.</span>, <span class="refAuthor">Palombini, F.</span>, and <span class="refAuthor">L. Seitz</span>, <span class="refTitle">"Object Security for Constrained RESTful Environments (OSCORE)"</span>, <span class="seriesInfo">RFC 8613</span>, <span class="seriesInfo">DOI 10.17487/RFC8613</span>, <time datetime="2019-07" class="refDate">July 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8613">https://www.rfc-editor.org/rfc/rfc8613</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8949">[RFC8949]</dt>
+        <dd>
+<span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">P. Hoffman</span>, <span class="refTitle">"Concise Binary Object Representation (CBOR)"</span>, <span class="seriesInfo">STD 94</span>, <span class="seriesInfo">RFC 8949</span>, <span class="seriesInfo">DOI 10.17487/RFC8949</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8949">https://www.rfc-editor.org/rfc/rfc8949</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC9147">[RFC9147]</dt>
       <dd>
 <span class="refAuthor">Rescorla, E.</span>, <span class="refAuthor">Tschofenig, H.</span>, and <span class="refAuthor">N. Modadugu</span>, <span class="refTitle">"The Datagram Transport Layer Security (DTLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 9147</span>, <span class="seriesInfo">DOI 10.17487/RFC9147</span>, <time datetime="2022-04" class="refDate">April 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9147">https://www.rfc-editor.org/rfc/rfc9147</a>&gt;</span>. </dd>
@@ -1930,10 +1945,6 @@ register <span>[<a href="#RFC6690" class="cite xref">RFC6690</a>]</span>.<a href
 <dt id="I-D.ietf-core-href">[I-D.ietf-core-href]</dt>
         <dd>
 <span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"Constrained Resource Identifiers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-href-14</span>, <time datetime="2024-01-09" class="refDate">9 January 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-href-14">https://datatracker.ietf.org/doc/html/draft-ietf-core-href-14</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.lenders-core-dnr">[I-D.lenders-core-dnr]</dt>
-        <dd>
-<span class="refAuthor">Lenders, M. S.</span>, <span class="refAuthor">Amsüss, C.</span>, <span class="refAuthor">Schmidt, T. C.</span>, and <span class="refAuthor">M. Wählisch</span>, <span class="refTitle">"Discovery of Network-designated CoRE Resolvers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-lenders-core-dnr-01</span>, <time datetime="2024-03-19" class="refDate">19 March 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-lenders-core-dnr-01">https://datatracker.ietf.org/doc/html/draft-lenders-core-dnr-01</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC3986">[RFC3986]</dt>
         <dd>
