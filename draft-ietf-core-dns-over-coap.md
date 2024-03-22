@@ -468,7 +468,7 @@ Content Coding: -
 
 Id: 553 (suggested)
 
-Reference: {{-doh}}\[TBD-this-spec\]
+Reference: {{-doh}}\[TBD-this-spec, {{sec:content-format}}\]
 
 New "core.dns" Resource Type
 ----------------------------
@@ -481,7 +481,7 @@ Attribute Value: core.dns
 
 Description: DNS over CoAP resource.
 
-Reference: \[TBD-this-spec\] {{selection-of-a-doc-server}}
+Reference: \[TBD-this-spec, {{selection-of-a-doc-server}}\]
 
 
 --- back
