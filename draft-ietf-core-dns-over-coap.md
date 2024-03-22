@@ -53,6 +53,7 @@ normative:
   RFC7959: coap-blockwise
   RFC8132: coap-fetch
   RFC8613: oscore
+  RFC8949: cbor
   RFC9147: dtls13
 
 informative:
@@ -71,7 +72,6 @@ informative:
   RFC9463: dnr
   I-D.ietf-core-href: cri
   I-D.amsuess-core-cachable-oscore: cachable-oscore
-  I-D.lenders-core-dnr: core-dnr
   DoC-paper: DOI.10.1145/3609423
 
 
@@ -171,7 +171,7 @@ The terms "CoAP payload" and "CoAP body" are used as defined in {{-coap-blockwis
 
 {::boilerplate bcp14-tagged}
 
-Selection of a DoC Server
+Selection of a DoC Server   {#sec:doc-server-selection}
 =========================
 
 In this document, it is assumed that the DoC client knows the DoC server and the DNS resource at the
@@ -182,16 +182,34 @@ or automatic configuration, e.g., using a CoRE resource directory
 {{-ddr}}.
 Automatic configuration SHOULD only be done from a trusted source.
 
-Support for SVCB Resource Records {{-svcb}}, {{-svcb-dns}} or DNR Service Parameters {{-dnr}}
-are not specified in this document.
-{{-core-dnr}} explores solutions for CoAP for these mechanisms.
-
 When discovering the DNS resource through a link mechanism that allows describing a resource type
 (e.g., the Resource Type Attribute in {{-core-link-format}}), the resource type "core.dns" can be
 used to identify a generic DNS resolver that is available to the client.
 
-While there is no path specified it is RECOMMENDED to use the root path "/" for the DNS resource to
-keep the CoAP requests small.
+A DoC server can also be discovered using SVCB Resource Records (RR) {{-svcb}}, {{-svcb-dns}} or DNR
+Service Parameters {{-dnr}}.
+\[TBD: draft-lenders-core-coap-dtls-svcb\] provides solutions
+to discover CoAP over (D)TLS servers using the "alpn" SvcParam. This document specifies "docpath" as
+a single-valued SvcParamKey whose value MUST be a CBOR sequence of 0 or more text strings (see
+{{-cbor}}), delimited by length (in total octets) for the the SvcParamValue field. If the
+SvcParamValue ends within a CBOR text string, the SVCB RR MUST be considered as malformed.
+
+Note, that this specifically does not surround the text string sequence with a CBOR array or similar
+CBOR data item. This path format was chosen to coincide with the path representation in CRIs
+({{-cri}}). Furthermore, it is easily transferable into a sequence of CoAP Uri-Path options by
+mapping the initial byte of any present CBOR text string (see {{-cbor, Section 3}}) into the Option
+Delta and Option Length of the CoAP option, provided these CBOR text strings are all of a length
+between 0 and 12 octets (see {{-coap, Section 3.1}}). Likewise, it can be transfered into a URI
+path-abempty form (see {{-uri, Section 3.3}}) by replacing the initial byte of any present CBOR text
+string with the "/" character, provided these CBOR text strings are all of a length lesser than 24
+octets.
+
+To use the service binding from a SVCB RR, the DoC client MUST send any DoC request to the CoAP
+resource identifier constructed from the SvcParams including "docpath" as described in \[TBD:
+draft-lenders-core-coap-dtls-svcb\].
+
+While there is no path specified for the DoC resource, it is RECOMMENDED to use the root path "/"
+to keep the CoAP requests small.
 
 Basic Message Exchange
 ======================
@@ -470,6 +488,16 @@ Id: 553 (suggested)
 
 Reference: \[TBD-this-spec\]
 
+New "docpath" SVCB Service Parameter
+------------------------------------
+
+This document adds the following entry to the SVCB Service Parameters
+registry ({{-svcb}}). The definition of this parameter can be found in {{sec:doc-server-selection}}.
+
+| Number  | Name           | Meaning                            | Reference       |
+| ------- | -------------- | ---------------------------------- | --------------- |
+| 9 (suggested)      | docpath        | DNS over CoAP resource path        | \[TBD-this-spec\] {{sec:doc-server-selection}} |
+
 New "core.dns" Resource Type
 ----------------------------
 
@@ -481,8 +509,7 @@ Attribute Value: core.dns
 
 Description: DNS over CoAP resource.
 
-Reference: \[TBD-this-spec\] {{selection-of-a-doc-server}}
-
+Reference: \[TBD-this-spec\] {{sec:doc-server-selection}}
 
 --- back
 
