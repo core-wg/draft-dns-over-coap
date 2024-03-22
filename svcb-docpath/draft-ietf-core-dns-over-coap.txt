@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 22 September 2024                                              
+Expires: 23 September 2024                                              
                                                              C. Gündoğan
                                                      Huawei Technologies
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                           21 March 2024
+                                                           22 March 2024
 
 
                           DNS over CoAP (DoC)
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 September 2024.
+   This Internet-Draft will expire on 23 September 2024.
 
 Copyright Notice
 
@@ -210,24 +210,43 @@ Table of Contents
    [RFC9463] or discovery of designated resolvers [RFC9462].  Automatic
    configuration SHOULD only be done from a trusted source.
 
-   A DoC server can also be discovered using SVCB Resource Records
-   [RFC9460], [RFC9461] or DNR Service Parameters [RFC9463].  [TBD:
-   draft-lenders-core-coap-dtls-svcb] provides solutions to discover
-   CoAP over (D)TLS servers using the "alpn" SvcParam.  This document
-   specifies "docpath" as a single-valued SvcParamKey whose value (in
-   both presentation and wire format) MUST be a URI reference
-   ([RFC3986]) in its path-abempty form.  To use the service binding,
-   the DoC client MUST send any DoC request to the CoAP resource
-   identified by the URI constructed from the "docpath" SvcParam as
-   described in [TBD: draft-lenders-core-coap-dtls-svcb].
-
    When discovering the DNS resource through a link mechanism that
    allows describing a resource type (e.g., the Resource Type Attribute
    in [RFC6690]), the resource type "core.dns" can be used to identify a
    generic DNS resolver that is available to the client.
 
-   While there is no path specified it is RECOMMENDED to use the root
-   path "/" for the DNS resource to keep the CoAP requests small.
+   A DoC server can also be discovered using SVCB Resource Records (RR)
+   [RFC9460], [RFC9461] or DNR Service Parameters [RFC9463].  [TBD:
+   draft-lenders-core-coap-dtls-svcb] provides solutions to discover
+   CoAP over (D)TLS servers using the "alpn" SvcParam.  This document
+   specifies "docpath" as a single-valued SvcParamKey whose value MUST
+   be a CBOR sequence of 0 or more text strings (see [RFC8949]),
+   delimited by length (in total octets) for the the SvcParamValue
+   field.  If the SvcParamValue ends within a CBOR text string, the SVCB
+   RR MUST be considered as malformed.
+
+   Note, that this specifically does not surround the text string
+   sequence with a CBOR array or similar CBOR data item.  This path
+   format was chosen to coincide with the path representation in CRIs
+   ([I-D.ietf-core-href]).  Furthermore, it is easily transferable into
+   a sequence of CoAP Uri-Path options by mapping the initial byte of
+   any present CBOR text string (see [RFC8949], Section 3) into the
+   Option Delta and Option Length of the CoAP option, provided these
+   CBOR text strings are all of a length between 0 and 12 octets (see
+   [RFC7252], Section 3.1).  Likewise, it can be transfered into a URI
+   path-abempty form (see [RFC3986], Section 3.3) by replacing the
+   initial byte of any present CBOR text string with the "/" character,
+   provided these CBOR text strings are all of a length lesser than 24
+   octets.
+
+   To use the service binding from a SVCB RR, the DoC client MUST send
+   any DoC request to the CoAP resource identifier constructed from the
+   SvcParams including "docpath" as described in [TBD: draft-lenders-
+   core-coap-dtls-svcb].
+
+   While there is no path specified for the DoC resource, it is
+   RECOMMENDED to use the root path "/" for the DNS resource to keep the
+   CoAP requests small.
 
 4.  Basic Message Exchange
 
@@ -592,6 +611,11 @@ Table of Contents
               (OSCORE)", RFC 8613, DOI 10.17487/RFC8613, July 2019,
               <https://www.rfc-editor.org/rfc/rfc8613>.
 
+   [RFC8949]  Bormann, C. and P. Hoffman, "Concise Binary Object
+              Representation (CBOR)", STD 94, RFC 8949,
+              DOI 10.17487/RFC8949, December 2020,
+              <https://www.rfc-editor.org/rfc/rfc8949>.
+
    [RFC9147]  Rescorla, E., Tschofenig, H., and N. Modadugu, "The
               Datagram Transport Layer Security (DTLS) Protocol Version
               1.3", RFC 9147, DOI 10.17487/RFC9147, April 2022,
@@ -620,14 +644,6 @@ Table of Contents
               ietf-core-href-14, 9 January 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
               href-14>.
-
-   [I-D.lenders-core-dnr]
-              Lenders, M. S., Amsüss, C., Schmidt, T. C., and M.
-              Wählisch, "Discovery of Network-designated CoRE
-              Resolvers", Work in Progress, Internet-Draft, draft-
-              lenders-core-dnr-01, 19 March 2024,
-              <https://datatracker.ietf.org/doc/html/draft-lenders-core-
-              dnr-01>.
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
