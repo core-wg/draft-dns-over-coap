@@ -245,8 +245,7 @@ Table of Contents
    core-coap-dtls-svcb].
 
    While there is no path specified for the DoC resource, it is
-   RECOMMENDED to use the root path "/" for the DNS resource to keep the
-   CoAP requests small.
+   RECOMMENDED to use the root path "/" to keep the CoAP requests small.
 
 4.  Basic Message Exchange
 
