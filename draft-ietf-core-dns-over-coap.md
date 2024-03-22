@@ -506,9 +506,9 @@ type in the "CoAP Content-Formats" sub-registry, within the "CoRE Parameters"
 registry {{-coap}}, corresponding to the "application/dns-message" media
 type from the "Media Types" registry:
 
-Media-Type: application/dns-message
+Content Type: application/dns-message
 
-Encoding: -
+Content Coding: -
 
 Id: 553 (suggested)
 
