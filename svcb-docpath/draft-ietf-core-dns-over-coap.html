@@ -1481,7 +1481,7 @@ string with the "/" character, provided these CBOR text strings are all of a len
 octets.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 <p id="section-3.1-3">To use the service binding from a SVCB RR, the DoC client <span class="bcp14">MUST</span> send any DoC request to the CoAP
 resource identifier constructed from the SvcParams including "docpath". A rough construction
-algorithm could be as follows.
+algorithm could be as follows, going through the provided records in order of their priority.
 - If the "alpn" SvcParam value for the service is "coap", construct a CoAP request for CoAP over TCP,
   if it is "co", construct one for CoAP over DTLS.
 - The destination address for the request should be taken from additional information about the
@@ -1494,7 +1494,10 @@ algorithm could be as follows.
   the request.
 - If a "port" SvcParam value is provided or if a port was queried, and if either differs from either
   the default port of the transport or the destination port selected above, set that port in the
-  URI-Port option.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
+  URI-Port option.
+- If this request receives a response, use that for future DoC queries, until it becomes
+  unreachable. If not, or if it becomes unreachable, repeat with the SVCB record with the next
+  highest priority.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
 <p id="section-3.1-4">A more generalized construction algorithm can be found in <span>[<a href="#I-D.ietf-core-transport-indication" class="cite xref">I-D.ietf-core-transport-indication</a>]</span>.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
