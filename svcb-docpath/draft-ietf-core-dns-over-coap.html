@@ -1464,7 +1464,9 @@ to keep the CoAP requests small.<a href="#section-3-3" class="pilcrow">¶</a></p
 <p id="section-3.1-1">A DoC server can also be discovered using SVCB Resource Records (RR) <span>[<a href="#RFC9460" class="cite xref">RFC9460</a>]</span>, <span>[<a href="#RFC9461" class="cite xref">RFC9461</a>]</span> or DNR
 Service Parameters <span>[<a href="#RFC9463" class="cite xref">RFC9463</a>]</span>.
 [TBD: draft-lenders-core-coap-dtls-svcb] provides solutions
-to discover CoAP over (D)TLS servers using the "alpn" SvcParam. This document specifies "docpath" as
+to discover CoAP over (D)TLS servers using the "alpn" SvcParam.
+<span>[<a href="#I-D.lenders-core-dnr" class="cite xref">I-D.lenders-core-dnr</a>]</span> provides a problem statement for service bindings discovery for OSCORE and EDHOC.
+This document specifies "docpath" as
 a single-valued SvcParamKey whose value <span class="bcp14">MUST</span> be a CBOR sequence of 0 or more text strings (see
 <span>[<a href="#RFC8949" class="cite xref">RFC8949</a>]</span>), delimited by length (in total octets) for the the SvcParamValue field. If the
 SvcParamValue ends within a CBOR text string, the SVCB RR <span class="bcp14">MUST</span> be considered as malformed.
@@ -1980,6 +1982,10 @@ register <span>[<a href="#RFC6690" class="cite xref">RFC6690</a>]</span>.<a href
 <dt id="I-D.ietf-core-transport-indication">[I-D.ietf-core-transport-indication]</dt>
         <dd>
 <span class="refAuthor">Amsüss, C.</span> and <span class="refAuthor">M. S. Lenders</span>, <span class="refTitle">"CoAP Transport Indication"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-transport-indication-05</span>, <time datetime="2024-03-18" class="refDate">18 March 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-transport-indication-05">https://datatracker.ietf.org/doc/html/draft-ietf-core-transport-indication-05</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.lenders-core-dnr">[I-D.lenders-core-dnr]</dt>
+        <dd>
+<span class="refAuthor">Lenders, M. S.</span>, <span class="refAuthor">Amsüss, C.</span>, <span class="refAuthor">Schmidt, T. C.</span>, and <span class="refAuthor">M. Wählisch</span>, <span class="refTitle">"Discovery of Network-designated CoRE Resolvers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-lenders-core-dnr-01</span>, <time datetime="2024-03-19" class="refDate">19 March 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-lenders-core-dnr-01">https://datatracker.ietf.org/doc/html/draft-lenders-core-dnr-01</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC3986">[RFC3986]</dt>
         <dd>

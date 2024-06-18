@@ -224,14 +224,16 @@ Table of Contents
    A DoC server can also be discovered using SVCB Resource Records (RR)
    [RFC9460], [RFC9461] or DNR Service Parameters [RFC9463].  [TBD:
    draft-lenders-core-coap-dtls-svcb] provides solutions to discover
-   CoAP over (D)TLS servers using the "alpn" SvcParam.  This document
-   specifies "docpath" as a single-valued SvcParamKey whose value MUST
-   be a CBOR sequence of 0 or more text strings (see [RFC8949]),
-   delimited by length (in total octets) for the the SvcParamValue
-   field.  If the SvcParamValue ends within a CBOR text string, the SVCB
-   RR MUST be considered as malformed.  As a text format, e.g., in DNS
-   zone files, the CBOR diagnostic notation (see Section 8 of [RFC8949])
-   of that CBOR sequence can be used.
+   CoAP over (D)TLS servers using the "alpn" SvcParam.
+   [I-D.lenders-core-dnr] provides a problem statement for service
+   bindings discovery for OSCORE and EDHOC.  This document specifies
+   "docpath" as a single-valued SvcParamKey whose value MUST be a CBOR
+   sequence of 0 or more text strings (see [RFC8949]), delimited by
+   length (in total octets) for the the SvcParamValue field.  If the
+   SvcParamValue ends within a CBOR text string, the SVCB RR MUST be
+   considered as malformed.  As a text format, e.g., in DNS zone files,
+   the CBOR diagnostic notation (see Section 8 of [RFC8949]) of that
+   CBOR sequence can be used.
 
    Note, that this specifically does not surround the text string
    sequence with a CBOR array or similar CBOR data item.  This path
@@ -676,6 +678,14 @@ Table of Contents
               transport-indication-05, 18 March 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
               transport-indication-05>.
+
+   [I-D.lenders-core-dnr]
+              Lenders, M. S., Amsüss, C., Schmidt, T. C., and M.
+              Wählisch, "Discovery of Network-designated CoRE
+              Resolvers", Work in Progress, Internet-Draft, draft-
+              lenders-core-dnr-01, 19 March 2024,
+              <https://datatracker.ietf.org/doc/html/draft-lenders-core-
+              dnr-01>.
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
