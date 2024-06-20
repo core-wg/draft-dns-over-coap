@@ -314,7 +314,7 @@ The DoC client might also decide to repeat a non-successful exchange with a diff
 ### Support of CoAP Caching {#sec:resp-caching}
 
 For reliability and energy saving measures content decoupling and thus en-route caching on proxies takes a far greater role than it does, e.g., in HTTP.
-Likewise, CoAP utilizes cache validation to refresh stale cache entries without large messages which often uses hashing over the message content for ETag generation.
+Likewise, CoAP utilizes cache validation to refresh stale cache entries without large messages which regularly uses hashing over the message content for ETag generation.
 As such, the approach to guarantee the same cache key for DNS responses as proposed in DoH ({{-doh}}, section 5.1) is not sufficient and needs to be updated so that the TTLs in the response are more often the same regardless of query time.
 
 The DoC server MUST ensure that any sum of the Max-Age value of a CoAP response and any TTL in the
@@ -412,7 +412,7 @@ mapping between any other DNS transport.
 Considerations for Unencrypted Use {#sec:unencrypted-coap}
 ==================================
 The use of DoC without a security mode of CoAP is NOT RECOMMENDED.
-Without a security mode, a large number of possible attacks need to be evaluate in the context of
+Without a security mode, many possible attacks need to be evaluated in the context of
 the application's threat model.
 This includes threats that are mitigated even by DNS over UDP:
 For example, the random ID of the DNS header afford some protection against off-path cache poisoning
@@ -484,9 +484,9 @@ Security Considerations
 =======================
 
 When using unencrypted CoAP (see {{sec:unencrypted-coap}}), setting the ID of a DNS message to 0 as
-specified in {{sec:req-caching}} opens open the DNS cache of a DoC client to cache poisoning attacks
+specified in {{sec:req-caching}} opens the DNS cache of a DoC client to cache poisoning attacks
 via response spoofing.
-This documents requires an unpredictable CoAP token in each DoC query from the client when CoAP is
+This document requires an unpredictable CoAP token in each DoC query from the client when CoAP is
 not secured to mitigate such an attack over DoC (see {{sec:unencrypted-coap}}).
 
 For encrypted usage with DTLS or OSCORE the impact of a fixed ID on security is limited, as both
