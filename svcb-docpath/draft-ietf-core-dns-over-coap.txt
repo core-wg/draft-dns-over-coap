@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 20 December 2024                                               
+Expires: 22 December 2024                                               
                                                              C. Gündoğan
                                                      Huawei Technologies
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                            18 June 2024
+                                                            20 June 2024
 
 
                           DNS over CoAP (DoC)
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 December 2024.
+   This Internet-Draft will expire on 22 December 2024.
 
 Copyright Notice
 
@@ -247,7 +247,7 @@ Table of Contents
    path-abempty form (see [RFC3986], Section 3.3) by replacing the
    initial byte of any present CBOR text string with the "/" character,
    provided these CBOR text strings are all of a length lesser than 24
-   octets.
+   octets and do not contain bytes that need escaping.
 
    To use the service binding from a SVCB RR, the DoC client MUST send
    any DoC request to the CoAP resource identifier constructed from the
