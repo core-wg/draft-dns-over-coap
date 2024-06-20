@@ -17,22 +17,22 @@ by DTLS-Secured CoAP (CoAPS) or Object Security for Constrained RESTful
 Environments (OSCORE) to provide encrypted DNS message exchange for
 constrained devices in the Internet of Things (IoT). 
     " name="description">
-<meta content="xml2rfc 3.20.1" name="generator">
+<meta content="xml2rfc 3.21.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-core-dns-over-coap-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.20.1
-    Python 3.11.8
+  xml2rfc 3.21.0
+    Python 3.12.3
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
-    Jinja2 3.1.2
-    lxml 4.9.3
-    platformdirs 4.2.0
+    Jinja2 3.1.4
+    lxml 4.9.4
+    platformdirs 4.2.2
     pycountry 22.3.5
     PyYAML 6.0.1
     requests 2.31.0
-    setuptools 68.2.2
+    setuptools 69.5.1
     six 1.16.0
     wcwidth 0.2.13
 -->
@@ -1033,11 +1033,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">DoC</td>
-<td class="right">March 2024</td>
+<td class="right">June 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Lenders, et al.</td>
-<td class="center">Expires 23 September 2024</td>
+<td class="center">Expires 22 December 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1050,12 +1050,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-core-dns-over-coap-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-03-22" class="published">22 March 2024</time>
+<time datetime="2024-06-20" class="published">20 June 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-09-23">23 September 2024</time></dd>
+<dd class="expires"><time datetime="2024-12-22">22 December 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1119,7 +1119,7 @@ constrained devices in the Internet of Things (IoT).<a href="#section-abstract-1
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 23 September 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 22 December 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1155,7 +1155,12 @@ constrained devices in the Internet of Things (IoT).<a href="#section-abstract-1
             <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-terminology" class="internal xref">Terminology</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-selection-of-a-doc-server" class="internal xref">Selection of a DoC Server</a></p>
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-selection-of-a-doc-server" class="internal xref">Selection of a DoC Server</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
+                <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-discovery-using-svcb-resour" class="internal xref">Discovery using SVCB Resource Records or DNR</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-basic-message-exchange" class="internal xref">Basic Message Exchange</a></p>
@@ -1231,7 +1236,10 @@ constrained devices in the Internet of Things (IoT).<a href="#section-abstract-1
                 <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-new-application-dns-message" class="internal xref">New "application/dns-message" Content-Format</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
-                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-new-coredns-resource-type" class="internal xref">New "core.dns" Resource Type</a></p>
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-new-docpath-svcb-service-pa" class="internal xref">New "docpath" SVCB Service Parameter</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
+                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-new-coredns-resource-type" class="internal xref">New "core.dns" Resource Type</a></p>
 </li>
             </ul>
 </li>
@@ -1431,7 +1439,7 @@ described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</s
 appear in all capitals, as shown here.<a href="#section-2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="selection-of-a-doc-server">
+<div id="sec_doc-server-selection">
 <section id="section-3">
       <h2 id="name-selection-of-a-doc-server">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-selection-of-a-doc-server" class="section-name selfRef">Selection of a DoC Server</a>
@@ -1443,14 +1451,58 @@ or automatic configuration, e.g., using a CoRE resource directory
 <span>[<a href="#RFC9176" class="cite xref">RFC9176</a>]</span>, DHCP or Router Advertisement options <span>[<a href="#RFC9463" class="cite xref">RFC9463</a>]</span> or discovery of designated resolvers
 <span>[<a href="#RFC9462" class="cite xref">RFC9462</a>]</span>.
 Automatic configuration <span class="bcp14">SHOULD</span> only be done from a trusted source.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">Support for SVCB Resource Records <span>[<a href="#RFC9460" class="cite xref">RFC9460</a>]</span>, <span>[<a href="#RFC9461" class="cite xref">RFC9461</a>]</span> or DNR Service Parameters <span>[<a href="#RFC9463" class="cite xref">RFC9463</a>]</span>
-are not specified in this document.
-<span>[<a href="#I-D.lenders-core-dnr" class="cite xref">I-D.lenders-core-dnr</a>]</span> explores solutions for CoAP for these mechanisms.<a href="#section-3-2" class="pilcrow">¶</a></p>
-<p id="section-3-3">When discovering the DNS resource through a link mechanism that allows describing a resource type
+<p id="section-3-2">When discovering the DNS resource through a link mechanism that allows describing a resource type
 (e.g., the Resource Type Attribute in <span>[<a href="#RFC6690" class="cite xref">RFC6690</a>]</span>), the resource type "core.dns" can be
-used to identify a generic DNS resolver that is available to the client.<a href="#section-3-3" class="pilcrow">¶</a></p>
-<p id="section-3-4">While there is no path specified it is <span class="bcp14">RECOMMENDED</span> to use the root path "/" for the DNS resource to
-keep the CoAP requests small.<a href="#section-3-4" class="pilcrow">¶</a></p>
+used to identify a generic DNS resolver that is available to the client.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-3">While there is no path specified for the DoC resource, it is <span class="bcp14">RECOMMENDED</span> to use the root path "/"
+to keep the CoAP requests small.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<div id="discovery-using-svcb-resource-records-or-dnr">
+<section id="section-3.1">
+        <h3 id="name-discovery-using-svcb-resour">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-discovery-using-svcb-resour" class="section-name selfRef">Discovery using SVCB Resource Records or DNR</a>
+        </h3>
+<p id="section-3.1-1">A DoC server can also be discovered using SVCB Resource Records (RR) <span>[<a href="#RFC9460" class="cite xref">RFC9460</a>]</span>, <span>[<a href="#RFC9461" class="cite xref">RFC9461</a>]</span> or DNR
+Service Parameters <span>[<a href="#RFC9463" class="cite xref">RFC9463</a>]</span>.
+[TBD: draft-lenders-core-coap-dtls-svcb] provides solutions
+to discover CoAP over (D)TLS servers using the "alpn" SvcParam.
+<span>[<a href="#I-D.lenders-core-dnr" class="cite xref">I-D.lenders-core-dnr</a>]</span> provides a problem statement for service bindings discovery for OSCORE and EDHOC.
+This document specifies "docpath" as
+a single-valued SvcParamKey whose value <span class="bcp14">MUST</span> be a CBOR sequence of 0 or more text strings (see
+<span>[<a href="#RFC8949" class="cite xref">RFC8949</a>]</span>), delimited by length (in total octets) for the the SvcParamValue field. If the
+SvcParamValue ends within a CBOR text string, the SVCB RR <span class="bcp14">MUST</span> be considered as malformed.
+As a text format, e.g., in DNS zone files, the CBOR diagnostic notation (see <span><a href="https://rfc-editor.org/rfc/rfc8949#section-8" class="relref">Section 8</a> of [<a href="#RFC8949" class="cite xref">RFC8949</a>]</span>)
+of that CBOR sequence can be used.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2">Note, that this specifically does not surround the text string sequence with a CBOR array or similar
+CBOR data item. This path format was chosen to coincide with the path representation in CRIs
+(<span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>). Furthermore, it is easily transferable into a sequence of CoAP Uri-Path options by
+mapping the initial byte of any present CBOR text string (see <span>[<a href="#RFC8949" class="cite xref">RFC8949</a>], <a href="https://rfc-editor.org/rfc/rfc8949#section-3" class="relref">Section 3</a></span>) into the Option
+Delta and Option Length of the CoAP option, provided these CBOR text strings are all of a length
+between 0 and 12 octets (see <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>], <a href="https://rfc-editor.org/rfc/rfc7252#section-3.1" class="relref">Section 3.1</a></span>). Likewise, it can be transfered into a URI
+path-abempty form (see <span>[<a href="#RFC3986" class="cite xref">RFC3986</a>], <a href="https://rfc-editor.org/rfc/rfc3986#section-3.3" class="relref">Section 3.3</a></span>) by replacing the initial byte of any present CBOR text
+string with the "/" character, provided these CBOR text strings are all of a length lesser than 24
+octets and do not contain bytes that need escaping.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.1-3">To use the service binding from a SVCB RR, the DoC client <span class="bcp14">MUST</span> send any DoC request to the CoAP
+resource identifier constructed from the SvcParams including "docpath". A rough construction
+algorithm could be as follows, going through the provided records in order of their priority.
+- If the "alpn" SvcParam value for the service is "coap", construct a CoAP request for CoAP over TCP,
+  if it is "co", construct one for CoAP over DTLS.
+- The destination address for the request should be taken from additional information about the
+  target, e.g. from an AAAA record associated to the target or from am "ipv6hint" SvcParam value,
+  or, as a fallback, by querying an address for the queried host name of the SVCB record.
+- The destination port for the address is taken from the "port" SvcParam value, if present.
+  Otherwise, take the default port of the CoAP transport.
+- Set the queried host name of SVCB record in the URI-Host option.
+- For each element in the CBOR sequence of the "docpath" SvcParam value, add a Uri-Path option to
+  the request.
+- If a "port" SvcParam value is provided or if a port was queried, and if either differs from either
+  the default port of the transport or the destination port selected above, set that port in the
+  URI-Port option.
+- If this request receives a response, use that for future DoC queries, until it becomes
+  unreachable. If not, or if it becomes unreachable, repeat with the SVCB record with the next
+  highest priority.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
+<p id="section-3.1-4">A more generalized construction algorithm can be found in <span>[<a href="#I-D.ietf-core-transport-indication" class="cite xref">I-D.ietf-core-transport-indication</a>]</span>.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="basic-message-exchange">
@@ -1801,24 +1853,53 @@ Consequently, it is of little concern to leverage the benefits of CoAP caching b
 <p id="section-9.1-1">IANA is requested to assign CoAP Content-Format ID for the DNS message media
 type in the "CoAP Content-Formats" sub-registry, within the "CoRE Parameters"
 registry <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>, corresponding to the "application/dns-message" media
-type from the "Media Types" registry (see <span>[<a href="#RFC8484" class="cite xref">RFC8484</a>]</span>)<a href="#section-9.1-1" class="pilcrow">¶</a></p>
-<p id="section-9.1-2">Content Type: application/dns-message<a href="#section-9.1-2" class="pilcrow">¶</a></p>
-<p id="section-9.1-3">Content Coding: -<a href="#section-9.1-3" class="pilcrow">¶</a></p>
+type from the "Media Types" registry:<a href="#section-9.1-1" class="pilcrow">¶</a></p>
+<p id="section-9.1-2">Media-Type: application/dns-message<a href="#section-9.1-2" class="pilcrow">¶</a></p>
+<p id="section-9.1-3">Encoding: -<a href="#section-9.1-3" class="pilcrow">¶</a></p>
 <p id="section-9.1-4">Id: 553 (suggested)<a href="#section-9.1-4" class="pilcrow">¶</a></p>
-<p id="section-9.1-5">Reference: <span>[<a href="#RFC8484" class="cite xref">RFC8484</a>]</span>[TBD-this-spec]<a href="#section-9.1-5" class="pilcrow">¶</a></p>
+<p id="section-9.1-5">Reference: [TBD-this-spec]<a href="#section-9.1-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="new-docpath-svcb-service-parameter">
+<section id="section-9.2">
+        <h3 id="name-new-docpath-svcb-service-pa">
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-new-docpath-svcb-service-pa" class="section-name selfRef">New "docpath" SVCB Service Parameter</a>
+        </h3>
+<p id="section-9.2-1">This document adds the following entry to the SVCB Service Parameters
+registry (<span>[<a href="#RFC9460" class="cite xref">RFC9460</a>]</span>). The definition of this parameter can be found in <a href="#sec_doc-server-selection" class="auto internal xref">Section 3</a>.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<table class="center" id="table-1">
+          <caption><a href="#table-1" class="selfRef">Table 1</a></caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Number</th>
+              <th class="text-left" rowspan="1" colspan="1">Name</th>
+              <th class="text-left" rowspan="1" colspan="1">Meaning</th>
+              <th class="text-left" rowspan="1" colspan="1">Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">9 (suggested)</td>
+              <td class="text-left" rowspan="1" colspan="1">docpath</td>
+              <td class="text-left" rowspan="1" colspan="1">DNS over CoAP resource path</td>
+              <td class="text-left" rowspan="1" colspan="1">[TBD-this-spec] <a href="#sec_doc-server-selection" class="auto internal xref">Section 3</a>
+</td>
+            </tr>
+          </tbody>
+        </table>
 </section>
 </div>
 <div id="new-coredns-resource-type">
-<section id="section-9.2">
+<section id="section-9.3">
         <h3 id="name-new-coredns-resource-type">
-<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-new-coredns-resource-type" class="section-name selfRef">New "core.dns" Resource Type</a>
+<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-new-coredns-resource-type" class="section-name selfRef">New "core.dns" Resource Type</a>
         </h3>
-<p id="section-9.2-1">IANA is requested to assign a new Resource Type (rt=) Link Target Attribute, "core.dns" in the
+<p id="section-9.3-1">IANA is requested to assign a new Resource Type (rt=) Link Target Attribute, "core.dns" in the
 "Resource Type (rt=) Link Target Attribute Values" sub-registry, within the "CoRE Parameters"
-register <span>[<a href="#RFC6690" class="cite xref">RFC6690</a>]</span>.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
-<p id="section-9.2-2">Attribute Value: core.dns<a href="#section-9.2-2" class="pilcrow">¶</a></p>
-<p id="section-9.2-3">Description: DNS over CoAP resource.<a href="#section-9.2-3" class="pilcrow">¶</a></p>
-<p id="section-9.2-4">Reference: [TBD-this-spec] <a href="#selection-of-a-doc-server" class="auto internal xref">Section 3</a><a href="#section-9.2-4" class="pilcrow">¶</a></p>
+register <span>[<a href="#RFC6690" class="cite xref">RFC6690</a>]</span>.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
+<p id="section-9.3-2">Attribute Value: core.dns<a href="#section-9.3-2" class="pilcrow">¶</a></p>
+<p id="section-9.3-3">Description: DNS over CoAP resource.<a href="#section-9.3-3" class="pilcrow">¶</a></p>
+<p id="section-9.3-4">Reference: [TBD-this-spec] <a href="#sec_doc-server-selection" class="auto internal xref">Section 3</a><a href="#section-9.3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1869,6 +1950,10 @@ register <span>[<a href="#RFC6690" class="cite xref">RFC6690</a>]</span>.<a href
         <dd>
 <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Mattsson, J.</span>, <span class="refAuthor">Palombini, F.</span>, and <span class="refAuthor">L. Seitz</span>, <span class="refTitle">"Object Security for Constrained RESTful Environments (OSCORE)"</span>, <span class="seriesInfo">RFC 8613</span>, <span class="seriesInfo">DOI 10.17487/RFC8613</span>, <time datetime="2019-07" class="refDate">July 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8613">https://www.rfc-editor.org/rfc/rfc8613</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8949">[RFC8949]</dt>
+        <dd>
+<span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">P. Hoffman</span>, <span class="refTitle">"Concise Binary Object Representation (CBOR)"</span>, <span class="seriesInfo">STD 94</span>, <span class="seriesInfo">RFC 8949</span>, <span class="seriesInfo">DOI 10.17487/RFC8949</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8949">https://www.rfc-editor.org/rfc/rfc8949</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC9147">[RFC9147]</dt>
       <dd>
 <span class="refAuthor">Rescorla, E.</span>, <span class="refAuthor">Tschofenig, H.</span>, and <span class="refAuthor">N. Modadugu</span>, <span class="refTitle">"The Datagram Transport Layer Security (DTLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 9147</span>, <span class="seriesInfo">DOI 10.17487/RFC9147</span>, <time datetime="2022-04" class="refDate">April 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9147">https://www.rfc-editor.org/rfc/rfc9147</a>&gt;</span>. </dd>
@@ -1892,7 +1977,11 @@ register <span>[<a href="#RFC6690" class="cite xref">RFC6690</a>]</span>.<a href
 <dd class="break"></dd>
 <dt id="I-D.ietf-core-href">[I-D.ietf-core-href]</dt>
         <dd>
-<span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"Constrained Resource Identifiers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-href-14</span>, <time datetime="2024-01-09" class="refDate">9 January 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-href-14">https://datatracker.ietf.org/doc/html/draft-ietf-core-href-14</a>&gt;</span>. </dd>
+<span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"Constrained Resource Identifiers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-href-15</span>, <time datetime="2024-04-21" class="refDate">21 April 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-href-15">https://datatracker.ietf.org/doc/html/draft-ietf-core-href-15</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-core-transport-indication">[I-D.ietf-core-transport-indication]</dt>
+        <dd>
+<span class="refAuthor">Amsüss, C.</span> and <span class="refAuthor">M. S. Lenders</span>, <span class="refTitle">"CoAP Transport Indication"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-transport-indication-05</span>, <time datetime="2024-03-18" class="refDate">18 March 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-transport-indication-05">https://datatracker.ietf.org/doc/html/draft-ietf-core-transport-indication-05</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.lenders-core-dnr">[I-D.lenders-core-dnr]</dt>
         <dd>
