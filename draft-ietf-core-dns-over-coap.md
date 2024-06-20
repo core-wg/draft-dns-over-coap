@@ -504,15 +504,15 @@ New "application/dns-message" Content-Format
 IANA is requested to assign CoAP Content-Format ID for the DNS message media
 type in the "CoAP Content-Formats" sub-registry, within the "CoRE Parameters"
 registry {{-coap}}, corresponding to the "application/dns-message" media
-type from the "Media Types" registry:
+type from the "Media Types" registry (see {{-doh}})
 
-Media-Type: application/dns-message
+Content Type: application/dns-message
 
-Encoding: -
+Content Coding: -
 
 Id: 553 (suggested)
 
-Reference: \[TBD-this-spec\]
+Reference: {{-doh}}\[TBD-this-spec, {{sec:content-format}}\]
 
 New "docpath" SVCB Service Parameter
 ------------------------------------
@@ -522,7 +522,7 @@ registry ({{-svcb}}). The definition of this parameter can be found in {{sec:doc
 
 | Number  | Name           | Meaning                            | Reference       |
 | ------- | -------------- | ---------------------------------- | --------------- |
-| 9 (suggested)      | docpath        | DNS over CoAP resource path        | \[TBD-this-spec\] {{sec:doc-server-selection}} |
+| 9 (suggested)      | docpath        | DNS over CoAP resource path        | \[TBD-this-spec, {{sec:doc-server-selection}}\] |
 
 New "core.dns" Resource Type
 ----------------------------
@@ -535,7 +535,8 @@ Attribute Value: core.dns
 
 Description: DNS over CoAP resource.
 
-Reference: \[TBD-this-spec\] {{sec:doc-server-selection}}
+Reference: \[TBD-this-spec, {{sec:doc-server-selection}}\]
+
 
 --- back
 
