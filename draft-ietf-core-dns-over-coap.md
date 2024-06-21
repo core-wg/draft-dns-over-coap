@@ -55,6 +55,7 @@ normative:
   RFC8613: oscore
   RFC8949: cbor
   RFC9147: dtls13
+  I-D.lenders-core-coap-dtls-svcb: coap-dtls-svcb
 
 informative:
   RFC3986: uri
@@ -194,8 +195,7 @@ to keep the CoAP requests small.
 ### Discovery using SVCB Resource Records or DNR
 A DoC server can also be discovered using SVCB Resource Records (RR) {{-svcb}}, {{-svcb-dns}} or DNR
 Service Parameters {{-dnr}}.
-\[TBD: draft-lenders-core-coap-dtls-svcb\] provides solutions
-to discover CoAP over (D)TLS servers using the "alpn" SvcParam.
+{{-coap-dtls-svcb}} provides solutions to discover CoAP over (D)TLS servers using the "alpn" SvcParam.
 {{-core-dnr}} provides a problem statement for service bindings discovery for OSCORE and EDHOC.
 This document specifies "docpath" as
 a single-valued SvcParamKey whose value MUST be a CBOR sequence of 0 or more text strings (see
