@@ -548,6 +548,14 @@ paper "Securing Name Resolution in the IoT: DNS over CoAP" {{DoC-paper}}.
 Change Log
 ==========
 
+Since [draft-ietf-core-dns-over-coap-06]
+----------------------------------------
+- Add "docpath" SVCB ParamKey definition
+- IANA fixes
+  + Use new column names (see Errata 4954)
+  + Add reference to RFC 8484 for application/dns-message Media Type
+  + IANA: unify self references
+
 Since [draft-ietf-core-dns-over-coap-05]
 ----------------------------------------
 - Add references to relevant SVCB/DNR RFCs and drafts
@@ -603,6 +611,7 @@ Since [draft-lenders-dns-over-coap-04]
 The authors of this document want to thank Carsten Bormann, Ben Schwartz, Marco Tiloca, and Tim
 Wicinski for their feedback and comments.
 
+[draft-ietf-core-dns-over-coap-06]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-06
 [draft-ietf-core-dns-over-coap-05]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-05
 [draft-ietf-core-dns-over-coap-04]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-04
 [draft-ietf-core-dns-over-coap-03]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-03
