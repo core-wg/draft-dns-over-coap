@@ -103,13 +103,14 @@ Table of Contents
      10.2.  Informative References
    Appendix A.  Evaluation
    Appendix B.  Change Log
-     B.1.  Since draft-ietf-core-dns-over-coap-05
-     B.2.  Since draft-ietf-core-dns-over-coap-04
-     B.3.  Since draft-ietf-core-dns-over-coap-03
-     B.4.  Since draft-ietf-core-dns-over-coap-02
-     B.5.  Since draft-ietf-core-dns-over-coap-01
-     B.6.  Since draft-ietf-core-dns-over-coap-00
-     B.7.  Since draft-lenders-dns-over-coap-04
+     B.1.  Since draft-ietf-core-dns-over-coap-06
+     B.2.  Since draft-ietf-core-dns-over-coap-05
+     B.3.  Since draft-ietf-core-dns-over-coap-04
+     B.4.  Since draft-ietf-core-dns-over-coap-03
+     B.5.  Since draft-ietf-core-dns-over-coap-02
+     B.6.  Since draft-ietf-core-dns-over-coap-01
+     B.7.  Since draft-ietf-core-dns-over-coap-00
+     B.8.  Since draft-lenders-dns-over-coap-04
    Acknowledgments
    Authors' Addresses
 
@@ -765,13 +766,28 @@ Appendix A.  Evaluation
 
 Appendix B.  Change Log
 
-B.1.  Since draft-ietf-core-dns-over-coap-05
+B.1.  Since draft-ietf-core-dns-over-coap-06
+      (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
+      coap-06)
+
+   *  Add "docpath" SVCB ParamKey definition
+
+   *  IANA fixes
+
+      -  Use new column names (see Errata 4954)
+
+      -  Add reference to RFC 8484 for application/dns-message Media
+         Type
+
+      -  IANA: unify self references
+
+B.2.  Since draft-ietf-core-dns-over-coap-05
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-05)
 
    *  Add references to relevant SVCB/DNR RFCs and drafts
 
-B.2.  Since draft-ietf-core-dns-over-coap-04
+B.3.  Since draft-ietf-core-dns-over-coap-04
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-04)
 
@@ -779,7 +795,7 @@ B.2.  Since draft-ietf-core-dns-over-coap-04
 
    *  Address early IANA review
 
-B.3.  Since draft-ietf-core-dns-over-coap-03
+B.4.  Since draft-ietf-core-dns-over-coap-03
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-03)
 
@@ -788,7 +804,7 @@ B.3.  Since draft-ietf-core-dns-over-coap-03
 
    *  Add Appendix A on evaluation
 
-B.4.  Since draft-ietf-core-dns-over-coap-02
+B.5.  Since draft-ietf-core-dns-over-coap-02
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-02)
 
@@ -810,7 +826,7 @@ B.4.  Since draft-ietf-core-dns-over-coap-02
 
    *  Don't call OSCORE end-to-end encrypted
 
-B.5.  Since draft-ietf-core-dns-over-coap-01
+B.6.  Since draft-ietf-core-dns-over-coap-01
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-01)
 
@@ -823,7 +839,7 @@ B.5.  Since draft-ietf-core-dns-over-coap-01
 
    *  Add appendix on reference implementation
 
-B.6.  Since draft-ietf-core-dns-over-coap-00
+B.7.  Since draft-ietf-core-dns-over-coap-00
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-00)
 
@@ -837,7 +853,7 @@ B.6.  Since draft-ietf-core-dns-over-coap-00
 
    *  Add security considerations on ID=0
 
-B.7.  Since draft-lenders-dns-over-coap-04
+B.8.  Since draft-lenders-dns-over-coap-04
       (https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-
       coap-04)
 
