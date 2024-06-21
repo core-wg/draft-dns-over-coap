@@ -1037,7 +1037,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Lenders, et al.</td>
-<td class="center">Expires 22 December 2024</td>
+<td class="center">Expires 23 December 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1050,12 +1050,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-core-dns-over-coap-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-06-20" class="published">20 June 2024</time>
+<time datetime="2024-06-21" class="published">21 June 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-12-22">22 December 2024</time></dd>
+<dd class="expires"><time datetime="2024-12-23">23 December 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1119,7 +1119,7 @@ constrained devices in the Internet of Things (IoT).<a href="#section-abstract-1
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 22 December 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 23 December 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1463,8 +1463,7 @@ to keep the CoAP requests small.<a href="#section-3-3" class="pilcrow">¶</a></p
         </h3>
 <p id="section-3.1-1">A DoC server can also be discovered using SVCB Resource Records (RR) <span>[<a href="#RFC9460" class="cite xref">RFC9460</a>]</span>, <span>[<a href="#RFC9461" class="cite xref">RFC9461</a>]</span> or DNR
 Service Parameters <span>[<a href="#RFC9463" class="cite xref">RFC9463</a>]</span>.
-[TBD: draft-lenders-core-coap-dtls-svcb] provides solutions
-to discover CoAP over (D)TLS servers using the "alpn" SvcParam.
+<span>[<a href="#I-D.lenders-core-coap-dtls-svcb" class="cite xref">I-D.lenders-core-coap-dtls-svcb</a>]</span> provides solutions to discover CoAP over (D)TLS servers using the "alpn" SvcParam.
 <span>[<a href="#I-D.lenders-core-dnr" class="cite xref">I-D.lenders-core-dnr</a>]</span> provides a problem statement for service bindings discovery for OSCORE and EDHOC.
 This document specifies "docpath" as
 a single-valued SvcParamKey whose value <span class="bcp14">MUST</span> be a CBOR sequence of 0 or more text strings (see
@@ -1609,7 +1608,7 @@ The DoC client might also decide to repeat a non-successful exchange with a diff
 <a href="#section-4.3.2" class="section-number selfRef">4.3.2. </a><a href="#name-support-of-coap-caching-2" class="section-name selfRef">Support of CoAP Caching</a>
           </h4>
 <p id="section-4.3.2-1">For reliability and energy saving measures content decoupling and thus en-route caching on proxies takes a far greater role than it does, e.g., in HTTP.
-Likewise, CoAP utilizes cache validation to refresh stale cache entries without large messages which often uses hashing over the message content for ETag generation.
+Likewise, CoAP utilizes cache validation to refresh stale cache entries without large messages which regularly uses hashing over the message content for ETag generation.
 As such, the approach to guarantee the same cache key for DNS responses as proposed in DoH (<span>[<a href="#RFC8484" class="cite xref">RFC8484</a>]</span>, section 5.1) is not sufficient and needs to be updated so that the TTLs in the response are more often the same regardless of query time.<a href="#section-4.3.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.3.2-2">The DoC server <span class="bcp14">MUST</span> ensure that any sum of the Max-Age value of a CoAP response and any TTL in the
 DNS response is less or equal to the corresponding TTL received from an upstream DNS server.
@@ -1721,7 +1720,7 @@ mapping between any other DNS transport.<a href="#section-5.3-1" class="pilcrow"
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-considerations-for-unencryp" class="section-name selfRef">Considerations for Unencrypted Use</a>
       </h2>
 <p id="section-6-1">The use of DoC without a security mode of CoAP is <span class="bcp14">NOT RECOMMENDED</span>.
-Without a security mode, a large number of possible attacks need to be evaluate in the context of
+Without a security mode, many possible attacks need to be evaluated in the context of
 the application's threat model.
 This includes threats that are mitigated even by DNS over UDP:
 For example, the random ID of the DNS header afford some protection against off-path cache poisoning
@@ -1830,9 +1829,9 @@ Python</a>.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <p id="section-8-1">When using unencrypted CoAP (see <a href="#sec_unencrypted-coap" class="auto internal xref">Section 6</a>), setting the ID of a DNS message to 0 as
-specified in <a href="#sec_req-caching" class="auto internal xref">Section 4.2.2</a> opens open the DNS cache of a DoC client to cache poisoning attacks
+specified in <a href="#sec_req-caching" class="auto internal xref">Section 4.2.2</a> opens the DNS cache of a DoC client to cache poisoning attacks
 via response spoofing.
-This documents requires an unpredictable CoAP token in each DoC query from the client when CoAP is
+This document requires an unpredictable CoAP token in each DoC query from the client when CoAP is
 not secured to mitigate such an attack over DoC (see <a href="#sec_unencrypted-coap" class="auto internal xref">Section 6</a>).<a href="#section-8-1" class="pilcrow">¶</a></p>
 <p id="section-8-2">For encrypted usage with DTLS or OSCORE the impact of a fixed ID on security is limited, as both
 harden against injecting spoofed responses.
@@ -1913,6 +1912,10 @@ register <span>[<a href="#RFC6690" class="cite xref">RFC6690</a>]</span>.<a href
 <a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
+<dt id="I-D.lenders-core-coap-dtls-svcb">[I-D.lenders-core-coap-dtls-svcb]</dt>
+        <dd>
+<span class="refAuthor">Lenders, M. S.</span>, <span class="refAuthor">Amsüss, C.</span>, <span class="refAuthor">Schmidt, T. C.</span>, and <span class="refAuthor">M. Wählisch</span>, <span class="refTitle">"Service Binding and Parameter Specification for CoAP over (D)TLS"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-lenders-core-coap-dtls-svcb-00</span>, <time datetime="2024-06-21" class="refDate">21 June 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-lenders-core-coap-dtls-svcb-00">https://datatracker.ietf.org/doc/html/draft-lenders-core-coap-dtls-svcb-00</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC1035">[RFC1035]</dt>
         <dd>
 <span class="refAuthor">Mockapetris, P.</span>, <span class="refTitle">"Domain names - implementation and specification"</span>, <span class="seriesInfo">STD 13</span>, <span class="seriesInfo">RFC 1035</span>, <span class="seriesInfo">DOI 10.17487/RFC1035</span>, <time datetime="1987-11" class="refDate">November 1987</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc1035">https://www.rfc-editor.org/rfc/rfc1035</a>&gt;</span>. </dd>

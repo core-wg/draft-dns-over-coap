@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 22 December 2024                                               
+Expires: 23 December 2024                                               
                                                              C. Gündoğan
                                                      Huawei Technologies
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                            20 June 2024
+                                                            21 June 2024
 
 
                           DNS over CoAP (DoC)
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 December 2024.
+   This Internet-Draft will expire on 23 December 2024.
 
 Copyright Notice
 
@@ -222,9 +222,9 @@ Table of Contents
 3.1.  Discovery using SVCB Resource Records or DNR
 
    A DoC server can also be discovered using SVCB Resource Records (RR)
-   [RFC9460], [RFC9461] or DNR Service Parameters [RFC9463].  [TBD:
-   draft-lenders-core-coap-dtls-svcb] provides solutions to discover
-   CoAP over (D)TLS servers using the "alpn" SvcParam.
+   [RFC9460], [RFC9461] or DNR Service Parameters [RFC9463].
+   [I-D.lenders-core-coap-dtls-svcb] provides solutions to discover CoAP
+   over (D)TLS servers using the "alpn" SvcParam.
    [I-D.lenders-core-dnr] provides a problem statement for service
    bindings discovery for OSCORE and EDHOC.  This document specifies
    "docpath" as a single-valued SvcParamKey whose value MUST be a CBOR
@@ -365,9 +365,9 @@ Table of Contents
    For reliability and energy saving measures content decoupling and
    thus en-route caching on proxies takes a far greater role than it
    does, e.g., in HTTP.  Likewise, CoAP utilizes cache validation to
-   refresh stale cache entries without large messages which often uses
-   hashing over the message content for ETag generation.  As such, the
-   approach to guarantee the same cache key for DNS responses as
+   refresh stale cache entries without large messages which regularly
+   uses hashing over the message content for ETag generation.  As such,
+   the approach to guarantee the same cache key for DNS responses as
    proposed in DoH ([RFC8484], section 5.1) is not sufficient and needs
    to be updated so that the TTLs in the response are more often the
    same regardless of query time.
@@ -472,12 +472,12 @@ Table of Contents
 6.  Considerations for Unencrypted Use
 
    The use of DoC without a security mode of CoAP is NOT RECOMMENDED.
-   Without a security mode, a large number of possible attacks need to
-   be evaluate in the context of the application's threat model.  This
-   includes threats that are mitigated even by DNS over UDP: For
-   example, the random ID of the DNS header afford some protection
-   against off-path cache poisoning attacks---a threat that might be
-   mitigated by using random large token values in the CoAP request.
+   Without a security mode, many possible attacks need to be evaluated
+   in the context of the application's threat model.  This includes
+   threats that are mitigated even by DNS over UDP: For example, the
+   random ID of the DNS header afford some protection against off-path
+   cache poisoning attacks---a threat that might be mitigated by using
+   random large token values in the CoAP request.
 
 7.  Implementation Status
 
@@ -535,11 +535,11 @@ Table of Contents
 8.  Security Considerations
 
    When using unencrypted CoAP (see Section 6), setting the ID of a DNS
-   message to 0 as specified in Section 4.2.2 opens open the DNS cache
-   of a DoC client to cache poisoning attacks via response spoofing.
-   This documents requires an unpredictable CoAP token in each DoC query
-   from the client when CoAP is not secured to mitigate such an attack
-   over DoC (see Section 6).
+   message to 0 as specified in Section 4.2.2 opens the DNS cache of a
+   DoC client to cache poisoning attacks via response spoofing.  This
+   document requires an unpredictable CoAP token in each DoC query from
+   the client when CoAP is not secured to mitigate such an attack over
+   DoC (see Section 6).
 
    For encrypted usage with DTLS or OSCORE the impact of a fixed ID on
    security is limited, as both harden against injecting spoofed
@@ -595,6 +595,14 @@ Table of Contents
 10.  References
 
 10.1.  Normative References
+
+   [I-D.lenders-core-coap-dtls-svcb]
+              Lenders, M. S., Amsüss, C., Schmidt, T. C., and M.
+              Wählisch, "Service Binding and Parameter Specification for
+              CoAP over (D)TLS", Work in Progress, Internet-Draft,
+              draft-lenders-core-coap-dtls-svcb-00, 21 June 2024,
+              <https://datatracker.ietf.org/doc/html/draft-lenders-core-
+              coap-dtls-svcb-00>.
 
    [RFC1035]  Mockapetris, P., "Domain names - implementation and
               specification", STD 13, RFC 1035, DOI 10.17487/RFC1035,
