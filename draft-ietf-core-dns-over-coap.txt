@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 23 December 2024                                               
+Expires: 30 December 2024                                               
                                                              C. Gündoğan
                                                      Huawei Technologies
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                            21 June 2024
+                                                            28 June 2024
 
 
                           DNS over CoAP (DoC)
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 December 2024.
+   This Internet-Draft will expire on 30 December 2024.
 
 Copyright Notice
 
@@ -74,7 +74,8 @@ Table of Contents
    1.  Introduction
    2.  Terminology
    3.  Selection of a DoC Server
-     3.1.  Discovery using SVCB Resource Records or DNR
+     3.1.  Discovery by Resource Type
+     3.2.  Discovery using SVCB Resource Records or DNR
    4.  Basic Message Exchange
      4.1.  The "application/dns-message" Content-Format
      4.2.  DNS Queries in CoAP Requests
@@ -204,6 +205,9 @@ Table of Contents
 
 3.  Selection of a DoC Server
 
+   While there is no path specified for the DoC resource, it is
+   RECOMMENDED to use the root path "/" to keep the CoAP requests small.
+
    In this document, it is assumed that the DoC client knows the DoC
    server and the DNS resource at the DoC server.  Possible options
    could be manual configuration of a URI [RFC3986] or CRI
@@ -212,15 +216,14 @@ Table of Contents
    [RFC9463] or discovery of designated resolvers [RFC9462].  Automatic
    configuration SHOULD only be done from a trusted source.
 
+3.1.  Discovery by Resource Type
+
    When discovering the DNS resource through a link mechanism that
    allows describing a resource type (e.g., the Resource Type Attribute
    in [RFC6690]), the resource type "core.dns" can be used to identify a
    generic DNS resolver that is available to the client.
 
-   While there is no path specified for the DoC resource, it is
-   RECOMMENDED to use the root path "/" to keep the CoAP requests small.
-
-3.1.  Discovery using SVCB Resource Records or DNR
+3.2.  Discovery using SVCB Resource Records or DNR
 
    A DoC server can also be discovered using SVCB Resource Records (RR)
    [RFC9460], [RFC9461] or DNR Service Parameters [RFC9463].
@@ -229,15 +232,15 @@ Table of Contents
    [I-D.lenders-core-dnr] provides a problem statement for service
    bindings discovery for OSCORE and EDHOC.  This document specifies
    "docpath" as a single-valued SvcParamKey whose value MUST be a CBOR
-   sequence of 0 or more text strings (see [RFC8949]), delimited by
-   length (in total octets) for the the SvcParamValue field.  If the
-   SvcParamValue ends within a CBOR text string, the SVCB RR MUST be
-   considered as malformed.  As a text format, e.g., in DNS zone files,
-   the CBOR diagnostic notation (see Section 8 of [RFC8949]) of that
-   CBOR sequence can be used.
+   sequence of 0 or more text strings (see [RFC8949]), delimited by the
+   length of the SvcParamValue field (in octets).  If the SvcParamValue
+   ends within a CBOR text string, the SVCB RR MUST be considered as
+   malformed.  As a text format, e.g., in DNS zone files, the CBOR
+   diagnostic notation (see Section 8 of [RFC8949]) of that CBOR
+   sequence can be used.
 
    Note, that this specifically does not surround the text string
-   sequence with a CBOR array or similar CBOR data item.  This path
+   sequence with a CBOR array or a similar CBOR data item.  This path
    format was chosen to coincide with the path representation in CRIs
    ([I-D.ietf-core-href]).  Furthermore, it is easily transferable into
    a sequence of CoAP Uri-Path options by mapping the initial byte of
@@ -254,24 +257,37 @@ Table of Contents
    any DoC request to the CoAP resource identifier constructed from the
    SvcParams including "docpath".  A rough construction algorithm could
    be as follows, going through the provided records in order of their
-   priority. - If the "alpn" SvcParam value for the service is "coap",
-   construct a CoAP request for CoAP over TCP, if it is "co", construct
-   one for CoAP over DTLS. - The destination address for the request
-   should be taken from additional information about the target, e.g.
-   from an AAAA record associated to the target or from am "ipv6hint"
-   SvcParam value, or, as a fallback, by querying an address for the
-   queried host name of the SVCB record. - The destination port for the
-   address is taken from the "port" SvcParam value, if present.
-   Otherwise, take the default port of the CoAP transport. - Set the
-   queried host name of SVCB record in the URI-Host option. - For each
-   element in the CBOR sequence of the "docpath" SvcParam value, add a
-   Uri-Path option to the request. - If a "port" SvcParam value is
-   provided or if a port was queried, and if either differs from either
-   the default port of the transport or the destination port selected
-   above, set that port in the URI-Port option. - If this request
-   receives a response, use that for future DoC queries, until it
-   becomes unreachable.  If not, or if it becomes unreachable, repeat
-   with the SVCB record with the next highest priority.
+   priority.
+
+   *  If the "alpn" SvcParam value for the service is "coap", construct
+      a CoAP request for CoAP over TLS, if it is "co", construct a CoAP
+      request for CoAP over DTLS.  Any other SvcParamKeys specifying a
+      CoAP transport are out of scope of this document.
+
+   *  The destination address for the request should be taken from
+      additional information about the target, e.g. from an AAAA record
+      associated to the target name or from an "ipv6hint" SvcParam
+      value, or, as a fallback, by querying an address for the target
+      name of the SVCB record.
+
+   *  The destination port for the address is taken from the "port"
+      SvcParam value, if present.  Otherwise, take the default port of
+      the CoAP transport.
+
+   *  Set the target name of SVCB record in the URI-Host option.
+
+   *  For each element in the CBOR sequence of the "docpath" SvcParam
+      value, add a Uri-Path option to the request.
+
+   *  If a "port" SvcParam value is provided or if a port was queried,
+      and if either differs from the default port of the transport or
+      the destination port selected above, set that port in the URI-Port
+      option.
+
+   *  If the request constructed this way receives a response, use the
+      same SVCB record for construction of future DoC queries.  If not,
+      or if the endpoint becomes unreachable, repeat with the SVCB
+      record with the next highest priority.
 
    A more generalized construction algorithm can be found in
    [I-D.ietf-core-transport-indication].
