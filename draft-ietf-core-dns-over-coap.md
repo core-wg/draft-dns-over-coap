@@ -217,6 +217,7 @@ octets and do not contain bytes that need escaping.
 To use the service binding from a SVCB RR, the DoC client MUST send any DoC request to the CoAP
 resource identifier constructed from the SvcParams including "docpath". A rough construction
 algorithm could be as follows, going through the provided records in order of their priority.
+
 - If the "alpn" SvcParam value for the service is "coap", construct a CoAP request for CoAP over TCP,
   if it is "co", construct one for CoAP over DTLS.
 - The destination address for the request should be taken from additional information about the
