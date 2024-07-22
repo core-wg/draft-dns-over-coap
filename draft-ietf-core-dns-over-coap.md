@@ -521,8 +521,9 @@ Reference: {{-doh}}\[TBD-this-spec, {{sec:content-format}}\]
 New "docpath" SVCB Service Parameter
 ------------------------------------
 
-This document adds the following entry to the SVCB Service Parameters
-registry ({{-svcb}}). The definition of this parameter can be found in {{sec:doc-server-selection}}.
+This document adds the following entry to the Service Parameter Keys (SvcParamKeys) registry in the
+DNS Service Bindings (SVCB) registry group.
+The definition of this parameter can be found in {{sec:doc-server-selection}}.
 
 | Number  | Name           | Meaning                            | Reference       |
 | ------- | -------------- | ---------------------------------- | --------------- |
