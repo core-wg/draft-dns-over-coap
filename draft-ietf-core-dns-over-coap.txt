@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 30 December 2024                                               
+Expires: 25 January 2025                                                
                                                              C. Gündoğan
                                                      Huawei Technologies
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                            28 June 2024
+                                                            24 July 2024
 
 
                           DNS over CoAP (DoC)
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 December 2024.
+   This Internet-Draft will expire on 25 January 2025.
 
 Copyright Notice
 
@@ -583,9 +583,9 @@ Table of Contents
 
 9.2.  New "docpath" SVCB Service Parameter
 
-   This document adds the following entry to the SVCB Service Parameters
-   registry ([RFC9460]).  The definition of this parameter can be found
-   in Section 3.
+   This document adds the following entry to the Service Parameter Keys
+   (SvcParamKeys) registry in the DNS Service Bindings (SVCB) registry
+   group.  The definition of this parameter can be found in Section 3.
 
        +===============+=========+===============+=================+
        | Number        | Name    | Meaning       | Reference       |
@@ -687,31 +687,31 @@ Table of Contents
    [I-D.amsuess-core-cachable-oscore]
               Amsüss, C. and M. Tiloca, "Cacheable OSCORE", Work in
               Progress, Internet-Draft, draft-amsuess-core-cachable-
-              oscore-08, 10 January 2024,
+              oscore-09, 8 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-amsuess-core-
-              cachable-oscore-08>.
+              cachable-oscore-09>.
 
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
               Identifiers", Work in Progress, Internet-Draft, draft-
-              ietf-core-href-15, 21 April 2024,
+              ietf-core-href-16, 24 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              href-15>.
+              href-16>.
 
    [I-D.ietf-core-transport-indication]
               Amsüss, C. and M. S. Lenders, "CoAP Transport Indication",
               Work in Progress, Internet-Draft, draft-ietf-core-
-              transport-indication-05, 18 March 2024,
+              transport-indication-06, 8 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              transport-indication-05>.
+              transport-indication-06>.
 
    [I-D.lenders-core-dnr]
               Lenders, M. S., Amsüss, C., Schmidt, T. C., and M.
-              Wählisch, "Discovery of Network-designated CoRE
-              Resolvers", Work in Progress, Internet-Draft, draft-
-              lenders-core-dnr-01, 19 March 2024,
+              Wählisch, "Discovery of Network-designated OSCORE-based
+              Resolvers: Problem Statement", Work in Progress, Internet-
+              Draft, draft-lenders-core-dnr-03, 8 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-lenders-core-
-              dnr-01>.
+              dnr-03>.
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
