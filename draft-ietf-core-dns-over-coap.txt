@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 25 January 2025                                                
+Expires: 23 March 2025                                                  
                                                              C. Gündoğan
                                                      Huawei Technologies
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                            24 July 2024
+                                                       19 September 2024
 
 
                           DNS over CoAP (DoC)
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 January 2025.
+   This Internet-Draft will expire on 23 March 2025.
 
 Copyright Notice
 
@@ -227,7 +227,7 @@ Table of Contents
 
    A DoC server can also be discovered using SVCB Resource Records (RR)
    [RFC9460], [RFC9461] or DNR Service Parameters [RFC9463].
-   [I-D.lenders-core-coap-dtls-svcb] provides solutions to discover CoAP
+   [I-D.ietf-core-coap-dtls-alpn] provides solutions to discover CoAP
    over (D)TLS servers using the "alpn" SvcParam.
    [I-D.lenders-core-dnr] provides a problem statement for service
    bindings discovery for OSCORE and EDHOC.  This document specifies
@@ -613,13 +613,13 @@ Table of Contents
 
 10.1.  Normative References
 
-   [I-D.lenders-core-coap-dtls-svcb]
+   [I-D.ietf-core-coap-dtls-alpn]
               Lenders, M. S., Amsüss, C., Schmidt, T. C., and M.
-              Wählisch, "Service Binding and Parameter Specification for
-              CoAP over (D)TLS", Work in Progress, Internet-Draft,
-              draft-lenders-core-coap-dtls-svcb-00, 21 June 2024,
-              <https://datatracker.ietf.org/doc/html/draft-lenders-core-
-              coap-dtls-svcb-00>.
+              Wählisch, "ALPN ID Specification for CoAP over DTLS", Work
+              in Progress, Internet-Draft, draft-ietf-core-coap-dtls-
+              alpn-00, 5 September 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-core-
+              coap-dtls-alpn-00>.
 
    [RFC1035]  Mockapetris, P., "Domain names - implementation and
               specification", STD 13, RFC 1035, DOI 10.17487/RFC1035,
