@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 23 March 2025                                                  
+Expires: 24 March 2025                                                  
                                                              C. Gündoğan
                                                      Huawei Technologies
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                       19 September 2024
+                                                       20 September 2024
 
 
                           DNS over CoAP (DoC)
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 March 2025.
+   This Internet-Draft will expire on 24 March 2025.
 
 Copyright Notice
 
@@ -121,9 +121,9 @@ Table of Contents
    [RFC1035] queries and get DNS responses over the Constrained
    Application Protocol (CoAP) [RFC7252].  Each DNS query-response pair
    is mapped into a CoAP message exchange.  Each CoAP message is secured
-   by DTLS [RFC9147] or Object Security for Constrained RESTful
-   Environments (OSCORE) [RFC8613] to ensure message integrity and
-   confidentiality.
+   by DTLS [RFC6347] [RFC9147] or Object Security for Constrained
+   RESTful Environments (OSCORE) [RFC8613] to ensure message integrity
+   and confidentiality.
 
    The application use case of DoC is inspired by DNS over HTTPS
    [RFC8484] (DoH).  DoC, however, aims for the deployment in the
@@ -629,6 +629,10 @@ Table of Contents
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC6347]  Rescorla, E. and N. Modadugu, "Datagram Transport Layer
+              Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
+              January 2012, <https://www.rfc-editor.org/rfc/rfc6347>.
 
    [RFC7228]  Bormann, C., Ersue, M., and A. Keranen, "Terminology for
               Constrained-Node Networks", RFC 7228,
