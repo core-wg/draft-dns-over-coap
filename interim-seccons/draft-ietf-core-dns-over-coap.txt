@@ -290,7 +290,7 @@ Table of Contents
       record with the next highest priority.
 
    A more generalized construction algorithm can be found in
-   [I-D.ietf-core-transport-indication] .
+   [I-D.ietf-core-transport-indication].
 
 4.  Basic Message Exchange
 
