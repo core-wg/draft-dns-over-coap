@@ -77,7 +77,15 @@ informative:
   I-D.lenders-core-dnr: core-dnr
   I-D.amsuess-core-cachable-oscore: cachable-oscore
   DoC-paper: DOI.10.1145/3609423
-
+  amp-0rtt:
+   title: 'PR #40 "Amplification and 0-RTT" on "CoAP: Corrections and Clarifications"'
+   date: 2024-09-25
+   format:
+     HTML: https://github.com/core-wg/corrclar/pull/40
+   ann: |
+     Note: It is expected that that PR will be merged way ahead of this document's publication;
+     at the next revision, this reference will be replaced with a reference to what will by then most likely be
+     I-D.ietf-core-corr-clar-00 (now bormann-core-clar-05).
 
 --- abstract
 
@@ -499,6 +507,11 @@ harden against injecting spoofed responses.
 Consequently, it is of little concern to leverage the benefits of CoAP caching by setting the ID to
 0.
 
+General CoAP security considerations apply.
+Exceeding those in {{Section 11 of RFC7252}},
+the request patterns of DoC make it likely that long-lived security contexts are maintained:
+{{amp-0rtt}} goes into more detail on what can and needs to be done
+when those are resumed from a new address.
 
 IANA Considerations
 ===================
