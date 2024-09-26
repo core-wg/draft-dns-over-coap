@@ -688,7 +688,12 @@ Table of Contents
 
    [amp-0rtt] "PR #40 "Amplification and 0-RTT" on "CoAP: Corrections
               and Clarifications"", 25 September 2024,
-              <https://github.com/core-wg/corrclar/pull/40>.
+              <https://github.com/core-wg/corrclar/pull/40>.  Note: It
+              is expected that that PR will be merged way ahead of this
+              document's publication; at the next revision, this
+              reference will be replaced with a reference to what will
+              by then most likely be I-D.ietf- core-corr-clar-00 (now
+              bormann-core-clar-05).
 
    [DoC-paper]
               Lenders, M., Amsüss, C., Gündogan, C., Nawrocki, M.,
