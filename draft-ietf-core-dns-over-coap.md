@@ -462,16 +462,16 @@ Level of maturity:
 : production
 
 Version compability:
-: draft-ietf-core-dns-over-coap-04
+: draft-ietf-core-dns-over-coap-08
 
 License:
 : LGPL-2.1
 
 Contact information:
-: `Martine Lenders <m.lenders@fu-berlin.de>`
+: `Martine S. Lenders <martine.lenders@tu-dresden.de>`
 
 Last update of this information:
-: October 2023
+: September 2024
 
 DoC Server
 ----------
@@ -482,16 +482,16 @@ Level of maturity:
 : production
 
 Version compability:
-: draft-ietf-core-dns-over-coap-04
+: draft-ietf-core-dns-over-coap-08
 
 License:
 : MIT
 
 Contact information:
-: `Martine Lenders <m.lenders@fu-berlin.de>`
+: `Martine S. Lenders <martine.lenders@tu-dresden.de>`
 
 Last update of this information:
-: October 2023
+: September 2024
 
 Security Considerations
 =======================
