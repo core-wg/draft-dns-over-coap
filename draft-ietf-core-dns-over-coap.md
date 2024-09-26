@@ -496,6 +496,12 @@ Last update of this information:
 Security Considerations
 =======================
 
+General CoAP security considerations apply.
+Exceeding those in {{Section 11 of RFC7252}},
+the request patterns of DoC make it likely that long-lived security contexts are maintained:
+{{amp-0rtt}} goes into more detail on what needs to be done
+when those are resumed from a new endpoint.
+
 When using unencrypted CoAP (see {{sec:unencrypted-coap}}), setting the ID of a DNS message to 0 as
 specified in {{sec:req-caching}} opens the DNS cache of a DoC client to cache poisoning attacks
 via response spoofing.
@@ -506,12 +512,6 @@ For encrypted usage with DTLS or OSCORE the impact of a fixed ID on security is 
 harden against injecting spoofed responses.
 Consequently, it is of little concern to leverage the benefits of CoAP caching by setting the ID to
 0.
-
-General CoAP security considerations apply.
-Exceeding those in {{Section 11 of RFC7252}},
-the request patterns of DoC make it likely that long-lived security contexts are maintained:
-{{amp-0rtt}} goes into more detail on what needs to be done
-when those are resumed from a new endpoint.
 
 IANA Considerations
 ===================
