@@ -104,14 +104,15 @@ Table of Contents
      10.2.  Informative References
    Appendix A.  Evaluation
    Appendix B.  Change Log
-     B.1.  Since draft-ietf-core-dns-over-coap-06
-     B.2.  Since draft-ietf-core-dns-over-coap-05
-     B.3.  Since draft-ietf-core-dns-over-coap-04
-     B.4.  Since draft-ietf-core-dns-over-coap-03
-     B.5.  Since draft-ietf-core-dns-over-coap-02
-     B.6.  Since draft-ietf-core-dns-over-coap-01
-     B.7.  Since draft-ietf-core-dns-over-coap-00
-     B.8.  Since draft-lenders-dns-over-coap-04
+     B.1.  Since draft-ietf-core-dns-over-coap-07
+     B.2.  Since draft-ietf-core-dns-over-coap-06
+     B.3.  Since draft-ietf-core-dns-over-coap-05
+     B.4.  Since draft-ietf-core-dns-over-coap-04
+     B.5.  Since draft-ietf-core-dns-over-coap-03
+     B.6.  Since draft-ietf-core-dns-over-coap-02
+     B.7.  Since draft-ietf-core-dns-over-coap-01
+     B.8.  Since draft-ietf-core-dns-over-coap-00
+     B.9.  Since draft-lenders-dns-over-coap-04
    Acknowledgments
    Authors' Addresses
 
@@ -526,13 +527,14 @@ Table of Contents
 
    Level of maturity:  production
 
-   Version compability:  draft-ietf-core-dns-over-coap-04
+   Version compability:  draft-ietf-core-dns-over-coap-08
 
    License:  LGPL-2.1
 
-   Contact information:  Martine Lenders <m.lenders@fu-berlin.de>
+   Contact information:  Martine S.  Lenders <martine.lenders@tu-
+      dresden.de>
 
-   Last update of this information:  October 2023
+   Last update of this information:  September 2024
 
 7.2.  DoC Server
 
@@ -541,13 +543,14 @@ Table of Contents
 
    Level of maturity:  production
 
-   Version compability:  draft-ietf-core-dns-over-coap-04
+   Version compability:  draft-ietf-core-dns-over-coap-08
 
    License:  MIT
 
-   Contact information:  Martine Lenders <m.lenders@fu-berlin.de>
+   Contact information:  Martine S.  Lenders <martine.lenders@tu-
+      dresden.de>
 
-   Last update of this information:  October 2023
+   Last update of this information:  September 2024
 
 8.  Security Considerations
 
@@ -801,7 +804,21 @@ Appendix A.  Evaluation
 
 Appendix B.  Change Log
 
-B.1.  Since draft-ietf-core-dns-over-coap-06
+B.1.  Since draft-ietf-core-dns-over-coap-07
+      (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
+      coap-07)
+
+   *  Address IANA early review #1368678
+
+   *  Update normative reference to CoAP over DTLS alpn SvcParam
+
+   *  Add missing DTLSv1.2 reference
+
+   *  Security considerations: Point into corr-clar-future
+
+   *  Implementation Status: Update to current version
+
+B.2.  Since draft-ietf-core-dns-over-coap-06
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-06)
 
@@ -816,13 +833,13 @@ B.1.  Since draft-ietf-core-dns-over-coap-06
 
       -  IANA: unify self references
 
-B.2.  Since draft-ietf-core-dns-over-coap-05
+B.3.  Since draft-ietf-core-dns-over-coap-05
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-05)
 
    *  Add references to relevant SVCB/DNR RFCs and drafts
 
-B.3.  Since draft-ietf-core-dns-over-coap-04
+B.4.  Since draft-ietf-core-dns-over-coap-04
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-04)
 
@@ -830,7 +847,7 @@ B.3.  Since draft-ietf-core-dns-over-coap-04
 
    *  Address early IANA review
 
-B.4.  Since draft-ietf-core-dns-over-coap-03
+B.5.  Since draft-ietf-core-dns-over-coap-03
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-03)
 
@@ -839,7 +856,7 @@ B.4.  Since draft-ietf-core-dns-over-coap-03
 
    *  Add Appendix A on evaluation
 
-B.5.  Since draft-ietf-core-dns-over-coap-02
+B.6.  Since draft-ietf-core-dns-over-coap-02
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-02)
 
@@ -861,7 +878,7 @@ B.5.  Since draft-ietf-core-dns-over-coap-02
 
    *  Don't call OSCORE end-to-end encrypted
 
-B.6.  Since draft-ietf-core-dns-over-coap-01
+B.7.  Since draft-ietf-core-dns-over-coap-01
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-01)
 
@@ -874,7 +891,7 @@ B.6.  Since draft-ietf-core-dns-over-coap-01
 
    *  Add appendix on reference implementation
 
-B.7.  Since draft-ietf-core-dns-over-coap-00
+B.8.  Since draft-ietf-core-dns-over-coap-00
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-00)
 
@@ -888,7 +905,7 @@ B.7.  Since draft-ietf-core-dns-over-coap-00
 
    *  Add security considerations on ID=0
 
-B.8.  Since draft-lenders-dns-over-coap-04
+B.9.  Since draft-lenders-dns-over-coap-04
       (https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-
       coap-04)
 
