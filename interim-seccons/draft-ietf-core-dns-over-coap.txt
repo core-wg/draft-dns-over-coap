@@ -686,7 +686,8 @@ Table of Contents
 
 10.2.  Informative References
 
-   [amp-0rtt] "PR", 25 September 2024,
+   [amp-0rtt] "PR #40 "Amplification and 0-RTT" on "CoAP: Corrections
+              and Clarifications"", 25 September 2024,
               <https://github.com/core-wg/corrclar/pull/40>.
 
    [DoC-paper]
