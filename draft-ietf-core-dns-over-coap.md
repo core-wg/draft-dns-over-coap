@@ -510,7 +510,7 @@ Consequently, it is of little concern to leverage the benefits of CoAP caching b
 General CoAP security considerations apply.
 Exceeding those in {{Section 11 of RFC7252}},
 the request patterns of DoC make it likely that long-lived security contexts are maintained:
-{{amp-0rtt}} goes into more detail on what can and needs to be done
+{{amp-0rtt}} goes into more detail on what needs to be done
 when those are resumed from a new address.
 
 IANA Considerations
