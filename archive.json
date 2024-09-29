@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-26T01:06:36.860287+00:00",
+  "timestamp": "2024-09-29T01:12:35.782024+00:00",
   "repo": "core-wg/draft-dns-over-coap",
   "labels": [
     {
@@ -205,15 +205,15 @@
       "id": "MDU6SXNzdWU5NjM5OTY0MTM=",
       "title": "Request text duplication",
       "url": "https://github.com/core-wg/draft-dns-over-coap/issues/4",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "chrysn",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "Using the application/dns-message format means following general DNS practice that the request is more or less echoed in the response. (The queries are part of the response). This makes sense in DNS where there's only the transaction ID, but less so in CoAP where there's cryptographic request/response protection.\r\n\r\nAre there any mechanisms of DNS that'd allow us to elide the queries from the response?\r\n\r\nIf so, I suggest we recommend them with some level of normativity.\r\n\r\nIf not, then this probably won't change short of using alternative serializations (which I understand to be in scope for add-ons in this document), but should be pointed out, stating that wire efficiency is traded here for cognitive (transferring established DNS concepts) and implementation (where responses are fed to a local DNS-ish processor) complexity.",
       "createdAt": "2021-08-09T13:27:09Z",
-      "updatedAt": "2023-10-20T09:14:33Z",
-      "closedAt": null,
+      "updatedAt": "2024-09-26T08:21:26Z",
+      "closedAt": "2024-09-26T08:21:25Z",
       "comments": [
         {
           "author": "chrysn",
@@ -312,6 +312,13 @@
           "body": "Since omitting the question is a big part of https://datatracker.ietf.org/doc/draft-lenders-dns-cbor/, I think we can close this. Or do you disagree @chrysn?",
           "createdAt": "2023-10-20T09:14:32Z",
           "updatedAt": "2023-10-20T09:14:32Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "MEMBER",
+          "body": "Yes, let's defer that to dns-cbor; closing.",
+          "createdAt": "2024-09-26T08:21:25Z",
+          "updatedAt": "2024-09-26T08:21:25Z"
         }
       ]
     },
@@ -3337,26 +3344,160 @@
       "id": "PR_kwDOF27TLs58tsp3",
       "title": "Security considerations: Point into corr-clar-future",
       "url": "https://github.com/core-wg/draft-dns-over-coap/pull/31",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "chrysn",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "As per today's interim, this is all that's between this document and a WGLC.\r\n\r\nBy the time we're working in the WGLC comments, we can update the reference that now points into a PR to point to corr-clar.",
       "createdAt": "2024-09-25T21:38:11Z",
-      "updatedAt": "2024-09-25T21:38:32Z",
+      "updatedAt": "2024-09-26T09:47:10Z",
       "baseRepository": "core-wg/draft-dns-over-coap",
       "baseRefName": "main",
       "baseRefOid": "26efbd982bdbe11b80880bd42113a49b9d9dd1b4",
       "headRepository": "core-wg/draft-dns-over-coap",
       "headRefName": "interim-seccons",
-      "headRefOid": "fccad4babba9c10706f9e667cf47f985b0be9353",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "0c41739ee3c262449efe4817901259ad356059ba",
+      "closedAt": "2024-09-26T09:22:28Z",
+      "mergedAt": "2024-09-26T09:22:28Z",
+      "mergedBy": "miri64",
+      "mergeCommit": {
+        "oid": "be87b7e59a0c0c1f1d43672d49c8fc366e1ba0cc"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOF27TLs6K6Q3s",
+          "commit": {
+            "abbreviatedOid": "fccad4b"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-09-26T08:39:09Z",
+          "updatedAt": "2024-09-26T08:42:03Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "With the opening \"General CoAP security considerations apply.\" wouldn't it make more sense to make this the first paragraph?",
+              "createdAt": "2024-09-26T08:39:09Z",
+              "updatedAt": "2024-09-26T08:42:03Z"
+            },
+            {
+              "originalPosition": 24,
+              "body": "```suggestion\r\n{{amp-0rtt}} goes into more detail on what needs to be done\r\n```\r\n\r\nUnless I am missing something regarding IETF lingo, the \"can\" is superfluous.",
+              "createdAt": "2024-09-26T08:41:07Z",
+              "updatedAt": "2024-09-26T08:42:03Z"
+            },
+            {
+              "originalPosition": 25,
+              "body": "```suggestion\r\nwhen those are resumed from a new source address or port.\r\n```",
+              "createdAt": "2024-09-26T08:41:43Z",
+              "updatedAt": "2024-09-26T08:42:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6K6XiT",
+          "commit": {
+            "abbreviatedOid": "fccad4b"
+          },
+          "author": "chrysn",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-09-26T08:50:24Z",
+          "updatedAt": "2024-09-26T08:50:24Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "Maybe 'new endpoint' \u2013 source-address-and-port is a UDP/TCP thing. Thinking of OSCORE, you're also in a \"new endpoint\" situation if after requests over TCP from an address/port combination, all of a sudden the requests come from the same UDP address/port. (One might argue that it's very likely that this is return routable if TCP was, the same argument can also be made for same-IP-different-port, and then we'd have to think about NAT, and I don't want to think about NAT).",
+              "createdAt": "2024-09-26T08:50:24Z",
+              "updatedAt": "2024-09-26T08:50:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6K6bVG",
+          "commit": {
+            "abbreviatedOid": "fccad4b"
+          },
+          "author": "chrysn",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-09-26T08:55:08Z",
+          "updatedAt": "2024-09-26T08:55:09Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "Moved to the top.",
+              "createdAt": "2024-09-26T08:55:08Z",
+              "updatedAt": "2024-09-26T08:55:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6K6bmO",
+          "commit": {
+            "abbreviatedOid": "fccad4b"
+          },
+          "author": "chrysn",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-09-26T08:55:33Z",
+          "updatedAt": "2024-09-26T08:55:33Z",
+          "comments": [
+            {
+              "originalPosition": 25,
+              "body": "Updated to \"new endpoint\" \u2013 that fine?",
+              "createdAt": "2024-09-26T08:55:33Z",
+              "updatedAt": "2024-09-26T08:55:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6K6knI",
+          "commit": {
+            "abbreviatedOid": "bd76c1b"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2024-09-26T09:10:44Z",
+          "updatedAt": "2024-09-26T09:14:11Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\n   title: 'PR #40 \"Amplification and 0-RTT\" on \"CoAP: Corrections and Clarifications\"'\r\n```",
+              "createdAt": "2024-09-26T09:10:45Z",
+              "updatedAt": "2024-09-26T09:14:11Z"
+            },
+            {
+              "originalPosition": 11,
+              "body": "```suggestion\r\n   ann: |\r\n     Note: It is expected that that PR will be merged way ahead of this document's publication;\r\n```",
+              "createdAt": "2024-09-26T09:13:51Z",
+              "updatedAt": "2024-09-26T09:14:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6K6n9E",
+          "commit": {
+            "abbreviatedOid": "0c41739"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-09-26T09:16:29Z",
+          "updatedAt": "2024-09-26T09:16:41Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
