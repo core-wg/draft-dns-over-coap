@@ -23,12 +23,12 @@ author:
  -  name: Christian Amsüss
     email: christian@amsuess.com
  -  name: Cenk Gündoğan
-    org: Huawei Technologies
-    street: Riesstrasse 25
+    org: NeuralAgent GmbH
+    street: Mies-van-der-Rohe-Straße 6
     city: Munich
-    code: D-80992
+    code: D-80807
     country: Germany
-    email: cenk.gundogan@huawei.com
+    email: cenk.gundogan@neuralagent.ai
  -  name: Thomas C. Schmidt
     org: HAW Hamburg
     street: Berliner Tor 7
