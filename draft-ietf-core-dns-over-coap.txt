@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 30 March 2025                                                  
+Expires: 21 April 2025                                                  
                                                              C. Gündoğan
-                                                     Huawei Technologies
+                                                        NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                       26 September 2024
+                                                         18 October 2024
 
 
                           DNS over CoAP (DoC)
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 March 2025.
+   This Internet-Draft will expire on 21 April 2025.
 
 Copyright Notice
 
@@ -932,11 +932,11 @@ Authors' Addresses
 
 
    Cenk Gündoğan
-   Huawei Technologies
-   Riesstrasse 25
-   D-80992 Munich
+   NeuralAgent GmbH
+   Mies-van-der-Rohe-Straße 6
+   D-80807 Munich
    Germany
-   Email: cenk.gundogan@huawei.com
+   Email: cenk.gundogan@neuralagent.ai
 
 
    Thomas C. Schmidt
