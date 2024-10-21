@@ -567,6 +567,10 @@ paper "Securing Name Resolution in the IoT: DNS over CoAP" {{DoC-paper}}.
 Change Log
 ==========
 
+Since [draft-ietf-core-dns-over-coap-08]
+----------------------------------------
+- Update Cenk's Affiliation
+
 Since [draft-ietf-core-dns-over-coap-07]
 ----------------------------------------
 - Address IANA early review #1368678
@@ -638,6 +642,7 @@ Since [draft-lenders-dns-over-coap-04]
 The authors of this document want to thank Carsten Bormann, Ben Schwartz, Marco Tiloca, and Tim
 Wicinski for their feedback and comments.
 
+[draft-ietf-core-dns-over-coap-08]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-08
 [draft-ietf-core-dns-over-coap-07]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-07
 [draft-ietf-core-dns-over-coap-06]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-06
 [draft-ietf-core-dns-over-coap-05]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-05
