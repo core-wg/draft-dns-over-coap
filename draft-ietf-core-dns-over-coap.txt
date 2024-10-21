@@ -921,8 +921,8 @@ B.10.  Since draft-lenders-dns-over-coap-04
 Acknowledgments
 
    The authors of this document want to thank Carsten Bormann, Ben
-   Schwartz, Marco Tiloca, and Tim Wicinski for their feedback and
-   comments.
+   Schwartz, Marco Tiloca, Tim Wicinski, and Thomas Fossati for their
+   feedback and comments.
 
 Authors' Addresses
 
