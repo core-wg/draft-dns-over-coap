@@ -541,7 +541,7 @@ The definition of this parameter can be found in {{sec:doc-server-selection}}.
 
 | Number  | Name           | Meaning                            | Reference       |
 | ------- | -------------- | ---------------------------------- | --------------- |
-| 9 (suggested)      | docpath        | DNS over CoAP resource path        | \[TBD-this-spec, {{sec:doc-server-selection}}\] |
+| 10 (suggested)     | docpath        | DNS over CoAP resource path        | \[TBD-this-spec, {{sec:doc-server-selection}}\] |
 
 New "core.dns" Resource Type
 ----------------------------
