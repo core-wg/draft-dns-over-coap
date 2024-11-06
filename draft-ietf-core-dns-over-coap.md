@@ -219,7 +219,7 @@ similar CBOR data item. This path format was chosen to coincide with the path re
 ({{-cri}}). Furthermore, it is easily transferable into a sequence of CoAP Uri-Path options by
 mapping the initial byte of any present CBOR text string (see {{-cbor, Section 3}}) into the Option
 Delta and Option Length of the CoAP option, provided these CBOR text strings are all of a length
-between 0 and 12 octets (see {{-coap, Section 3.1}}). Likewise, it can be transfered into a URI
+between 0 and 12 octets (see {{-coap, Section 3.1}}). Likewise, it can be transferred into a URI
 path-abempty form (see {{-uri, Section 3.3}}) by replacing the initial byte of any present CBOR text
 string with the "/" character, provided these CBOR text strings are all of a length lesser than 24
 octets and do not contain bytes that need escaping.
@@ -232,7 +232,7 @@ algorithm could be as follows, going through the provided records in order of th
   if it is "co", construct a CoAP request for CoAP over DTLS. Any other SvcParamKeys specifying a
   CoAP transport are out of scope of this document.
 - The destination address for the request should be taken from additional information about the
-  target, e.g. from an AAAA record associated to the target name or from an "ipv6hint" SvcParam
+  target, e.g., from an AAAA record associated to the target name or from an "ipv6hint" SvcParam
   value, or, as a fallback, by querying an address for the target name of the SVCB record.
 - The destination port for the address is taken from the "port" SvcParam value, if present.
   Otherwise, take the default port of the CoAP transport.
@@ -461,8 +461,8 @@ in the IoT operating system RIOT][gcoap_dns].
 Level of maturity:
 : production
 
-Version compability:
-: draft-ietf-core-dns-over-coap-08
+Version compatibility:
+: draft-ietf-core-dns-over-coap-09
 
 License:
 : LGPL-2.1
@@ -481,8 +481,8 @@ Python][aiodnsprox].
 Level of maturity:
 : production
 
-Version compability:
-: draft-ietf-core-dns-over-coap-08
+Version compatibility:
+: draft-ietf-core-dns-over-coap-09
 
 License:
 : MIT
@@ -542,6 +542,7 @@ The definition of this parameter can be found in {{sec:doc-server-selection}}.
 | Number  | Name           | Meaning                            | Reference       |
 | ------- | -------------- | ---------------------------------- | --------------- |
 | 10 (suggested)     | docpath        | DNS over CoAP resource path        | \[TBD-this-spec, {{sec:doc-server-selection}}\] |
+{: #tab-svc-param-keys title="Values for SvcParamKeys"}
 
 New "core.dns" Resource Type
 ----------------------------
@@ -593,7 +594,7 @@ Since [draft-ietf-core-dns-over-coap-05]
 
 Since [draft-ietf-core-dns-over-coap-04]
 ----------------------------------------
-- Add note on cachable OSCORE
+- Add note on cacheable OSCORE
 - Address early IANA review
 
 Since [draft-ietf-core-dns-over-coap-03]
