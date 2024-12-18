@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 24 April 2025                                                  
+Expires: 21 June 2025                                                   
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                         21 October 2024
+                                                        18 December 2024
 
 
                           DNS over CoAP (DoC)
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 April 2025.
+   This Internet-Draft will expire on 21 June 2025.
 
 Copyright Notice
 
@@ -249,7 +249,7 @@ Table of Contents
    any present CBOR text string (see [RFC8949], Section 3) into the
    Option Delta and Option Length of the CoAP option, provided these
    CBOR text strings are all of a length between 0 and 12 octets (see
-   [RFC7252], Section 3.1).  Likewise, it can be transfered into a URI
+   [RFC7252], Section 3.1).  Likewise, it can be transferred into a URI
    path-abempty form (see [RFC3986], Section 3.3) by replacing the
    initial byte of any present CBOR text string with the "/" character,
    provided these CBOR text strings are all of a length lesser than 24
@@ -267,7 +267,7 @@ Table of Contents
       CoAP transport are out of scope of this document.
 
    *  The destination address for the request should be taken from
-      additional information about the target, e.g. from an AAAA record
+      additional information about the target, e.g., from an AAAA record
       associated to the target name or from an "ipv6hint" SvcParam
       value, or, as a fallback, by querying an address for the target
       name of the SVCB record.
@@ -528,7 +528,7 @@ Table of Contents
 
    Level of maturity:  production
 
-   Version compability:  draft-ietf-core-dns-over-coap-08
+   Version compatibility:  draft-ietf-core-dns-over-coap-09
 
    License:  LGPL-2.1
 
@@ -544,7 +544,7 @@ Table of Contents
 
    Level of maturity:  production
 
-   Version compability:  draft-ietf-core-dns-over-coap-08
+   Version compatibility:  draft-ietf-core-dns-over-coap-09
 
    License:  MIT
 
@@ -597,14 +597,14 @@ Table of Contents
    (SvcParamKeys) registry in the DNS Service Bindings (SVCB) registry
    group.  The definition of this parameter can be found in Section 3.
 
-       +===============+=========+===============+=================+
-       | Number        | Name    | Meaning       | Reference       |
-       +===============+=========+===============+=================+
-       | 9 (suggested) | docpath | DNS over CoAP | [TBD-this-spec, |
-       |               |         | resource path | Section 3]      |
-       +---------------+---------+---------------+-----------------+
+      +================+=========+===============+=================+
+      | Number         | Name    | Meaning       | Reference       |
+      +================+=========+===============+=================+
+      | 10 (suggested) | docpath | DNS over CoAP | [TBD-this-spec, |
+      |                |         | resource path | Section 3]      |
+      +----------------+---------+---------------+-----------------+
 
-                                  Table 1
+                     Table 1: Values for SvcParamKeys
 
 9.3.  New "core.dns" Resource Type
 
@@ -627,9 +627,9 @@ Table of Contents
               Lenders, M. S., Amsüss, C., Schmidt, T. C., and M.
               Wählisch, "ALPN ID Specification for CoAP over DTLS", Work
               in Progress, Internet-Draft, draft-ietf-core-coap-dtls-
-              alpn-00, 5 September 2024,
+              alpn-01, 16 December 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              coap-dtls-alpn-00>.
+              coap-dtls-alpn-01>.
 
    [RFC1035]  Mockapetris, P., "Domain names - implementation and
               specification", STD 13, RFC 1035, DOI 10.17487/RFC1035,
@@ -724,9 +724,9 @@ Table of Contents
    [I-D.ietf-core-transport-indication]
               Amsüss, C. and M. S. Lenders, "CoAP Transport Indication",
               Work in Progress, Internet-Draft, draft-ietf-core-
-              transport-indication-06, 8 July 2024,
+              transport-indication-07, 21 October 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              transport-indication-06>.
+              transport-indication-07>.
 
    [I-D.lenders-core-dnr]
               Lenders, M. S., Amsüss, C., Schmidt, T. C., and M.
@@ -850,7 +850,7 @@ B.5.  Since draft-ietf-core-dns-over-coap-04
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-04)
 
-   *  Add note on cachable OSCORE
+   *  Add note on cacheable OSCORE
 
    *  Address early IANA review
 
