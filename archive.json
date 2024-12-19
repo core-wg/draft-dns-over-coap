@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-17T01:13:57.727105+00:00",
+  "timestamp": "2024-12-19T01:11:48.472515+00:00",
   "repo": "core-wg/draft-dns-over-coap",
   "labels": [
     {
@@ -3498,6 +3498,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 32,
+      "id": "PR_kwDOF27TLs6Fqbin",
+      "title": "Update corr-clar reference",
+      "url": "https://github.com/core-wg/draft-dns-over-coap/pull/32",
+      "state": "OPEN",
+      "author": "miri64",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Updates the reference to https://github.com/core-wg/corrclar/pull/40 to [Section 2.6 of -core-corr-clar](https://datatracker.ietf.org/doc/html/draft-ietf-core-corr-clar#section-2.6) as it now got merged.",
+      "createdAt": "2024-12-18T15:11:42Z",
+      "updatedAt": "2024-12-18T15:11:42Z",
+      "baseRepository": "core-wg/draft-dns-over-coap",
+      "baseRefName": "main",
+      "baseRefOid": "964e6d2e3e3826e66fe96a1dd1623c7bdb4cdb0f",
+      "headRepository": "core-wg/draft-dns-over-coap",
+      "headRefName": "update-corr-clar-ref",
+      "headRefOid": "ecb38c2afdaab19c2de8c70e30391f076da36b85",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
