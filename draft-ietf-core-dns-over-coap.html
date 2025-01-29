@@ -26,7 +26,7 @@ constrained devices in the Internet of Things (IoT).
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
-    Jinja2 3.1.4
+    Jinja2 3.1.5
     lxml 5.3.0
     platformdirs 4.3.6
     pycountry 24.6.1
@@ -1052,11 +1052,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">DoC</td>
-<td class="right">December 2024</td>
+<td class="right">January 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Lenders, et al.</td>
-<td class="center">Expires 21 June 2025</td>
+<td class="center">Expires 2 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1069,12 +1069,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-core-dns-over-coap-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-12-18" class="published">18 December 2024</time>
+<time datetime="2025-01-29" class="published">29 January 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-06-21">21 June 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-02">2 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1138,7 +1138,7 @@ constrained devices in the Internet of Things (IoT).<a href="#section-abstract-1
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 21 June 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 2 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1147,7 +1147,7 @@ constrained devices in the Internet of Things (IoT).<a href="#section-abstract-1
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2024 IETF Trust and the persons identified as the
+            Copyright (c) 2025 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1887,7 +1887,7 @@ Python</a>.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
 <p id="section-8-1">General CoAP security considerations apply.
 Exceeding those in <span><a href="https://rfc-editor.org/rfc/rfc7252#section-11" class="relref">Section 11</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>,
 the request patterns of DoC make it likely that long-lived security contexts are maintained:
-<span>[<a href="#amp-0rtt" class="cite xref">amp-0rtt</a>]</span> goes into more detail on what needs to be done
+<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-corr-clar-01#section-2.6" class="relref">Section 2.6</a> of [<a href="#I-D.ietf-core-corr-clar" class="cite xref">I-D.ietf-core-corr-clar</a>]</span> goes into more detail on what needs to be done
 when those are resumed from a new endpoint.<a href="#section-8-1" class="pilcrow">¶</a></p>
 <p id="section-8-2">When using unencrypted CoAP (see <a href="#sec_unencrypted-coap" class="auto internal xref">Section 6</a>), setting the ID of a DNS message to 0 as
 specified in <a href="#sec_req-caching" class="auto internal xref">Section 4.2.2</a> opens the DNS cache of a DoC client to cache poisoning attacks
@@ -2041,24 +2041,21 @@ register <span>[<a href="#RFC6690" class="cite xref">RFC6690</a>]</span>.<a href
 <a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
-<dt id="amp-0rtt">[amp-0rtt]</dt>
-        <dd>
-<span class="refTitle">"PR #40 "Amplification and 0-RTT" on "CoAP: Corrections and Clarifications""</span>, <time datetime="2024-09-25" class="refDate">25 September 2024</time>, <span>&lt;<a href="https://github.com/core-wg/corrclar/pull/40">https://github.com/core-wg/corrclar/pull/40</a>&gt;</span>. <span class="annotation">Note: It is expected that that PR will be merged way ahead of this document's publication;
-at the next revision, this reference will be replaced with a reference to what will by then most likely be
-I-D.ietf-core-corr-clar-00 (now bormann-core-clar-05).</span>
-        </dd>
-<dd class="break"></dd>
 <dt id="DoC-paper">[DoC-paper]</dt>
         <dd>
 <span class="refAuthor">Lenders, M.</span>, <span class="refAuthor">Amsüss, C.</span>, <span class="refAuthor">Gündogan, C.</span>, <span class="refAuthor">Nawrocki, M.</span>, <span class="refAuthor">Schmidt, T.</span>, and <span class="refAuthor">M. Wählisch</span>, <span class="refTitle">"Securing Name Resolution in the IoT: DNS over CoAP"</span>, <span class="refContent">Association for Computing Machinery (ACM)</span>, <span class="seriesInfo">Proceedings of the ACM on Networking vol. 1, no. CoNEXT2, pp. 1-25</span>, <span class="seriesInfo">DOI 10.1145/3609423</span>, <time datetime="2023-09" class="refDate">September 2023</time>, <span>&lt;<a href="https://doi.org/10.1145/3609423">https://doi.org/10.1145/3609423</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.amsuess-core-cachable-oscore">[I-D.amsuess-core-cachable-oscore]</dt>
         <dd>
-<span class="refAuthor">Amsüss, C.</span> and <span class="refAuthor">M. Tiloca</span>, <span class="refTitle">"Cacheable OSCORE"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-amsuess-core-cachable-oscore-09</span>, <time datetime="2024-07-08" class="refDate">8 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-amsuess-core-cachable-oscore-09">https://datatracker.ietf.org/doc/html/draft-amsuess-core-cachable-oscore-09</a>&gt;</span>. </dd>
+<span class="refAuthor">Amsüss, C.</span> and <span class="refAuthor">M. Tiloca</span>, <span class="refTitle">"Cacheable OSCORE"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-amsuess-core-cachable-oscore-10</span>, <time datetime="2025-01-08" class="refDate">8 January 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-amsuess-core-cachable-oscore-10">https://datatracker.ietf.org/doc/html/draft-amsuess-core-cachable-oscore-10</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-core-corr-clar">[I-D.ietf-core-corr-clar]</dt>
+        <dd>
+<span class="refAuthor">Bormann, C.</span>, <span class="refTitle">"Constrained Application Protocol (CoAP): Corrections and Clarifications"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-corr-clar-01</span>, <time datetime="2024-12-18" class="refDate">18 December 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-corr-clar-01">https://datatracker.ietf.org/doc/html/draft-ietf-core-corr-clar-01</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-core-href">[I-D.ietf-core-href]</dt>
         <dd>
-<span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"Constrained Resource Identifiers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-href-16</span>, <time datetime="2024-07-24" class="refDate">24 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-href-16">https://datatracker.ietf.org/doc/html/draft-ietf-core-href-16</a>&gt;</span>. </dd>
+<span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"Constrained Resource Identifiers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-href-17</span>, <time datetime="2025-01-24" class="refDate">24 January 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-href-17">https://datatracker.ietf.org/doc/html/draft-ietf-core-href-17</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-core-transport-indication">[I-D.ietf-core-transport-indication]</dt>
         <dd>
