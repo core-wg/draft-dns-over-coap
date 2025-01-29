@@ -27,13 +27,19 @@ Abstract
    message exchange for constrained devices in the Internet of Things
    (IoT).
 
-Discussion Venues
+About This Document
 
    This note is to be removed before publishing as an RFC.
 
-   Discussion of this document takes place on the Constrained RESTful
-   Environments Working Group mailing list (core@ietf.org), which is
-   archived at https://mailarchive.ietf.org/arch/browse/core/.
+   The latest revision of this draft can be found at https://core-
+   wg.github.io/draft-dns-over-coap/draft-ietf-core-dns-over-coap.html.
+   Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-ietf-core-dns-over-coap/.
+
+   Discussion of this document takes place on the CoRE Working Group
+   mailing list (mailto:core@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/core/.  Subscribe at
+   https://www.ietf.org/mailman/listinfo/core/.
 
    Source for this draft and an issue tracker can be found at
    https://github.com/core-wg/draft-dns-over-coap.
