@@ -9,7 +9,18 @@ submissiontype: IETF
 
 area: Applications
 workgroup: CoRE
-keyword: Internet-Draft
+keyword:
+  - Internet-Draft
+  - CoRE
+  - CoAP
+  - DNS
+venue:
+    group: CoRE
+    type: Working Group
+    mail: core@ietf.org
+    arch: "https://mailarchive.ietf.org/arch/browse/core/"
+    github: "core-wg/draft-dns-over-coap"
+    latest: "https://core-wg.github.io/draft-dns-over-coap/draft-ietf-core-dns-over-coap.html"
 
 author:
  -  name: Martine Sophie Lenders
