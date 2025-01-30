@@ -70,6 +70,7 @@ normative:
   I-D.ietf-core-coap-dtls-alpn: coap-dtls-alpn
 
 informative:
+  RFC2136: dns-update
   RFC3986: uri
   RFC6690: core-link-format
   RFC8765: dns-push
@@ -341,6 +342,12 @@ The RECOMMENDED algorithm to assure the requirement for the DoC is to set the Ma
 This prevents expired records unintentionally being served from an intermediate CoAP cache.
 Additionally, it allows for the ETag value for cache validation, if it is based on the content of the response, not to change even if the TTL values are updated by an upstream DNS cache.
 If only one record set per DNS response is assumed, a simplification of this algorithm is to just set all TTLs in the response to 0 and set the TTLs at the DoC client to the value of the Max-Age option.
+
+### DNS Update
+
+Until future work provides considerations for the for DNS Update {{-dns-update}}, a DoC server that
+receives a query with the UPDATE opcode SHOULD indicate in its response that it does not implement
+DNS Update, see {{-dns-update}}.
 
 ### Examples
 
