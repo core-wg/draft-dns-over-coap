@@ -342,17 +342,6 @@ This prevents expired records unintentionally being served from an intermediate 
 Additionally, it allows for the ETag value for cache validation, if it is based on the content of the response, not to change even if the TTL values are updated by an upstream DNS cache.
 If only one record set per DNS response is assumed, a simplification of this algorithm is to just set all TTLs in the response to 0 and set the TTLs at the DoC client to the value of the Max-Age option.
 
-
-<!--
-With short responses, a usable ETag might be almost as long as the response.
-With long-lived responses, the client does not need to revalidate often.
-With responses large enough to be fragmented,
-it's best practice for servers to set an ETag anyway.
-As specified in {{-coap}} and {{-coap-fetch}}, if the response associated with
-the ETag is still valid, the response uses the "2.03 Valid" code and consequently
-carries no payload.
--->
-
 ### Examples
 
 The following examples illustrate the replies to the query "example.org. IN
