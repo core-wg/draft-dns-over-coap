@@ -494,9 +494,9 @@ Last update of this information:
 Security Considerations
 =======================
 
-General CoAP security considerations apply.
-Exceeding those in {{Section 11 of RFC7252}},
-the request patterns of DoC make it likely that long-lived security contexts are maintained:
+General CoAP security considerations in {{Section 11 of RFC7252}} apply to DoC.
+Additionally, DoC uses request patterns that require the maintenance of long-lived security
+contexts.
 {{Section 2.6 of -core-corrclar}} goes into more detail on what needs to be done
 when those are resumed from a new endpoint.
 
