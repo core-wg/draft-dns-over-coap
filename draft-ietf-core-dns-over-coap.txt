@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 3 August 2025                                                  
+Expires: 4 August 2025                                                  
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                         30 January 2025
+                                                         31 January 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 August 2025.
+   This Internet-Draft will expire on 4 August 2025.
 
 Copyright Notice
 
@@ -91,7 +91,8 @@ Table of Contents
      4.3.  DNS Responses in CoAP Responses
        4.3.1.  Response Codes and Handling DNS and CoAP errors
        4.3.2.  Support of CoAP Caching
-       4.3.3.  Examples
+       4.3.3.  DNS Update
+       4.3.4.  Examples
    5.  CoAP/CoRE Integration
      5.1.  DNS Push
      5.2.  OSCORE
@@ -418,7 +419,14 @@ Table of Contents
    in the response to 0 and set the TTLs at the DoC client to the value
    of the Max-Age option.
 
-4.3.3.  Examples
+4.3.3.  DNS Update
+
+   Until future work provides considerations for the for DNS Update
+   [RFC2136], a DoC server that receives a query with the UPDATE opcode
+   SHOULD indicate in its response that it does not implement DNS
+   Update, see [RFC2136].
+
+4.3.4.  Examples
 
    The following examples illustrate the replies to the query
    "example.org.  IN AAAA record", recursion turned on.  Successful
@@ -739,6 +747,11 @@ Table of Contents
               Draft, draft-lenders-core-dnr-03, 8 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-lenders-core-
               dnr-03>.
+
+   [RFC2136]  Vixie, P., Ed., Thomson, S., Rekhter, Y., and J. Bound,
+              "Dynamic Updates in the Domain Name System (DNS UPDATE)",
+              RFC 2136, DOI 10.17487/RFC2136, April 1997,
+              <https://www.rfc-editor.org/rfc/rfc2136>.
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
