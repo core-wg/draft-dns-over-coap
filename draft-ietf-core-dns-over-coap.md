@@ -78,6 +78,7 @@ informative:
   RFC8484: doh
   RFC9176: core-rd
   RFC9250: doq
+  RFC9364: dnssec
   RFC8499: dns-terminology
   RFC7942: impl-status-section
   RFC9460: svcb
@@ -510,6 +511,21 @@ For encrypted usage with DTLS or OSCORE the impact of a fixed ID on security is 
 harden against injecting spoofed responses.
 Consequently, it is of little concern to leverage the benefits of CoAP caching by setting the ID to
 0.
+
+A user of DoC must be aware that the DoC server
+may communicate unencrypted with the upstream DNS infrastructure, e.g., using DNS over UDP.
+DoC can only guarantee confidential communication and integrity between parties for which the
+security context is exchanged.
+The DoC server may use another security context to communicate confidentially and with integrity
+upstream (e.g., DNS over QUIC {{-doq}}) or just integrity (e.g., DNSSEC {{-dnssec}}), but, while
+recommended, this is opaque to the DoC client on the protocol level.
+
+A DoC client may not be able to perform DNSSEC validation,
+e.g., due to code size constraints, or due to size of the responses.
+It may trust its DoC server to perform DNSSEC validation;
+how that trust is expressed is out of scope of this document.
+A DoC client may be, for instance, configured to use a particular credential by which it recognizes an eligible DoC server.
+That information can also imply trust in the DNSSEC validation by that server.
 
 IANA Considerations
 ===================
