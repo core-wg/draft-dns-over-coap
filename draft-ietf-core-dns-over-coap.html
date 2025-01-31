@@ -1908,9 +1908,9 @@ Python</a>.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
       <h2 id="name-security-considerations">
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-8-1">General CoAP security considerations apply.
-Exceeding those in <span><a href="https://rfc-editor.org/rfc/rfc7252#section-11" class="relref">Section 11</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>,
-the request patterns of DoC make it likely that long-lived security contexts are maintained:
+<p id="section-8-1">General CoAP security considerations in <span><a href="https://rfc-editor.org/rfc/rfc7252#section-11" class="relref">Section 11</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> apply to DoC.
+Additionally, DoC uses request patterns that require the maintenance of long-lived security
+contexts.
 <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-corr-clar-01#section-2.6" class="relref">Section 2.6</a> of [<a href="#I-D.ietf-core-corr-clar" class="cite xref">I-D.ietf-core-corr-clar</a>]</span> goes into more detail on what needs to be done
 when those are resumed from a new endpoint.<a href="#section-8-1" class="pilcrow">¶</a></p>
 <p id="section-8-2">When using unencrypted CoAP (see <a href="#sec_unencrypted-coap" class="auto internal xref">Section 6</a>), setting the ID of a DNS message to 0 as
