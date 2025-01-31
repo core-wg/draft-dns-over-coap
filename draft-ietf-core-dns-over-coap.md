@@ -343,7 +343,7 @@ This prevents expired records unintentionally being served from an intermediate 
 Additionally, it allows for the ETag value for cache validation, if it is based on the content of the response, not to change even if the TTL values are updated by an upstream DNS cache.
 If only one record set per DNS response is assumed, a simplification of this algorithm is to just set all TTLs in the response to 0 and set the TTLs at the DoC client to the value of the Max-Age option.
 
-### DNS Update
+### DNS Update {#sec:dns-update}
 
 Until future work provides considerations for the for DNS Update {{-dns-update}}, a DoC server that
 receives a query with the UPDATE opcode SHOULD indicate in its response that it does not implement
@@ -566,6 +566,12 @@ paper "Securing Name Resolution in the IoT: DNS over CoAP" {{DoC-paper}}.
 Change Log
 ==========
 
+Since [draft-ietf-core-dns-over-coap-09]
+----------------------------------------
+- Update SVCB SvcParamKey
+- Update corr-clar reference
+- Add reference to DNS Update ({{sec:dns-update}}), clarify that it is currently not considered
+
 Since [draft-ietf-core-dns-over-coap-08]
 ----------------------------------------
 - Update Cenk's Affiliation
@@ -641,6 +647,7 @@ Since [draft-lenders-dns-over-coap-04]
 The authors of this document want to thank Carsten Bormann, Ben Schwartz, Marco Tiloca, Tim
 Wicinski, and Thomas Fossati for their feedback and comments.
 
+[draft-ietf-core-dns-over-coap-09]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-09
 [draft-ietf-core-dns-over-coap-08]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-08
 [draft-ietf-core-dns-over-coap-07]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-07
 [draft-ietf-core-dns-over-coap-06]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-06
