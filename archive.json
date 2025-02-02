@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-30T01:05:08.209545+00:00",
+  "timestamp": "2025-02-02T01:09:47.697144+00:00",
   "repo": "core-wg/draft-dns-over-coap",
   "labels": [
     {
@@ -649,6 +649,38 @@
       "createdAt": "2024-03-21T07:19:37Z",
       "updatedAt": "2024-06-20T14:16:05Z",
       "closedAt": "2024-06-20T14:16:04Z",
+      "comments": []
+    },
+    {
+      "number": 34,
+      "id": "I_kwDOF27TLs6oKLyv",
+      "title": "Somewhat unclear text formulation \"Exceeding those in ...\"",
+      "url": "https://github.com/core-wg/draft-dns-over-coap/issues/34",
+      "state": "CLOSED",
+      "author": "EskoDijk",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "In Section 8:\n\n> General CoAP security considerations apply. Exceeding those in [Section 11](https://rfc-editor.org/rfc/rfc7252#section-11) of [[RFC7252](https://www.rfc-editor.org/rfc/rfc7252)], the request patterns of DoC make it likely that long-lived security contexts are maintained: [amp-0rtt] ...\n\nThis might be clarified a bit e.g. \n\n> General CoAP security considerations in Section 11 of RFC7272 apply to DoC. Additionally, DoC will typically use request patterns that require long-lived security contexts to be maintained. [amp-0rtt] ...\n\nAt first reading I read that the DoC request patterns exceeded the request patterns defined in Section 11 of RFC7252, which didn't make much sense...\n",
+      "createdAt": "2025-01-30T16:12:52Z",
+      "updatedAt": "2025-01-31T11:47:23Z",
+      "closedAt": "2025-01-31T11:47:23Z",
+      "comments": []
+    },
+    {
+      "number": 35,
+      "id": "I_kwDOF27TLs6oKOC0",
+      "title": "Security requirements for the DoC server sending \"upstream\" DNS queries?",
+      "url": "https://github.com/core-wg/draft-dns-over-coap/issues/35",
+      "state": "OPEN",
+      "author": "EskoDijk",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "The security considerations section should also cover security requirements (if any) for the DoC server, when it acts as a DNS client to send a DNS query to an \"upstream\" DNS server/resolver.\n\nFor example the leg DoC client -> DoC server may be secured (DTLS, or OSCORE) but if the 2nd leg DoC server/DNS client -> DNS server is unsecured then there's effectively little security.\n\nFor DNS Push I think a subscription is made to the DNS server and it works always over TLS, so this may be covered (although it's good to mention it perhaps.)  For regular DoC queries (non-observe) it's not clear if the DoC server is required to use TLS or not.\n",
+      "createdAt": "2025-01-30T16:17:05Z",
+      "updatedAt": "2025-01-30T16:17:05Z",
+      "closedAt": null,
       "comments": []
     }
   ],
@@ -3531,6 +3563,132 @@
           "body": "LGTM",
           "createdAt": "2025-01-29T13:00:09Z",
           "updatedAt": "2025-01-29T13:00:09Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 33,
+      "id": "PR_kwDOF27TLs6JgDrX",
+      "title": "Add reference to DNS Update, clarify that it is currently not considered",
+      "url": "https://github.com/core-wg/draft-dns-over-coap/pull/33",
+      "state": "MERGED",
+      "author": "miri64",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "As [discussed during the interim yesterday](https://notes.ietf.org/notes-ietf-interim-2025-core-02-core#DNS-over-CoAP), this provides a reference to DNS Update (RFC 2136) and clarifies that it is currently not considered.",
+      "createdAt": "2025-01-30T13:28:50Z",
+      "updatedAt": "2025-01-31T09:59:23Z",
+      "baseRepository": "core-wg/draft-dns-over-coap",
+      "baseRefName": "main",
+      "baseRefOid": "eb6342051a56422eca89545819c44428223562d4",
+      "headRepository": "miri64/draft-dns-over-coap",
+      "headRefName": "dns-update",
+      "headRefOid": "817b73193312bd148589671f24a1b331ce41a488",
+      "closedAt": "2025-01-31T09:59:20Z",
+      "mergedAt": "2025-01-31T09:59:20Z",
+      "mergedBy": "miri64",
+      "mergeCommit": {
+        "oid": "56ab43df823738a212b5d944d2aa13c18fafc968"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOF27TLs6aBM2D",
+          "commit": {
+            "abbreviatedOid": "817b731"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-01-30T14:05:48Z",
+          "updatedAt": "2025-01-30T14:05:48Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 36,
+      "id": "PR_kwDOF27TLs6JnTSe",
+      "title": "Fix wording on reference to -core-clar",
+      "url": "https://github.com/core-wg/draft-dns-over-coap/pull/36",
+      "state": "MERGED",
+      "author": "miri64",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #34.\r\n\r\n@EskoDijk does this make the wording clearer?",
+      "createdAt": "2025-01-31T10:39:04Z",
+      "updatedAt": "2025-01-31T11:47:28Z",
+      "baseRepository": "core-wg/draft-dns-over-coap",
+      "baseRefName": "main",
+      "baseRefOid": "4bb8a44ab3fe9d1617a9fd429700dd0a8bd483a3",
+      "headRepository": "core-wg/draft-dns-over-coap",
+      "headRefName": "fix-corr-clar-ref",
+      "headRefOid": "c22c5c65d373d9100085dfb148cca8284b38e599",
+      "closedAt": "2025-01-31T11:47:22Z",
+      "mergedAt": "2025-01-31T11:47:22Z",
+      "mergedBy": "miri64",
+      "mergeCommit": {
+        "oid": "44d0c810ee5cb3a79d974e3a92efa8b5866e3596"
+      },
+      "comments": [
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "NONE",
+          "body": "@miri64  Yes, looks good - thanks.",
+          "createdAt": "2025-01-31T11:13:15Z",
+          "updatedAt": "2025-01-31T11:13:15Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Just fixed the Germanism/Dutchism in the wording ;-).",
+          "createdAt": "2025-01-31T11:32:02Z",
+          "updatedAt": "2025-01-31T11:32:02Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 37,
+      "id": "PR_kwDOF27TLs6JnWns",
+      "title": "Add security considerations on potentially unencyrypted upstream DNS",
+      "url": "https://github.com/core-wg/draft-dns-over-coap/pull/37",
+      "state": "OPEN",
+      "author": "miri64",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This fixes #35. See also https://mailarchive.ietf.org/arch/msg/core/warTSPRBXE4OrOam_TeIvRZFHUc/ ff.\r\n\r\n@EskoDijk does this fit what you had in mind?",
+      "createdAt": "2025-01-31T10:46:51Z",
+      "updatedAt": "2025-01-31T11:30:23Z",
+      "baseRepository": "core-wg/draft-dns-over-coap",
+      "baseRefName": "main",
+      "baseRefOid": "4bb8a44ab3fe9d1617a9fd429700dd0a8bd483a3",
+      "headRepository": "core-wg/draft-dns-over-coap",
+      "headRefName": "sec-req-upstream-dns",
+      "headRefOid": "970ed5528075c6b32cb47e15cd1b1b09793e2617",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "NONE",
+          "body": "@miri64 I think there could be also confidentiality and integrity without a shared security context?\r\nFor example, the DoC server uses a 2nd (new) security relation established by TLS to talk to the DNS server. This context isn't shared with the DoC client but still there is security.  (I'm not counting here any attacker present on the DoC Server itself!)\r\nIf so then the text needs to be updated to reflect this.\r\n\r\nI have some trouble understanding \"unless the security context is with yet another party\": if this refers to an OSCORE context, then it's unclear how a DNS server would use OSCORE given it's not CoAP. So that seem unpractical.\r\nAnd if it's DTLS; it's unclear how e.g. a TLS DNS server could share that same context. Normally it's established independently by the handshake.\r\n\r\nIn general besides confidentiality, integrity could also be mentioned. (With DNS over UDP the response may get modified by an on-path attacker.)\r\n\r\nDo we also need to say that the security of the 2nd leg is out of scope of this document? (Although we could recommend that it's always enabled by default?)\r\n",
+          "createdAt": "2025-01-31T11:09:28Z",
+          "updatedAt": "2025-01-31T11:09:28Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> @miri64 I think there could be also confidentiality and integrity without a shared security context?\r\n> For example, the DoC server uses a 2nd (new) security relation established by TLS to talk to the DNS server. This context isn't shared with the DoC client but still there is security. (I'm not counting here any attacker present on the DoC Server itself!)\r\n> If so then the text needs to be updated to reflect this.\r\n\r\nTrue, that's why I used the wording \"_may_ communicate unencrypted with the upstream DNS infrastructure\". If this needs more emphasis, I can reword.\r\n\r\n> I have some trouble understanding \"unless the security context is with yet another party\": if this refers to an OSCORE context, then it's unclear how a DNS server would use OSCORE given it's not CoAP.\r\n\r\nIt was referring to OSCORE, in the sense that the DoC server acts as a proxy in this case.\r\n\r\n> In general besides confidentiality, integrity could also be mentioned. (With DNS over UDP the response may get modified by an on-path attacker.)\r\n\r\nYes, but since there is also DNSSEC, integrity is a little bit tricky to word here. In general, I would not recommend DNSSEC in constrained environments, but it could be used to ensure at least integrity from client to upstream. I agree, we should mention integrity, but we should be careful how we do it and what we recommend to ensure it.\r\n\r\n> Do we also need to say that the security of the 2nd leg is out of scope of this document? (Although we could recommend that it's always enabled by default?)\r\n\r\nIt is certainly not in the control of a DoC deployment. Recommendations always help, but I would make that non-normative.\r\n",
+          "createdAt": "2025-01-31T11:30:22Z",
+          "updatedAt": "2025-01-31T11:30:22Z"
         }
       ],
       "reviews": []
