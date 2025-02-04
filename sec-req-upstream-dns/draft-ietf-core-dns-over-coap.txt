@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 4 August 2025                                                  
+Expires: 8 August 2025                                                  
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                         31 January 2025
+                                                         4 February 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 August 2025.
+   This Internet-Draft will expire on 8 August 2025.
 
 Copyright Notice
 
@@ -320,7 +320,7 @@ Table of Contents
    include an Accept option to indicate the type of content that can be
    parsed in the response.
 
-   Since CoAP provides reliability of the message layer (e.g.  CON) the
+   Since CoAP provides reliability of the message layer (e.g. CON) the
    retransmission mechanism of the DNS protocol as defined in [RFC1035]
    is not needed.
 
@@ -588,11 +588,10 @@ Table of Contents
    responses.  Consequently, it is of little concern to leverage the
    benefits of CoAP caching by setting the ID to 0.
 
-   A user of DoC must be aware that the DoC server, unless the security
-   context is with yet another party, may communicate unencrypted with
-   the upstream DNS infrastructure, e.g., using DNS over UDP.  DoC can
-   only guarantee confidential communication between parties for which
-   the security context is exchanged.
+   A user of DoC must be aware that the DoC server may communicate
+   unencrypted with the upstream DNS infrastructure, e.g., using DNS
+   over UDP.  DoC can only guarantee confidential communication between
+   parties for which the security context is exchanged.
 
 9.  IANA Considerations
 
@@ -736,9 +735,9 @@ Table of Contents
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
               Identifiers", Work in Progress, Internet-Draft, draft-
-              ietf-core-href-17, 24 January 2025,
+              ietf-core-href-18, 3 February 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              href-17>.
+              href-18>.
 
    [I-D.ietf-core-transport-indication]
               Amsüss, C. and M. S. Lenders, "CoAP Transport Indication",
