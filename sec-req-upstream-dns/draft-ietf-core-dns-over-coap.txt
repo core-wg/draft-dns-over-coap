@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 8 August 2025                                                  
+Expires: 9 August 2025                                                  
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                         4 February 2025
+                                                         5 February 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 August 2025.
+   This Internet-Draft will expire on 9 August 2025.
 
 Copyright Notice
 
@@ -590,8 +590,18 @@ Table of Contents
 
    A user of DoC must be aware that the DoC server may communicate
    unencrypted with the upstream DNS infrastructure, e.g., using DNS
-   over UDP.  DoC can only guarantee confidential communication between
-   parties for which the security context is exchanged.
+   over UDP.  DoC can only guarantee confidential communication and
+   integrity between parties for which the security context is
+   exchanged.  The DoC server may use another security context to
+   communicate confidential and with integrity upstream (e.g., DNS over
+   QUIC [RFC9250]) or just integrity (e.g., DNSSEC [RFC9364]), but this
+   is opaque to the DoC client.
+
+   If the network constraints allow for it, a DoC client may require
+   DNSSEC [RFC9364] to ensure integrity with the upstream DNS
+   infrastructure.  Otherwise, it is recommended to establish a trust
+   relationship with the DoC server out-of-band so it can proxy DNSSEC
+   for the client.
 
 9.  IANA Considerations
 
@@ -799,6 +809,10 @@ Table of Contents
               Dedicated QUIC Connections", RFC 9250,
               DOI 10.17487/RFC9250, May 2022,
               <https://www.rfc-editor.org/rfc/rfc9250>.
+
+   [RFC9364]  Hoffman, P., "DNS Security Extensions (DNSSEC)", BCP 237,
+              RFC 9364, DOI 10.17487/RFC9364, February 2023,
+              <https://www.rfc-editor.org/rfc/rfc9364>.
 
    [RFC9460]  Schwartz, B., Bishop, M., and E. Nygren, "Service Binding
               and Parameter Specification via the DNS (SVCB and HTTPS
