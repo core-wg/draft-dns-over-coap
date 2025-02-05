@@ -1927,8 +1927,8 @@ may communicate unencrypted with the upstream DNS infrastructure, e.g., using DN
 DoC can only guarantee confidential communication and integrity between parties for which the
 security context is exchanged.
 The DoC server may use another security context to communicate confidential and with integrity
-upstream (e.g., DNS over QUIC <span>[<a href="#RFC9250" class="cite xref">RFC9250</a>]</span>) or just integrity (e.g., DNSSEC <span>[<a href="#RFC9364" class="cite xref">RFC9364</a>]</span>), but this is
-opaque to the DoC client.<a href="#section-8-4" class="pilcrow">¶</a></p>
+upstream (e.g., DNS over QUIC <span>[<a href="#RFC9250" class="cite xref">RFC9250</a>]</span>) or just integrity (e.g., DNSSEC <span>[<a href="#RFC9364" class="cite xref">RFC9364</a>]</span>), but, while
+recommended, this is opaque to the DoC client on the protocol level.<a href="#section-8-4" class="pilcrow">¶</a></p>
 <p id="section-8-5">If the network constraints allow for it, a DoC client may require DNSSEC <span>[<a href="#RFC9364" class="cite xref">RFC9364</a>]</span> to ensure
 integrity with the upstream DNS infrastructure.
 Otherwise, it is recommended to establish a trust relationship with the DoC server out-of-band so it
