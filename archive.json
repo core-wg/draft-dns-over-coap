@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-04T01:06:26.684219+00:00",
+  "timestamp": "2025-02-06T01:07:29.846222+00:00",
   "repo": "core-wg/draft-dns-over-coap",
   "labels": [
     {
@@ -3664,13 +3664,13 @@
       "labels": [],
       "body": "This fixes #35. See also https://mailarchive.ietf.org/arch/msg/core/warTSPRBXE4OrOam_TeIvRZFHUc/ ff.\r\n\r\n@EskoDijk does this fit what you had in mind?",
       "createdAt": "2025-01-31T10:46:51Z",
-      "updatedAt": "2025-01-31T11:30:23Z",
+      "updatedAt": "2025-02-05T10:19:05Z",
       "baseRepository": "core-wg/draft-dns-over-coap",
       "baseRefName": "main",
       "baseRefOid": "4bb8a44ab3fe9d1617a9fd429700dd0a8bd483a3",
       "headRepository": "core-wg/draft-dns-over-coap",
       "headRefName": "sec-req-upstream-dns",
-      "headRefOid": "970ed5528075c6b32cb47e15cd1b1b09793e2617",
+      "headRefOid": "7e8c3437a883f406d0c744a28e8a1574419e5d9a",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -3689,9 +3689,37 @@
           "body": "> @miri64 I think there could be also confidentiality and integrity without a shared security context?\r\n> For example, the DoC server uses a 2nd (new) security relation established by TLS to talk to the DNS server. This context isn't shared with the DoC client but still there is security. (I'm not counting here any attacker present on the DoC Server itself!)\r\n> If so then the text needs to be updated to reflect this.\r\n\r\nTrue, that's why I used the wording \"_may_ communicate unencrypted with the upstream DNS infrastructure\". If this needs more emphasis, I can reword.\r\n\r\n> I have some trouble understanding \"unless the security context is with yet another party\": if this refers to an OSCORE context, then it's unclear how a DNS server would use OSCORE given it's not CoAP.\r\n\r\nIt was referring to OSCORE, in the sense that the DoC server acts as a proxy in this case.\r\n\r\n> In general besides confidentiality, integrity could also be mentioned. (With DNS over UDP the response may get modified by an on-path attacker.)\r\n\r\nYes, but since there is also DNSSEC, integrity is a little bit tricky to word here. In general, I would not recommend DNSSEC in constrained environments, but it could be used to ensure at least integrity from client to upstream. I agree, we should mention integrity, but we should be careful how we do it and what we recommend to ensure it.\r\n\r\n> Do we also need to say that the security of the 2nd leg is out of scope of this document? (Although we could recommend that it's always enabled by default?)\r\n\r\nIt is certainly not in the control of a DoC deployment. Recommendations always help, but I would make that non-normative.\r\n",
           "createdAt": "2025-01-31T11:30:22Z",
           "updatedAt": "2025-01-31T11:30:22Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@EskoDijk I added some words on DNSSEC and integrity. Can you have another look?",
+          "createdAt": "2025-02-05T10:19:03Z",
+          "updatedAt": "2025-02-05T10:19:03Z"
         }
       ],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOF27TLs6an0bq",
+          "commit": {
+            "abbreviatedOid": "970ed55"
+          },
+          "author": "chrysn",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-04T21:41:10Z",
+          "updatedAt": "2025-02-04T21:41:10Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\nA user of DoC must be aware that the DoC server\r\nmay communicate unencrypted with the upstream DNS infrastructure, e.g., using DNS over UDP.\r\n```\r\n\r\nIf the security context is with yet another party, that \"DoC server\" would just be a reverse proxy (which is likely not even aware that DoC is going on) and not a DoC server, and that other party would be the DoC server.",
+              "createdAt": "2025-02-04T21:41:10Z",
+              "updatedAt": "2025-02-04T21:41:10Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
