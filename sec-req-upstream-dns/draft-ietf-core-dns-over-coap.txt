@@ -598,11 +598,13 @@ Table of Contents
    while recommended, this is opaque to the DoC client on the protocol
    level.
 
-   If the network or node constraints do not allow for the DoC client to
-   receive DNSSEC information via the DoC server, it might want to
-   establish a trust relation at least with the DoC server in other
-   ways.  How this trust relation is established is out of scope of this
-   document.
+   A DoC client may not be able to perform DNSSEC validation, e.g., due
+   to code size constraints, or due to size of the responses.  It may
+   trust its DoC server to perform DNSSEC validation; how that trust is
+   expressed is out of scope of this document.  A DoC client may be, for
+   instance, configured to use a particular credential by which it
+   recognizes an eligible DoC server.  That information can also imply
+   trust in the DNSSEC validation by that server.
 
 9.  IANA Considerations
 
