@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-09T01:11:02.987179+00:00",
+  "timestamp": "2025-02-11T01:07:11.315816+00:00",
   "repo": "core-wg/draft-dns-over-coap",
   "labels": [
     {
@@ -3664,13 +3664,13 @@
       "labels": [],
       "body": "This fixes #35. See also https://mailarchive.ietf.org/arch/msg/core/warTSPRBXE4OrOam_TeIvRZFHUc/ ff.\r\n\r\n@EskoDijk does this fit what you had in mind?",
       "createdAt": "2025-01-31T10:46:51Z",
-      "updatedAt": "2025-02-05T10:19:05Z",
+      "updatedAt": "2025-02-10T15:01:40Z",
       "baseRepository": "core-wg/draft-dns-over-coap",
       "baseRefName": "main",
       "baseRefOid": "4bb8a44ab3fe9d1617a9fd429700dd0a8bd483a3",
       "headRepository": "core-wg/draft-dns-over-coap",
       "headRefName": "sec-req-upstream-dns",
-      "headRefOid": "7e8c3437a883f406d0c744a28e8a1574419e5d9a",
+      "headRefOid": "b1e2106549095ed7b82dfccba1ae97ec3560012a",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -3696,6 +3696,27 @@
           "body": "@EskoDijk I added some words on DNSSEC and integrity. Can you have another look?",
           "createdAt": "2025-02-05T10:19:03Z",
           "updatedAt": "2025-02-05T10:19:03Z"
+        },
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "NONE",
+          "body": "@miri64 Thanks for the update! Still some questions on the last paragraph:\r\n\r\n> If the network constraints allow for it, a DoC client may require DNSSEC {{-dnssec}} to ensure\r\nintegrity with the upstream DNS infrastructure.\r\n\r\nMy standard assumption has been that the DoC client is in a constrained network domain (typically), while the DNS server can use upstream DNS on an unconstrained network (typically).  In practice (in the domain I work in - 6LoWPAN Border Routers) it can still happen that while the network is not constrained, the DoC server / DNS client / Border Router device may have constraints on memory, code size and/or processing power.  So it's network and/or node constraints that may play a role.\r\n\r\nThe sentence sounds a bit as if the DoC client can request DNSSEC using some DoC protocol message, but this is not the intention. Do we mean that in a system/network design there is a DNS integrity requirement for the DNS information served by the DoC server?\r\n\r\n\r\n> Otherwise, it is recommended to establish a trust relationship with the DoC server out-of-band so it\r\ncan proxy DNSSEC for the client.\r\n\r\nThis is a bit hard to understand: does this mean the client can't use DNSSEC in DoC messages out of the box?  And that it could use DNSSEC if some specific trust relation is set up first? (What kind of data/keys would this include? How would that work in practice?  Sounds we may need to declare this out of scope?  It doesn't sound obvious to me.)\r\n\r\n",
+          "createdAt": "2025-02-10T09:15:19Z",
+          "updatedAt": "2025-02-10T09:15:19Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> The sentence sounds a bit as if the DoC client can request DNSSEC using some DoC protocol message, but this is not the intention. Do we mean that in a system/network design there is a DNS integrity requirement for the DNS information served by the DoC server?\r\n\r\nNo, I just meant, the response can be secured using DNSSEC if both network and node constraints do not restrict the larger message sizes and computational overhead. The latter is, with myself not being _too_ deep into DNSSEC, I believe, comparable to what OSCORE or DTLS require, though. So yes, I was thinking mostly about network constraints (and memory constraints following from them). But true, that is nothing that the DoC client can request. It is provided upstream or not and the DoC server might decide to pass this information on to the client or not. In that sense, no there is no requirement. To the contrary, the DoC server must take care to considers the network constraints if it wants to hand DNSSEC responses to the client. And the client can only trust. So yeah, the sentence needs some rewording!\r\n\r\n> > Otherwise, it is recommended to establish a trust relationship with the DoC server out-of-band so it\r\n> > can proxy DNSSEC for the client.\r\n> \r\n> This is a bit hard to understand: does this mean the client can't use DNSSEC in DoC messages out of the box? And that it could use DNSSEC if some specific trust relation is set up first? (What kind of data/keys would this include? How would that work in practice? Sounds we may need to declare this out of scope? It doesn't sound obvious to me.)\r\n\r\nNo, if the client is able to receive DNSSEC responses, it does not need to have a dedicated trust relation with the server. And yes, how this trust relationship is established otherwise, is definitely out-of-scope. Will reword.",
+          "createdAt": "2025-02-10T13:30:13Z",
+          "updatedAt": "2025-02-10T13:30:13Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "See c582206",
+          "createdAt": "2025-02-10T13:51:17Z",
+          "updatedAt": "2025-02-10T13:51:17Z"
         }
       ],
       "reviews": [
@@ -3716,6 +3737,46 @@
               "body": "```suggestion\r\nA user of DoC must be aware that the DoC server\r\nmay communicate unencrypted with the upstream DNS infrastructure, e.g., using DNS over UDP.\r\n```\r\n\r\nIf the security context is with yet another party, that \"DoC server\" would just be a reverse proxy (which is likely not even aware that DoC is going on) and not a DoC server, and that other party would be the DoC server.",
               "createdAt": "2025-02-04T21:41:10Z",
               "updatedAt": "2025-02-04T21:41:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6bVM41",
+          "commit": {
+            "abbreviatedOid": "059931a"
+          },
+          "author": "chrysn",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-10T14:46:32Z",
+          "updatedAt": "2025-02-10T14:46:33Z",
+          "comments": [
+            {
+              "originalPosition": 22,
+              "body": "```suggestion\r\nA DoC client may not be able to perform DNSSEC validation,\r\ne.g., due to code size constraints, or due to size of the responses.\r\nIt may trust its DoC server to perform DNSSEC validation;\r\nhow that trust is expressed is out of scope of this document.\r\nIf the DoC client is configured to use a particular credential by which to recognize an eligible DoC server,\r\ninformation about whether or not that server can be trusted to have performed DNSSEC validation can be configured along with it.\r\n```",
+              "createdAt": "2025-02-10T14:46:33Z",
+              "updatedAt": "2025-02-10T14:49:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6bVkMx",
+          "commit": {
+            "abbreviatedOid": "059931a"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-10T15:01:08Z",
+          "updatedAt": "2025-02-10T15:01:08Z",
+          "comments": [
+            {
+              "originalPosition": 22,
+              "body": "Thanks. I tweaked the last sentence for readability though:\r\n\r\n```suggestion\r\nA DoC client may not be able to perform DNSSEC validation,\r\ne.g., due to code size constraints, or due to size of the responses.\r\nIt may trust its DoC server to perform DNSSEC validation;\r\nhow that trust is expressed is out of scope of this document.\r\nA DoC client may be, for instance, configured to use a particular credential by which it recognizes an eligible DoC server.\r\nThat information can also imply trust in the DNSSEC validation by that server.\r\n```",
+              "createdAt": "2025-02-10T15:01:08Z",
+              "updatedAt": "2025-02-10T15:01:09Z"
             }
           ]
         }
