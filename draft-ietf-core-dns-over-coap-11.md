@@ -3,7 +3,7 @@ v: 3
 
 title: "DNS over CoAP (DoC)"
 abbrev: DoC
-docname: draft-ietf-core-dns-over-coap-10
+docname: draft-ietf-core-dns-over-coap-latest
 category: std
 submissiontype: IETF
 
@@ -346,9 +346,7 @@ If only one record set per DNS response is assumed, a simplification of this alg
 
 ### DNS Update {#sec:dns-update}
 
-Until future work provides considerations for the for DNS Update {{-dns-update}}, a DoC server that
-receives a query with the UPDATE opcode SHOULD indicate in its response that it does not implement
-DNS Update, see {{-dns-update}}.
+Until future work provides considerations for DNS Update {{-dns-update}}, a DoC server that receives a query with the UPDATE opcode SHOULD indicate in its response that it does not implement DNS Update, see {{-dns-update}}.
 
 ### Examples
 
@@ -582,6 +580,10 @@ paper "Securing Name Resolution in the IoT: DNS over CoAP" {{DoC-paper}}.
 Change Log
 ==========
 
+Since [draft-ietf-core-dns-over-coap-10]
+----------------------------------------
+- Fix typo in {{sec:dns-update}}
+
 Since [draft-ietf-core-dns-over-coap-09]
 ----------------------------------------
 - Update SVCB SvcParamKey
@@ -662,8 +664,9 @@ Since [draft-lenders-dns-over-coap-04]
 {:unnumbered}
 
 The authors of this document want to thank Carsten Bormann, Ben Schwartz, Marco Tiloca, Tim
-Wicinski, and Thomas Fossati for their feedback and comments.
+Wicinski, Thomas Fossati, and Esko Dijk for their feedback and comments.
 
+[draft-ietf-core-dns-over-coap-10]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-10
 [draft-ietf-core-dns-over-coap-09]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-09
 [draft-ietf-core-dns-over-coap-08]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-08
 [draft-ietf-core-dns-over-coap-07]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-07
