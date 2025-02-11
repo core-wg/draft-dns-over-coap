@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 4 August 2025                                                  
+Expires: 15 August 2025                                                 
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                         31 January 2025
+                                                        11 February 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 August 2025.
+   This Internet-Draft will expire on 15 August 2025.
 
 Copyright Notice
 
@@ -320,7 +320,7 @@ Table of Contents
    include an Accept option to indicate the type of content that can be
    parsed in the response.
 
-   Since CoAP provides reliability of the message layer (e.g.  CON) the
+   Since CoAP provides reliability of the message layer (e.g. CON) the
    retransmission mechanism of the DNS protocol as defined in [RFC1035]
    is not needed.
 
@@ -588,6 +588,24 @@ Table of Contents
    responses.  Consequently, it is of little concern to leverage the
    benefits of CoAP caching by setting the ID to 0.
 
+   A user of DoC must be aware that the DoC server may communicate
+   unencrypted with the upstream DNS infrastructure, e.g., using DNS
+   over UDP.  DoC can only guarantee confidential communication and
+   integrity between parties for which the security context is
+   exchanged.  The DoC server may use another security context to
+   communicate confidentially and with integrity upstream (e.g., DNS
+   over QUIC [RFC9250]) or just integrity (e.g., DNSSEC [RFC9364]), but,
+   while recommended, this is opaque to the DoC client on the protocol
+   level.
+
+   A DoC client may not be able to perform DNSSEC validation, e.g., due
+   to code size constraints, or due to size of the responses.  It may
+   trust its DoC server to perform DNSSEC validation; how that trust is
+   expressed is out of scope of this document.  A DoC client may be, for
+   instance, configured to use a particular credential by which it
+   recognizes an eligible DoC server.  That information can also imply
+   trust in the DNSSEC validation by that server.
+
 9.  IANA Considerations
 
 9.1.  New "application/dns-message" Content-Format
@@ -730,9 +748,9 @@ Table of Contents
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
               Identifiers", Work in Progress, Internet-Draft, draft-
-              ietf-core-href-17, 24 January 2025,
+              ietf-core-href-18, 3 February 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              href-17>.
+              href-18>.
 
    [I-D.ietf-core-transport-indication]
               Amsüss, C. and M. S. Lenders, "CoAP Transport Indication",
@@ -745,9 +763,9 @@ Table of Contents
               Lenders, M. S., Amsüss, C., Schmidt, T. C., and M.
               Wählisch, "Discovery of Network-designated OSCORE-based
               Resolvers: Problem Statement", Work in Progress, Internet-
-              Draft, draft-lenders-core-dnr-03, 8 July 2024,
+              Draft, draft-lenders-core-dnr-04, 5 February 2025,
               <https://datatracker.ietf.org/doc/html/draft-lenders-core-
-              dnr-03>.
+              dnr-04>.
 
    [RFC2136]  Vixie, P., Ed., Thomson, S., Rekhter, Y., and J. Bound,
               "Dynamic Updates in the Domain Name System (DNS UPDATE)",
@@ -794,6 +812,10 @@ Table of Contents
               Dedicated QUIC Connections", RFC 9250,
               DOI 10.17487/RFC9250, May 2022,
               <https://www.rfc-editor.org/rfc/rfc9250>.
+
+   [RFC9364]  Hoffman, P., "DNS Security Extensions (DNSSEC)", BCP 237,
+              RFC 9364, DOI 10.17487/RFC9364, February 2023,
+              <https://www.rfc-editor.org/rfc/rfc9364>.
 
    [RFC9460]  Schwartz, B., Bishop, M., and E. Nygren, "Service Binding
               and Parameter Specification via the DNS (SVCB and HTTPS
