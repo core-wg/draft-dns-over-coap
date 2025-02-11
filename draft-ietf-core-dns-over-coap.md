@@ -587,6 +587,7 @@ Since [draft-ietf-core-dns-over-coap-09]
 - Update SVCB SvcParamKey
 - Update corr-clar reference
 - Add reference to DNS Update ({{sec:dns-update}}), clarify that it is currently not considered
+- Add to security considerations: unencyrypted upstream DNS and DNSSEC
 
 Since [draft-ietf-core-dns-over-coap-08]
 ----------------------------------------
