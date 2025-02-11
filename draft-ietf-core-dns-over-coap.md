@@ -580,6 +580,10 @@ paper "Securing Name Resolution in the IoT: DNS over CoAP" {{DoC-paper}}.
 Change Log
 ==========
 
+Since [draft-ietf-core-dns-over-coap-10]
+----------------------------------------
+- Fix typo in {{sec:dns-update}}
+
 Since [draft-ietf-core-dns-over-coap-09]
 ----------------------------------------
 - Update SVCB SvcParamKey
@@ -662,6 +666,7 @@ Since [draft-lenders-dns-over-coap-04]
 The authors of this document want to thank Carsten Bormann, Ben Schwartz, Marco Tiloca, Tim
 Wicinski, Thomas Fossati, and Esko Dijk for their feedback and comments.
 
+[draft-ietf-core-dns-over-coap-10]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-10
 [draft-ietf-core-dns-over-coap-09]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-09
 [draft-ietf-core-dns-over-coap-08]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-08
 [draft-ietf-core-dns-over-coap-07]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-07

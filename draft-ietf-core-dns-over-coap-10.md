@@ -3,13 +3,24 @@ v: 3
 
 title: "DNS over CoAP (DoC)"
 abbrev: DoC
-docname: draft-ietf-core-dns-over-coap-09
+docname: draft-ietf-core-dns-over-coap-latest
 category: std
 submissiontype: IETF
 
 area: Applications
 workgroup: CoRE
-keyword: Internet-Draft
+keyword:
+  - Internet-Draft
+  - CoRE
+  - CoAP
+  - DNS
+venue:
+    group: CoRE
+    type: Working Group
+    mail: core@ietf.org
+    arch: "https://mailarchive.ietf.org/arch/browse/core/"
+    github: "core-wg/draft-dns-over-coap"
+    latest: "https://core-wg.github.io/draft-dns-over-coap/draft-ietf-core-dns-over-coap.html"
 
 author:
  -  name: Martine Sophie Lenders
@@ -59,6 +70,7 @@ normative:
   I-D.ietf-core-coap-dtls-alpn: coap-dtls-alpn
 
 informative:
+  RFC2136: dns-update
   RFC3986: uri
   RFC6690: core-link-format
   RFC8765: dns-push
@@ -66,6 +78,7 @@ informative:
   RFC8484: doh
   RFC9176: core-rd
   RFC9250: doq
+  RFC9364: dnssec
   RFC8499: dns-terminology
   RFC7942: impl-status-section
   RFC9460: svcb
@@ -77,16 +90,7 @@ informative:
   I-D.lenders-core-dnr: core-dnr
   I-D.amsuess-core-cachable-oscore: cachable-oscore
   DoC-paper: DOI.10.1145/3609423
-  amp-0rtt:
-   title: 'PR #40 "Amplification and 0-RTT" on "CoAP: Corrections and Clarifications"'
-   date: 2024-09-25
-   format:
-     HTML: https://github.com/core-wg/corrclar/pull/40
-   ann: |
-     Note: It is expected that that PR will be merged way ahead of this document's publication;
-     at the next revision, this reference will be replaced with a reference to what will by then most likely be
-     I-D.ietf-core-corr-clar-00 (now bormann-core-clar-05).
-
+  I-D.ietf-core-corr-clar: core-corrclar
 --- abstract
 
 This document defines a protocol for sending DNS messages over the
@@ -219,7 +223,7 @@ similar CBOR data item. This path format was chosen to coincide with the path re
 ({{-cri}}). Furthermore, it is easily transferable into a sequence of CoAP Uri-Path options by
 mapping the initial byte of any present CBOR text string (see {{-cbor, Section 3}}) into the Option
 Delta and Option Length of the CoAP option, provided these CBOR text strings are all of a length
-between 0 and 12 octets (see {{-coap, Section 3.1}}). Likewise, it can be transfered into a URI
+between 0 and 12 octets (see {{-coap, Section 3.1}}). Likewise, it can be transferred into a URI
 path-abempty form (see {{-uri, Section 3.3}}) by replacing the initial byte of any present CBOR text
 string with the "/" character, provided these CBOR text strings are all of a length lesser than 24
 octets and do not contain bytes that need escaping.
@@ -232,7 +236,7 @@ algorithm could be as follows, going through the provided records in order of th
   if it is "co", construct a CoAP request for CoAP over DTLS. Any other SvcParamKeys specifying a
   CoAP transport are out of scope of this document.
 - The destination address for the request should be taken from additional information about the
-  target, e.g. from an AAAA record associated to the target name or from an "ipv6hint" SvcParam
+  target, e.g., from an AAAA record associated to the target name or from an "ipv6hint" SvcParam
   value, or, as a fallback, by querying an address for the target name of the SVCB record.
 - The destination port for the address is taken from the "port" SvcParam value, if present.
   Otherwise, take the default port of the CoAP transport.
@@ -340,16 +344,11 @@ This prevents expired records unintentionally being served from an intermediate 
 Additionally, it allows for the ETag value for cache validation, if it is based on the content of the response, not to change even if the TTL values are updated by an upstream DNS cache.
 If only one record set per DNS response is assumed, a simplification of this algorithm is to just set all TTLs in the response to 0 and set the TTLs at the DoC client to the value of the Max-Age option.
 
+### DNS Update {#sec:dns-update}
 
-<!--
-With short responses, a usable ETag might be almost as long as the response.
-With long-lived responses, the client does not need to revalidate often.
-With responses large enough to be fragmented,
-it's best practice for servers to set an ETag anyway.
-As specified in {{-coap}} and {{-coap-fetch}}, if the response associated with
-the ETag is still valid, the response uses the "2.03 Valid" code and consequently
-carries no payload.
--->
+Until future work provides considerations for the for DNS Update {{-dns-update}}, a DoC server that
+receives a query with the UPDATE opcode SHOULD indicate in its response that it does not implement
+DNS Update, see {{-dns-update}}.
 
 ### Examples
 
@@ -461,8 +460,8 @@ in the IoT operating system RIOT][gcoap_dns].
 Level of maturity:
 : production
 
-Version compability:
-: draft-ietf-core-dns-over-coap-08
+Version compatibility:
+: draft-ietf-core-dns-over-coap-09
 
 License:
 : LGPL-2.1
@@ -481,8 +480,8 @@ Python][aiodnsprox].
 Level of maturity:
 : production
 
-Version compability:
-: draft-ietf-core-dns-over-coap-08
+Version compatibility:
+: draft-ietf-core-dns-over-coap-09
 
 License:
 : MIT
@@ -496,10 +495,10 @@ Last update of this information:
 Security Considerations
 =======================
 
-General CoAP security considerations apply.
-Exceeding those in {{Section 11 of RFC7252}},
-the request patterns of DoC make it likely that long-lived security contexts are maintained:
-{{amp-0rtt}} goes into more detail on what needs to be done
+General CoAP security considerations in {{Section 11 of RFC7252}} apply to DoC.
+Additionally, DoC uses request patterns that require the maintenance of long-lived security
+contexts.
+{{Section 2.6 of -core-corrclar}} goes into more detail on what needs to be done
 when those are resumed from a new endpoint.
 
 When using unencrypted CoAP (see {{sec:unencrypted-coap}}), setting the ID of a DNS message to 0 as
@@ -512,6 +511,21 @@ For encrypted usage with DTLS or OSCORE the impact of a fixed ID on security is 
 harden against injecting spoofed responses.
 Consequently, it is of little concern to leverage the benefits of CoAP caching by setting the ID to
 0.
+
+A user of DoC must be aware that the DoC server
+may communicate unencrypted with the upstream DNS infrastructure, e.g., using DNS over UDP.
+DoC can only guarantee confidential communication and integrity between parties for which the
+security context is exchanged.
+The DoC server may use another security context to communicate confidentially and with integrity
+upstream (e.g., DNS over QUIC {{-doq}}) or just integrity (e.g., DNSSEC {{-dnssec}}), but, while
+recommended, this is opaque to the DoC client on the protocol level.
+
+A DoC client may not be able to perform DNSSEC validation,
+e.g., due to code size constraints, or due to size of the responses.
+It may trust its DoC server to perform DNSSEC validation;
+how that trust is expressed is out of scope of this document.
+A DoC client may be, for instance, configured to use a particular credential by which it recognizes an eligible DoC server.
+That information can also imply trust in the DNSSEC validation by that server.
 
 IANA Considerations
 ===================
@@ -541,7 +555,8 @@ The definition of this parameter can be found in {{sec:doc-server-selection}}.
 
 | Number  | Name           | Meaning                            | Reference       |
 | ------- | -------------- | ---------------------------------- | --------------- |
-| 9 (suggested)      | docpath        | DNS over CoAP resource path        | \[TBD-this-spec, {{sec:doc-server-selection}}\] |
+| 10 (suggested)     | docpath        | DNS over CoAP resource path        | \[TBD-this-spec, {{sec:doc-server-selection}}\] |
+{: #tab-svc-param-keys title="Values for SvcParamKeys"}
 
 New "core.dns" Resource Type
 ----------------------------
@@ -566,6 +581,13 @@ paper "Securing Name Resolution in the IoT: DNS over CoAP" {{DoC-paper}}.
 
 Change Log
 ==========
+
+Since [draft-ietf-core-dns-over-coap-09]
+----------------------------------------
+- Update SVCB SvcParamKey
+- Update corr-clar reference
+- Add reference to DNS Update ({{sec:dns-update}}), clarify that it is currently not considered
+- Add to security considerations: unencyrypted upstream DNS and DNSSEC
 
 Since [draft-ietf-core-dns-over-coap-08]
 ----------------------------------------
@@ -593,7 +615,7 @@ Since [draft-ietf-core-dns-over-coap-05]
 
 Since [draft-ietf-core-dns-over-coap-04]
 ----------------------------------------
-- Add note on cachable OSCORE
+- Add note on cacheable OSCORE
 - Address early IANA review
 
 Since [draft-ietf-core-dns-over-coap-03]
@@ -639,9 +661,10 @@ Since [draft-lenders-dns-over-coap-04]
 # Acknowledgments
 {:unnumbered}
 
-The authors of this document want to thank Carsten Bormann, Ben Schwartz, Marco Tiloca, and Tim
-Wicinski for their feedback and comments.
+The authors of this document want to thank Carsten Bormann, Ben Schwartz, Marco Tiloca, Tim
+Wicinski, and Thomas Fossati for their feedback and comments.
 
+[draft-ietf-core-dns-over-coap-09]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-09
 [draft-ietf-core-dns-over-coap-08]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-08
 [draft-ietf-core-dns-over-coap-07]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-07
 [draft-ietf-core-dns-over-coap-06]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-06
