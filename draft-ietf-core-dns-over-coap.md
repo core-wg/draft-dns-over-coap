@@ -346,9 +346,7 @@ If only one record set per DNS response is assumed, a simplification of this alg
 
 ### DNS Update {#sec:dns-update}
 
-Until future work provides considerations for the for DNS Update {{-dns-update}}, a DoC server that
-receives a query with the UPDATE opcode SHOULD indicate in its response that it does not implement
-DNS Update, see {{-dns-update}}.
+Until future work provides considerations for DNS Update {{-dns-update}}, a DoC server that receives a query with the UPDATE opcode SHOULD indicate in its response that it does not implement DNS Update, see {{-dns-update}}.
 
 ### Examples
 
