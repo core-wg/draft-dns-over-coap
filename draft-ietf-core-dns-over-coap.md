@@ -124,7 +124,7 @@ link layer frame sizes, throughput, and latency. They may
 only have a handful kilobytes of both RAM and ROM. They may sleep for long
 durations of time, after which they need to refresh the named resources they
 know about. Name resolution in such scenarios must take into account link
-layer frame sizes of only a few hundred bytes, bit rates in the magnitute
+layer frame sizes of only a few hundred bytes, bit rates in the magnitude
 of kilobits per second, and latencies of several seconds {{-constr-nodes}}.
 
 To prevent TCP and HTTPS resource requirements, constrained IoT devices
@@ -593,7 +593,7 @@ Since [draft-ietf-core-dns-over-coap-09]
 - Update SVCB SvcParamKey
 - Update corr-clar reference
 - Add reference to DNS Update ({{sec:dns-update}}), clarify that it is currently not considered
-- Add to security considerations: unencyrypted upstream DNS and DNSSEC
+- Add to security considerations: unencrypted upstream DNS and DNSSEC
 
 Since [draft-ietf-core-dns-over-coap-08]
 ----------------------------------------
