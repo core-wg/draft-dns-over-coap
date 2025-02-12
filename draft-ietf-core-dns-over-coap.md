@@ -69,9 +69,11 @@ normative:
   RFC7959: coap-blockwise
   RFC8132: coap-fetch
   RFC8613: oscore
+  RFC8742: cborseq
   RFC8949: cbor
   RFC9147: dtls13
   I-D.ietf-core-coap-dtls-alpn: coap-dtls-alpn
+  I-D.ietf-cbor-edn-literals: edn
 
 informative:
   RFC2136: dns-update
@@ -217,9 +219,10 @@ Service Parameters {{-dnr}}.
 {{-core-dnr}} provides a problem statement for service bindings discovery for OSCORE and EDHOC.
 This document specifies "docpath" as
 a single-valued SvcParamKey whose value MUST be a CBOR sequence of 0 or more text strings (see
-{{-cbor}}), delimited by the length of the SvcParamValue field (in octets). If the
+{{-cborseq}} and {{-cbor}}), delimited by the length of the SvcParamValue field (in octets). If the
 SvcParamValue ends within a CBOR text string, the SVCB RR MUST be considered as malformed.
-As a text format, e.g., in DNS zone files, the CBOR diagnostic notation (see {{Section 8 of -cbor}})
+As a text format, e.g., in DNS zone files, the CBOR diagnostic
+notation (see {{Section 8 of -cbor}} and {{-edn}})
 of that CBOR sequence can be used.
 
 Note, that this specifically does not surround the text string sequence with a CBOR array or a
