@@ -86,7 +86,6 @@ informative:
   RFC9250: doq
   RFC9364: dnssec
   RFC8499: dns-terminology
-  RFC7942: impl-status-section
   RFC9460: svcb
   RFC9461: svcb-dns
   RFC9462: ddr
@@ -438,24 +437,7 @@ attacks---a threat that might be mitigated by using random large token values in
 Implementation Status
 =====================
 
-This section records the status of known implementations of the protocol
-defined by this specification at the time of posting of this
-Internet-Draft, and is based on a proposal described in
-{{-impl-status-section}}.  The description of implementations in this
-section is intended to assist the IETF in its decision processes in
-progressing drafts to RFCs.  Please note that the listing of any individual
-implementation here does not imply endorsement by the IETF.  Furthermore,
-no effort has been spent to verify the information presented here that was
-supplied by IETF contributors.  This is not intended as, and must not be
-construed to be, a catalog of available implementations or their features.
-Readers are advised to note that other implementations may exist.
-
-According to {{-impl-status-section}}, "this will allow reviewers and
-working groups to assign due consideration to documents that have the
-benefit of running code, which may serve as evidence of valuable
-experimentation and feedback that have made the implemented protocols more
-mature.  It is up to the individual working groups to use this information
-as they see fit".
+{::boilerplate rfc7942}
 
 DoC Client
 ----------
@@ -635,7 +617,7 @@ Since [draft-ietf-core-dns-over-coap-03]
 Since [draft-ietf-core-dns-over-coap-02]
 ----------------------------------------
 
-- Move implementation details to Implementation Status (in accordance with {{-impl-status-section}})
+- Move implementation details to Implementation Status (in accordance with {{RFC7942}})
 - Recommend root path to keep the CoAP options small
 - Set Content-Format for application/dns-message to 553
 - SVCB/DNR: Move to Server Selection Section but leave TBD based on DNSOP discussion for now
