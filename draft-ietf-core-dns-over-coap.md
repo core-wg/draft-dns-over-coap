@@ -231,7 +231,7 @@ mapping the initial byte of any present CBOR text string (see {{-cbor, Section 3
 Delta and Option Length of the CoAP option, provided these CBOR text strings are all of a length
 between 0 and 12 octets (see {{-coap, Section 3.1}}). Likewise, it can be transferred into a URI
 path-abempty form (see {{-uri, Section 3.3}}) by replacing the initial byte of any present CBOR text
-string with the "/" character, provided these CBOR text strings are all of a length lesser than 24
+string with the "/" character, provided these CBOR text strings are all of a length less than 24
 octets and do not contain bytes that need escaping.
 
 To use the service binding from a SVCB RR, the DoC client MUST send any DoC request to the CoAP
@@ -324,7 +324,7 @@ the DNS header (see {{-dns}} Section 4.1.1). It is RECOMMENDED that
 CoAP responses that carry any valid DNS response use a "2.05 Content"
 response code.
 
-CoAP responses use non-successful response codes MUST NOT contain a DNS response
+CoAP responses using non-successful response codes MUST NOT contain a DNS response
 and MUST only be used on errors in the CoAP layer or when a request does not
 fulfill the requirements of the DoC protocol.
 
@@ -423,7 +423,7 @@ and it is NOT RECOMMENDED.
 Rewriting the FETCH method ({{sec:queries}}) and the TTL rewriting ({{sec:resp-caching}}) as
 specified in this draft would be non-trivial.
 It is RECOMMENDED to use a DNS forwarder to map between DoC and DoH, as would be the case for
-mapping between any other DNS transport.
+mapping between any other pair of DNS transports.
 
 Considerations for Unencrypted Use {#sec:unencrypted-coap}
 ==================================
@@ -526,7 +526,7 @@ IANA Considerations
 New "application/dns-message" Content-Format
 --------------------------------------------
 
-IANA is requested to assign CoAP Content-Format ID for the DNS message media
+IANA is requested to assign a CoAP Content-Format ID for the DNS message media
 type in the "CoAP Content-Formats" sub-registry, within the "CoRE Parameters"
 registry {{-coap}}, corresponding to the "application/dns-message" media
 type from the "Media Types" registry (see {{-doh}})
