@@ -167,7 +167,7 @@ DNS infrastructure.
 Using that information, the DoC server then replies to the queries of the DoC client with DNS
 responses carried within CoAP responses.
 
-Note that this specification is disjunct from DoH since the CoRE-specific FETCH method is used.
+Note that this specification is distinct from DoH since the CoRE-specific FETCH method is used.
 This was done to take benefit from having the DNS query in the payload as with POST, but still
 having the caching advantages we would gain with GET.
 Having the DNS query in the payload means we do not need extra base64 encoding, which would increase
@@ -636,7 +636,7 @@ Since [draft-ietf-core-dns-over-coap-02]
 - Recommend root path to keep the CoAP options small
 - Set Content-Format for application/dns-message to 553
 - SVCB/DNR: Move to Server Selection Section but leave TBD based on DNSOP discussion for now
-- Clarify that DoC and DoC are disjunct
+- Clarify that DoC and DoC are distinct
 - Clarify mapping between DoC and DoH
 - Update considerations on unencrypted use
 - Don't call OSCORE end-to-end encrypted
