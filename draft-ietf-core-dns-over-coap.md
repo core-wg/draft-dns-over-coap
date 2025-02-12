@@ -308,7 +308,7 @@ CoAP body is encoded in "application/dns-message" Content Format.
 DNS Responses in CoAP Responses
 -------------------------------
 
-Each DNS query-response pair is mapped to a CoAP REST request-response
+Each DNS query-response pair is mapped to a CoAP request-response
 operation. DNS responses are provided in the body of the CoAP response.
 A DoC server MUST be able to produce responses in the "application/dns-message"
 Content-Format (details see {{sec:content-format}}) when requested.
