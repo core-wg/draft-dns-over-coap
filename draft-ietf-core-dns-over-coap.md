@@ -433,7 +433,7 @@ Without a security mode, many possible attacks need to be evaluated in the conte
 the application's threat model.
 This includes threats that are mitigated even by DNS over UDP:
 For example, the random ID of the DNS header afford some protection against off-path cache poisoning
-attacks---a threat that might be mitigated by using random large token values in the CoAP request.
+attacks—a threat that might be mitigated by using random large token values in the CoAP request.
 
 Implementation Status
 =====================
