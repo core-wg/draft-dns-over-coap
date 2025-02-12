@@ -7,6 +7,10 @@ docname: draft-ietf-core-dns-over-coap-latest
 category: std
 submissiontype: IETF
 
+v3xml2rfc:
+  silence:
+  - Found SVG with width or height specified
+
 area: Applications
 workgroup: CoRE
 keyword:
