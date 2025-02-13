@@ -76,7 +76,6 @@ normative:
   I-D.ietf-cbor-edn-literals: edn
 
 informative:
-  RFC2136: dns-update
   RFC3986: uri
   RFC6690: core-link-format
   RFC8765: dns-push
@@ -270,6 +269,9 @@ This document defines a CoAP Content-Format number for the Internet
 media type "application/dns-message" to be the mnemonic 553 — based on the port assignment of DNS.
 This media type is defined as in {{-doh}} Section 6, i.e., a single DNS message encoded in the DNS on-the-wire format {{-dns}}.
 Both DoC client and DoC server MUST be able to parse contents in the "application/dns-message" format.
+For the purposes of this document, only OPCODE 0 (Query) is supported for DNS messages.
+Future work might provide specifications and considerations for other values of OPCODE.
+Unless another error takes precedence, a DoC server uses RCODE = 4, NotImp {{-dns}}, in its response when it receives a query with an OPCODE it does not implement (see also {{sec:resp-examples}}).
 
 DNS Queries in CoAP Requests    {#sec:queries}
 ----------------------------
@@ -293,7 +295,7 @@ A DoC server MUST be able to parse requests of Content-Format "application/dns-m
 The DoC client SHOULD set the ID field of the DNS header always to 0 to enable a CoAP cache (e.g., a CoAP proxy en-route) to respond to the same DNS queries with a cache entry.
 This ensures that the CoAP Cache-Key (see {{-coap-fetch}} Section 2) does not change when multiple DNS queries for the same DNS data, carried in CoAP requests, are issued.
 
-### Examples
+### Examples {#sec:req-examples}
 
 The following example illustrates the usage of a CoAP message to
 resolve "example.org. IN AAAA" based on the URI "coaps://\[2001:db8::1\]/". The
@@ -349,11 +351,7 @@ This prevents expired records unintentionally being served from an intermediate 
 Additionally, it allows for the ETag value for cache validation, if it is based on the content of the response, not to change even if the TTL values are updated by an upstream DNS cache.
 If only one record set per DNS response is assumed, a simplification of this algorithm is to just set all TTLs in the response to 0 and set the TTLs at the DoC client to the value of the Max-Age option.
 
-### DNS Update {#sec:dns-update}
-
-Until future work provides considerations for DNS Update {{-dns-update}}, a DoC server that receives a query with the UPDATE opcode SHOULD indicate in its response that it does not implement DNS Update, see {{-dns-update}}.
-
-### Examples
+### Examples {#sec:resp-examples}
 
 The following examples illustrate the replies to the query "example.org. IN
 AAAA record", recursion turned on. Successful responses carry one answer
@@ -369,19 +367,21 @@ A successful response:
              1c 00 01 00 01 37 49 00 10 20 01 0d b8 00 01 00 [binary]
              00 00 01 00 02 00 03 00 04                      [binary]
 
-When a DNS error (SERVFAIL in this case) is noted in the DNS response, the CoAP
-response still indicates success:
+When a DNS error—NotImp (RCODE = 4) in response to a DNS Update (OPCODE = 5) for "example.org" in this case—is noted in the DNS response, the CoAP response still indicates success.
 
     2.05 Content
     Content-Format: application/dns-message
-    Payload: 00 00 81 a2 00 01 00 00 00 00 00 00 07 65 78 61 [binary]
-             6d 70 6c 65 03 6f 72 67 00 00 1c 00 01          [binary]
+    Payload: 00 00 a8 84 00 01 00 00 00 00 00 00 07 65 78 61 [binary]
+             6d 70 6c 65 03 6f 72 67 00 00 06 00 01          [binary]
 
 When an error occurs on the CoAP layer, the DoC server SHOULD respond with
 an appropriate CoAP error, for instance "4.15 Unsupported Content-Format"
 if the Content-Format option in the request was not set to
 "application/dns-message" and the Content-Format is not otherwise supported by
 the server.
+
+    4.15 Unsupported Content-Format
+    [no payload]
 
 CoAP/CoRE Integration
 =====================
@@ -576,13 +576,13 @@ Change Log
 
 Since [draft-ietf-core-dns-over-coap-10]
 ----------------------------------------
-- Fix typo in {{sec:dns-update}}
+- Fix typo in DNS Update section
 
 Since [draft-ietf-core-dns-over-coap-09]
 ----------------------------------------
 - Update SVCB SvcParamKey
 - Update corr-clar reference
-- Add reference to DNS Update ({{sec:dns-update}}), clarify that it is currently not considered
+- Add reference to DNS Update {{?RFC2136}}, clarify that it is currently not considered
 - Add to security considerations: unencrypted upstream DNS and DNSSEC
 
 Since [draft-ietf-core-dns-over-coap-08]
