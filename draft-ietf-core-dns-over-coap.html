@@ -1222,7 +1222,10 @@ constrained devices in the Internet of Things (IoT).<a href="#section-abstract-1
                     <p id="section-toc.1-1.4.2.3.2.2.1"><a href="#section-4.3.2" class="auto internal xref">4.3.2</a>.  <a href="#name-support-of-coap-caching-2" class="internal xref">Support of CoAP Caching</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3.2.3">
-                    <p id="section-toc.1-1.4.2.3.2.3.1"><a href="#section-4.3.3" class="auto internal xref">4.3.3</a>.  <a href="#name-examples-2" class="internal xref">Examples</a></p>
+                    <p id="section-toc.1-1.4.2.3.2.3.1"><a href="#section-4.3.3" class="auto internal xref">4.3.3</a>.  <a href="#name-dns-update" class="internal xref">DNS Update</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3.2.4">
+                    <p id="section-toc.1-1.4.2.3.2.4.1"><a href="#section-4.3.4" class="auto internal xref">4.3.4</a>.  <a href="#name-examples-2" class="internal xref">Examples</a></p>
 </li>
                 </ul>
 </li>
@@ -1243,7 +1246,7 @@ constrained devices in the Internet of Things (IoT).<a href="#section-abstract-1
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-considerations-for-unprotec" class="internal xref">Considerations for Unprotected Use</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-considerations-for-unencryp" class="internal xref">Considerations for Unencrypted Use</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-implementation-status" class="internal xref">Implementation Status</a></p>
@@ -1360,15 +1363,17 @@ durations of time, after which they need to refresh the named resources they
 know about. Name resolution in such scenarios must take into account link
 layer frame sizes of only a few hundred bytes, bit rates in the magnitude
 of kilobits per second, and latencies of several seconds <span>[<a href="#RFC7228" class="cite xref">RFC7228</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">For TCP and HTTPS resource requirements not to apply, constrained IoT devices could use DNS over DTLS <span>[<a href="#RFC8094" class="cite xref">RFC8094</a>]</span>.
-In contrast to DNS over DTLS, DoC
+<p id="section-1-3">To prevent TCP and HTTPS resource requirements, constrained IoT devices
+could use DNS over DTLS <span>[<a href="#RFC8094" class="cite xref">RFC8094</a>]</span>. In contrast to DNS over DTLS, DoC
 utilizes CoAP features to mitigate drawbacks of datagram-based
 communication. These features include: block-wise transfer, which solves
 the Path MTU problem of DNS over DTLS (see <span>[<a href="#RFC8094" class="cite xref">RFC8094</a>]</span>, section 5); CoAP
 proxies, which provide an additional level of caching; re-use of data
 structures for application traffic and DNS information, which saves memory
 on constrained devices.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">For resource requirements of DTLS or TLS on top of UDP (e.g., introduced by DNS over QUIC <span>[<a href="#RFC9250" class="cite xref">RFC9250</a>]</span>) not to apply, DoC allows for lightweight payload encryption based on OSCORE.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-4">To prevent resource requirements of DTLS or TLS on top of UDP (e.g.,
+introduced by DNS over QUIC <span>[<a href="#RFC9250" class="cite xref">RFC9250</a>]</span>), DoC allows
+for lightweight payload encryption based on OSCORE.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <span id="name-basic-doc-architecture"></span><div id="fig-overview-arch">
 <figure id="figure-1">
         <div id="section-1-5.1">
@@ -1471,8 +1476,7 @@ We are also able to transfer a query block-wise.<a href="#section-1-7" class="pi
       </h2>
 <p id="section-2-1">A server that provides the service specified in this document is called a "DoC
 server" to differentiate it from a classic "DNS server".
-A DoC server acts either as a DNS stub resolver <span>[<a href="#RFC8499" class="cite xref">RFC8499</a>]</span> or a DNS recursive resolver <span>[<a href="#RFC8499" class="cite xref">RFC8499</a>]</span>.
-As such, the DoC server communicates with an "upstream DNS infrastructure" or a single "upstream DNS server".<a href="#section-2-1" class="pilcrow">¶</a></p>
+A DoC server acts either as a DNS stub resolver <span>[<a href="#RFC8499" class="cite xref">RFC8499</a>]</span> or a DNS recursive resolver <span>[<a href="#RFC8499" class="cite xref">RFC8499</a>]</span>.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <p id="section-2-2">A client using the service specified in this document to retrieve the
 DNS information is called a "DoC client".<a href="#section-2-2" class="pilcrow">¶</a></p>
 <p id="section-2-3">The term "constrained nodes" is used as defined in <span>[<a href="#RFC7228" class="cite xref">RFC7228</a>]</span>.<a href="#section-2-3" class="pilcrow">¶</a></p>
@@ -1532,8 +1536,9 @@ between 0 and 12 octets (see <span>[<a href="#RFC7252" class="cite xref">RFC7252
 path-abempty form (see <span>[<a href="#RFC3986" class="cite xref">RFC3986</a>], <a href="https://rfc-editor.org/rfc/rfc3986#section-3.3" class="relref">Section 3.3</a></span>) by replacing the initial byte of any present CBOR text
 string with the "/" character, provided these CBOR text strings are all of a length less than 24
 octets and do not contain bytes that need escaping.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
-<p id="section-3.2-3">To use the service binding from a SVCB RR, the DoC client <span class="bcp14">MUST</span> send a DoC request constructed from the SvcParams including "docpath".
-A rough construction algorithm could be as follows, going through the provided records in order of their priority.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
+<p id="section-3.2-3">To use the service binding from a SVCB RR, the DoC client <span class="bcp14">MUST</span> send any DoC request to the CoAP
+resource identifier constructed from the SvcParams including "docpath". A rough construction
+algorithm could be as follows, going through the provided records in order of their priority.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2-4.1">
             <p id="section-3.2-4.1.1">If the "alpn" SvcParam value for the service is "coap", construct a CoAP request for CoAP over TLS,
@@ -1586,10 +1591,7 @@ priority.<a href="#section-3.2-4.7.1" class="pilcrow">¶</a></p>
 <p id="section-4.1-1">This document defines a CoAP Content-Format number for the Internet
 media type "application/dns-message" to be the mnemonic 553 — based on the port assignment of DNS.
 This media type is defined as in <span>[<a href="#RFC8484" class="cite xref">RFC8484</a>]</span> Section 6, i.e., a single DNS message encoded in the DNS on-the-wire format <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>.
-Both DoC client and DoC server <span class="bcp14">MUST</span> be able to parse contents in the "application/dns-message" format.
-For the purposes of this document, only OpCode 0 (Query) is supported for DNS messages.
-Future work might provide specitications and considerations for other OpCode.
-A DoC server that receives a query with an unknown OpCode <span class="bcp14">SHOULD</span> indicate in its response that it does not implement that opcode bye setting the response RCODE to 4, NotImp <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span> (see also <a href="#sec_resp-examples" class="auto internal xref">Section 4.3.3</a>).<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+Both DoC client and DoC server <span class="bcp14">MUST</span> be able to parse contents in the "application/dns-message" format.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec_queries">
@@ -1622,7 +1624,7 @@ A DoC server <span class="bcp14">MUST</span> be able to parse requests of Conten
 This ensures that the CoAP Cache-Key (see <span>[<a href="#RFC8132" class="cite xref">RFC8132</a>]</span> Section 2) does not change when multiple DNS queries for the same DNS data, carried in CoAP requests, are issued.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="sec_req-examples">
+<div id="examples">
 <section id="section-4.2.3">
           <h4 id="name-examples">
 <a href="#section-4.2.3" class="section-number selfRef">4.2.3. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
@@ -1662,12 +1664,15 @@ the Content-Format option by the DoC server.<a href="#section-4.3-1" class="pilc
           <h4 id="name-response-codes-and-handling">
 <a href="#section-4.3.1" class="section-number selfRef">4.3.1. </a><a href="#name-response-codes-and-handling" class="section-name selfRef">Response Codes and Handling DNS and CoAP errors</a>
           </h4>
-<p id="section-4.3.1-1">A DNS response indicates either success or failure in the Response code of the DNS header (see <span><a href="https://rfc-editor.org/rfc/rfc1035#section-4.1.1" class="relref">Section 4.1.1</a> of [<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>).
-It is <span class="bcp14">RECOMMENDED</span> that CoAP responses that carry a parseable DNS response as defined in <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span> use a "2.05 Content" response code.<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.3.1-1">A DNS response indicates either success or failure in the Response code of
+the DNS header (see <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span> Section 4.1.1). It is <span class="bcp14">RECOMMENDED</span> that
+CoAP responses that carry any valid DNS response use a "2.05 Content"
+response code.<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.3.1-2">CoAP responses using non-successful response codes <span class="bcp14">MUST NOT</span> contain a DNS response
 and <span class="bcp14">MUST</span> only be used on errors in the CoAP layer or when a request does not
 fulfill the requirements of the DoC protocol.<a href="#section-4.3.1-2" class="pilcrow">¶</a></p>
-<p id="section-4.3.1-3">Communication errors with an upstream DNS server (e.g., timeouts) <span class="bcp14">MUST</span> be indicated by including a DNS response with the appropriate RCode in a successful CoAP response, i.e., using a 2.xx response code.<a href="#section-4.3.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.3.1-3">Communication errors with a DNS server (e.g., timeouts) <span class="bcp14">SHOULD</span> be indicated
+by including a SERVFAIL DNS response in a successful CoAP response.<a href="#section-4.3.1-3" class="pilcrow">¶</a></p>
 <p id="section-4.3.1-4">A DoC client might try to repeat a non-successful exchange unless otherwise prohibited.
 The DoC client might also decide to repeat a non-successful exchange with a different URI, for instance, when the response indicates an unsupported Content-Format.<a href="#section-4.3.1-4" class="pilcrow">¶</a></p>
 </section>
@@ -1677,31 +1682,37 @@ The DoC client might also decide to repeat a non-successful exchange with a diff
           <h4 id="name-support-of-coap-caching-2">
 <a href="#section-4.3.2" class="section-number selfRef">4.3.2. </a><a href="#name-support-of-coap-caching-2" class="section-name selfRef">Support of CoAP Caching</a>
           </h4>
-<p id="section-4.3.2-1">For reliability and energy saving measures, content decoupling, i.e., en-route caching on proxies, takes a far greater role than it does, e.g., in HTTP.
-Likewise, CoAP utilizes cache validation to refresh stale cache entries to reduce the amount of large response messages.
-For cache validation, CoAP implementations regularly use hashing over the message content for ETag generation.
+<p id="section-4.3.2-1">For reliability and energy saving measures content decoupling and thus en-route caching on proxies takes a far greater role than it does, e.g., in HTTP.
+Likewise, CoAP utilizes cache validation to refresh stale cache entries without large messages which regularly uses hashing over the message content for ETag generation.
 As such, the approach to guarantee the same cache key for DNS responses as proposed in DoH (<span>[<a href="#RFC8484" class="cite xref">RFC8484</a>]</span>, section 5.1) is not sufficient and needs to be updated so that the TTLs in the response are more often the same regardless of query time.<a href="#section-4.3.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.3.2-2">The DoC server <span class="bcp14">MUST</span> ensure that any sum of the Max-Age value of a CoAP response and any TTL in the
 DNS response is less or equal to the corresponding TTL received from an upstream DNS server.
 This also includes the default Max-Age value of 60 seconds (see <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>, section 5.10.5) when no Max-Age option is provided.
 The DoC client <span class="bcp14">MUST</span> then add the Max-Age value of the carrying CoAP response to all TTLs in a DNS response on reception and use these calculated TTLs for the associated records.<a href="#section-4.3.2-2" class="pilcrow">¶</a></p>
-<p id="section-4.3.2-3">The <span class="bcp14">RECOMMENDED</span> algorithm to assure the requirement for DoC is as follows:
-Set the Max-Age option of a response to the minimum TTL of a DNS response and subtract this value from all TTLs of that DNS response.
+<p id="section-4.3.2-3">The <span class="bcp14">RECOMMENDED</span> algorithm to assure the requirement for the DoC is to set the Max-Age option of a response to the minimum TTL of a DNS response and to subtract this value from all TTLs of that DNS response.
 This prevents expired records unintentionally being served from an intermediate CoAP cache.
 Additionally, it allows for the ETag value for cache validation, if it is based on the content of the response, not to change even if the TTL values are updated by an upstream DNS cache.
 If only one record set per DNS response is assumed, a simplification of this algorithm is to just set all TTLs in the response to 0 and set the TTLs at the DoC client to the value of the Max-Age option.<a href="#section-4.3.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="sec_resp-examples">
+<div id="sec_dns-update">
 <section id="section-4.3.3">
-          <h4 id="name-examples-2">
-<a href="#section-4.3.3" class="section-number selfRef">4.3.3. </a><a href="#name-examples-2" class="section-name selfRef">Examples</a>
+          <h4 id="name-dns-update">
+<a href="#section-4.3.3" class="section-number selfRef">4.3.3. </a><a href="#name-dns-update" class="section-name selfRef">DNS Update</a>
           </h4>
-<p id="section-4.3.3-1">The following examples illustrate the replies to the query "example.org. IN
+<p id="section-4.3.3-1">Until future work provides considerations for DNS Update <span>[<a href="#RFC2136" class="cite xref">RFC2136</a>]</span>, a DoC server that receives a query with the UPDATE opcode <span class="bcp14">SHOULD</span> indicate in its response that it does not implement DNS Update, see <span>[<a href="#RFC2136" class="cite xref">RFC2136</a>]</span>.<a href="#section-4.3.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="examples-1">
+<section id="section-4.3.4">
+          <h4 id="name-examples-2">
+<a href="#section-4.3.4" class="section-number selfRef">4.3.4. </a><a href="#name-examples-2" class="section-name selfRef">Examples</a>
+          </h4>
+<p id="section-4.3.4-1">The following examples illustrate the replies to the query "example.org. IN
 AAAA record", recursion turned on. Successful responses carry one answer
-record including address 2001:db8:1::1:2:3:4 and TTL 58719.<a href="#section-4.3.3-1" class="pilcrow">¶</a></p>
-<p id="section-4.3.3-2">A successful response:<a href="#section-4.3.3-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.3.3-3">
+record including address 2001:db8:1::1:2:3:4 and TTL 58719.<a href="#section-4.3.4-1" class="pilcrow">¶</a></p>
+<p id="section-4.3.4-2">A successful response:<a href="#section-4.3.4-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.3.4-3">
 <pre>
 2.05 Content
 Content-Format: application/dns-message
@@ -1710,28 +1721,23 @@ Payload: 00 00 81 a0 00 01 00 01 00 00 00 00 07 65 78 61 [binary]
          6d 70 6c 65 03 6f 72 67 00 00 1c 00 01 c0 0c 00 [binary]
          1c 00 01 00 01 37 49 00 10 20 01 0d b8 00 01 00 [binary]
          00 00 01 00 02 00 03 00 04                      [binary]
-</pre><a href="#section-4.3.3-3" class="pilcrow">¶</a>
+</pre><a href="#section-4.3.4-3" class="pilcrow">¶</a>
 </div>
-<p id="section-4.3.3-4">When a DNS error—NotImp (RCode = 4) in response to a DNS Update (OpCode = 5) for "example.org" in this case—is noted in the DNS response, the CoAP response still indicates success.<a href="#section-4.3.3-4" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.3.3-5">
+<p id="section-4.3.4-4">When a DNS error (SERVFAIL in this case) is noted in the DNS response, the CoAP
+response still indicates success:<a href="#section-4.3.4-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.3.4-5">
 <pre>
 2.05 Content
 Content-Format: application/dns-message
-Payload: 00 00 a8 84 00 01 00 00 00 00 00 00 07 65 78 61 [binary]
-         6d 70 6c 65 03 6f 72 67 00 00 06 00 01          [binary]
-</pre><a href="#section-4.3.3-5" class="pilcrow">¶</a>
+Payload: 00 00 81 a2 00 01 00 00 00 00 00 00 07 65 78 61 [binary]
+         6d 70 6c 65 03 6f 72 67 00 00 1c 00 01          [binary]
+</pre><a href="#section-4.3.4-5" class="pilcrow">¶</a>
 </div>
-<p id="section-4.3.3-6">When an error occurs on the CoAP layer, the DoC server <span class="bcp14">SHOULD</span> respond with
+<p id="section-4.3.4-6">When an error occurs on the CoAP layer, the DoC server <span class="bcp14">SHOULD</span> respond with
 an appropriate CoAP error, for instance "4.15 Unsupported Content-Format"
 if the Content-Format option in the request was not set to
 "application/dns-message" and the Content-Format is not otherwise supported by
-the server.<a href="#section-4.3.3-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.3.3-7">
-<pre>
-4.15 Unsupported Content-Format
-[no payload]
-</pre><a href="#section-4.3.3-7" class="pilcrow">¶</a>
-</div>
+the server.<a href="#section-4.3.4-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1781,8 +1787,8 @@ security properties, which are compiled in that document.<a href="#section-5.2-2
         <h3 id="name-mapping-doc-to-doh">
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-mapping-doc-to-doh" class="section-name selfRef">Mapping DoC to DoH</a>
         </h3>
-<p id="section-5.3-1">This document provides no specification how to map between DoC and DoH, e.g., at a CoAP-HTTP-proxy.
-In fact, such mapping is <span class="bcp14">NOT RECOMMENDED</span>:
+<p id="section-5.3-1">This document provides no specification how to map between DoC and DoH, e.g., at a CoAP-HTTP-proxy,
+and it is <span class="bcp14">NOT RECOMMENDED</span>.
 Rewriting the FETCH method (<a href="#sec_queries" class="auto internal xref">Section 4.2</a>) and the TTL rewriting (<a href="#sec_resp-caching" class="auto internal xref">Section 4.3.2</a>) as
 specified in this draft would be non-trivial.
 It is <span class="bcp14">RECOMMENDED</span> to use a DNS forwarder to map between DoC and DoH, as would be the case for
@@ -1791,10 +1797,10 @@ mapping between any other pair of DNS transports.<a href="#section-5.3-1" class=
 </div>
 </section>
 </div>
-<div id="sec_unprotected-coap">
+<div id="sec_unencrypted-coap">
 <section id="section-6">
-      <h2 id="name-considerations-for-unprotec">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-considerations-for-unprotec" class="section-name selfRef">Considerations for Unprotected Use</a>
+      <h2 id="name-considerations-for-unencryp">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-considerations-for-unencryp" class="section-name selfRef">Considerations for Unencrypted Use</a>
       </h2>
 <p id="section-6-1">The use of DoC without a security mode of CoAP is <span class="bcp14">NOT RECOMMENDED</span>.
 Without a security mode, many possible attacks need to be evaluated in the context of
@@ -1911,17 +1917,17 @@ Additionally, DoC uses request patterns that require the maintenance of long-liv
 contexts.
 <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-corr-clar-01#section-2.6" class="relref">Section 2.6</a> of [<a href="#I-D.ietf-core-corr-clar" class="cite xref">I-D.ietf-core-corr-clar</a>]</span> goes into more detail on what needs to be done
 when those are resumed from a new endpoint.<a href="#section-8-1" class="pilcrow">¶</a></p>
-<p id="section-8-2">When using unprotected CoAP (see <a href="#sec_unprotected-coap" class="auto internal xref">Section 6</a>), setting the ID of a DNS message to 0 as
+<p id="section-8-2">When using unencrypted CoAP (see <a href="#sec_unencrypted-coap" class="auto internal xref">Section 6</a>), setting the ID of a DNS message to 0 as
 specified in <a href="#sec_req-caching" class="auto internal xref">Section 4.2.2</a> opens the DNS cache of a DoC client to cache poisoning attacks
 via response spoofing.
 This document requires an unpredictable CoAP token in each DoC query from the client when CoAP is
-not secured to mitigate such an attack over DoC (see <a href="#sec_unprotected-coap" class="auto internal xref">Section 6</a>).<a href="#section-8-2" class="pilcrow">¶</a></p>
+not secured to mitigate such an attack over DoC (see <a href="#sec_unencrypted-coap" class="auto internal xref">Section 6</a>).<a href="#section-8-2" class="pilcrow">¶</a></p>
 <p id="section-8-3">For encrypted usage with DTLS or OSCORE the impact of a fixed ID on security is limited, as both
 harden against injecting spoofed responses.
 Consequently, it is of little concern to leverage the benefits of CoAP caching by setting the ID to
 0.<a href="#section-8-3" class="pilcrow">¶</a></p>
 <p id="section-8-4">A user of DoC must be aware that the DoC server
-may communicate unprotected with the upstream DNS infrastructure, e.g., using DNS over UDP.
+may communicate unencrypted with the upstream DNS infrastructure, e.g., using DNS over UDP.
 DoC can only guarantee confidential communication and integrity between parties for which the
 security context is exchanged.
 The DoC server may use another security context to communicate confidentially and with integrity
@@ -2197,7 +2203,7 @@ paper "Securing Name Resolution in the IoT: DNS over CoAP" <span>[<a href="#DoC-
         </h3>
 <ul class="normal">
 <li class="normal" id="appendix-B.1-1.1">
-            <p id="appendix-B.1-1.1.1">Fix typo in DNS Update section<a href="#appendix-B.1-1.1.1" class="pilcrow">¶</a></p>
+            <p id="appendix-B.1-1.1.1">Fix typo in <a href="#sec_dns-update" class="auto internal xref">Section 4.3.3</a><a href="#appendix-B.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -2215,10 +2221,10 @@ paper "Securing Name Resolution in the IoT: DNS over CoAP" <span>[<a href="#DoC-
             <p id="appendix-B.2-1.2.1">Update corr-clar reference<a href="#appendix-B.2-1.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-B.2-1.3">
-            <p id="appendix-B.2-1.3.1">Add reference to DNS Update <span>[<a href="#RFC2136" class="cite xref">RFC2136</a>]</span>, clarify that it is currently not considered<a href="#appendix-B.2-1.3.1" class="pilcrow">¶</a></p>
+            <p id="appendix-B.2-1.3.1">Add reference to DNS Update (<a href="#sec_dns-update" class="auto internal xref">Section 4.3.3</a>), clarify that it is currently not considered<a href="#appendix-B.2-1.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-B.2-1.4">
-            <p id="appendix-B.2-1.4.1">Add to security considerations: unprotected upstream DNS and DNSSEC<a href="#appendix-B.2-1.4.1" class="pilcrow">¶</a></p>
+            <p id="appendix-B.2-1.4.1">Add to security considerations: unencrypted upstream DNS and DNSSEC<a href="#appendix-B.2-1.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -2346,13 +2352,13 @@ paper "Securing Name Resolution in the IoT: DNS over CoAP" <span>[<a href="#DoC-
             <p id="appendix-B.9-1.4.1">SVCB/DNR: Move to Server Selection Section but leave TBD based on DNSOP discussion for now<a href="#appendix-B.9-1.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-B.9-1.5">
-            <p id="appendix-B.9-1.5.1">Clarify that DoC and DoH are distinct<a href="#appendix-B.9-1.5.1" class="pilcrow">¶</a></p>
+            <p id="appendix-B.9-1.5.1">Clarify that DoC and DoC are distinct<a href="#appendix-B.9-1.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-B.9-1.6">
             <p id="appendix-B.9-1.6.1">Clarify mapping between DoC and DoH<a href="#appendix-B.9-1.6.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-B.9-1.7">
-            <p id="appendix-B.9-1.7.1">Update considerations on unprotected use<a href="#appendix-B.9-1.7.1" class="pilcrow">¶</a></p>
+            <p id="appendix-B.9-1.7.1">Update considerations on unencrypted use<a href="#appendix-B.9-1.7.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-B.9-1.8">
             <p id="appendix-B.9-1.8.1">Don't call OSCORE end-to-end encrypted<a href="#appendix-B.9-1.8.1" class="pilcrow">¶</a></p>
