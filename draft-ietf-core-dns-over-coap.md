@@ -425,8 +425,8 @@ mapping between any other pair of DNS transports.
 
 Considerations for Unprotected Use {#sec:unprotected-coap}
 ==================================
-The use of DoC without a security mode of CoAP is NOT RECOMMENDED.
-Without a security mode, many possible attacks need to be evaluated in the context of
+The use of DoC without confidentiality protection is NOT RECOMMENDED.
+Without confidential communication, many possible attacks need to be evaluated in the context of
 the application's threat model.
 This includes threats that are mitigated even by DNS over UDP:
 For example, the random ID of the DNS header afford some protection against off-path cache poisoning
@@ -492,7 +492,7 @@ via response spoofing.
 This document requires an unpredictable CoAP token in each DoC query from the client when CoAP is
 not secured to mitigate such an attack over DoC (see {{sec:unprotected-coap}}).
 
-For encrypted usage with DTLS or OSCORE the impact of a fixed ID on security is limited, as both
+For confidential communication via DTLS or OSCORE the impact of a fixed ID on security is limited, as both
 harden against injecting spoofed responses.
 Consequently, it is of little concern to leverage the benefits of CoAP caching by setting the ID to
 0.
