@@ -452,7 +452,7 @@ Table of Contents
    The following example illustrates the response to the query
    "example.org.  IN AAAA record", recursion turned on.  Successful
    responses carry one answer record including address
-   2001:db8:1::1:2:3:4 and TTL 79689.  As in Section 4.3.3, we use both
+   2001:db8:1::1:2:3:4 and TTL 79689.  As in Section 4.2.3, we use both
    a human-readable and binary form of the payload.
 
    A successful response:
