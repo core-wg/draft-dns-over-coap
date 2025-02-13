@@ -368,7 +368,7 @@ Table of Contents
      ;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
 
      ;; QUESTION SECTION:
-     ;example.org.                         IN      AAAA
+     ;example.org.             IN      AAAA
 
    Payload (binary):
      00 00 01 20 00 01 00 00 00 00 00 00 07 65 78 61
@@ -458,23 +458,23 @@ Table of Contents
 
    A successful response:
 
-2.05 Content
-Content-Format: application/dns-message
-Max-Age: 58719
-Payload (human-readable):
-  ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
-  ;; flags: qr rd ad; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ARCOUNT: 0
+   2.05 Content
+   Content-Format: application/dns-message
+   Max-Age: 58719
+   Payload (human-readable):
+     ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
+     ;; flags: qr rd ad; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ARCOUNT: 0
 
-  ;; QUESTION SECTION:
-  ;example.org.                         IN      AAAA
-  ;; ANSWER SECTION:
-  ;example.org.                 79689   IN      AAAA    2001:db8:1::1:2:3:4
+     ;; QUESTION SECTION:
+     ;example.org.                 IN      AAAA
+     ;; ANSWER SECTION:
+     ;example.org.         79689   IN      AAAA    2001:db8:1::1:2:3:4
 
-Payload (binary):
-  00 00 81 a0 00 01 00 01 00 00 00 00 07 65 78 61
-  6d 70 6c 65 03 6f 72 67 00 00 1c 00 01 c0 0c 00
-  1c 00 01 00 01 37 49 00 10 20 01 0d b8 00 01 00
-  00 00 01 00 02 00 03 00 04
+   Payload (binary):
+     00 00 81 a0 00 01 00 01 00 00 00 00 07 65 78 61
+     6d 70 6c 65 03 6f 72 67 00 00 1c 00 01 c0 0c 00
+     1c 00 01 00 01 37 49 00 10 20 01 0d b8 00 01 00
+     00 00 01 00 02 00 03 00 04
 
    When a DNS error—NotImp (RCODE = 4) in response to a DNS Update
    (OPCODE = 5) for "example.org" in this case—is noted in the DNS
