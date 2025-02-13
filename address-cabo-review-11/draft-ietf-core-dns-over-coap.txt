@@ -513,13 +513,13 @@ Table of Contents
 
 6.  Considerations for Unprotected Use
 
-   The use of DoC without a security mode of CoAP is NOT RECOMMENDED.
-   Without a security mode, many possible attacks need to be evaluated
-   in the context of the application's threat model.  This includes
-   threats that are mitigated even by DNS over UDP: For example, the
-   random ID of the DNS header afford some protection against off-path
-   cache poisoning attacks—a threat that might be mitigated by using
-   random large token values in the CoAP request.
+   The use of DoC without confidentiality protection is NOT RECOMMENDED.
+   Without confidential communication, many possible attacks need to be
+   evaluated in the context of the application's threat model.  This
+   includes threats that are mitigated even by DNS over UDP: For
+   example, the random ID of the DNS header afford some protection
+   against off-path cache poisoning attacks—a threat that might be
+   mitigated by using random large token values in the CoAP request.
 
 7.  Implementation Status
 
@@ -591,10 +591,10 @@ Table of Contents
    the client when CoAP is not secured to mitigate such an attack over
    DoC (see Section 6).
 
-   For encrypted usage with DTLS or OSCORE the impact of a fixed ID on
-   security is limited, as both harden against injecting spoofed
-   responses.  Consequently, it is of little concern to leverage the
-   benefits of CoAP caching by setting the ID to 0.
+   For confidential communication with DTLS or OSCORE the impact of a
+   fixed ID on security is limited, as both harden against injecting
+   spoofed responses.  Consequently, it is of little concern to leverage
+   the benefits of CoAP caching by setting the ID to 0.
 
    A user of DoC must be aware that the DoC server may communicate
    unprotected with the upstream DNS infrastructure, e.g., using DNS
