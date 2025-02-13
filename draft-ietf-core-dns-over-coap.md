@@ -182,6 +182,7 @@ Terminology
 A server that provides the service specified in this document is called a "DoC
 server" to differentiate it from a classic "DNS server".
 A DoC server acts either as a DNS stub resolver {{-dns-terminology}} or a DNS recursive resolver {{-dns-terminology}}.
+As such, the DoC server communicates with an "upstream DNS infrastructure" or a single "upstream DNS server".
 
 A client using the service specified in this document to retrieve the
 DNS information is called a "DoC client".
