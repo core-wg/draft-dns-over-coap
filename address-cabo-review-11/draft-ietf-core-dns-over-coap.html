@@ -1589,7 +1589,7 @@ This media type is defined as in <span>[<a href="#RFC8484" class="cite xref">RFC
 Both DoC client and DoC server <span class="bcp14">MUST</span> be able to parse contents in the "application/dns-message" format.
 For the purposes of this document, only OPCODE 0 (Query) is supported for DNS messages.
 Future work might provide specifications and considerations for other values of OPCODE.
-A DoC server that receives a query with an unknown OPCODE <span class="bcp14">SHOULD</span> indicate in its response that it does not implement that opcode bye setting the response RCODE to 4, NotImp <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span> (see also <a href="#sec_resp-examples" class="auto internal xref">Section 4.3.3</a>).<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+A DoC server that receives a query with an OPCODE it does not implement <span class="bcp14">SHOULD</span> indicate this in its response by setting the response RCODE to 4, NotImp <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span> (see also <a href="#sec_resp-examples" class="auto internal xref">Section 4.3.3</a>).<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec_queries">
