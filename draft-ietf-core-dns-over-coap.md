@@ -232,9 +232,8 @@ path-abempty form (see {{-uri, Section 3.3}}) by replacing the initial byte of a
 string with the "/" character, provided these CBOR text strings are all of a length less than 24
 octets and do not contain bytes that need escaping.
 
-To use the service binding from a SVCB RR, the DoC client MUST send any DoC request to the CoAP
-resource identifier constructed from the SvcParams including "docpath". A rough construction
-algorithm could be as follows, going through the provided records in order of their priority.
+To use the service binding from a SVCB RR, the DoC client MUST send a DoC request constructed from the SvcParams including "docpath".
+A rough construction algorithm could be as follows, going through the provided records in order of their priority.
 
 - If the "alpn" SvcParam value for the service is "coap", construct a CoAP request for CoAP over TLS,
   if it is "co", construct a CoAP request for CoAP over DTLS. Any other SvcParamKeys specifying a
