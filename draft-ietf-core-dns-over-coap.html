@@ -1590,7 +1590,7 @@ priority.<a href="#section-3.2-4.7.1" class="pilcrow">¶</a></p>
         </h3>
 <p id="section-4.1-1">This document defines a CoAP Content-Format number for the Internet
 media type "application/dns-message" to be the mnemonic 553 — based on the port assignment of DNS.
-This media type is defined as in <span>[<a href="#RFC8484" class="cite xref">RFC8484</a>]</span> Section 6, i.e., a single DNS message encoded in the DNS on-the-wire format <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>.
+This media type is defined as in <span><a href="https://rfc-editor.org/rfc/rfc8484#section-6" class="relref">Section 6</a> of [<a href="#RFC8484" class="cite xref">RFC8484</a>]</span>, i.e., a single DNS message encoded in the DNS on-the-wire format <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>.
 Both DoC client and DoC server <span class="bcp14">MUST</span> be able to parse contents in the "application/dns-message" format.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1610,7 +1610,7 @@ DNS protocol as defined in <span>[<a href="#RFC1035" class="cite xref">RFC1035</
 <a href="#section-4.2.1" class="section-number selfRef">4.2.1. </a><a href="#name-request-format" class="section-name selfRef">Request Format</a>
           </h4>
 <p id="section-4.2.1-1">When sending a CoAP request, a DoC client <span class="bcp14">MUST</span> include the DNS query in the body of the CoAP request.
-As specified in <span>[<a href="#RFC8132" class="cite xref">RFC8132</a>]</span> Section 2.3.1, the type of content of the body <span class="bcp14">MUST</span> be indicated using the Content-Format option.
+As specified in <span><a href="https://rfc-editor.org/rfc/rfc8132#section-2.3.1" class="relref">Section 2.3.1</a> of [<a href="#RFC8132" class="cite xref">RFC8132</a>]</span>, the type of content of the body <span class="bcp14">MUST</span> be indicated using the Content-Format option.
 This document specifies the usage of Content-Format "application/dns-message" (details see <a href="#sec_content-format" class="auto internal xref">Section 4.1</a>).
 A DoC server <span class="bcp14">MUST</span> be able to parse requests of Content-Format "application/dns-message".<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
 </section>
@@ -1621,7 +1621,7 @@ A DoC server <span class="bcp14">MUST</span> be able to parse requests of Conten
 <a href="#section-4.2.2" class="section-number selfRef">4.2.2. </a><a href="#name-support-of-coap-caching" class="section-name selfRef">Support of CoAP Caching</a>
           </h4>
 <p id="section-4.2.2-1">The DoC client <span class="bcp14">SHOULD</span> set the ID field of the DNS header always to 0 to enable a CoAP cache (e.g., a CoAP proxy en-route) to respond to the same DNS queries with a cache entry.
-This ensures that the CoAP Cache-Key (see <span>[<a href="#RFC8132" class="cite xref">RFC8132</a>]</span> Section 2) does not change when multiple DNS queries for the same DNS data, carried in CoAP requests, are issued.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
+This ensures that the CoAP Cache-Key (see <span>[<a href="#RFC8132" class="cite xref">RFC8132</a>], <a href="https://rfc-editor.org/rfc/rfc8132#section-2" class="relref">Section 2</a></span>) does not change when multiple DNS queries for the same DNS data, carried in CoAP requests, are issued.<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="examples">
