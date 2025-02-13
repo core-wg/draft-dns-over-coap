@@ -1587,9 +1587,9 @@ priority.<a href="#section-3.2-4.7.1" class="pilcrow">¶</a></p>
 media type "application/dns-message" to be the mnemonic 553 — based on the port assignment of DNS.
 This media type is defined as in <span>[<a href="#RFC8484" class="cite xref">RFC8484</a>]</span> Section 6, i.e., a single DNS message encoded in the DNS on-the-wire format <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>.
 Both DoC client and DoC server <span class="bcp14">MUST</span> be able to parse contents in the "application/dns-message" format.
-For the purposes of this document, only OpCode 0 (Query) is supported for DNS messages.
-Future work might provide specitications and considerations for other OpCode.
-A DoC server that receives a query with an unknown OpCode <span class="bcp14">SHOULD</span> indicate in its response that it does not implement that opcode bye setting the response RCODE to 4, NotImp <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span> (see also <a href="#sec_resp-examples" class="auto internal xref">Section 4.3.3</a>).<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+For the purposes of this document, only OPCODE 0 (Query) is supported for DNS messages.
+Future work might provide specitications and considerations for other OPCODE.
+A DoC server that receives a query with an unknown OPCODE <span class="bcp14">SHOULD</span> indicate in its response that it does not implement that opcode bye setting the response RCODE to 4, NotImp <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span> (see also <a href="#sec_resp-examples" class="auto internal xref">Section 4.3.3</a>).<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec_queries">
@@ -1662,12 +1662,12 @@ the Content-Format option by the DoC server.<a href="#section-4.3-1" class="pilc
           <h4 id="name-response-codes-and-handling">
 <a href="#section-4.3.1" class="section-number selfRef">4.3.1. </a><a href="#name-response-codes-and-handling" class="section-name selfRef">Response Codes and Handling DNS and CoAP errors</a>
           </h4>
-<p id="section-4.3.1-1">A DNS response indicates either success or failure in the Response code of the DNS header (see <span><a href="https://rfc-editor.org/rfc/rfc1035#section-4.1.1" class="relref">Section 4.1.1</a> of [<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>).
+<p id="section-4.3.1-1">A DNS response indicates either success or failure in the RCODE of the DNS header (see <span><a href="https://rfc-editor.org/rfc/rfc1035#section-4.1.1" class="relref">Section 4.1.1</a> of [<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>).
 It is <span class="bcp14">RECOMMENDED</span> that CoAP responses that carry a parseable DNS response as defined in <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span> use a "2.05 Content" response code.<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.3.1-2">CoAP responses using non-successful response codes <span class="bcp14">MUST NOT</span> contain a DNS response
 and <span class="bcp14">MUST</span> only be used on errors in the CoAP layer or when a request does not
 fulfill the requirements of the DoC protocol.<a href="#section-4.3.1-2" class="pilcrow">¶</a></p>
-<p id="section-4.3.1-3">Communication errors with an upstream DNS server (e.g., timeouts) <span class="bcp14">MUST</span> be indicated by including a DNS response with the appropriate RCode in a successful CoAP response, i.e., using a 2.xx response code.<a href="#section-4.3.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.3.1-3">Communication errors with an upstream DNS server (e.g., timeouts) <span class="bcp14">MUST</span> be indicated by including a DNS response with the appropriate RCODE in a successful CoAP response, i.e., using a 2.xx response code.<a href="#section-4.3.1-3" class="pilcrow">¶</a></p>
 <p id="section-4.3.1-4">A DoC client might try to repeat a non-successful exchange unless otherwise prohibited.
 The DoC client might also decide to repeat a non-successful exchange with a different URI, for instance, when the response indicates an unsupported Content-Format.<a href="#section-4.3.1-4" class="pilcrow">¶</a></p>
 </section>
@@ -1712,7 +1712,7 @@ Payload: 00 00 81 a0 00 01 00 01 00 00 00 00 07 65 78 61 [binary]
          00 00 01 00 02 00 03 00 04                      [binary]
 </pre><a href="#section-4.3.3-3" class="pilcrow">¶</a>
 </div>
-<p id="section-4.3.3-4">When a DNS error—NotImp (RCode = 4) in response to a DNS Update (OpCode = 5) for "example.org" in this case—is noted in the DNS response, the CoAP response still indicates success.<a href="#section-4.3.3-4" class="pilcrow">¶</a></p>
+<p id="section-4.3.3-4">When a DNS error—NotImp (RCODE = 4) in response to a DNS Update (OPCODE = 5) for "example.org" in this case—is noted in the DNS response, the CoAP response still indicates success.<a href="#section-4.3.3-4" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.3.3-5">
 <pre>
 2.05 Content
