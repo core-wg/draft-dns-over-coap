@@ -350,6 +350,10 @@ This prevents expired records unintentionally being served from an intermediate 
 Additionally, it allows for the ETag value for cache validation, if it is based on the content of the response, not to change even if the TTL values are updated by an upstream DNS cache.
 If only one record set per DNS response is assumed, a simplification of this algorithm is to just set all TTLs in the response to 0 and set the TTLs at the DoC client to the value of the Max-Age option.
 
+If shorter caching periods are plausible, e.g., if the RCODE of the message indicates an error that should only be cached for a minimal duration, the value for the Max-Age option SHOULD be set accordingly.
+This value might be 0, but if the DoC server knows the error will persist, greater values are also conceivable, depending on the projected duration of the error.
+Same goes for DNS responses, that for any reason do not carry any records with a TTL.
+
 ### Examples {#sec:resp-examples}
 
 The following examples illustrate the replies to the query "example.org. IN
