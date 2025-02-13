@@ -1685,7 +1685,7 @@ As such, the approach to guarantee the same cache key for DNS responses as propo
 DNS response is less or equal to the corresponding TTL received from an upstream DNS server.
 This also includes the default Max-Age value of 60 seconds (see <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>, section 5.10.5) when no Max-Age option is provided.
 The DoC client <span class="bcp14">MUST</span> then add the Max-Age value of the carrying CoAP response to all TTLs in a DNS response on reception and use these calculated TTLs for the associated records.<a href="#section-4.3.2-2" class="pilcrow">¶</a></p>
-<p id="section-4.3.2-3">The <span class="bcp14">RECOMMENDED</span> algorithm to assure the requirement for DoC is as follows:
+<p id="section-4.3.2-3">The <span class="bcp14">RECOMMENDED</span> algorithm to meet the requirement for DoC is as follows:
 Set the Max-Age option of a response to the minimum TTL of a DNS response and subtract this value from all TTLs of that DNS response.
 This prevents expired records unintentionally being served from an intermediate CoAP cache.
 Additionally, it allows for the ETag value for cache validation, if it is based on the content of the response, not to change even if the TTL values are updated by an upstream DNS cache.

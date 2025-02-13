@@ -418,7 +418,7 @@ Table of Contents
    TTLs in a DNS response on reception and use these calculated TTLs for
    the associated records.
 
-   The RECOMMENDED algorithm to assure the requirement for DoC is as
+   The RECOMMENDED algorithm to meet the requirement for DoC is as
    follows: Set the Max-Age option of a response to the minimum TTL of a
    DNS response and subtract this value from all TTLs of that DNS
    response.  This prevents expired records unintentionally being served
