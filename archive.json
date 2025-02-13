@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-11T01:07:11.315816+00:00",
+  "timestamp": "2025-02-13T01:08:14.762925+00:00",
   "repo": "core-wg/draft-dns-over-coap",
   "labels": [
     {
@@ -672,15 +672,15 @@
       "id": "I_kwDOF27TLs6oKOC0",
       "title": "Security requirements for the DoC server sending \"upstream\" DNS queries?",
       "url": "https://github.com/core-wg/draft-dns-over-coap/issues/35",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "EskoDijk",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "The security considerations section should also cover security requirements (if any) for the DoC server, when it acts as a DNS client to send a DNS query to an \"upstream\" DNS server/resolver.\n\nFor example the leg DoC client -> DoC server may be secured (DTLS, or OSCORE) but if the 2nd leg DoC server/DNS client -> DNS server is unsecured then there's effectively little security.\n\nFor DNS Push I think a subscription is made to the DNS server and it works always over TLS, so this may be covered (although it's good to mention it perhaps.)  For regular DoC queries (non-observe) it's not clear if the DoC server is required to use TLS or not.\n",
       "createdAt": "2025-01-30T16:17:05Z",
-      "updatedAt": "2025-01-30T16:17:05Z",
-      "closedAt": null,
+      "updatedAt": "2025-02-11T14:09:39Z",
+      "closedAt": "2025-02-11T14:09:39Z",
       "comments": []
     }
   ],
@@ -3657,24 +3657,26 @@
       "id": "PR_kwDOF27TLs6JnWns",
       "title": "Add security considerations on potentially unencyrypted upstream DNS",
       "url": "https://github.com/core-wg/draft-dns-over-coap/pull/37",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "miri64",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This fixes #35. See also https://mailarchive.ietf.org/arch/msg/core/warTSPRBXE4OrOam_TeIvRZFHUc/ ff.\r\n\r\n@EskoDijk does this fit what you had in mind?",
       "createdAt": "2025-01-31T10:46:51Z",
-      "updatedAt": "2025-02-10T15:01:40Z",
+      "updatedAt": "2025-02-11T14:09:38Z",
       "baseRepository": "core-wg/draft-dns-over-coap",
       "baseRefName": "main",
-      "baseRefOid": "4bb8a44ab3fe9d1617a9fd429700dd0a8bd483a3",
+      "baseRefOid": "44d0c810ee5cb3a79d974e3a92efa8b5866e3596",
       "headRepository": "core-wg/draft-dns-over-coap",
       "headRefName": "sec-req-upstream-dns",
-      "headRefOid": "b1e2106549095ed7b82dfccba1ae97ec3560012a",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "53ee494d54324aba97f48f57f3550196a35bb170",
+      "closedAt": "2025-02-11T14:09:37Z",
+      "mergedAt": "2025-02-11T14:09:37Z",
+      "mergedBy": "miri64",
+      "mergeCommit": {
+        "oid": "91d3f8f8e3a3cde0d4cbfb53d544034e88a682a4"
+      },
       "comments": [
         {
           "author": "EskoDijk",
@@ -3717,6 +3719,13 @@
           "body": "See c582206",
           "createdAt": "2025-02-10T13:51:17Z",
           "updatedAt": "2025-02-10T13:51:17Z"
+        },
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "NONE",
+          "body": "@miri64 @chrysn Thanks for the text updates - looks ok to me now!  Seems like a good model to me, to let the DoC server do the DNSSEC validation and to have the DoC client trust the server for doing that. So good to mention that particular example.",
+          "createdAt": "2025-02-11T10:42:03Z",
+          "updatedAt": "2025-02-11T10:42:03Z"
         }
       ],
       "reviews": [
@@ -3779,6 +3788,48 @@
               "updatedAt": "2025-02-10T15:01:09Z"
             }
           ]
+        }
+      ]
+    },
+    {
+      "number": 38,
+      "id": "PR_kwDOF27TLs6K9mFL",
+      "title": "Nits for \u201311",
+      "url": "https://github.com/core-wg/draft-dns-over-coap/pull/38",
+      "state": "MERGED",
+      "author": "cabo",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-12T14:10:48Z",
+      "updatedAt": "2025-02-12T16:16:02Z",
+      "baseRepository": "core-wg/draft-dns-over-coap",
+      "baseRefName": "main",
+      "baseRefOid": "c6a47fe2c49cf9d6150051328577ec681a59f686",
+      "headRepository": "core-wg/draft-dns-over-coap",
+      "headRefName": "nits-11",
+      "headRefOid": "586e18551272e8b81486295993be0643231f8844",
+      "closedAt": "2025-02-12T16:16:01Z",
+      "mergedAt": "2025-02-12T16:16:01Z",
+      "mergedBy": "miri64",
+      "mergeCommit": {
+        "oid": "fdcfbe81b96a952551eb66df52a81a2e03db56a3"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOF27TLs6bt6vj",
+          "commit": {
+            "abbreviatedOid": "586e185"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-12T16:15:54Z",
+          "updatedAt": "2025-02-12T16:15:54Z",
+          "comments": []
         }
       ]
     }
