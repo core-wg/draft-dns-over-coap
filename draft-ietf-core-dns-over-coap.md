@@ -334,8 +334,9 @@ The DoC client might also decide to repeat a non-successful exchange with a diff
 
 ### Support of CoAP Caching {#sec:resp-caching}
 
-For reliability and energy saving measures content decoupling and thus en-route caching on proxies takes a far greater role than it does, e.g., in HTTP.
-Likewise, CoAP utilizes cache validation to refresh stale cache entries without large messages which regularly uses hashing over the message content for ETag generation.
+For reliability and energy saving measures, content decoupling, i.e., en-route caching on proxies, takes a far greater role than it does, e.g., in HTTP.
+Likewise, CoAP utilizes cache validation to refresh stale cache entries to reduce the amount of large response messages.
+For cache validation, CoAP implementations regularly use hashing over the message content for ETag generation.
 As such, the approach to guarantee the same cache key for DNS responses as proposed in DoH ({{-doh}}, section 5.1) is not sufficient and needs to be updated so that the TTLs in the response are more often the same regardless of query time.
 
 The DoC server MUST ensure that any sum of the Max-Age value of a CoAP response and any TTL in the
@@ -343,7 +344,8 @@ DNS response is less or equal to the corresponding TTL received from an upstream
 This also includes the default Max-Age value of 60 seconds (see {{-coap}}, section 5.10.5) when no Max-Age option is provided.
 The DoC client MUST then add the Max-Age value of the carrying CoAP response to all TTLs in a DNS response on reception and use these calculated TTLs for the associated records.
 
-The RECOMMENDED algorithm to assure the requirement for the DoC is to set the Max-Age option of a response to the minimum TTL of a DNS response and to subtract this value from all TTLs of that DNS response.
+The RECOMMENDED algorithm to meet the requirement for DoC is as follows:
+Set the Max-Age option of a response to the minimum TTL of a DNS response and subtract this value from all TTLs of that DNS response.
 This prevents expired records unintentionally being served from an intermediate CoAP cache.
 Additionally, it allows for the ETag value for cache validation, if it is based on the content of the response, not to change even if the TTL values are updated by an upstream DNS cache.
 If only one record set per DNS response is assumed, a simplification of this algorithm is to just set all TTLs in the response to 0 and set the TTLs at the DoC client to the value of the Max-Age option.
