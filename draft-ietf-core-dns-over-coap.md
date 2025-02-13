@@ -127,8 +127,8 @@ know about. Name resolution in such scenarios must take into account link
 layer frame sizes of only a few hundred bytes, bit rates in the magnitude
 of kilobits per second, and latencies of several seconds {{-constr-nodes}}.
 
-To prevent TCP and HTTPS resource requirements, constrained IoT devices
-could use DNS over DTLS {{-dodtls}}. In contrast to DNS over DTLS, DoC
+In order not to be burdened by the resource requirements of TCP and HTTPS, constrained IoT devices could use DNS over DTLS {{-dodtls}}.
+In contrast to DNS over DTLS, DoC
 utilizes CoAP features to mitigate drawbacks of datagram-based
 communication. These features include: block-wise transfer, which solves
 the Path MTU problem of DNS over DTLS (see {{-dodtls}}, section 5); CoAP
@@ -136,9 +136,7 @@ proxies, which provide an additional level of caching; re-use of data
 structures for application traffic and DNS information, which saves memory
 on constrained devices.
 
-To prevent resource requirements of DTLS or TLS on top of UDP (e.g.,
-introduced by DNS over QUIC {{-doq}}), DoC allows
-for lightweight payload encryption based on OSCORE.
+To avoid resource requirements of DTLS or TLS on top of UDP (e.g., introduced by DNS over QUIC {{-doq}}), DoC allows for lightweight payload encryption based on OSCORE.
 
 ~~~ aasvg
 
