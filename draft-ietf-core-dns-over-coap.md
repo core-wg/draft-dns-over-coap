@@ -424,7 +424,7 @@ specified in this draft would be non-trivial.
 It is RECOMMENDED to use a DNS forwarder to map between DoC and DoH, as would be the case for
 mapping between any other pair of DNS transports.
 
-Considerations for Unencrypted Use {#sec:unencrypted-coap}
+Considerations for Unprotected Use {#sec:unprotected-coap}
 ==================================
 The use of DoC without a security mode of CoAP is NOT RECOMMENDED.
 Without a security mode, many possible attacks need to be evaluated in the context of
@@ -487,11 +487,11 @@ contexts.
 {{Section 2.6 of -core-corrclar}} goes into more detail on what needs to be done
 when those are resumed from a new endpoint.
 
-When using unencrypted CoAP (see {{sec:unencrypted-coap}}), setting the ID of a DNS message to 0 as
+When using unprotected CoAP (see {{sec:unprotected-coap}}), setting the ID of a DNS message to 0 as
 specified in {{sec:req-caching}} opens the DNS cache of a DoC client to cache poisoning attacks
 via response spoofing.
 This document requires an unpredictable CoAP token in each DoC query from the client when CoAP is
-not secured to mitigate such an attack over DoC (see {{sec:unencrypted-coap}}).
+not secured to mitigate such an attack over DoC (see {{sec:unprotected-coap}}).
 
 For encrypted usage with DTLS or OSCORE the impact of a fixed ID on security is limited, as both
 harden against injecting spoofed responses.
@@ -499,7 +499,7 @@ Consequently, it is of little concern to leverage the benefits of CoAP caching b
 0.
 
 A user of DoC must be aware that the DoC server
-may communicate unencrypted with the upstream DNS infrastructure, e.g., using DNS over UDP.
+may communicate unprotected with the upstream DNS infrastructure, e.g., using DNS over UDP.
 DoC can only guarantee confidential communication and integrity between parties for which the
 security context is exchanged.
 The DoC server may use another security context to communicate confidentially and with integrity
@@ -583,7 +583,7 @@ Since [draft-ietf-core-dns-over-coap-09]
 - Update SVCB SvcParamKey
 - Update corr-clar reference
 - Add reference to DNS Update {{?RFC2136}}, clarify that it is currently not considered
-- Add to security considerations: unencrypted upstream DNS and DNSSEC
+- Add to security considerations: unprotected upstream DNS and DNSSEC
 
 Since [draft-ietf-core-dns-over-coap-08]
 ----------------------------------------
@@ -628,7 +628,7 @@ Since [draft-ietf-core-dns-over-coap-02]
 - SVCB/DNR: Move to Server Selection Section but leave TBD based on DNSOP discussion for now
 - Clarify that DoC and DoC are distinct
 - Clarify mapping between DoC and DoH
-- Update considerations on unencrypted use
+- Update considerations on unprotected use
 - Don't call OSCORE end-to-end encrypted
 
 
