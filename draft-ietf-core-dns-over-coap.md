@@ -417,8 +417,8 @@ security properties, which are compiled in that document.
 
 Mapping DoC to DoH
 ------------------
-This document provides no specification how to map between DoC and DoH, e.g., at a CoAP-HTTP-proxy,
-and it is NOT RECOMMENDED.
+This document provides no specification how to map between DoC and DoH, e.g., at a CoAP-HTTP-proxy.
+In fact, such a direct mapping is NOT RECOMMENDED:
 Rewriting the FETCH method ({{sec:queries}}) and the TTL rewriting ({{sec:resp-caching}}) as
 specified in this draft would be non-trivial.
 It is RECOMMENDED to use a DNS forwarder to map between DoC and DoH, as would be the case for
