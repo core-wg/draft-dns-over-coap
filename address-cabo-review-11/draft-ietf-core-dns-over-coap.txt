@@ -147,14 +147,15 @@ Table of Contents
    sizes of only a few hundred bytes, bit rates in the magnitude of
    kilobits per second, and latencies of several seconds [RFC7228].
 
-   For TCP and HTTPS resource requirements not to apply, constrained IoT
-   devices could use DNS over DTLS [RFC8094].  In contrast to DNS over
-   DTLS, DoC utilizes CoAP features to mitigate drawbacks of datagram-
-   based communication.  These features include: block-wise transfer,
-   which solves the Path MTU problem of DNS over DTLS (see [RFC8094],
-   section 5); CoAP proxies, which provide an additional level of
-   caching; re-use of data structures for application traffic and DNS
-   information, which saves memory on constrained devices.
+   In order not to be burdened by the resource requirements of TCP and
+   HTTPS, constrained IoT devices could use DNS over DTLS [RFC8094].  In
+   contrast to DNS over DTLS, DoC utilizes CoAP features to mitigate
+   drawbacks of datagram-based communication.  These features include:
+   block-wise transfer, which solves the Path MTU problem of DNS over
+   DTLS (see [RFC8094], section 5); CoAP proxies, which provide an
+   additional level of caching; re-use of data structures for
+   application traffic and DNS information, which saves memory on
+   constrained devices.
 
    For resource requirements of DTLS or TLS on top of UDP (e.g.,
    introduced by DNS over QUIC [RFC9250]) not to apply, DoC allows for
