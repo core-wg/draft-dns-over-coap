@@ -267,7 +267,7 @@ The "application/dns-message" Content-Format    {#sec:content-format}
 --------------------------------------------
 This document defines a CoAP Content-Format number for the Internet
 media type "application/dns-message" to be the mnemonic 553 — based on the port assignment of DNS.
-This media type is defined as in {{-doh}} Section 6, i.e., a single DNS message encoded in the DNS on-the-wire format {{-dns}}.
+This media type is defined as in {{Section 6 of -doh}}, i.e., a single DNS message encoded in the DNS on-the-wire format {{-dns}}.
 Both DoC client and DoC server MUST be able to parse contents in the "application/dns-message" format.
 
 DNS Queries in CoAP Requests    {#sec:queries}
@@ -283,14 +283,14 @@ DNS protocol as defined in {{-dns}} is not needed.
 ### Request Format
 
 When sending a CoAP request, a DoC client MUST include the DNS query in the body of the CoAP request.
-As specified in {{-coap-fetch}} Section 2.3.1, the type of content of the body MUST be indicated using the Content-Format option.
+As specified in {{Section 2.3.1 of -coap-fetch}}, the type of content of the body MUST be indicated using the Content-Format option.
 This document specifies the usage of Content-Format "application/dns-message" (details see {{sec:content-format}}).
 A DoC server MUST be able to parse requests of Content-Format "application/dns-message".
 
 ### Support of CoAP Caching {#sec:req-caching}
 
 The DoC client SHOULD set the ID field of the DNS header always to 0 to enable a CoAP cache (e.g., a CoAP proxy en-route) to respond to the same DNS queries with a cache entry.
-This ensures that the CoAP Cache-Key (see {{-coap-fetch}} Section 2) does not change when multiple DNS queries for the same DNS data, carried in CoAP requests, are issued.
+This ensures that the CoAP Cache-Key (see {{-coap-fetch, Section 2}}) does not change when multiple DNS queries for the same DNS data, carried in CoAP requests, are issued.
 
 ### Examples
 
