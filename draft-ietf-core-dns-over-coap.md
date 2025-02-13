@@ -321,17 +321,14 @@ the Content-Format option by the DoC server.
 
 ### Response Codes and Handling DNS and CoAP errors
 
-A DNS response indicates either success or failure in the Response code of
-the DNS header (see {{-dns}} Section 4.1.1). It is RECOMMENDED that
-CoAP responses that carry any valid DNS response use a "2.05 Content"
-response code.
+A DNS response indicates either success or failure in the RCODE of the DNS header (see {{Section 4.1.1 of -dns}}).
+It is RECOMMENDED that CoAP responses that carry a parseable DNS response use a "2.05 Content" response code.
 
 CoAP responses using non-successful response codes MUST NOT contain a DNS response
 and MUST only be used on errors in the CoAP layer or when a request does not
 fulfill the requirements of the DoC protocol.
 
-Communication errors with a DNS server (e.g., timeouts) SHOULD be indicated
-by including a SERVFAIL DNS response in a successful CoAP response.
+Communication errors with an upstream DNS server (e.g., timeouts) MUST be indicated by including a DNS response with the appropriate RCODE in a successful CoAP response, i.e., using a 2.xx response code.
 
 A DoC client might try to repeat a non-successful exchange unless otherwise prohibited.
 The DoC client might also decide to repeat a non-successful exchange with a different URI, for instance, when the response indicates an unsupported Content-Format.
