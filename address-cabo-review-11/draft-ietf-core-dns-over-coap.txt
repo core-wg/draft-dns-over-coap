@@ -157,9 +157,9 @@ Table of Contents
    application traffic and DNS information, which saves memory on
    constrained devices.
 
-   For resource requirements of DTLS or TLS on top of UDP (e.g.,
-   introduced by DNS over QUIC [RFC9250]) not to apply, DoC allows for
-   lightweight payload encryption based on OSCORE.
+   To avoid resource requirements of DTLS or TLS on top of UDP (e.g.,
+   introduced by DNS over QUIC [RFC9250]), DoC allows for lightweight
+   payload encryption based on OSCORE.
 
                  . FETCH coaps://[2001:db8::1]/
                 /
