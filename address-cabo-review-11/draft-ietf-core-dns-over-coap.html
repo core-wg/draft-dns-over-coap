@@ -1629,15 +1629,23 @@ This ensures that the CoAP Cache-Key (see <span>[<a href="#RFC8132" class="cite 
           </h4>
 <p id="section-4.2.3-1">The following example illustrates the usage of a CoAP message to
 resolve "example.org. IN AAAA" based on the URI "coaps://[2001:db8::1]/". The
-CoAP body is encoded in "application/dns-message" Content Format.<a href="#section-4.2.3-1" class="pilcrow">¶</a></p>
+CoAP body is encoded in "application/dns-message" Content Format.
+For better readability, we provide the payload in both a human-readable and binary (printed hexadecimal) form.
+In the actual message, however, it would be encoded only in the binary message.<a href="#section-4.2.3-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.2.3-2">
 <pre>
 FETCH coaps://[2001:db8::1]/
 Content-Format: application/dns-message
 Accept: application/dns-message
-Payload: 00 00 01 20 00 02 00 00 00 00 00 00 07 65 78 61 [binary]
-         6d 70 6c 65 03 6f 72 67 00 00 1c 00 01 c0 0c 00 [binary]
-         01 00 01                                        [binary]
+Payload (human-readable):
+  ;; -&gt;&gt;Header&lt;&lt;- opcode: QUERY, status: NOERROR, id: 0
+  ;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
+
+  ;; QUESTION SECTION:
+  ;example.org.                         IN      AAAA
+Payload (binary):
+  00 00 01 20 00 01 00 00 00 00 00 00 07 65 78 61
+  6d 70 6c 65 03 6f 72 67 00 00 1c 00 01
 </pre><a href="#section-4.2.3-2" class="pilcrow">¶</a>
 </div>
 </section>
@@ -1700,19 +1708,29 @@ Same goes for DNS responses, that for any reason do not carry any records with a
           <h4 id="name-examples-2">
 <a href="#section-4.3.3" class="section-number selfRef">4.3.3. </a><a href="#name-examples-2" class="section-name selfRef">Examples</a>
           </h4>
-<p id="section-4.3.3-1">The following examples illustrate the replies to the query "example.org. IN
+<p id="section-4.3.3-1">The following example illustrates the response to the query "example.org. IN
 AAAA record", recursion turned on. Successful responses carry one answer
-record including address 2001:db8:1::1:2:3:4 and TTL 58719.<a href="#section-4.3.3-1" class="pilcrow">¶</a></p>
+record including address 2001:db8:1::1:2:3:4 and TTL 79689.
+As in <a href="#sec_resp-examples" class="auto internal xref">Section 4.3.3</a>, we use both a human-readable and binary form of the payload.<a href="#section-4.3.3-1" class="pilcrow">¶</a></p>
 <p id="section-4.3.3-2">A successful response:<a href="#section-4.3.3-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.3.3-3">
 <pre>
 2.05 Content
 Content-Format: application/dns-message
 Max-Age: 58719
-Payload: 00 00 81 a0 00 01 00 01 00 00 00 00 07 65 78 61 [binary]
-         6d 70 6c 65 03 6f 72 67 00 00 1c 00 01 c0 0c 00 [binary]
-         1c 00 01 00 01 37 49 00 10 20 01 0d b8 00 01 00 [binary]
-         00 00 01 00 02 00 03 00 04                      [binary]
+Payload (human-readable):
+  ;; -&gt;&gt;Header&lt;&lt;- opcode: QUERY, status: NOERROR, id: 0
+  ;; flags: qr rd ad; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ARCOUNT: 0
+
+  ;; QUESTION SECTION:
+  ;example.org.                         IN      AAAA
+  ;; ANSWER SECTION:
+  ;example.org.                 79689   IN      AAAA    2001:db8:1::1:2:3:4
+Payload (binary):
+  00 00 81 a0 00 01 00 01 00 00 00 00 07 65 78 61
+  6d 70 6c 65 03 6f 72 67 00 00 1c 00 01 c0 0c 00
+  1c 00 01 00 01 37 49 00 10 20 01 0d b8 00 01 00
+  00 00 01 00 02 00 03 00 04
 </pre><a href="#section-4.3.3-3" class="pilcrow">¶</a>
 </div>
 <p id="section-4.3.3-4">When a DNS error—NotImp (RCODE = 4) in response to a DNS Update (OPCODE = 5) for "example.org" in this case—is noted in the DNS response, the CoAP response still indicates success.<a href="#section-4.3.3-4" class="pilcrow">¶</a></p>
@@ -1720,8 +1738,15 @@ Payload: 00 00 81 a0 00 01 00 01 00 00 00 00 07 65 78 61 [binary]
 <pre>
 2.05 Content
 Content-Format: application/dns-message
-Payload: 00 00 a8 84 00 01 00 00 00 00 00 00 07 65 78 61 [binary]
-         6d 70 6c 65 03 6f 72 67 00 00 06 00 01          [binary]
+Payload (human-readable):
+  ;; -&gt;&gt;Header&lt;&lt;- opcode: UPDATE, status: NOTIMP, id: 0
+  ;; flags: qr ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
+
+  ;; ZONE SECTION:
+  ;example.org.                         IN      SOA
+Payload (binary):
+  00 00 a8 84 00 01 00 00 00 00 00 00 07 65 78 61
+  6d 70 6c 65 03 6f 72 67 00 00 06 00 01
 </pre><a href="#section-4.3.3-5" class="pilcrow">¶</a>
 </div>
 <p id="section-4.3.3-6">When an error occurs on the CoAP layer, the DoC server <span class="bcp14">SHOULD</span> respond with
