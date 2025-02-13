@@ -358,7 +358,7 @@ Table of Contents
    dns-message" Content Format.  For better readability, we provide the
    payload in both a human-readable and binary (printed hexadecimal)
    form.  In the actual message, however, it would be encoded only in
-   the binary message.
+   the binary message form.
 
    FETCH coaps://[2001:db8::1]/
    Content-Format: application/dns-message
