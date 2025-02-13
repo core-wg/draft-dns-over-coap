@@ -369,6 +369,7 @@ Table of Contents
 
      ;; QUESTION SECTION:
      ;example.org.                         IN      AAAA
+
    Payload (binary):
      00 00 01 20 00 01 00 00 00 00 00 00 07 65 78 61
      6d 70 6c 65 03 6f 72 67 00 00 1c 00 01
@@ -468,6 +469,7 @@ Payload (human-readable):
   ;example.org.                         IN      AAAA
   ;; ANSWER SECTION:
   ;example.org.                 79689   IN      AAAA    2001:db8:1::1:2:3:4
+
 Payload (binary):
   00 00 81 a0 00 01 00 01 00 00 00 00 07 65 78 61
   6d 70 6c 65 03 6f 72 67 00 00 1c 00 01 c0 0c 00
@@ -486,6 +488,7 @@ Payload (binary):
 
      ;; ZONE SECTION:
      ;example.org.                         IN      SOA
+
    Payload (binary):
      00 00 a8 84 00 01 00 00 00 00 00 00 07 65 78 61
      6d 70 6c 65 03 6f 72 67 00 00 06 00 01
