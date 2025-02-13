@@ -504,8 +504,8 @@ Table of Contents
 5.3.  Mapping DoC to DoH
 
    This document provides no specification how to map between DoC and
-   DoH, e.g., at a CoAP-HTTP-proxy.  In fact, such mapping is NOT
-   RECOMMENDED: Rewriting the FETCH method (Section 4.2) and the TTL
+   DoH, e.g., at a CoAP-HTTP-proxy.  In fact, such a direct mapping is
+   NOT RECOMMENDED: Rewriting the FETCH method (Section 4.2) and the TTL
    rewriting (Section 4.3.2) as specified in this draft would be non-
    trivial.  It is RECOMMENDED to use a DNS forwarder to map between DoC
    and DoH, as would be the case for mapping between any other pair of
