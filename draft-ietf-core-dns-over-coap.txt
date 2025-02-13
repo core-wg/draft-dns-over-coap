@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 16 August 2025                                                 
+Expires: 17 August 2025                                                 
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                        12 February 2025
+                                                        13 February 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 August 2025.
+   This Internet-Draft will expire on 17 August 2025.
 
 Copyright Notice
 
@@ -91,13 +91,12 @@ Table of Contents
      4.3.  DNS Responses in CoAP Responses
        4.3.1.  Response Codes and Handling DNS and CoAP errors
        4.3.2.  Support of CoAP Caching
-       4.3.3.  DNS Update
-       4.3.4.  Examples
+       4.3.3.  Examples
    5.  CoAP/CoRE Integration
      5.1.  DNS Push
      5.2.  OSCORE
      5.3.  Mapping DoC to DoH
-   6.  Considerations for Unencrypted Use
+   6.  Considerations for Unprotected Use
    7.  Implementation Status
      7.1.  DoC Client
      7.2.  DoC Server
@@ -148,7 +147,7 @@ Table of Contents
    sizes of only a few hundred bytes, bit rates in the magnitude of
    kilobits per second, and latencies of several seconds [RFC7228].
 
-   To prevent TCP and HTTPS resource requirements, constrained IoT
+   For TCP and HTTPS resource requirements not to apply, constrained IoT
    devices could use DNS over DTLS [RFC8094].  In contrast to DNS over
    DTLS, DoC utilizes CoAP features to mitigate drawbacks of datagram-
    based communication.  These features include: block-wise transfer,
@@ -157,9 +156,9 @@ Table of Contents
    caching; re-use of data structures for application traffic and DNS
    information, which saves memory on constrained devices.
 
-   To prevent resource requirements of DTLS or TLS on top of UDP (e.g.,
-   introduced by DNS over QUIC [RFC9250]), DoC allows for lightweight
-   payload encryption based on OSCORE.
+   For resource requirements of DTLS or TLS on top of UDP (e.g.,
+   introduced by DNS over QUIC [RFC9250]) not to apply, DoC allows for
+   lightweight payload encryption based on OSCORE.
 
                  . FETCH coaps://[2001:db8::1]/
                 /
@@ -198,7 +197,9 @@ Table of Contents
    A server that provides the service specified in this document is
    called a "DoC server" to differentiate it from a classic "DNS
    server".  A DoC server acts either as a DNS stub resolver [RFC8499]
-   or a DNS recursive resolver [RFC8499].
+   or a DNS recursive resolver [RFC8499].  As such, the DoC server
+   communicates with an "upstream DNS infrastructure" or a single
+   "upstream DNS server".
 
    A client using the service specified in this document to retrieve the
    DNS information is called a "DoC client".
@@ -264,11 +265,10 @@ Table of Contents
    provided these CBOR text strings are all of a length less than 24
    octets and do not contain bytes that need escaping.
 
-   To use the service binding from a SVCB RR, the DoC client MUST send
-   any DoC request to the CoAP resource identifier constructed from the
-   SvcParams including "docpath".  A rough construction algorithm could
-   be as follows, going through the provided records in order of their
-   priority.
+   To use the service binding from a SVCB RR, the DoC client MUST send a
+   DoC request constructed from the SvcParams including "docpath".  A
+   rough construction algorithm could be as follows, going through the
+   provided records in order of their priority.
 
    *  If the "alpn" SvcParam value for the service is "coap", construct
       a CoAP request for CoAP over TLS, if it is "co", construct a CoAP
@@ -312,7 +312,13 @@ Table of Contents
    on the port assignment of DNS.  This media type is defined as in
    [RFC8484] Section 6, i.e., a single DNS message encoded in the DNS
    on-the-wire format [RFC1035].  Both DoC client and DoC server MUST be
-   able to parse contents in the "application/dns-message" format.
+   able to parse contents in the "application/dns-message" format.  For
+   the purposes of this document, only OpCode 0 (Query) is supported for
+   DNS messages.  Future work might provide specitications and
+   considerations for other OpCode.  A DoC server that receives a query
+   with an unknown OpCode SHOULD indicate in its response that it does
+   not implement that opcode bye setting the response RCODE to 4, NotImp
+   [RFC1035] (see also Section 4.3.3).
 
 4.2.  DNS Queries in CoAP Requests
 
@@ -371,17 +377,18 @@ Table of Contents
 4.3.1.  Response Codes and Handling DNS and CoAP errors
 
    A DNS response indicates either success or failure in the Response
-   code of the DNS header (see [RFC1035] Section 4.1.1).  It is
-   RECOMMENDED that CoAP responses that carry any valid DNS response use
-   a "2.05 Content" response code.
+   code of the DNS header (see Section 4.1.1 of [RFC1035]).  It is
+   RECOMMENDED that CoAP responses that carry a parseable DNS response
+   as defined in [RFC1035] use a "2.05 Content" response code.
 
    CoAP responses using non-successful response codes MUST NOT contain a
    DNS response and MUST only be used on errors in the CoAP layer or
    when a request does not fulfill the requirements of the DoC protocol.
 
-   Communication errors with a DNS server (e.g., timeouts) SHOULD be
-   indicated by including a SERVFAIL DNS response in a successful CoAP
-   response.
+   Communication errors with an upstream DNS server (e.g., timeouts)
+   MUST be indicated by including a DNS response with the appropriate
+   RCode in a successful CoAP response, i.e., using a 2.xx response
+   code.
 
    A DoC client might try to repeat a non-successful exchange unless
    otherwise prohibited.  The DoC client might also decide to repeat a
@@ -390,15 +397,16 @@ Table of Contents
 
 4.3.2.  Support of CoAP Caching
 
-   For reliability and energy saving measures content decoupling and
-   thus en-route caching on proxies takes a far greater role than it
-   does, e.g., in HTTP.  Likewise, CoAP utilizes cache validation to
-   refresh stale cache entries without large messages which regularly
-   uses hashing over the message content for ETag generation.  As such,
-   the approach to guarantee the same cache key for DNS responses as
-   proposed in DoH ([RFC8484], section 5.1) is not sufficient and needs
-   to be updated so that the TTLs in the response are more often the
-   same regardless of query time.
+   For reliability and energy saving measures, content decoupling, i.e.,
+   en-route caching on proxies, takes a far greater role than it does,
+   e.g., in HTTP.  Likewise, CoAP utilizes cache validation to refresh
+   stale cache entries to reduce the amount of large response messages.
+   For cache validation, CoAP implementations regularly use hashing over
+   the message content for ETag generation.  As such, the approach to
+   guarantee the same cache key for DNS responses as proposed in DoH
+   ([RFC8484], section 5.1) is not sufficient and needs to be updated so
+   that the TTLs in the response are more often the same regardless of
+   query time.
 
    The DoC server MUST ensure that any sum of the Max-Age value of a
    CoAP response and any TTL in the DNS response is less or equal to the
@@ -409,9 +417,9 @@ Table of Contents
    TTLs in a DNS response on reception and use these calculated TTLs for
    the associated records.
 
-   The RECOMMENDED algorithm to assure the requirement for the DoC is to
-   set the Max-Age option of a response to the minimum TTL of a DNS
-   response and to subtract this value from all TTLs of that DNS
+   The RECOMMENDED algorithm to assure the requirement for DoC is as
+   follows: Set the Max-Age option of a response to the minimum TTL of a
+   DNS response and subtract this value from all TTLs of that DNS
    response.  This prevents expired records unintentionally being served
    from an intermediate CoAP cache.  Additionally, it allows for the
    ETag value for cache validation, if it is based on the content of the
@@ -421,14 +429,7 @@ Table of Contents
    in the response to 0 and set the TTLs at the DoC client to the value
    of the Max-Age option.
 
-4.3.3.  DNS Update
-
-   Until future work provides considerations for DNS Update [RFC2136], a
-   DoC server that receives a query with the UPDATE opcode SHOULD
-   indicate in its response that it does not implement DNS Update, see
-   [RFC2136].
-
-4.3.4.  Examples
+4.3.3.  Examples
 
    The following examples illustrate the replies to the query
    "example.org.  IN AAAA record", recursion turned on.  Successful
@@ -445,19 +446,23 @@ Table of Contents
             1c 00 01 00 01 37 49 00 10 20 01 0d b8 00 01 00 [binary]
             00 00 01 00 02 00 03 00 04                      [binary]
 
-   When a DNS error (SERVFAIL in this case) is noted in the DNS
-   response, the CoAP response still indicates success:
+   When a DNS error—NotImp (RCode = 4) in response to a DNS Update
+   (OpCode = 5) for "example.org" in this case—is noted in the DNS
+   response, the CoAP response still indicates success.
 
    2.05 Content
    Content-Format: application/dns-message
-   Payload: 00 00 81 a2 00 01 00 00 00 00 00 00 07 65 78 61 [binary]
-            6d 70 6c 65 03 6f 72 67 00 00 1c 00 01          [binary]
+   Payload: 00 00 a8 84 00 01 00 00 00 00 00 00 07 65 78 61 [binary]
+            6d 70 6c 65 03 6f 72 67 00 00 06 00 01          [binary]
 
    When an error occurs on the CoAP layer, the DoC server SHOULD respond
    with an appropriate CoAP error, for instance "4.15 Unsupported
    Content-Format" if the Content-Format option in the request was not
    set to "application/dns-message" and the Content-Format is not
    otherwise supported by the server.
+
+   4.15 Unsupported Content-Format
+   [no payload]
 
 5.  CoAP/CoRE Integration
 
@@ -498,21 +503,21 @@ Table of Contents
 5.3.  Mapping DoC to DoH
 
    This document provides no specification how to map between DoC and
-   DoH, e.g., at a CoAP-HTTP-proxy, and it is NOT RECOMMENDED.
-   Rewriting the FETCH method (Section 4.2) and the TTL rewriting
-   (Section 4.3.2) as specified in this draft would be non-trivial.  It
-   is RECOMMENDED to use a DNS forwarder to map between DoC and DoH, as
-   would be the case for mapping between any other pair of DNS
-   transports.
+   DoH, e.g., at a CoAP-HTTP-proxy.  In fact, such mapping is NOT
+   RECOMMENDED: Rewriting the FETCH method (Section 4.2) and the TTL
+   rewriting (Section 4.3.2) as specified in this draft would be non-
+   trivial.  It is RECOMMENDED to use a DNS forwarder to map between DoC
+   and DoH, as would be the case for mapping between any other pair of
+   DNS transports.
 
-6.  Considerations for Unencrypted Use
+6.  Considerations for Unprotected Use
 
    The use of DoC without a security mode of CoAP is NOT RECOMMENDED.
    Without a security mode, many possible attacks need to be evaluated
    in the context of the application's threat model.  This includes
    threats that are mitigated even by DNS over UDP: For example, the
    random ID of the DNS header afford some protection against off-path
-   cache poisoning attacks---a threat that might be mitigated by using
+   cache poisoning attacks—a threat that might be mitigated by using
    random large token values in the CoAP request.
 
 7.  Implementation Status
@@ -578,7 +583,7 @@ Table of Contents
    [I-D.ietf-core-corr-clar] goes into more detail on what needs to be
    done when those are resumed from a new endpoint.
 
-   When using unencrypted CoAP (see Section 6), setting the ID of a DNS
+   When using unprotected CoAP (see Section 6), setting the ID of a DNS
    message to 0 as specified in Section 4.2.2 opens the DNS cache of a
    DoC client to cache poisoning attacks via response spoofing.  This
    document requires an unpredictable CoAP token in each DoC query from
@@ -591,7 +596,7 @@ Table of Contents
    benefits of CoAP caching by setting the ID to 0.
 
    A user of DoC must be aware that the DoC server may communicate
-   unencrypted with the upstream DNS infrastructure, e.g., using DNS
+   unprotected with the upstream DNS infrastructure, e.g., using DNS
    over UDP.  DoC can only guarantee confidential communication and
    integrity between parties for which the security context is
    exchanged.  The DoC server may use another security context to
@@ -866,7 +871,7 @@ B.1.  Since draft-ietf-core-dns-over-coap-10
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-10)
 
-   *  Fix typo in Section 4.3.3
+   *  Fix typo in DNS Update section
 
 B.2.  Since draft-ietf-core-dns-over-coap-09
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
@@ -876,10 +881,10 @@ B.2.  Since draft-ietf-core-dns-over-coap-09
 
    *  Update corr-clar reference
 
-   *  Add reference to DNS Update (Section 4.3.3), clarify that it is
+   *  Add reference to DNS Update [RFC2136], clarify that it is
       currently not considered
 
-   *  Add to security considerations: unencrypted upstream DNS and
+   *  Add to security considerations: unprotected upstream DNS and
       DNSSEC
 
 B.3.  Since draft-ietf-core-dns-over-coap-08
@@ -954,11 +959,11 @@ B.9.  Since draft-ietf-core-dns-over-coap-02
    *  SVCB/DNR: Move to Server Selection Section but leave TBD based on
       DNSOP discussion for now
 
-   *  Clarify that DoC and DoC are distinct
+   *  Clarify that DoC and DoH are distinct
 
    *  Clarify mapping between DoC and DoH
 
-   *  Update considerations on unencrypted use
+   *  Update considerations on unprotected use
 
    *  Don't call OSCORE end-to-end encrypted
 
