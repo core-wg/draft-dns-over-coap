@@ -625,7 +625,7 @@ Since [draft-ietf-core-dns-over-coap-02]
 - Recommend root path to keep the CoAP options small
 - Set Content-Format for application/dns-message to 553
 - SVCB/DNR: Move to Server Selection Section but leave TBD based on DNSOP discussion for now
-- Clarify that DoC and DoC are distinct
+- Clarify that DoC and DoH are distinct
 - Clarify mapping between DoC and DoH
 - Update considerations on unprotected use
 - Don't call OSCORE end-to-end encrypted
