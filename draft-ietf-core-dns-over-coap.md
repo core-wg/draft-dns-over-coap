@@ -297,13 +297,27 @@ This ensures that the CoAP Cache-Key (see {{-coap-fetch}} Section 2) does not ch
 The following example illustrates the usage of a CoAP message to
 resolve "example.org. IN AAAA" based on the URI "coaps://\[2001:db8::1\]/". The
 CoAP body is encoded in "application/dns-message" Content Format.
+For better readability, we provide the payload in a human-readable format.
+In the actual message, however, it would be encoded in the binary message format defined in {{-dns}}.
 
     FETCH coaps://[2001:db8::1]/
     Content-Format: application/dns-message
     Accept: application/dns-message
-    Payload: 00 00 01 20 00 02 00 00 00 00 00 00 07 65 78 61 [binary]
-             6d 70 6c 65 03 6f 72 67 00 00 1c 00 01 c0 0c 00 [binary]
-             01 00 01                                        [binary]
+    Payload (human-readable):
+      ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
+      ;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
+
+      ;; QUESTION SECTION:
+      ;example.org.             IN      AAAA
+
+As such, the message would actually look as follows (bytes printed in hexadecimal representation).
+
+    FETCH coaps://[2001:db8::1]/
+    Content-Format: application/dns-message
+    Accept: application/dns-message
+    Payload (binary):
+      00 00 01 20 00 01 00 00 00 00 00 00 07 65 78 61
+      6d 70 6c 65 03 6f 72 67 00 00 1c 00 01
 
 
 DNS Responses in CoAP Responses
@@ -356,26 +370,35 @@ Same goes for DNS responses, that for any reason do not carry any records with a
 
 ### Examples {#sec:resp-examples}
 
-The following examples illustrate the replies to the query "example.org. IN
+The following example illustrates the response to the query "example.org. IN
 AAAA record", recursion turned on. Successful responses carry one answer
-record including address 2001:db8:1::1:2:3:4 and TTL 58719.
+record including address 2001:db8:1::1:2:3:4 and TTL 79689.
+As in {{sec:req-examples}}, we use a human-readable format for the payload, but skip the binary conversion this time.
 
 A successful response:
 
     2.05 Content
     Content-Format: application/dns-message
     Max-Age: 58719
-    Payload: 00 00 81 a0 00 01 00 01 00 00 00 00 07 65 78 61 [binary]
-             6d 70 6c 65 03 6f 72 67 00 00 1c 00 01 c0 0c 00 [binary]
-             1c 00 01 00 01 37 49 00 10 20 01 0d b8 00 01 00 [binary]
-             00 00 01 00 02 00 03 00 04                      [binary]
+    Payload (human-readable):
+      ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
+      ;; flags: qr rd ad; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ARCOUNT: 0
+
+      ;; QUESTION SECTION:
+      ;example.org.                 IN      AAAA
+      ;; ANSWER SECTION:
+      ;example.org.         79689   IN      AAAA    2001:db8:1::1:2:3:4
 
 When a DNS error—NotImp (RCODE = 4) in response to a DNS Update (OPCODE = 5) for "example.org" in this case—is noted in the DNS response, the CoAP response still indicates success.
 
     2.05 Content
     Content-Format: application/dns-message
-    Payload: 00 00 a8 84 00 01 00 00 00 00 00 00 07 65 78 61 [binary]
-             6d 70 6c 65 03 6f 72 67 00 00 06 00 01          [binary]
+    Payload (human-readable):
+      ;; ->>Header<<- opcode: UPDATE, status: NOTIMP, id: 0
+      ;; flags: qr ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
+
+      ;; ZONE SECTION:
+      ;example.org.                 IN      SOA
 
 When an error occurs on the CoAP layer, the DoC server SHOULD respond with
 an appropriate CoAP error, for instance "4.15 Unsupported Content-Format"
