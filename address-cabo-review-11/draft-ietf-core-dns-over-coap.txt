@@ -317,9 +317,9 @@ Table of Contents
    the purposes of this document, only OPCODE 0 (Query) is supported for
    DNS messages.  Future work might provide specifications and
    considerations for other values of OPCODE.  Unless another error
-   takes precedence, a DoC server that receives a query with an OPCODE
-   it does not implement indicates this in its response by setting the
-   response RCODE to 4, NotImp [RFC1035] (see also Section 4.3.3).
+   takes precedence, a DoC server uses RCODE = 4, NotImp [RFC1035], in
+   its response when it receives a query with an OPCODE it does not
+   implement (see also Section 4.3.3).
 
 4.2.  DNS Queries in CoAP Requests
 
@@ -356,8 +356,8 @@ Table of Contents
    resolve "example.org.  IN AAAA" based on the URI
    "coaps://[2001:db8::1]/".  The CoAP body is encoded in "application/
    dns-message" Content Format.  For better readability, we provide the
-   payload in both a human-readable format.  In the actual message,
-   however, it would be encoded in the binary message format defined in
+   payload in a human-readable format.  In the actual message, however,
+   it would be encoded in the binary message format defined in
    [RFC1035].
 
    FETCH coaps://[2001:db8::1]/
@@ -385,8 +385,8 @@ Table of Contents
 
    A DNS response indicates either success or failure in the RCODE of
    the DNS header (see Section 4.1.1 of [RFC1035]).  It is RECOMMENDED
-   that CoAP responses that carry a parseable DNS response as defined in
-   [RFC1035] use a "2.05 Content" response code.
+   that CoAP responses that carry a parseable DNS response use a "2.05
+   Content" response code.
 
    CoAP responses using non-successful response codes MUST NOT contain a
    DNS response and MUST only be used on errors in the CoAP layer or
@@ -449,8 +449,8 @@ Table of Contents
    The following example illustrates the response to the query
    "example.org.  IN AAAA record", recursion turned on.  Successful
    responses carry one answer record including address
-   2001:db8:1::1:2:3:4 and TTL 79689.  As in Section 4.2.3, we a human-
-   readable format for the payload.
+   2001:db8:1::1:2:3:4 and TTL 79689.  As in Section 4.2.3, we use a
+   human-readable format for the payload.
 
    A successful response:
 
