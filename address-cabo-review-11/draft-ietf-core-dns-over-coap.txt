@@ -436,7 +436,7 @@ Table of Contents
    in the response to 0 and set the TTLs at the DoC client to the value
    of the Max-Age option.
 
-   If shorter caching periods are plausable, e.g., if the RCODE of the
+   If shorter caching periods are plausible, e.g., if the RCODE of the
    message indicates an error that should only be cached for a minimal
    duration, the value for the Max-Age option SHOULD be set accordingly.
    This value might be 0, but if the DoC server knows the error will
