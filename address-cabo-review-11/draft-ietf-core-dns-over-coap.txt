@@ -477,7 +477,7 @@ Table of Contents
      ;; flags: qr ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
 
      ;; ZONE SECTION:
-     ;example.org.                         IN      SOA
+     ;example.org.                 IN      SOA
 
    When an error occurs on the CoAP layer, the DoC server SHOULD respond
    with an appropriate CoAP error, for instance "4.15 Unsupported
