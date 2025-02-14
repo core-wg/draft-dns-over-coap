@@ -328,7 +328,7 @@ Table of Contents
    include an Accept option to indicate the type of content that can be
    parsed in the response.
 
-   Since CoAP provides reliability of the message layer (e.g. CON) the
+   Since CoAP provides reliability of the message layer (e.g., CON) the
    retransmission mechanism of the DNS protocol as defined in [RFC1035]
    is not needed.
 
