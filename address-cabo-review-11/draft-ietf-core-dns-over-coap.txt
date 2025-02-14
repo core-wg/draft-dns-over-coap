@@ -614,7 +614,7 @@ Table of Contents
    the client when CoAP is not secured to mitigate such an attack over
    DoC (see Section 6).
 
-   For confidential communication with DTLS or OSCORE the impact of a
+   For confidential communication via DTLS or OSCORE the impact of a
    fixed ID on security is limited, as both harden against injecting
    spoofed responses.  Consequently, it is of little concern to leverage
    the benefits of CoAP caching by setting the ID to 0.
