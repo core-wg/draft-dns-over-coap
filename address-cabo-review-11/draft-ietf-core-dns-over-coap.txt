@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 17 August 2025                                                 
+Expires: 18 August 2025                                                 
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                        13 February 2025
+                                                        14 February 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 August 2025.
+   This Internet-Draft will expire on 18 August 2025.
 
 Copyright Notice
 
@@ -356,9 +356,9 @@ Table of Contents
    resolve "example.org.  IN AAAA" based on the URI
    "coaps://[2001:db8::1]/".  The CoAP body is encoded in "application/
    dns-message" Content Format.  For better readability, we provide the
-   payload in both a human-readable and binary (printed hexadecimal)
-   form.  In the actual message, however, it would be encoded only in
-   the binary message form.
+   payload in both a human-readable format.  In the actual message,
+   however, it would be encoded in the binary message format defined in
+   [RFC1035].
 
    FETCH coaps://[2001:db8::1]/
    Content-Format: application/dns-message
@@ -369,10 +369,6 @@ Table of Contents
 
      ;; QUESTION SECTION:
      ;example.org.             IN      AAAA
-
-   Payload (binary):
-     00 00 01 20 00 01 00 00 00 00 00 00 07 65 78 61
-     6d 70 6c 65 03 6f 72 67 00 00 1c 00 01
 
 4.3.  DNS Responses in CoAP Responses
 
@@ -453,8 +449,8 @@ Table of Contents
    The following example illustrates the response to the query
    "example.org.  IN AAAA record", recursion turned on.  Successful
    responses carry one answer record including address
-   2001:db8:1::1:2:3:4 and TTL 79689.  As in Section 4.2.3, we use both
-   a human-readable and binary form of the payload.
+   2001:db8:1::1:2:3:4 and TTL 79689.  As in Section 4.2.3, we a human-
+   readable format for the payload.
 
    A successful response:
 
@@ -470,12 +466,6 @@ Table of Contents
      ;; ANSWER SECTION:
      ;example.org.         79689   IN      AAAA    2001:db8:1::1:2:3:4
 
-   Payload (binary):
-     00 00 81 a0 00 01 00 01 00 00 00 00 07 65 78 61
-     6d 70 6c 65 03 6f 72 67 00 00 1c 00 01 c0 0c 00
-     1c 00 01 00 01 37 49 00 10 20 01 0d b8 00 01 00
-     00 00 01 00 02 00 03 00 04
-
    When a DNS error—NotImp (RCODE = 4) in response to a DNS Update
    (OPCODE = 5) for "example.org" in this case—is noted in the DNS
    response, the CoAP response still indicates success.
@@ -488,10 +478,6 @@ Table of Contents
 
      ;; ZONE SECTION:
      ;example.org.                         IN      SOA
-
-   Payload (binary):
-     00 00 a8 84 00 01 00 00 00 00 00 00 07 65 78 61
-     6d 70 6c 65 03 6f 72 67 00 00 06 00 01
 
    When an error occurs on the CoAP layer, the DoC server SHOULD respond
    with an appropriate CoAP error, for instance "4.15 Unsupported
