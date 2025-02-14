@@ -277,7 +277,7 @@ A DoC client encodes a single DNS query in one or more CoAP request
 messages that use the CoAP FETCH {{-coap-fetch}} method.
 Requests SHOULD include an Accept option to indicate the type of content that can be parsed in the response.
 
-Since CoAP provides reliability of the message layer (e.g. CON) the retransmission mechanism of the
+Since CoAP provides reliability of the message layer (e.g., CON) the retransmission mechanism of the
 DNS protocol as defined in {{-dns}} is not needed.
 
 ### Request Format
