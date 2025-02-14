@@ -1645,6 +1645,17 @@ Payload (human-readable):
   ;example.org.             IN      AAAA
 </pre><a href="#section-4.2.3-2" class="pilcrow">¶</a>
 </div>
+<p id="section-4.2.3-3">As such, the message would actually look as follows (bytes printed in hexadecimal representation).<a href="#section-4.2.3-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.2.3-4">
+<pre>
+FETCH coaps://[2001:db8::1]/
+Content-Format: application/dns-message
+Accept: application/dns-message
+Payload (binary):
+  00 00 01 20 00 01 00 00 00 00 00 00 07 65 78 61
+  6d 70 6c 65 03 6f 72 67 00 00 1c 00 01
+</pre><a href="#section-4.2.3-4" class="pilcrow">¶</a>
+</div>
 </section>
 </div>
 </section>
@@ -1708,7 +1719,7 @@ Same goes for DNS responses, that for any reason do not carry any records with a
 <p id="section-4.3.3-1">The following example illustrates the response to the query "example.org. IN
 AAAA record", recursion turned on. Successful responses carry one answer
 record including address 2001:db8:1::1:2:3:4 and TTL 79689.
-As in <a href="#sec_req-examples" class="auto internal xref">Section 4.2.3</a>, we use a human-readable format for the payload.<a href="#section-4.3.3-1" class="pilcrow">¶</a></p>
+As in <a href="#sec_req-examples" class="auto internal xref">Section 4.2.3</a>, we use a human-readable format for the payload, but skip the binary conversion this time.<a href="#section-4.3.3-1" class="pilcrow">¶</a></p>
 <p id="section-4.3.3-2">A successful response:<a href="#section-4.3.3-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.3.3-3">
 <pre>

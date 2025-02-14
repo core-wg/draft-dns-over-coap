@@ -370,6 +370,16 @@ Table of Contents
      ;; QUESTION SECTION:
      ;example.org.             IN      AAAA
 
+   As such, the message would actually look as follows (bytes printed in
+   hexadecimal representation).
+
+   FETCH coaps://[2001:db8::1]/
+   Content-Format: application/dns-message
+   Accept: application/dns-message
+   Payload (binary):
+     00 00 01 20 00 01 00 00 00 00 00 00 07 65 78 61
+     6d 70 6c 65 03 6f 72 67 00 00 1c 00 01
+
 4.3.  DNS Responses in CoAP Responses
 
    Each DNS query-response pair is mapped to a CoAP request-response
@@ -450,7 +460,8 @@ Table of Contents
    "example.org.  IN AAAA record", recursion turned on.  Successful
    responses carry one answer record including address
    2001:db8:1::1:2:3:4 and TTL 79689.  As in Section 4.2.3, we use a
-   human-readable format for the payload.
+   human-readable format for the payload, but skip the binary conversion
+   this time.
 
    A successful response:
 
