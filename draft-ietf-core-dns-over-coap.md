@@ -602,7 +602,21 @@ Change Log
 
 Since [draft-ietf-core-dns-over-coap-10]
 ----------------------------------------
-- Fix typo in DNS Update section
+- Replace imprecise or wrong terms:
+    - disjunct => distinct
+    - unencrypted CoAP => unprotected CoAP
+    - security mode => confidential communication
+- Pull in definition of CBOR sequences and their EDN
+- Fix broken external section references
+- Define terminology for "upstream DNS infrastructure" and "upstream DNS server"
+- Fix wording on DNS error handling
+- Clarify that any OpCode beyond 0 is not supported for now and remove now redundant DNS Upgrade
+  section as a consequence
+- Clarify that the DoC/DoH mapping is what is NOT RECOMMENDED
+- Avoid use of undefined term “CoAP resource identifier”
+- Discuss Max-Age option value in an error case
+- Add human-readable format to examples
+- General language check pass
 
 Since [draft-ietf-core-dns-over-coap-09]
 ----------------------------------------
