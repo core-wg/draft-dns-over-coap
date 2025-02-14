@@ -600,6 +600,10 @@ paper "Securing Name Resolution in the IoT: DNS over CoAP" {{DoC-paper}}.
 Change Log
 ==========
 
+[^remove-changelog]
+
+[^remove-changelog]: RFC Ed.: Please remove this section before publication.
+
 Since [draft-ietf-core-dns-over-coap-10]
 ----------------------------------------
 - Replace imprecise or wrong terms:
