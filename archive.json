@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-13T01:08:14.762925+00:00",
+  "timestamp": "2025-02-16T01:13:02.342341+00:00",
   "repo": "core-wg/draft-dns-over-coap",
   "labels": [
     {
@@ -3830,6 +3830,558 @@
           "createdAt": "2025-02-12T16:15:54Z",
           "updatedAt": "2025-02-12T16:15:54Z",
           "comments": []
+        }
+      ]
+    },
+    {
+      "number": 39,
+      "id": "PR_kwDOF27TLs6LFxID",
+      "title": "Address @cabo's review of -11",
+      "url": "https://github.com/core-wg/draft-dns-over-coap/pull/39",
+      "state": "MERGED",
+      "author": "miri64",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "See https://mailarchive.ietf.org/arch/msg/core/4vqP7brAAMsHQ6UdcKGypZ0zA48/",
+      "createdAt": "2025-02-13T11:26:49Z",
+      "updatedAt": "2025-02-14T16:41:45Z",
+      "baseRepository": "core-wg/draft-dns-over-coap",
+      "baseRefName": "main",
+      "baseRefOid": "8a79b8d838ccbb599108061b4e2a3102a10ac00d",
+      "headRepository": "core-wg/draft-dns-over-coap",
+      "headRefName": "address-cabo-review-11",
+      "headRefOid": "18df8803ce202d612b3a094e98bce9ba0ab5edaf",
+      "closedAt": "2025-02-14T16:41:41Z",
+      "mergedAt": "2025-02-14T16:41:41Z",
+      "mergedBy": "miri64",
+      "mergeCommit": {
+        "oid": "eee1a0a1757590498955dfad06a436478ee581f4"
+      },
+      "comments": [
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Force-pushed to unify the capitalization of OPCODE and RCODE (in line with RFC 1035)",
+          "createdAt": "2025-02-13T11:53:01Z",
+          "updatedAt": "2025-02-13T11:53:01Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Squashed history. For some reason, some of @cabo's suggestions that I directly commited in GitHub disappeared beforehand but still were available on my local machine. Will investigate if all is in order now and what exactly happened there oO.",
+          "createdAt": "2025-02-13T14:56:51Z",
+          "updatedAt": "2025-02-13T14:56:51Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Will investigate if all is in order now and what exactly happened there oO.\r\n\r\nAh, somehow a revert of those changes sneaked in in 194ef449dc04 but then were dropped when I resolved the merge conflicts. Other instances of this did not happen.",
+          "createdAt": "2025-02-13T15:01:29Z",
+          "updatedAt": "2025-02-13T15:01:29Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Ah, somehow a revert of those changes sneaked in in [194ef44](https://github.com/core-wg/draft-dns-over-coap/commit/194ef449dc04d842d110ca385875c36c923e1ad4) but then were dropped when I resolved the merge conflicts. Other instances of this did not happen.\r\n\r\n(so, yes, everything is still there now and the PR is ready for the next round of reviews) ",
+          "createdAt": "2025-02-13T18:36:54Z",
+          "updatedAt": "2025-02-13T18:36:54Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOF27TLs6b2g6T",
+          "commit": {
+            "abbreviatedOid": "1b9c00f"
+          },
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "Thank you.\r\nAsymptotically, a few more observations.",
+          "createdAt": "2025-02-13T11:56:50Z",
+          "updatedAt": "2025-02-13T12:10:46Z",
+          "comments": [
+            {
+              "originalPosition": 55,
+              "body": "```suggestion\r\nFuture work might provide specifications and considerations for other values of OPCODE.\r\n```",
+              "createdAt": "2025-02-13T11:56:51Z",
+              "updatedAt": "2025-02-13T12:10:46Z"
+            },
+            {
+              "originalPosition": 14,
+              "body": "We are both not native speakers, and the RFC editor will fix this anyway, but how about:\r\n\r\n```suggestion\r\nIn order not to be burdened by the resource requirements of TCP and HTTPS, constrained IoT devices could use DNS over DTLS {{-dodtls}}.\r\n```\r\n\r\n(and  similar below).",
+              "createdAt": "2025-02-13T11:58:43Z",
+              "updatedAt": "2025-02-13T12:10:46Z"
+            },
+            {
+              "originalPosition": 56,
+              "body": "What is the exception to this SHOULD?\r\n\r\n(I.e., why is that not a MUST?)\r\n\r\nalso:\r\n\r\n```suggestion\r\nUnless another error takes precedence, a DoC server that receives a query with an OPCODE it does not implement indicates this in its response by setting the response RCODE to 4, NotImp {{-dns}} (see also {{sec:resp-examples}}).\r\n```",
+              "createdAt": "2025-02-13T12:01:28Z",
+              "updatedAt": "2025-02-13T13:18:19Z"
+            },
+            {
+              "originalPosition": 78,
+              "body": "We are not discussing the caching consequences, e.g., setting a good MaxAge.",
+              "createdAt": "2025-02-13T12:02:53Z",
+              "updatedAt": "2025-02-13T12:10:46Z"
+            },
+            {
+              "originalPosition": 86,
+              "body": "(Ditto MaxAge.)",
+              "createdAt": "2025-02-13T12:03:42Z",
+              "updatedAt": "2025-02-13T12:10:46Z"
+            },
+            {
+              "originalPosition": 106,
+              "body": "as\u00b7sure | \u0259\u02c8\u0283\u028ar |\r\nverb\r\n1 [reporting verb] tell someone something positively or confidently to dispel any doubts they may have: \r\n\r\n```suggestion\r\nThe RECOMMENDED algorithm to meet the requirement for DoC is as follows:\r\n```",
+              "createdAt": "2025-02-13T12:05:19Z",
+              "updatedAt": "2025-02-13T12:10:46Z"
+            },
+            {
+              "originalPosition": 133,
+              "body": "I can't easily check this change.\r\nIs there a common pretty-printer for DNS messages that we could use?",
+              "createdAt": "2025-02-13T12:07:27Z",
+              "updatedAt": "2025-02-13T12:10:46Z"
+            },
+            {
+              "originalPosition": 155,
+              "body": "```suggestion\r\nIn fact, such a direct mapping is NOT RECOMMENDED:\r\n```",
+              "createdAt": "2025-02-13T12:08:00Z",
+              "updatedAt": "2025-02-13T12:10:46Z"
+            },
+            {
+              "originalPosition": 164,
+              "body": "We could be using the term NoSec mode (Section 9 of RFCs  7252).\r\n(This is a \"security mode\", except that it has \"No Security\". :-)",
+              "createdAt": "2025-02-13T12:09:24Z",
+              "updatedAt": "2025-02-13T12:10:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6b3NZK",
+          "commit": {
+            "abbreviatedOid": "1b9c00f"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T13:12:15Z",
+          "updatedAt": "2025-02-13T13:12:16Z",
+          "comments": [
+            {
+              "originalPosition": 56,
+              "body": "> What is the exception to this SHOULD?\r\n> \r\n> (I.e., why is that not a MUST?)\r\n\r\nI don't think there is a normative binding to set the RCODE to a specific error by DNS. At least I cannot find that. Also, there could be other RCODEs possible, depending on the server implementation, e.g. ServFail (2), (e.g. if there are other errors in the message or elsewhere that make the server fail), NotAuth (9), if the DoC client is not authorized to communicate with the DoC server in any way.",
+              "createdAt": "2025-02-13T13:12:16Z",
+              "updatedAt": "2025-02-13T13:12:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6b3TcV",
+          "commit": {
+            "abbreviatedOid": "1b9c00f"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T13:17:36Z",
+          "updatedAt": "2025-02-13T13:17:36Z",
+          "comments": [
+            {
+              "originalPosition": 78,
+              "body": "Will add a sentence on that.",
+              "createdAt": "2025-02-13T13:17:36Z",
+              "updatedAt": "2025-02-13T13:17:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6b3Tjd",
+          "commit": {
+            "abbreviatedOid": "1b9c00f"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T13:17:41Z",
+          "updatedAt": "2025-02-13T13:17:42Z",
+          "comments": [
+            {
+              "originalPosition": 86,
+              "body": "Dito",
+              "createdAt": "2025-02-13T13:17:42Z",
+              "updatedAt": "2025-02-13T13:17:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6b3T1J",
+          "commit": {
+            "abbreviatedOid": "1b9c00f"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T13:18:01Z",
+          "updatedAt": "2025-02-13T13:18:02Z",
+          "comments": [
+            {
+              "originalPosition": 133,
+              "body": "Asking around/Will search for one.",
+              "createdAt": "2025-02-13T13:18:01Z",
+              "updatedAt": "2025-02-13T13:18:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6b3Ud1",
+          "commit": {
+            "abbreviatedOid": "1b9c00f"
+          },
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T13:18:59Z",
+          "updatedAt": "2025-02-13T13:19:00Z",
+          "comments": [
+            {
+              "originalPosition": 56,
+              "body": "OK, makes sense.\r\nSo let's get rid of 2119 language and state this as a fact, and qualify it.\r\nSee updated suggestion above.",
+              "createdAt": "2025-02-13T13:19:00Z",
+              "updatedAt": "2025-02-13T13:19:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6b3ckt",
+          "commit": {
+            "abbreviatedOid": "1b9c00f"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T13:31:37Z",
+          "updatedAt": "2025-02-13T13:31:37Z",
+          "comments": [
+            {
+              "originalPosition": 164,
+              "body": "Mh, reading Section 9 of RFC 7252 again, the wording there makes it very DTLS-specific... And makes me think that arbitrarily picking the term \u201csecurity mode\u201d as an umbrella term for DTLS and OSCORE was a mistake. We did not use the term elsewhere in this document, so maybe just use \u201cwithout any encryption\u201d? Because in this particular case we _are_ talking about confidential communication here.",
+              "createdAt": "2025-02-13T13:31:37Z",
+              "updatedAt": "2025-02-13T13:31:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6b3evb",
+          "commit": {
+            "abbreviatedOid": "1b9c00f"
+          },
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T13:34:59Z",
+          "updatedAt": "2025-02-13T13:34:59Z",
+          "comments": [
+            {
+              "originalPosition": 164,
+              "body": "without confidentiality protection?\r\n\r\n(you can encrypt, but still do it wrong)",
+              "createdAt": "2025-02-13T13:34:59Z",
+              "updatedAt": "2025-02-13T13:34:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6b3h25",
+          "commit": {
+            "abbreviatedOid": "1b9c00f"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T13:39:19Z",
+          "updatedAt": "2025-02-13T13:39:19Z",
+          "comments": [
+            {
+              "originalPosition": 133,
+              "body": "There is no dedicated format in the sense of e.g. CBOR diagnostic notation ( :wink: ). The DNS experts I asked proposed to use some form of condensed `dig`-like formatting, as this is what everybody looks at these days.",
+              "createdAt": "2025-02-13T13:39:19Z",
+              "updatedAt": "2025-02-13T13:49:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6b3u1O",
+          "commit": {
+            "abbreviatedOid": "1b9c00f"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T13:58:18Z",
+          "updatedAt": "2025-02-13T13:58:18Z",
+          "comments": [
+            {
+              "originalPosition": 164,
+              "body": "> (you can encrypt, but still do it wrong)\r\n\r\nAhhh, the (in)famous `base64` \"encryption\" :stuck_out_tongue_winking_eye: https://media.ccc.de/v/38c3-der-thring-test-fr-wahlsoftware#t=1596\r\n\r\nUsed \u201cconfidentiality protection\u201d or \u201cconfidential communication\u201d now, depending on the context.\r\n",
+              "createdAt": "2025-02-13T13:58:18Z",
+              "updatedAt": "2025-02-13T13:58:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6b4Dv8",
+          "commit": {
+            "abbreviatedOid": "1b9c00f"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T14:26:00Z",
+          "updatedAt": "2025-02-13T14:26:00Z",
+          "comments": [
+            {
+              "originalPosition": 78,
+              "body": "See 29797726751",
+              "createdAt": "2025-02-13T14:26:00Z",
+              "updatedAt": "2025-02-13T14:26:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6b4Dw_",
+          "commit": {
+            "abbreviatedOid": "1b9c00f"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T14:26:01Z",
+          "updatedAt": "2025-02-13T14:26:02Z",
+          "comments": [
+            {
+              "originalPosition": 86,
+              "body": "See 29797726751",
+              "createdAt": "2025-02-13T14:26:01Z",
+              "updatedAt": "2025-02-13T14:26:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6b4Rwg",
+          "commit": {
+            "abbreviatedOid": "1b9c00f"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T14:44:46Z",
+          "updatedAt": "2025-02-13T14:44:46Z",
+          "comments": [
+            {
+              "originalPosition": 133,
+              "body": "See 6561123",
+              "createdAt": "2025-02-13T14:44:46Z",
+              "updatedAt": "2025-02-13T14:44:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6b8UGY",
+          "commit": {
+            "abbreviatedOid": "22341d0"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-13T21:38:30Z",
+          "updatedAt": "2025-02-13T21:38:30Z",
+          "comments": [
+            {
+              "originalPosition": 172,
+              "body": "Not sure (and @waehlisch backed me about this offline) if these additional Binary payload are more confusing than helpful. What do you think, @cabo? ",
+              "createdAt": "2025-02-13T21:38:30Z",
+              "updatedAt": "2025-02-14T08:57:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6cAj-Y",
+          "commit": {
+            "abbreviatedOid": "22341d0"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-14T10:35:20Z",
+          "updatedAt": "2025-02-14T10:35:20Z",
+          "comments": [
+            {
+              "originalPosition": 172,
+              "body": "I slept on it and I decided to remove them.",
+              "createdAt": "2025-02-14T10:35:20Z",
+              "updatedAt": "2025-02-14T10:35:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6cApKc",
+          "commit": {
+            "abbreviatedOid": "22341d0"
+          },
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-14T10:43:57Z",
+          "updatedAt": "2025-02-14T10:43:57Z",
+          "comments": [
+            {
+              "originalPosition": 172,
+              "body": "For me, the dig translations are useful, but if they don't feel right for you, we don't *have* to have them.",
+              "createdAt": "2025-02-14T10:43:57Z",
+              "updatedAt": "2025-02-14T10:43:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6cA26r",
+          "commit": {
+            "abbreviatedOid": "22341d0"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-14T11:08:12Z",
+          "updatedAt": "2025-02-14T11:08:12Z",
+          "comments": [
+            {
+              "originalPosition": 172,
+              "body": "No, I think as well that they are more useful for the examples than the hex dumps. I am just worried people would put this into their CoAP messages. But I hope, the sentence above and the parathesis `(human-readable)` make it abundantly clear that this is not the actual message format.",
+              "createdAt": "2025-02-14T11:08:12Z",
+              "updatedAt": "2025-02-14T11:08:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6cD5CX",
+          "commit": {
+            "abbreviatedOid": "292793f"
+          },
+          "author": "cabo",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "Sorry, two more, but then we are really done.",
+          "createdAt": "2025-02-14T16:24:17Z",
+          "updatedAt": "2025-02-14T16:27:22Z",
+          "comments": [
+            {
+              "originalPosition": 88,
+              "body": "I would probably keep at least one DNS message around in both binary and readable form, so readers can find out how exactly the body looks like.",
+              "createdAt": "2025-02-14T16:24:17Z",
+              "updatedAt": "2025-02-14T16:27:22Z"
+            },
+            {
+              "originalPosition": 238,
+              "body": "s/with/via/?\r\n\r\n(communication \"with\" could be read as about the peer -- \"let me communicate with XYZ today\")",
+              "createdAt": "2025-02-14T16:26:18Z",
+              "updatedAt": "2025-02-14T16:27:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6cD9fr",
+          "commit": {
+            "abbreviatedOid": "292793f"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-14T16:31:38Z",
+          "updatedAt": "2025-02-14T16:31:38Z",
+          "comments": [
+            {
+              "originalPosition": 238,
+              "body": "```suggestion\r\nFor confidential communication via DTLS or OSCORE the impact of a fixed ID on security is limited, as both\r\n```",
+              "createdAt": "2025-02-14T16:31:38Z",
+              "updatedAt": "2025-02-14T16:31:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6cD-Ik",
+          "commit": {
+            "abbreviatedOid": "292793f"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-14T16:32:44Z",
+          "updatedAt": "2025-02-14T16:32:44Z",
+          "comments": [
+            {
+              "originalPosition": 88,
+              "body": "Ok, I will put one replication with the query example (which is the first in the draft).",
+              "createdAt": "2025-02-14T16:32:44Z",
+              "updatedAt": "2025-02-14T16:32:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6cEB2Q",
+          "commit": {
+            "abbreviatedOid": "292793f"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-14T16:39:48Z",
+          "updatedAt": "2025-02-14T16:39:48Z",
+          "comments": [
+            {
+              "originalPosition": 88,
+              "body": "See [8478567](https://github.com/core-wg/draft-dns-over-coap/pull/39/commits/847856778fd3b2cfa8b0e0ad198c02b082a3fdc3)",
+              "createdAt": "2025-02-14T16:39:48Z",
+              "updatedAt": "2025-02-14T16:39:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6cECvP",
+          "commit": {
+            "abbreviatedOid": "18df880"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-14T16:41:18Z",
+          "updatedAt": "2025-02-14T16:41:23Z",
+          "comments": [
+            {
+              "originalPosition": 88,
+              "body": "(btw: the reason the binary representation is shorter below is because this little exercise of converting to dig revealed an error in the dump: there were two questions in the query, one for A, one for AAAA, see https://datatracker.ietf.org/doc/rfc9619/)",
+              "createdAt": "2025-02-14T16:41:18Z",
+              "updatedAt": "2025-02-14T16:41:23Z"
+            }
+          ]
         }
       ]
     }
