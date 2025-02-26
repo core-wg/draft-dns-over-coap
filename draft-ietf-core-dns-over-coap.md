@@ -473,7 +473,7 @@ Level of maturity:
 : production
 
 Version compatibility:
-: draft-ietf-core-dns-over-coap-09
+: draft-ietf-core-dns-over-coap-13
 
 License:
 : LGPL-2.1
@@ -493,7 +493,7 @@ Level of maturity:
 : production
 
 Version compatibility:
-: draft-ietf-core-dns-over-coap-09
+: draft-ietf-core-dns-over-coap-13
 
 License:
 : MIT
