@@ -196,9 +196,8 @@ Selection of a DoC Server   {#sec:doc-server-selection}
 While there is no path specified for the DoC resource, it is RECOMMENDED to use the root path "/"
 to keep the CoAP requests small.
 
-In this document, it is assumed that the DoC client knows the DoC server and the DNS resource at the
-DoC server.
-Possible options could be manual configuration of a URI {{-uri}} or CRI {{-cri}},
+The DoC client needs to know the DoC server and the DNS resource at the DoC server.
+Possible options to assure this could be manual configuration of a URI {{-uri}} or CRI {{-cri}},
 or automatic configuration, e.g., using a CoRE resource directory
 {{-core-rd}}, DHCP or Router Advertisement options {{-dnr}} or discovery of designated resolvers
 {{-ddr}}.
