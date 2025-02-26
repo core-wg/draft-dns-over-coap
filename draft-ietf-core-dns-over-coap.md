@@ -136,7 +136,7 @@ proxies, which provide an additional level of caching; re-use of data
 structures for application traffic and DNS information, which saves memory
 on constrained devices.
 
-To avoid resource requirements of DTLS or TLS on top of UDP (e.g., introduced by DNS over QUIC {{-doq}}), DoC allows for lightweight payload encryption based on OSCORE.
+To avoid resource requirements of DTLS or TLS on top of UDP (e.g., introduced by DNS over DTLS {{-dodtls}} or DNS over QUIC {{-doq}}), DoC allows for lightweight payload encryption based on OSCORE.
 
 ~~~ aasvg
 
