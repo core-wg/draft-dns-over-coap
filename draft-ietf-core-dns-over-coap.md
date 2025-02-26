@@ -554,7 +554,7 @@ New "application/dns-message" Content-Format
 IANA is requested to assign a CoAP Content-Format ID for the DNS message media
 type in the "CoAP Content-Formats" sub-registry, within the "CoRE Parameters"
 registry {{-coap}}, corresponding to the "application/dns-message" media
-type from the "Media Types" registry (see {{-doh}})
+type from the "Media Types" registry (see {{-doh}}).
 
 Content Type: application/dns-message
 
