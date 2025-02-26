@@ -276,7 +276,7 @@ A DoC client encodes a single DNS query in one or more CoAP request
 messages that use the CoAP FETCH {{-coap-fetch}} method.
 Requests SHOULD include an Accept option to indicate the type of content that can be parsed in the response.
 
-Since CoAP provides reliability of the message layer (e.g., CON) the retransmission mechanism of the
+Since CoAP provides reliability at the message layer (e.g., CON) the retransmission mechanism of the
 DNS protocol as defined in {{-dns}} is not needed.
 
 ### Request Format
@@ -360,7 +360,8 @@ The DoC client MUST then add the Max-Age value of the carrying CoAP response to 
 The RECOMMENDED algorithm for a DoC server to meet the requirement for DoC is as follows:
 Set the Max-Age option of a response to the minimum TTL of a DNS response and subtract this value from all TTLs of that DNS response.
 This prevents expired records unintentionally being served from an intermediate CoAP cache.
-Additionally, it allows for the ETag value for cache validation, if it is based on the content of the response, not to change even if the TTL values are updated by an upstream DNS cache.
+Additionally, if the ETag for cache validation is based on the content of the response, it allows that ETag not to change.
+This then remains the case even if the TTL values are updated by an upstream DNS cache.
 If only one record set per DNS response is assumed, a simplification of this algorithm is to just set all TTLs in the response to 0 and set the TTLs at the DoC client to the value of the Max-Age option.
 
 If shorter caching periods are plausible, e.g., if the RCODE of the message indicates an error that should only be cached for a minimal duration, the value for the Max-Age option SHOULD be set accordingly.
@@ -520,8 +521,7 @@ not secured to mitigate such an attack over DoC (see {{sec:unprotected-coap}}).
 
 For confidential communication via DTLS or OSCORE the impact of a fixed ID on security is limited, as both
 harden against injecting spoofed responses.
-Consequently, it is of little concern to leverage the benefits of CoAP caching by setting the ID to
-0.
+Consequently, the ID of the DNS message can be set to 0 without any concern in order to leverage the advantages of CoAP caching.
 
 A user of DoC must be aware that the DoC server
 may communicate unprotected with the upstream DNS infrastructure, e.g., using DNS over UDP.
