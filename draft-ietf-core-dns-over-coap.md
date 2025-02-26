@@ -357,7 +357,7 @@ DNS response is less or equal to the corresponding TTL received from an upstream
 This also includes the default Max-Age value of 60 seconds (see {{Section 5.10.5 of -coap}}) when no Max-Age option is provided.
 The DoC client MUST then add the Max-Age value of the carrying CoAP response to all TTLs in a DNS response on reception and use these calculated TTLs for the associated records.
 
-The RECOMMENDED algorithm to meet the requirement for DoC is as follows:
+The RECOMMENDED algorithm for a DoC server to meet the requirement for DoC is as follows:
 Set the Max-Age option of a response to the minimum TTL of a DNS response and subtract this value from all TTLs of that DNS response.
 This prevents expired records unintentionally being served from an intermediate CoAP cache.
 Additionally, it allows for the ETag value for cache validation, if it is based on the content of the response, not to change even if the TTL values are updated by an upstream DNS cache.
