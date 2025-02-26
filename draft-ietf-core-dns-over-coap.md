@@ -204,9 +204,9 @@ or automatic configuration, e.g., using a CoRE resource directory
 Automatic configuration SHOULD only be done from a trusted source.
 
 ## Discovery by Resource Type
-When discovering the DNS resource through a link mechanism that allows describing a resource type
-(e.g., the Resource Type Attribute in {{-core-link-format}}), the resource type "core.dns" can be
-used to identify a generic DNS resolver that is available to the client.
+For discovery of a the DNS resource through a link mechanism that allows describing a resource type
+(e.g., the Resource Type Attribute in {{-core-link-format}}), this document introduces the resource type "core.dns".
+It can be used to identify a generic DNS resolver that is available to the client.
 
 ## Discovery using SVCB Resource Records or DNR
 A DoC server can also be discovered using SVCB Resource Records (RR) {{-svcb}}, {{-svcb-dns}} or DNR
