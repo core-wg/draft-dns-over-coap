@@ -131,7 +131,7 @@ In order not to be burdened by the resource requirements of TCP and HTTPS, const
 In contrast to DNS over DTLS, DoC
 utilizes CoAP features to mitigate drawbacks of datagram-based
 communication. These features include: block-wise transfer, which solves
-the Path MTU problem of DNS over DTLS (see {{-dodtls}}, section 5); CoAP
+the Path MTU problem of DNS over DTLS (see {{-dodtls, Section 5}}); CoAP
 proxies, which provide an additional level of caching; re-use of data
 structures for application traffic and DNS information, which saves memory
 on constrained devices.
@@ -186,7 +186,7 @@ DNS information is called a "DoC client".
 
 The term "constrained nodes" is used as defined in {{-constr-nodes}}.
 
-The terms "CoAP payload" and "CoAP body" are used as defined in {{-coap-blockwise}}, Section 2.
+The terms "CoAP payload" and "CoAP body" are used as defined in {{-coap-blockwise, Section 2}}.
 
 {::boilerplate bcp14-tagged}
 
@@ -351,11 +351,11 @@ The DoC client might also decide to repeat a non-successful exchange with a diff
 For reliability and energy saving measures, content decoupling, i.e., en-route caching on proxies, takes a far greater role than it does, e.g., in HTTP.
 Likewise, CoAP utilizes cache validation to refresh stale cache entries to reduce the amount of large response messages.
 For cache validation, CoAP implementations regularly use hashing over the message content for ETag generation.
-As such, the approach to guarantee the same cache key for DNS responses as proposed in DoH ({{-doh}}, section 5.1) is not sufficient and needs to be updated so that the TTLs in the response are more often the same regardless of query time.
+As such, the approach to guarantee the same cache key for DNS responses as proposed in DoH ({{-doh, Section 5.1}}) is not sufficient and needs to be updated so that the TTLs in the response are more often the same regardless of query time.
 
 The DoC server MUST ensure that any sum of the Max-Age value of a CoAP response and any TTL in the
 DNS response is less or equal to the corresponding TTL received from an upstream DNS server.
-This also includes the default Max-Age value of 60 seconds (see {{-coap}}, section 5.10.5) when no Max-Age option is provided.
+This also includes the default Max-Age value of 60 seconds (see {{Section 5.10.5 of -coap}}) when no Max-Age option is provided.
 The DoC client MUST then add the Max-Age value of the carrying CoAP response to all TTLs in a DNS response on reception and use these calculated TTLs for the associated records.
 
 The RECOMMENDED algorithm to meet the requirement for DoC is as follows:
