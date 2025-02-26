@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 18 August 2025                                                 
+Expires: 30 August 2025                                                 
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                        14 February 2025
+                                                        26 February 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 August 2025.
+   This Internet-Draft will expire on 30 August 2025.
 
 Copyright Notice
 
@@ -152,7 +152,7 @@ Table of Contents
    contrast to DNS over DTLS, DoC utilizes CoAP features to mitigate
    drawbacks of datagram-based communication.  These features include:
    block-wise transfer, which solves the Path MTU problem of DNS over
-   DTLS (see [RFC8094], section 5); CoAP proxies, which provide an
+   DTLS (see [RFC8094], Section 5); CoAP proxies, which provide an
    additional level of caching; re-use of data structures for
    application traffic and DNS information, which saves memory on
    constrained devices.
@@ -422,15 +422,15 @@ Table of Contents
    For cache validation, CoAP implementations regularly use hashing over
    the message content for ETag generation.  As such, the approach to
    guarantee the same cache key for DNS responses as proposed in DoH
-   ([RFC8484], section 5.1) is not sufficient and needs to be updated so
+   ([RFC8484], Section 5.1) is not sufficient and needs to be updated so
    that the TTLs in the response are more often the same regardless of
    query time.
 
    The DoC server MUST ensure that any sum of the Max-Age value of a
    CoAP response and any TTL in the DNS response is less or equal to the
    corresponding TTL received from an upstream DNS server.  This also
-   includes the default Max-Age value of 60 seconds (see [RFC7252],
-   section 5.10.5) when no Max-Age option is provided.  The DoC client
+   includes the default Max-Age value of 60 seconds (see Section 5.10.5
+   of [RFC7252]) when no Max-Age option is provided.  The DoC client
    MUST then add the Max-Age value of the carrying CoAP response to all
    TTLs in a DNS response on reception and use these calculated TTLs for
    the associated records.
@@ -661,7 +661,7 @@ Table of Contents
    message media type in the "CoAP Content-Formats" sub-registry, within
    the "CoRE Parameters" registry [RFC7252], corresponding to the
    "application/dns-message" media type from the "Media Types" registry
-   (see [RFC8484])
+   (see [RFC8484]).
 
    Content Type: application/dns-message
 
