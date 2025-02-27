@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-25T01:09:56.983887+00:00",
+  "timestamp": "2025-02-27T01:09:45.614618+00:00",
   "repo": "core-wg/draft-dns-over-coap",
   "labels": [
     {
@@ -4384,6 +4384,32 @@
           ]
         }
       ]
+    },
+    {
+      "number": 40,
+      "id": "PR_kwDOF27TLs6MrbS0",
+      "title": "Address @mguetschow's review of -12",
+      "url": "https://github.com/core-wg/draft-dns-over-coap/pull/40",
+      "state": "OPEN",
+      "author": "miri64",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "See https://mailarchive.ietf.org/arch/msg/core/cjZT6wUveC2VwZDm0La95aIg4Co",
+      "createdAt": "2025-02-26T17:04:22Z",
+      "updatedAt": "2025-02-26T17:04:22Z",
+      "baseRepository": "core-wg/draft-dns-over-coap",
+      "baseRefName": "main",
+      "baseRefOid": "e2031cf2ae3e5ebd94b73102f596e4652a6e0bfb",
+      "headRepository": "core-wg/draft-dns-over-coap",
+      "headRefName": "address-mikolais-12-review",
+      "headRefOid": "cddf58840f6ad0787100c0d17162a1eac7673775",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
