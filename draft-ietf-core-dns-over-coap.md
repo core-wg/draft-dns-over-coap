@@ -169,9 +169,9 @@ Using that information, the DoC server then replies to the queries of the DoC cl
 responses carried within CoAP responses.
 
 Note that this specification is distinct from DoH, since the CoRE-specific FETCH method {{-coap-fetch}} is used.
-This was done to take benefit from having the DNS query in the payload as with POST, but still
+This was done to take benefit from having the DNS query in the body as with POST, but still
 having the caching advantages we would gain with GET.
-Having the DNS query in the payload means we do not need extra base64 encoding, which would increase
+Having the DNS query in the body means we do not need extra base64 encoding, which would increase
 code complexity and message sizes.
 We are also able to transfer a query block-wise.
 
