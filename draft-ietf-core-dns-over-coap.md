@@ -62,13 +62,16 @@ author:
 
 normative:
   RFC1035: dns
+  RFC3986: uri
   RFC6347: dtls12
   RFC7252: coap
   RFC7641: coap-observe
   RFC7959: coap-blockwise
   RFC8132: coap-fetch
+  RFC8484: doh
   RFC8613: oscore
   RFC8742: cborseq
+  RFC8765: dns-push
   RFC8949: cbor
   RFC9147: dtls13
   I-D.ietf-core-coap-dtls-alpn: coap-dtls-alpn
@@ -76,13 +79,10 @@ normative:
 
 informative:
   RFC3833: dns-threats
-  RFC3986: uri
   RFC6690: core-link-format
   RFC7228: constr-nodes
   RFC7626: dns-privacy
-  RFC8765: dns-push
   RFC8094: dodtls
-  RFC8484: doh
   RFC9176: core-rd
   RFC9250: doq
   RFC9364: dnssec
