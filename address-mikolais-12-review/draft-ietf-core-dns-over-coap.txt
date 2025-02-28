@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 30 August 2025                                                 
+Expires: 1 September 2025                                               
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                        26 February 2025
+                                                        28 February 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 August 2025.
+   This Internet-Draft will expire on 1 September 2025.
 
 Copyright Notice
 
@@ -552,11 +552,12 @@ Table of Contents
    The use of DoC without confidentiality protection is NOT RECOMMENDED.
    Without confidential communication, many possible attacks need to be
    evaluated in the context of the application's threat model.  This
-   includes threats that are mitigated even by DNS over UDP: For
-   example, the random ID of the DNS header afford some protection
-   against off-path cache poisoning attacks.  That threat, however,
-   might also be mitigated by using random large token values in the
-   CoAP request.
+   includes known threats for unprotected DNS [RFC3833] [RFC7626] and
+   CoAP Section 11 of [RFC7252].  But there is also an attack that is
+   mitigated even by unprotected DNS over UDP: The random ID of the DNS
+   header affords some protection against off-path cache poisoning
+   attacks.  Note, however, that this particular threat can also be
+   mitigated by using random large token values in the CoAP request.
 
 7.  Implementation Status
 
@@ -833,6 +834,10 @@ Table of Contents
               RFC 2136, DOI 10.17487/RFC2136, April 1997,
               <https://www.rfc-editor.org/rfc/rfc2136>.
 
+   [RFC3833]  Atkins, D. and R. Austein, "Threat Analysis of the Domain
+              Name System (DNS)", RFC 3833, DOI 10.17487/RFC3833, August
+              2004, <https://www.rfc-editor.org/rfc/rfc3833>.
+
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
               RFC 3986, DOI 10.17487/RFC3986, January 2005,
@@ -841,6 +846,10 @@ Table of Contents
    [RFC6690]  Shelby, Z., "Constrained RESTful Environments (CoRE) Link
               Format", RFC 6690, DOI 10.17487/RFC6690, August 2012,
               <https://www.rfc-editor.org/rfc/rfc6690>.
+
+   [RFC7626]  Bortzmeyer, S., "DNS Privacy Considerations", RFC 7626,
+              DOI 10.17487/RFC7626, August 2015,
+              <https://www.rfc-editor.org/rfc/rfc7626>.
 
    [RFC7942]  Sheffer, Y. and A. Farrel, "Improving Awareness of Running
               Code: The Implementation Status Section", BCP 205,
