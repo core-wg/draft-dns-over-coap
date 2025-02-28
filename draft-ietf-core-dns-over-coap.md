@@ -521,8 +521,7 @@ Security Considerations
 General CoAP security considerations in {{Section 11 of RFC7252}} apply to DoC.
 Additionally, DoC uses request patterns that require the maintenance of long-lived security
 contexts.
-{{Section 2.6 of -core-corrclar}} goes into more detail on what needs to be done
-when those are resumed from a new endpoint.
+{{Section 2.6 of -core-corrclar}} provides insights on what can be done when those are resumed from a new endpoint.
 
 When using unprotected CoAP (see {{sec:unprotected-coap}}), setting the ID of a DNS message to 0 as
 specified in {{sec:req-caching}} opens the DNS cache of a DoC client to cache poisoning attacks
