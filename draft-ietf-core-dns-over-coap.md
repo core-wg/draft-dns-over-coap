@@ -76,8 +76,10 @@ normative:
   I-D.ietf-cbor-edn-literals: edn
 
 informative:
+  RFC3833: dns-threats
   RFC3986: uri
   RFC6690: core-link-format
+  RFC7626: dns-privacy
   RFC8765: dns-push
   RFC8094: dodtls
   RFC8484: doh
@@ -455,9 +457,10 @@ Considerations for Unprotected Use {#sec:unprotected-coap}
 The use of DoC without confidentiality protection is NOT RECOMMENDED.
 Without confidential communication, many possible attacks need to be evaluated in the context of
 the application's threat model.
-This includes threats that are mitigated even by DNS over UDP:
-For example, the random ID of the DNS header afford some protection against off-path cache poisoning
-attacks—a threat that might be mitigated by using random large token values in the CoAP request.
+This includes known threats for unprotected DNS {{-dns-threats}} {{-dns-privacy}} and CoAP {{Section 11 of -coap}}.
+But there is also an attack that is mitigated even by unprotected DNS over UDP:
+The random ID of the DNS header affords some protection against off-path cache poisoning attacks.
+Note, however, that this particular threat can also be mitigated by using random large token values in the CoAP request.
 
 Implementation Status
 =====================
