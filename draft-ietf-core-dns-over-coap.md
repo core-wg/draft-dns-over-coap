@@ -635,7 +635,7 @@ Since [draft-ietf-core-dns-over-coap-09]
 ----------------------------------------
 - Update SVCB SvcParamKey
 - Update corr-clar reference
-- Add reference to DNS Update {{?RFC2136}}, clarify that it is currently not considered
+- Add reference to DNS Update [\[RFC2136\]](https://datatracker.ietf.org/doc/html/rfc2136), clarify that it is currently not considered
 - Add to security considerations: unprotected upstream DNS and DNSSEC
 
 Since [draft-ietf-core-dns-over-coap-08]
