@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 30 August 2025                                                 
+Expires: 1 September 2025                                               
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                        26 February 2025
+                                                        28 February 2025
 
 
                           DNS over CoAP (DoC)
@@ -21,7 +21,7 @@ Expires: 30 August 2025
 Abstract
 
    This document defines a protocol for sending DNS messages over the
-   Constrained Application Protocol (CoAP).  These CoAP messages are
+   Constrained Application Protocol (CoAP).  These CoAP messages can be
    protected by DTLS-Secured CoAP (CoAPS) or Object Security for
    Constrained RESTful Environments (OSCORE) to provide encrypted DNS
    message exchange for constrained devices in the Internet of Things
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 August 2025.
+   This Internet-Draft will expire on 1 September 2025.
 
 Copyright Notice
 
@@ -130,10 +130,10 @@ Table of Contents
    This document defines DNS over CoAP (DoC), a protocol to send DNS
    [RFC1035] queries and get DNS responses over the Constrained
    Application Protocol (CoAP) [RFC7252].  Each DNS query-response pair
-   is mapped into a CoAP message exchange.  Each CoAP message is secured
-   by DTLS [RFC6347] [RFC9147] or Object Security for Constrained
-   RESTful Environments (OSCORE) [RFC8613] to ensure message integrity
-   and confidentiality.
+   is mapped into a CoAP message exchange.  Each CoAP message can be
+   secured by DTLS [RFC6347] [RFC9147] or Object Security for
+   Constrained RESTful Environments (OSCORE) [RFC8613] to ensure message
+   integrity and confidentiality.
 
    The application use case of DoC is inspired by DNS over HTTPS
    [RFC8484] (DoH).  DoC, however, aims for the deployment in the
@@ -158,8 +158,8 @@ Table of Contents
    constrained devices.
 
    To avoid resource requirements of DTLS or TLS on top of UDP (e.g.,
-   introduced by DNS over QUIC [RFC9250]), DoC allows for lightweight
-   payload encryption based on OSCORE.
+   introduced by DNS over DTLS [RFC8094] or DNS over QUIC [RFC9250]),
+   DoC allows for lightweight payload encryption based on OSCORE.
 
                  . FETCH coaps://[2001:db8::1]/
                 /
@@ -221,20 +221,21 @@ Table of Contents
    While there is no path specified for the DoC resource, it is
    RECOMMENDED to use the root path "/" to keep the CoAP requests small.
 
-   In this document, it is assumed that the DoC client knows the DoC
-   server and the DNS resource at the DoC server.  Possible options
-   could be manual configuration of a URI [RFC3986] or CRI
-   [I-D.ietf-core-href], or automatic configuration, e.g., using a CoRE
-   resource directory [RFC9176], DHCP or Router Advertisement options
-   [RFC9463] or discovery of designated resolvers [RFC9462].  Automatic
-   configuration SHOULD only be done from a trusted source.
+   The DoC client needs to know the DoC server and the DNS resource at
+   the DoC server.  Possible options to assure this could be manual
+   configuration of a URI [RFC3986] or CRI [I-D.ietf-core-href], or
+   automatic configuration, e.g., using a CoRE resource directory
+   [RFC9176], DHCP or Router Advertisement options [RFC9463] or
+   discovery of designated resolvers [RFC9462].  Automatic configuration
+   SHOULD only be done from a trusted source.
 
 3.1.  Discovery by Resource Type
 
-   When discovering the DNS resource through a link mechanism that
+   For discovery of a the DNS resource through a link mechanism that
    allows describing a resource type (e.g., the Resource Type Attribute
-   in [RFC6690]), the resource type "core.dns" can be used to identify a
-   generic DNS resolver that is available to the client.
+   in [RFC6690]), this document introduces the resource type "core.dns".
+   It can be used to identify a generic DNS resolver that is available
+   to the client.
 
 3.2.  Discovery using SVCB Resource Records or DNR
 
@@ -328,7 +329,7 @@ Table of Contents
    include an Accept option to indicate the type of content that can be
    parsed in the response.
 
-   Since CoAP provides reliability of the message layer (e.g., CON) the
+   Since CoAP provides reliability at the message layer (e.g., CON) the
    retransmission mechanism of the DNS protocol as defined in [RFC1035]
    is not needed.
 
@@ -435,17 +436,17 @@ Table of Contents
    TTLs in a DNS response on reception and use these calculated TTLs for
    the associated records.
 
-   The RECOMMENDED algorithm to meet the requirement for DoC is as
-   follows: Set the Max-Age option of a response to the minimum TTL of a
-   DNS response and subtract this value from all TTLs of that DNS
-   response.  This prevents expired records unintentionally being served
-   from an intermediate CoAP cache.  Additionally, it allows for the
-   ETag value for cache validation, if it is based on the content of the
-   response, not to change even if the TTL values are updated by an
-   upstream DNS cache.  If only one record set per DNS response is
-   assumed, a simplification of this algorithm is to just set all TTLs
-   in the response to 0 and set the TTLs at the DoC client to the value
-   of the Max-Age option.
+   The RECOMMENDED algorithm for a DoC server to meet the requirement
+   for DoC is as follows: Set the Max-Age option of a response to the
+   minimum TTL of a DNS response and subtract this value from all TTLs
+   of that DNS response.  This prevents expired records unintentionally
+   being served from an intermediate CoAP cache.  Additionally, if the
+   ETag for cache validation is based on the content of the response, it
+   allows that ETag not to change.  This then remains the case even if
+   the TTL values are updated by an upstream DNS cache.  If only one
+   record set per DNS response is assumed, a simplification of this
+   algorithm is to just set all TTLs in the response to 0 and set the
+   TTLs at the DoC client to the value of the Max-Age option.
 
    If shorter caching periods are plausible, e.g., if the RCODE of the
    message indicates an error that should only be cached for a minimal
@@ -551,9 +552,11 @@ Table of Contents
    The use of DoC without confidentiality protection is NOT RECOMMENDED.
    Without confidential communication, many possible attacks need to be
    evaluated in the context of the application's threat model.  This
-   includes threats that are mitigated even by DNS over UDP: For
-   example, the random ID of the DNS header afford some protection
-   against off-path cache poisoning attacks—a threat that might be
+   includes known threats for unprotected DNS [RFC3833] [RFC7626] and
+   CoAP Section 11 of [RFC7252].  But there is also an attack that is
+   mitigated even by unprotected DNS over UDP: The random ID of the DNS
+   header affords some protection against off-path cache poisoning
+   attacks.  Note, however, that this particular threat can also be
    mitigated by using random large token values in the CoAP request.
 
 7.  Implementation Status
@@ -586,7 +589,7 @@ Table of Contents
 
    Level of maturity:  production
 
-   Version compatibility:  draft-ietf-core-dns-over-coap-09
+   Version compatibility:  draft-ietf-core-dns-over-coap-13
 
    License:  LGPL-2.1
 
@@ -602,7 +605,7 @@ Table of Contents
 
    Level of maturity:  production
 
-   Version compatibility:  draft-ietf-core-dns-over-coap-09
+   Version compatibility:  draft-ietf-core-dns-over-coap-13
 
    License:  MIT
 
@@ -628,8 +631,9 @@ Table of Contents
 
    For confidential communication via DTLS or OSCORE the impact of a
    fixed ID on security is limited, as both harden against injecting
-   spoofed responses.  Consequently, it is of little concern to leverage
-   the benefits of CoAP caching by setting the ID to 0.
+   spoofed responses.  Consequently, the ID of the DNS message can be
+   set to 0 without any concern in order to leverage the advantages of
+   CoAP caching.
 
    A user of DoC must be aware that the DoC server may communicate
    unprotected with the upstream DNS infrastructure, e.g., using DNS
@@ -830,6 +834,10 @@ Table of Contents
               RFC 2136, DOI 10.17487/RFC2136, April 1997,
               <https://www.rfc-editor.org/rfc/rfc2136>.
 
+   [RFC3833]  Atkins, D. and R. Austein, "Threat Analysis of the Domain
+              Name System (DNS)", RFC 3833, DOI 10.17487/RFC3833, August
+              2004, <https://www.rfc-editor.org/rfc/rfc3833>.
+
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
               RFC 3986, DOI 10.17487/RFC3986, January 2005,
@@ -838,6 +846,10 @@ Table of Contents
    [RFC6690]  Shelby, Z., "Constrained RESTful Environments (CoRE) Link
               Format", RFC 6690, DOI 10.17487/RFC6690, August 2012,
               <https://www.rfc-editor.org/rfc/rfc6690>.
+
+   [RFC7626]  Bortzmeyer, S., "DNS Privacy Considerations", RFC 7626,
+              DOI 10.17487/RFC7626, August 2015,
+              <https://www.rfc-editor.org/rfc/rfc7626>.
 
    [RFC7942]  Sheffer, Y. and A. Farrel, "Improving Awareness of Running
               Code: The Implementation Status Section", BCP 205,
