@@ -299,19 +299,7 @@ The following example illustrates the usage of a CoAP message to
 resolve "example.org. IN AAAA" based on the URI "coaps://\[2001:db8::1\]/". The
 CoAP body is encoded in "application/dns-message" Content Format.
 For better readability, we provide the payload in a human-readable format.
-In the actual message, however, it would be encoded in the binary message format defined in {{-dns}}.
-
-    FETCH coaps://[2001:db8::1]/
-    Content-Format: application/dns-message
-    Accept: application/dns-message
-    Payload (human-readable):
-      ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
-      ;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
-
-      ;; QUESTION SECTION:
-      ;example.org.             IN      AAAA
-
-As such, the message would actually look as follows (bytes printed in hexadecimal representation).
+In the actual message, however, it would be encoded in the binary message format (bytes printed in hexadecimal representation) defined in {{-dns}}.
 
     FETCH coaps://[2001:db8::1]/
     Content-Format: application/dns-message
@@ -319,6 +307,13 @@ As such, the message would actually look as follows (bytes printed in hexadecima
     Payload (binary):
       00 00 01 20 00 01 00 00 00 00 00 00 07 65 78 61
       6d 70 6c 65 03 6f 72 67 00 00 1c 00 01
+
+    Payload (human-readable):
+      ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
+      ;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
+
+      ;; QUESTION SECTION:
+      ;example.org.             IN      AAAA
 
 
 DNS Responses in CoAP Responses
