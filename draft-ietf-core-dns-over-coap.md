@@ -191,7 +191,8 @@ DNS information is called a "DoC client".
 
 The term "constrained nodes" is used as defined in {{-constr-nodes}}.
 
-The terms "CoAP payload" and "CoAP body" are used as defined in {{-coap-blockwise, Section 2}}.
+The terms "payload" and "body" are used as defined in {{-coap-blockwise, Section 2}}.
+Note, that without block-wise transfer the terms "payload" and "body" are to be understood as equal.
 
 Selection of a DoC Server   {#sec:doc-server-selection}
 =========================
