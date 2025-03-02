@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-27T01:09:45.614618+00:00",
+  "timestamp": "2025-03-02T01:13:54.464420+00:00",
   "repo": "core-wg/draft-dns-over-coap",
   "labels": [
     {
@@ -4390,20 +4390,182 @@
       "id": "PR_kwDOF27TLs6MrbS0",
       "title": "Address @mguetschow's review of -12",
       "url": "https://github.com/core-wg/draft-dns-over-coap/pull/40",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "miri64",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "See https://mailarchive.ietf.org/arch/msg/core/cjZT6wUveC2VwZDm0La95aIg4Co",
       "createdAt": "2025-02-26T17:04:22Z",
-      "updatedAt": "2025-02-26T17:04:22Z",
+      "updatedAt": "2025-02-28T13:06:46Z",
       "baseRepository": "core-wg/draft-dns-over-coap",
       "baseRefName": "main",
       "baseRefOid": "e2031cf2ae3e5ebd94b73102f596e4652a6e0bfb",
       "headRepository": "core-wg/draft-dns-over-coap",
       "headRefName": "address-mikolais-12-review",
-      "headRefOid": "cddf58840f6ad0787100c0d17162a1eac7673775",
+      "headRefOid": "4859cb6b5f592d11eceb6574316b33e7a17b5bae",
+      "closedAt": "2025-02-28T13:06:42Z",
+      "mergedAt": "2025-02-28T13:06:42Z",
+      "mergedBy": "miri64",
+      "mergeCommit": {
+        "oid": "741c552615192e1a1afd592bdff3aa66ef7bcde7"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOF27TLs6d-IXy",
+          "commit": {
+            "abbreviatedOid": "cddf588"
+          },
+          "author": "mguetschow",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-28T10:05:10Z",
+          "updatedAt": "2025-02-28T10:05:11Z",
+          "comments": [
+            {
+              "originalPosition": 80,
+              "body": "I would rephrase as follows:\r\n\r\n> The use of DoC without confidentiality protection is NOT RECOMMENDED, as it enables many attacks--even some additional ones, that are not possible with unprotected DNS over UDP: As an example, the random ID of the DNS header enables off-path cache poisoning attacks. Note that this particular threat might be mitigated by using random large token values in the CoAP request.",
+              "createdAt": "2025-02-28T10:05:10Z",
+              "updatedAt": "2025-02-28T10:05:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6d-L8C",
+          "commit": {
+            "abbreviatedOid": "cddf588"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-28T10:11:53Z",
+          "updatedAt": "2025-02-28T10:12:01Z",
+          "comments": [
+            {
+              "originalPosition": 80,
+              "body": "I find that wording harder to parse and also less precise than what is currently written. Let me think of an alternative.",
+              "createdAt": "2025-02-28T10:11:53Z",
+              "updatedAt": "2025-02-28T10:12:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6d_O6A",
+          "commit": {
+            "abbreviatedOid": "cddf588"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-28T12:23:00Z",
+          "updatedAt": "2025-02-28T12:23:00Z",
+          "comments": [
+            {
+              "originalPosition": 80,
+              "body": "See https://github.com/core-wg/draft-dns-over-coap/pull/40/commits/84c070e990a84efb3dfa0afbd7f8b94246340f77",
+              "createdAt": "2025-02-28T12:23:00Z",
+              "updatedAt": "2025-02-28T12:23:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6d_mj4",
+          "commit": {
+            "abbreviatedOid": "cddf588"
+          },
+          "author": "mguetschow",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-28T13:03:37Z",
+          "updatedAt": "2025-02-28T13:03:37Z",
+          "comments": [
+            {
+              "originalPosition": 80,
+              "body": "Fine with me :)",
+              "createdAt": "2025-02-28T13:03:37Z",
+              "updatedAt": "2025-02-28T13:03:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6d_mnT",
+          "commit": {
+            "abbreviatedOid": "4859cb6"
+          },
+          "author": "mguetschow",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-28T13:03:43Z",
+          "updatedAt": "2025-02-28T13:05:16Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 41,
+      "id": "PR_kwDOF27TLs6M8PdU",
+      "title": "Unify binary and human-readable to one example",
+      "url": "https://github.com/core-wg/draft-dns-over-coap/pull/41",
+      "state": "OPEN",
+      "author": "miri64",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "See https://mailarchive.ietf.org/arch/msg/core/hK-tIbZZnCUYYram_mNJbCYOgr0",
+      "createdAt": "2025-02-28T13:43:37Z",
+      "updatedAt": "2025-02-28T13:59:01Z",
+      "baseRepository": "core-wg/draft-dns-over-coap",
+      "baseRefName": "main",
+      "baseRefOid": "1de55bf10000c1c92d94b078fe2e6bae41d96336",
+      "headRepository": "core-wg/draft-dns-over-coap",
+      "headRefName": "unify-binary-human-readable",
+      "headRefOid": "69ab25fdfb1f38a5d33b6cb62cc802180b5aff67",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOF27TLs6eAHgJ",
+          "commit": {
+            "abbreviatedOid": "69ab25f"
+          },
+          "author": "mguetschow",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-28T13:59:01Z",
+          "updatedAt": "2025-02-28T13:59:01Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 42,
+      "id": "PR_kwDOF27TLs6M8ysw",
+      "title": "Address @EskoDijk's review on -12",
+      "url": "https://github.com/core-wg/draft-dns-over-coap/pull/42",
+      "state": "OPEN",
+      "author": "miri64",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "See https://mailarchive.ietf.org/arch/msg/core/dCYcRBCTUOGoktV20cTq4n-VAC0",
+      "createdAt": "2025-02-28T14:50:43Z",
+      "updatedAt": "2025-02-28T14:50:43Z",
+      "baseRepository": "core-wg/draft-dns-over-coap",
+      "baseRefName": "main",
+      "baseRefOid": "1de55bf10000c1c92d94b078fe2e6bae41d96336",
+      "headRepository": "core-wg/draft-dns-over-coap",
+      "headRefName": "address-esko-review-12",
+      "headRefOid": "5a54b5bd02a79efbfd44779bbc4de6a6aa023f94",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
