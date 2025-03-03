@@ -413,8 +413,8 @@ As described in {{sec:content-format}}, a DoC server uses NotImp (RCODE = 4) if 
       ;; ->>Header<<- opcode: UPDATE, status: NOTIMP, id: 0
       ;; flags: qr ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
 
-      ;; ZONE SECTION:
-      ;example.org.                 IN      SOA
+      ;; QUERY SECTION:
+      ;example.org.                 IN      AAAA
 
 When an error occurs at the CoAP layer, the DoC server SHOULD respond with
 an appropriate CoAP error, for instance 4.15 (Unsupported Content-Format)
