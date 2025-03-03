@@ -418,7 +418,7 @@ CoAP/CoRE Integration
 
 DNS Push
 --------
-DNS Push requires additional overhead, which conflicts with constrained resources,
+DNS Push requires additional overhead, which conflicts with constrained resources.
 This is the reason why it is RECOMMENDED to use CoAP Observe {{-coap-observe}} instead of DNS Push
 in the DoC domain.
 
@@ -437,7 +437,7 @@ resource record as well.
 
 OSCORE
 ------
-It is RECOMMENDED to carry DNS messages encrypted using OSCORE {{-oscore}} between the DoC client
+It is RECOMMENDED to carry DNS messages protected using OSCORE {{-oscore}} between the DoC client
 and the DoC server. The establishment and maintenance of the OSCORE Security Context is out of the
 scope of this document.
 
