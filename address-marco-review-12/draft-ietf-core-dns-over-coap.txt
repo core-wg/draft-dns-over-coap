@@ -675,9 +675,9 @@ Table of Contents
 
    IANA is requested to assign a CoAP Content-Format ID for the DNS
    message media type in the "CoAP Content-Formats" registry, within the
-   "CoRE Parameters" registry group [RFC7252], corresponding to the
-   "application/dns-message" media type from the "Media Types" registry
-   (see [RFC8484]).
+   "Constrained RESTful Environments (CoRE) Parameters" registry group
+   [RFC7252], corresponding to the "application/dns-message" media type
+   from the "Media Types" registry (see [RFC8484]).
 
    Content Type: application/dns-message
 
