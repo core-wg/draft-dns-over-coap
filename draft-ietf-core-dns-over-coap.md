@@ -468,6 +468,11 @@ Implementation Status
 
 {::boilerplate rfc7942}
 
+[^remove-impl-status]
+
+[^remove-impl-status]: RFC Ed.: Please remove this section before publication. When deleting this
+    section, please also remove RFC7942 from the references of this document.
+
 DoC Client
 ----------
 The authors of this document provide a [DoC client implementation available
