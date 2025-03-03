@@ -188,11 +188,11 @@ Table of Contents
 
    Note that this specification is distinct from DoH, since the CoRE-
    specific FETCH method [RFC8132] is used.  This was done to take
-   benefit from having the DNS query in the payload as with POST, but
-   still having the caching advantages we would gain with GET.  Having
-   the DNS query in the payload means we do not need extra base64
-   encoding, which would increase code complexity and message sizes.  We
-   are also able to transfer a query block-wise.
+   benefit from having the DNS query in the body as with POST, but still
+   having the caching advantages we would gain with GET.  Having the DNS
+   query in the body means we do not need extra base64 encoding, which
+   would increase code complexity and message sizes.  We are also able
+   to transfer a query block-wise.
 
 2.  Terminology
 
@@ -214,8 +214,9 @@ Table of Contents
 
    The term "constrained nodes" is used as defined in [RFC7228].
 
-   The terms "CoAP payload" and "CoAP body" are used as defined in
-   [RFC7959], Section 2.
+   The terms "payload" and "body" are used as defined in [RFC7959],
+   Section 2.  Note, that without block-wise transfer the terms
+   "payload" and "body" are to be understood as equal.
 
 3.  Selection of a DoC Server
 
@@ -483,9 +484,22 @@ Table of Contents
      ;; ANSWER SECTION:
      ;example.org.         79689   IN      AAAA    2001:db8:1::1:2:3:4
 
-   When a DNS error—NotImp (RCODE = 4) in response to a DNS Update
-   (OPCODE = 5) for "example.org" in this case—is noted in the DNS
-   response, the CoAP response still indicates success.
+   When a DNS error—NxDomain (RCODE = 3) for "does.not.exist" in this
+   case—is noted in the DNS response, the CoAP response still indicates
+   success.
+
+  2.05 Content
+  Content-Format: application/dns-message
+  Payload (human-readable):
+    ;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 0
+    ;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
+
+    ;; QUESTION SECTION:
+    ;does.not.exist.              IN      AAAA
+
+   As described in Section 4.1, a DoC server uses NotImp (RCODE = 4) if
+   it does not support an OPCODE—a DNS Update (OPCODE = 5) for
+   "example.org" in this case.
 
    2.05 Content
    Content-Format: application/dns-message
@@ -493,8 +507,8 @@ Table of Contents
      ;; ->>Header<<- opcode: UPDATE, status: NOTIMP, id: 0
      ;; flags: qr ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
 
-     ;; ZONE SECTION:
-     ;example.org.                 IN      SOA
+     ;; QUERY SECTION:
+     ;example.org.                 IN      AAAA
 
    When an error occurs at the CoAP layer, the DoC server SHOULD respond
    with an appropriate CoAP error, for instance 4.15 (Unsupported
@@ -512,6 +526,8 @@ Table of Contents
    DNS Push requires additional overhead, which conflicts with
    constrained resources.  This is the reason why it is RECOMMENDED to
    use CoAP Observe [RFC7641] instead of DNS Push in the DoC domain.
+   The DoC server SHOULD provide Observe capabilities on its DoC
+   resource and do as follows.
 
    If the CoAP request indicates that the DoC client wants to observe a
    resource record, a DoC server MAY use a DNS Subscribe message
@@ -527,6 +543,10 @@ Table of Contents
    server has an open subscription, the DoC server MUST use a DNS
    Unsubscribe message [RFC8765] to close its subscription to the
    resource record as well.
+
+   A DoC server can still provide Observe capabilities to its DoC
+   resource without providing this proxying to DNS Push, e.g., if it
+   receives new information on a record through other means.
 
 5.2.  OSCORE
 
@@ -629,8 +649,8 @@ Table of Contents
    General CoAP security considerations in Section 11 of [RFC7252] apply
    to DoC.  Additionally, DoC uses request patterns that require the
    maintenance of long-lived security contexts.  Section 2.6 of
-   [I-D.ietf-core-corr-clar] goes into more detail on what needs to be
-   done when those are resumed from a new endpoint.
+   [I-D.ietf-core-corr-clar] provides insights on what can be done when
+   those are resumed from a new endpoint.
 
    When using unprotected CoAP (see Section 6), setting the ID of a DNS
    message to 0 as specified in Section 4.2.2 opens the DNS cache of a
@@ -745,6 +765,11 @@ Table of Contents
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
+   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
+              Resource Identifier (URI): Generic Syntax", STD 66,
+              RFC 3986, DOI 10.17487/RFC3986, January 2005,
+              <https://www.rfc-editor.org/rfc/rfc3986>.
+
    [RFC6347]  Rescorla, E. and N. Modadugu, "Datagram Transport Layer
               Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
               January 2012, <https://www.rfc-editor.org/rfc/rfc6347>.
@@ -773,6 +798,10 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
+   [RFC8484]  Hoffman, P. and P. McManus, "DNS Queries over HTTPS
+              (DoH)", RFC 8484, DOI 10.17487/RFC8484, October 2018,
+              <https://www.rfc-editor.org/rfc/rfc8484>.
+
    [RFC8613]  Selander, G., Mattsson, J., Palombini, F., and L. Seitz,
               "Object Security for Constrained RESTful Environments
               (OSCORE)", RFC 8613, DOI 10.17487/RFC8613, July 2019,
@@ -781,6 +810,10 @@ Table of Contents
    [RFC8742]  Bormann, C., "Concise Binary Object Representation (CBOR)
               Sequences", RFC 8742, DOI 10.17487/RFC8742, February 2020,
               <https://www.rfc-editor.org/rfc/rfc8742>.
+
+   [RFC8765]  Pusateri, T. and S. Cheshire, "DNS Push Notifications",
+              RFC 8765, DOI 10.17487/RFC8765, June 2020,
+              <https://www.rfc-editor.org/rfc/rfc8765>.
 
    [RFC8949]  Bormann, C. and P. Hoffman, "Concise Binary Object
               Representation (CBOR)", STD 94, RFC 8949,
@@ -845,19 +878,9 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-lenders-core-
               dnr-04>.
 
-   [RFC2136]  Vixie, P., Ed., Thomson, S., Rekhter, Y., and J. Bound,
-              "Dynamic Updates in the Domain Name System (DNS UPDATE)",
-              RFC 2136, DOI 10.17487/RFC2136, April 1997,
-              <https://www.rfc-editor.org/rfc/rfc2136>.
-
    [RFC3833]  Atkins, D. and R. Austein, "Threat Analysis of the Domain
               Name System (DNS)", RFC 3833, DOI 10.17487/RFC3833, August
               2004, <https://www.rfc-editor.org/rfc/rfc3833>.
-
-   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
-              Resource Identifier (URI): Generic Syntax", STD 66,
-              RFC 3986, DOI 10.17487/RFC3986, January 2005,
-              <https://www.rfc-editor.org/rfc/rfc3986>.
 
    [RFC6690]  Shelby, Z., "Constrained RESTful Environments (CoRE) Link
               Format", RFC 6690, DOI 10.17487/RFC6690, August 2012,
@@ -882,17 +905,9 @@ Table of Contents
               DOI 10.17487/RFC8094, February 2017,
               <https://www.rfc-editor.org/rfc/rfc8094>.
 
-   [RFC8484]  Hoffman, P. and P. McManus, "DNS Queries over HTTPS
-              (DoH)", RFC 8484, DOI 10.17487/RFC8484, October 2018,
-              <https://www.rfc-editor.org/rfc/rfc8484>.
-
    [RFC8499]  Hoffman, P., Sullivan, A., and K. Fujiwara, "DNS
               Terminology", RFC 8499, DOI 10.17487/RFC8499, January
               2019, <https://www.rfc-editor.org/rfc/rfc8499>.
-
-   [RFC8765]  Pusateri, T. and S. Cheshire, "DNS Push Notifications",
-              RFC 8765, DOI 10.17487/RFC8765, June 2020,
-              <https://www.rfc-editor.org/rfc/rfc8765>.
 
    [RFC9176]  Amsüss, C., Ed., Shelby, Z., Koster, M., Bormann, C., and
               P. van der Stok, "Constrained RESTful Environments (CoRE)
@@ -981,8 +996,9 @@ B.2.  Since draft-ietf-core-dns-over-coap-09
 
    *  Update corr-clar reference
 
-   *  Add reference to DNS Update [RFC2136], clarify that it is
-      currently not considered
+   *  Add reference to DNS Update [RFC2136]
+      (https://datatracker.ietf.org/doc/html/rfc2136), clarify that it
+      is currently not considered
 
    *  Add to security considerations: unprotected upstream DNS and
       DNSSEC
