@@ -394,7 +394,18 @@ A successful response:
       ;; ANSWER SECTION:
       ;example.org.         79689   IN      AAAA    2001:db8:1::1:2:3:4
 
-When a DNS error—NotImp (RCODE = 4) in response to a DNS Update (OPCODE = 5) for "example.org" in this case—is noted in the DNS response, the CoAP response still indicates success.
+When a DNS error—NxDomain (RCODE = 3) for "does.not.exist" in this case—is noted in the DNS response, the CoAP response still indicates success.
+
+    2.05 Content
+    Content-Format: application/dns-message
+    Payload (human-readable):
+      ;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 0
+      ;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
+
+      ;; QUESTION SECTION:
+      ;does.not.exist.              IN      AAAA
+
+As described in {{sec:content-format}}, a DoC server uses NotImp (RCODE = 4) if it does not support an OPCODE—a DNS Update (OPCODE = 5) for "example.org" in this case.
 
     2.05 Content
     Content-Format: application/dns-message
