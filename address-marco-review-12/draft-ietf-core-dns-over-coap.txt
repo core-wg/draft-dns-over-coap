@@ -588,7 +588,7 @@ Table of Contents
 
 
    // RFC Ed.: Please remove this section before publication.  When
-   // deleting this section, please also remove RFC7952 from the
+   // deleting this section, please also remove RFC7942 from the
    // references of this document.
 
 7.1.  DoC Client
