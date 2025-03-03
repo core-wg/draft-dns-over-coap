@@ -132,8 +132,8 @@ of kilobits per second, and latencies of several seconds {{-constr-nodes}} {{-co
 
 In order not to be burdened by the resource requirements of TCP and HTTPS, constrained IoT devices could use DNS over DTLS {{-dodtls}}.
 In contrast to DNS over DTLS, DoC
-utilizes CoAP features to mitigate drawbacks of datagram-based
-communication. These features include: block-wise transfer, which solves
+can take advantage of CoAP features to mitigate drawbacks of datagram-based
+communication. These features include: block-wise transfer {{-coap-blockwise}}, which solves
 the Path MTU problem of DNS over DTLS (see {{-dodtls, Section 5}}); CoAP
 proxies, which provide an additional level of caching; re-use of data
 structures for application traffic and DNS information, which saves memory
@@ -168,7 +168,7 @@ DNS infrastructure.
 Using that information, the DoC server then replies to the queries of the DoC client with DNS
 responses carried within CoAP responses.
 
-Note that this specification is distinct from DoH since the CoRE-specific FETCH method is used.
+Note that this specification is distinct from DoH, since the CoRE-specific FETCH method {{-coap-fetch}} is used.
 This was done to take benefit from having the DNS query in the payload as with POST, but still
 having the caching advantages we would gain with GET.
 Having the DNS query in the payload means we do not need extra base64 encoding, which would increase
