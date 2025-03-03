@@ -491,7 +491,7 @@ Table of Contents
     ;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
 
     ;; QUESTION SECTION:
-    ;does.not.exist.                IN      AAAA
+    ;does.not.exist.              IN      AAAA
 
    As described in Section 4.1, a DoC server uses NotImp (RCODE = 4) if
    it does not support an OPCODE—a DNS Update (OPCODE = 5) for
@@ -503,8 +503,8 @@ Table of Contents
      ;; ->>Header<<- opcode: UPDATE, status: NOTIMP, id: 0
      ;; flags: qr ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
 
-     ;; ZONE SECTION:
-     ;example.org.                 IN      SOA
+     ;; QUERY SECTION:
+     ;example.org.                 IN      AAAA
 
    When an error occurs on the CoAP layer, the DoC server SHOULD respond
    with an appropriate CoAP error, for instance "4.15 Unsupported
