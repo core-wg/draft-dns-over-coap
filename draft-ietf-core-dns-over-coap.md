@@ -433,6 +433,7 @@ DNS Push
 DNS Push requires additional overhead, which conflicts with constrained resources.
 This is the reason why it is RECOMMENDED to use CoAP Observe {{-coap-observe}} instead of DNS Push
 in the DoC domain.
+The DoC server SHOULD provide Observe capabilities on its DoC resource and do as follows.
 
 If the CoAP request indicates that the DoC client wants to observe a resource record, a DoC server
 MAY use a DNS Subscribe message {{-dns-push}} instead of a classic DNS query to fetch the
@@ -446,6 +447,9 @@ to the DoC client.
 If no more DoC clients observe a resource record for which the DoC server has an open subscription,
 the DoC server MUST use a DNS Unsubscribe message {{-dns-push}} to close its subscription to the
 resource record as well.
+
+A DoC server can still provide Observe capabilities to its DoC resource without providing this
+proxying to DNS Push, e.g., if it receives new information on a record through other means.
 
 OSCORE
 ------
