@@ -622,6 +622,12 @@ Change Log
 
 [^remove-changelog]: RFC Ed.: Please remove this section before publication.
 
+Since [draft-ietf-core-dns-over-coap-12]
+----------------------------------------
+- Address Esko's review
+- Address Marcos's review
+- Address Mikolai's review
+
 Since [draft-ietf-core-dns-over-coap-10]
 ----------------------------------------
 - Replace imprecise or wrong terms:
