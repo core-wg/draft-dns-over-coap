@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 1 September 2025                                               
+Expires: 4 September 2025                                               
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                        28 February 2025
+                                                            3 March 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 September 2025.
+   This Internet-Draft will expire on 4 September 2025.
 
 Copyright Notice
 
@@ -208,7 +208,8 @@ Table of Contents
    The term "constrained nodes" is used as defined in [RFC7228].
 
    The terms "payload" and "body" are used as defined in [RFC7959],
-   Section 2.
+   Section 2.  Note, that without block-wise transfer the terms
+   "payload" and "body" are to be understood as equal.
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
@@ -358,13 +359,14 @@ Table of Contents
    resolve "example.org.  IN AAAA" based on the URI
    "coaps://[2001:db8::1]/".  The CoAP body is encoded in "application/
    dns-message" Content Format.  For better readability, we provide the
-   body in a human-readable format.  In the actual message, however, it
-   would be encoded in the binary message format defined in [RFC1035].
+   payload in a human-readable format.  In the actual message, however,
+   it would be encoded in the binary message format defined in
+   [RFC1035].
 
    FETCH coaps://[2001:db8::1]/
    Content-Format: application/dns-message
    Accept: application/dns-message
-   Body (human-readable):
+   Payload (human-readable):
      ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
      ;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
 
@@ -377,7 +379,7 @@ Table of Contents
    FETCH coaps://[2001:db8::1]/
    Content-Format: application/dns-message
    Accept: application/dns-message
-   Body (binary):
+   Payload (binary):
      00 00 01 20 00 01 00 00 00 00 00 00 07 65 78 61
      6d 70 6c 65 03 6f 72 67 00 00 1c 00 01
 
@@ -461,7 +463,7 @@ Table of Contents
    "example.org.  IN AAAA record", recursion turned on.  Successful
    responses carry one answer record including address
    2001:db8:1::1:2:3:4 and TTL 79689.  As in Section 4.2.3, we use a
-   human-readable format for the body, but skip the binary conversion
+   human-readable format for the payload, but skip the binary conversion
    this time.
 
    A successful response:
@@ -469,7 +471,7 @@ Table of Contents
    2.05 Content
    Content-Format: application/dns-message
    Max-Age: 58719
-   Body (human-readable):
+   Payload (human-readable):
      ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
      ;; flags: qr rd ad; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ARCOUNT: 0
 
@@ -478,13 +480,28 @@ Table of Contents
      ;; ANSWER SECTION:
      ;example.org.         79689   IN      AAAA    2001:db8:1::1:2:3:4
 
-   When a DNS error—NotImp (RCODE = 4) in response to a DNS Update
-   (OPCODE = 5) for "example.org" in this case—is noted in the DNS
-   response, the CoAP response still indicates success.
+   When a DNS error—NxDomain (RCODE = 3) for "does.not.exist" in this
+   case—is noted in the DNS response, the CoAP response still indicates
+   success.
 
    2.05 Content
    Content-Format: application/dns-message
-   Body (human-readable):
+   Payload (human-readable):
+   ;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 0
+   ;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 0
+
+   ;; OPT PSEUDOSECTION:
+   ; EDNS: version: 0, flags:; udp: 0
+   ;; QUESTION SECTION:
+   ;does.not.exist.                IN      A
+
+   As described in Section 4.1, a DoC server uses NotImp (RCODE = 4) if
+   it does not support an OPCODE—a DNS Update (OPCODE = 5) for
+   "example.org" in this case.
+
+   2.05 Content
+   Content-Format: application/dns-message
+   Payload (human-readable):
      ;; ->>Header<<- opcode: UPDATE, status: NOTIMP, id: 0
      ;; flags: qr ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
 
@@ -730,6 +747,11 @@ Table of Contents
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
+   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
+              Resource Identifier (URI): Generic Syntax", STD 66,
+              RFC 3986, DOI 10.17487/RFC3986, January 2005,
+              <https://www.rfc-editor.org/rfc/rfc3986>.
+
    [RFC6347]  Rescorla, E. and N. Modadugu, "Datagram Transport Layer
               Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
               January 2012, <https://www.rfc-editor.org/rfc/rfc6347>.
@@ -748,6 +770,11 @@ Table of Contents
               Application Protocol (CoAP)", RFC 7641,
               DOI 10.17487/RFC7641, September 2015,
               <https://www.rfc-editor.org/rfc/rfc7641>.
+
+   [RFC7959]  Bormann, C. and Z. Shelby, Ed., "Block-Wise Transfers in
+              the Constrained Application Protocol (CoAP)", RFC 7959,
+              DOI 10.17487/RFC7959, August 2016,
+              <https://www.rfc-editor.org/rfc/rfc7959>.
 
    [RFC8132]  van der Stok, P., Bormann, C., and A. Sehgal, "PATCH and
               FETCH Methods for the Constrained Application Protocol
@@ -835,11 +862,6 @@ Table of Contents
               Name System (DNS)", RFC 3833, DOI 10.17487/RFC3833, August
               2004, <https://www.rfc-editor.org/rfc/rfc3833>.
 
-   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
-              Resource Identifier (URI): Generic Syntax", STD 66,
-              RFC 3986, DOI 10.17487/RFC3986, January 2005,
-              <https://www.rfc-editor.org/rfc/rfc3986>.
-
    [RFC6690]  Shelby, Z., "Constrained RESTful Environments (CoRE) Link
               Format", RFC 6690, DOI 10.17487/RFC6690, August 2012,
               <https://www.rfc-editor.org/rfc/rfc6690>.
@@ -852,11 +874,6 @@ Table of Contents
               Code: The Implementation Status Section", BCP 205,
               RFC 7942, DOI 10.17487/RFC7942, July 2016,
               <https://www.rfc-editor.org/rfc/rfc7942>.
-
-   [RFC7959]  Bormann, C. and Z. Shelby, Ed., "Block-Wise Transfers in
-              the Constrained Application Protocol (CoAP)", RFC 7959,
-              DOI 10.17487/RFC7959, August 2016,
-              <https://www.rfc-editor.org/rfc/rfc7959>.
 
    [RFC8094]  Reddy, T., Wing, D., and P. Patil, "DNS over Datagram
               Transport Layer Security (DTLS)", RFC 8094,
