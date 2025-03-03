@@ -265,13 +265,13 @@ Basic Message Exchange
 
 The "application/dns-message" Content-Format    {#sec:content-format}
 --------------------------------------------
-This document defines a CoAP Content-Format number for the Internet
+This document defines a CoAP Content-Format identifier for the Internet
 media type "application/dns-message" to be the mnemonic 553 — based on the port assignment of DNS.
 This media type is defined as in {{Section 6 of -doh}}, i.e., a single DNS message encoded in the DNS on-the-wire format {{-dns}}.
 Both DoC client and DoC server MUST be able to parse contents in the "application/dns-message" format.
 For the purposes of this document, only OPCODE 0 (Query) is supported for DNS messages.
 Future work might provide specifications and considerations for other values of OPCODE.
-Unless another error takes precedence, a DoC server uses RCODE = 4, NotImp {{-dns}}, in its response when it receives a query with an OPCODE it does not implement (see also {{sec:resp-examples}}).
+Unless another error takes precedence, a DoC server uses RCODE = 4, NotImp {{-dns}}, in its response when it receives a query with an OPCODE that it does not implement (see also {{sec:resp-examples}}).
 
 DNS Queries in CoAP Requests    {#sec:queries}
 ----------------------------
@@ -280,14 +280,14 @@ A DoC client encodes a single DNS query in one or more CoAP request
 messages that use the CoAP FETCH {{-coap-fetch}} method.
 Requests SHOULD include an Accept option to indicate the type of content that can be parsed in the response.
 
-Since CoAP provides reliability at the message layer (e.g., CON) the retransmission mechanism of the
+Since CoAP provides reliability at the message layer (e.g., through Confirmable messages) the retransmission mechanism of the
 DNS protocol as defined in {{-dns}} is not needed.
 
 ### Request Format
 
 When sending a CoAP request, a DoC client MUST include the DNS query in the body of the CoAP request.
 As specified in {{Section 2.3.1 of -coap-fetch}}, the type of content of the body MUST be indicated using the Content-Format option.
-This document specifies the usage of Content-Format "application/dns-message" (details see {{sec:content-format}}).
+This document specifies the usage of Content-Format "application/dns-message" (for details, see {{sec:content-format}}).
 A DoC server MUST be able to parse requests of Content-Format "application/dns-message".
 
 ### Support of CoAP Caching {#sec:req-caching}
@@ -329,8 +329,8 @@ DNS Responses in CoAP Responses
 Each DNS query-response pair is mapped to a CoAP request-response
 operation. DNS responses are provided in the body of the CoAP response.
 A DoC server MUST be able to produce responses in the "application/dns-message"
-Content-Format (details see {{sec:content-format}}) when requested.
-A DoC client MUST understand responses in "application/dns-message" format
+Content-Format (for details, see {{sec:content-format}}) when requested.
+A DoC client MUST be able to understand responses in "application/dns-message" format
 when it does not send an Accept option.
 Any other response format than "application/dns-message" MUST be indicated with
 the Content-Format option by the DoC server.
@@ -338,10 +338,10 @@ the Content-Format option by the DoC server.
 ### Response Codes and Handling DNS and CoAP errors
 
 A DNS response indicates either success or failure in the RCODE of the DNS header (see {{Section 4.1.1 of -dns}}).
-It is RECOMMENDED that CoAP responses that carry a parseable DNS response use a "2.05 Content" response code.
+It is RECOMMENDED that CoAP responses that carry a parseable DNS response use a 2.05 (Content) response code.
 
 CoAP responses using non-successful response codes MUST NOT contain a DNS response
-and MUST only be used on errors in the CoAP layer or when a request does not
+and MUST only be used for errors in the CoAP layer or when a request does not
 fulfill the requirements of the DoC protocol.
 
 Communication errors with an upstream DNS server (e.g., timeouts) MUST be indicated by including a DNS response with the appropriate RCODE in a successful CoAP response, i.e., using a 2.xx response code.
@@ -352,7 +352,7 @@ The DoC client might also decide to repeat a non-successful exchange with a diff
 ### Support of CoAP Caching {#sec:resp-caching}
 
 For reliability and energy saving measures, content decoupling, i.e., en-route caching on proxies, takes a far greater role than it does, e.g., in HTTP.
-Likewise, CoAP utilizes cache validation to refresh stale cache entries to reduce the amount of large response messages.
+Likewise, CoAP makes it possible to use cache validation to refresh stale cache entries to reduce the amount of large response messages.
 For cache validation, CoAP implementations regularly use hashing over the message content for ETag generation.
 As such, the approach to guarantee the same cache key for DNS responses as proposed in DoH ({{-doh, Section 5.1}}) is not sufficient and needs to be updated so that the TTLs in the response are more often the same regardless of query time.
 
@@ -369,8 +369,8 @@ This then remains the case even if the TTL values are updated by an upstream DNS
 If only one record set per DNS response is assumed, a simplification of this algorithm is to just set all TTLs in the response to 0 and set the TTLs at the DoC client to the value of the Max-Age option.
 
 If shorter caching periods are plausible, e.g., if the RCODE of the message indicates an error that should only be cached for a minimal duration, the value for the Max-Age option SHOULD be set accordingly.
-This value might be 0, but if the DoC server knows the error will persist, greater values are also conceivable, depending on the projected duration of the error.
-Same goes for DNS responses, that for any reason do not carry any records with a TTL.
+This value might be 0, but if the DoC server knows that the error will persist, greater values are also conceivable, depending on the projected duration of the error.
+Same goes for DNS responses that for any reason do not carry any records with a TTL.
 
 ### Examples {#sec:resp-examples}
 
@@ -404,8 +404,8 @@ When a DNS error—NotImp (RCODE = 4) in response to a DNS Update (OPCODE = 5) f
       ;; ZONE SECTION:
       ;example.org.                 IN      SOA
 
-When an error occurs on the CoAP layer, the DoC server SHOULD respond with
-an appropriate CoAP error, for instance "4.15 Unsupported Content-Format"
+When an error occurs at the CoAP layer, the DoC server SHOULD respond with
+an appropriate CoAP error, for instance 4.15 (Unsupported Content-Format)
 if the Content-Format option in the request was not set to
 "application/dns-message" and the Content-Format is not otherwise supported by
 the server.
