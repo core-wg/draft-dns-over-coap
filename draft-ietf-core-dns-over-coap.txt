@@ -363,21 +363,8 @@ Table of Contents
    "coaps://[2001:db8::1]/".  The CoAP body is encoded in "application/
    dns-message" Content Format.  For better readability, we provide the
    payload in a human-readable format.  In the actual message, however,
-   it would be encoded in the binary message format defined in
-   [RFC1035].
-
-   FETCH coaps://[2001:db8::1]/
-   Content-Format: application/dns-message
-   Accept: application/dns-message
-   Payload (human-readable):
-     ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
-     ;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
-
-     ;; QUESTION SECTION:
-     ;example.org.             IN      AAAA
-
-   As such, the message would actually look as follows (bytes printed in
-   hexadecimal representation).
+   it would be encoded in the binary message format (bytes printed in
+   hexadecimal representation) defined in [RFC1035].
 
    FETCH coaps://[2001:db8::1]/
    Content-Format: application/dns-message
@@ -385,6 +372,13 @@ Table of Contents
    Payload (binary):
      00 00 01 20 00 01 00 00 00 00 00 00 07 65 78 61
      6d 70 6c 65 03 6f 72 67 00 00 1c 00 01
+
+   Payload (human-readable):
+     ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
+     ;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
+
+     ;; QUESTION SECTION:
+     ;example.org.             IN      AAAA
 
 4.3.  DNS Responses in CoAP Responses
 
@@ -874,9 +868,9 @@ Table of Contents
               Lenders, M. S., Amsüss, C., Schmidt, T. C., and M.
               Wählisch, "Discovery of Network-designated OSCORE-based
               Resolvers: Problem Statement", Work in Progress, Internet-
-              Draft, draft-lenders-core-dnr-04, 5 February 2025,
+              Draft, draft-lenders-core-dnr-05, 3 March 2025,
               <https://datatracker.ietf.org/doc/html/draft-lenders-core-
-              dnr-04>.
+              dnr-05>.
 
    [RFC3833]  Atkins, D. and R. Austein, "Threat Analysis of the Domain
               Name System (DNS)", RFC 3833, DOI 10.17487/RFC3833, August
