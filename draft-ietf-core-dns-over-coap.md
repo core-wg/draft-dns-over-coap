@@ -551,42 +551,41 @@ IANA Considerations
     RFC-XXXX with the RFC number of this specification and remove this
     note.
 
-New "application/dns-message" Content-Format
---------------------------------------------
+This document has the following actions for IANA.
+
+CoAP Content-Formats Registry
+-----------------------------
 
 IANA is requested to assign a CoAP Content-Format ID for the DNS message media
-type in the "CoAP Content-Formats" sub-registry, within the "CoRE Parameters"
-registry {{-coap}}, corresponding to the "application/dns-message" media
+type in the "CoAP Content-Formats" registry, within the "Constrained RESTful Environments (CoRE) Parameters"
+registry group {{-coap}}, corresponding to the "application/dns-message" media
 type from the "Media Types" registry (see {{-doh}}).
 
 Content Type: application/dns-message
 
 Content Coding: -
 
-Id: 553 (suggested)
+ID: 553 (suggested)
 
 Reference: {{-doh}}\[RFC-XXXX, {{sec:content-format}}\]
 
-New "docpath" SVCB Service Parameter
+DNS Service Bindings (SVCB) Registry
 ------------------------------------
 
-This document adds the following entry to the Service Parameter Keys (SvcParamKeys) registry in the
-DNS Service Bindings (SVCB) registry group.
+IANA is requested to add the following entry to the "Service Parameter Keys (SvcParamKeys)" registry within the "DNS Service Bindings (SVCB)" registry group.
 The definition of this parameter can be found in {{sec:doc-server-selection}}.
 
-| Number  | Name           | Meaning                            | Reference       |
-| ------- | -------------- | ---------------------------------- | --------------- |
-| 10 (suggested)     | docpath        | DNS over CoAP resource path        | \[RFC-XXXX, {{sec:doc-server-selection}}\] |
+| Number  | Name           | Meaning                            | Change Controller | Reference       |
+| ------- | -------------- | ---------------------------------- | ----------------- | --------------- |
+| 10 (suggested)     | docpath        | DNS over CoAP resource path | IETF | \[RFC-XXXX, {{sec:doc-server-selection}}\] |
 {: #tab-svc-param-keys title="Values for SvcParamKeys"}
 
-New "core.dns" Resource Type
-----------------------------
+Resource Type (rt=) Link Target Attribute Values Registry
+---------------------------------------------------------
 
-IANA is requested to assign a new Resource Type (rt=) Link Target Attribute, "core.dns" in the
-"Resource Type (rt=) Link Target Attribute Values" sub-registry, within the "CoRE Parameters"
-register {{-core-link-format}}.
+ IANA is requested to add a new Resource Type (rt=) Link Target Attribute "core.dns" to the "Resource Type (rt=) Link Target Attribute Values" registry within the "Constrained RESTful Environments (CoRE) Parameters" registry group.
 
-Attribute Value: core.dns
+Value: core.dns
 
 Description: DNS over CoAP resource.
 
