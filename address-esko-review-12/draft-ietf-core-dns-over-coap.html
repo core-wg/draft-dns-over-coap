@@ -1795,7 +1795,7 @@ the server.<a href="#section-4.3.3-8" class="pilcrow">¶</a></p>
 <p id="section-5.1-1">DNS Push requires additional overhead, which conflicts with constrained resources,
 This is the reason why it is <span class="bcp14">RECOMMENDED</span> to use CoAP Observe <span>[<a href="#RFC7641" class="cite xref">RFC7641</a>]</span> instead of DNS Push
 in the DoC domain.
-The DoC server <span class="bcp14">SHOULD</span> provide Observe capabilities on its DNS resource and do as follows.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+The DoC server <span class="bcp14">SHOULD</span> provide Observe capabilities on its DoC resource and do as follows.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.1-2">If the CoAP request indicates that the DoC client wants to observe a resource record, a DoC server
 <span class="bcp14">MAY</span> use a DNS Subscribe message <span>[<a href="#RFC8765" class="cite xref">RFC8765</a>]</span> instead of a classic DNS query to fetch the
 information on behalf of a DoC client.
@@ -1806,7 +1806,7 @@ to the DoC client.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
 <p id="section-5.1-4">If no more DoC clients observe a resource record for which the DoC server has an open subscription,
 the DoC server <span class="bcp14">MUST</span> use a DNS Unsubscribe message <span>[<a href="#RFC8765" class="cite xref">RFC8765</a>]</span> to close its subscription to the
 resource record as well.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
-<p id="section-5.1-5">A DoC server can still provide Observe capabilities to its DNS resource without providing this
+<p id="section-5.1-5">A DoC server can still provide Observe capabilities to its DoC resource without providing this
 proxying to DNS Push, e.g., if it receives new information on a record through other means.<a href="#section-5.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
