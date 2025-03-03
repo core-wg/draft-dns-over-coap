@@ -63,7 +63,6 @@ author:
 normative:
   RFC1035: dns
   RFC6347: dtls12
-  RFC7228: constr-nodes
   RFC7252: coap
   RFC7641: coap-observe
   RFC7959: coap-blockwise
@@ -79,6 +78,7 @@ informative:
   RFC3833: dns-threats
   RFC3986: uri
   RFC6690: core-link-format
+  RFC7228: constr-nodes
   RFC7626: dns-privacy
   RFC8765: dns-push
   RFC8094: dodtls
@@ -93,6 +93,7 @@ informative:
   RFC9463: dnr
   I-D.ietf-core-href: cri
   I-D.ietf-core-transport-indication: transport-indication
+  I-D.ietf-iotops-7228bis: constr-nodes-bis
   I-D.lenders-core-dnr: core-dnr
   I-D.amsuess-core-cachable-oscore: cachable-oscore
   DoC-paper: DOI.10.1145/3609423
@@ -127,7 +128,7 @@ only have a handful kilobytes of both RAM and ROM. They may sleep for long
 durations of time, after which they need to refresh the named resources they
 know about. Name resolution in such scenarios must take into account link
 layer frame sizes of only a few hundred bytes, bit rates in the magnitude
-of kilobits per second, and latencies of several seconds {{-constr-nodes}}.
+of kilobits per second, and latencies of several seconds {{-constr-nodes}} {{-constr-nodes-bis}}.
 
 In order not to be burdened by the resource requirements of TCP and HTTPS, constrained IoT devices could use DNS over DTLS {{-dodtls}}.
 In contrast to DNS over DTLS, DoC
