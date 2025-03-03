@@ -528,22 +528,22 @@ via response spoofing.
 This document requires an unpredictable CoAP token in each DoC query from the client when CoAP is
 not secured to mitigate such an attack over DoC (see {{sec:unprotected-coap}}).
 
-For confidential communication via DTLS or OSCORE the impact of a fixed ID on security is limited, as both
+For secure communication via DTLS or OSCORE the impact of a fixed ID on security is limited, as both
 harden against injecting spoofed responses.
 Consequently, the ID of the DNS message can be set to 0 without any concern in order to leverage the advantages of CoAP caching.
 
-A user of DoC must be aware that the DoC server
+A DoC client must be aware that the DoC server
 may communicate unprotected with the upstream DNS infrastructure, e.g., using DNS over UDP.
-DoC can only guarantee confidential communication and integrity between parties for which the
+DoC can only guarantee confidentiality and integrity of communication between parties for which the
 security context is exchanged.
-The DoC server may use another security context to communicate confidentially and with integrity
-upstream (e.g., DNS over QUIC {{-doq}}) or just integrity (e.g., DNSSEC {{-dnssec}}), but, while
+The DoC server may use another security context to communicate upstream with both confidentiality and integrity
+(e.g., DNS over QUIC {{-doq}}) or with just integrity (e.g., DNSSEC {{-dnssec}}), but, while
 recommended, this is opaque to the DoC client on the protocol level.
 
 A DoC client may not be able to perform DNSSEC validation,
 e.g., due to code size constraints, or due to size of the responses.
 It may trust its DoC server to perform DNSSEC validation;
-how that trust is expressed is out of scope of this document.
+how that trust is expressed is out of the scope of this document.
 A DoC client may be, for instance, configured to use a particular credential by which it recognizes an eligible DoC server.
 That information can also imply trust in the DNSSEC validation by that server.
 
