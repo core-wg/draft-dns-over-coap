@@ -1743,13 +1743,11 @@ Payload (human-readable):
 2.05 Content
 Content-Format: application/dns-message
 Payload (human-readable):
-;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NXDOMAIN, id: 0
-;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 0
+  ;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NXDOMAIN, id: 0
+  ;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
 
-;; OPT PSEUDOSECTION:
-; EDNS: version: 0, flags:; udp: 0
-;; QUESTION SECTION:
-;does.not.exist.                IN      A
+  ;; QUESTION SECTION:
+  ;does.not.exist.                IN      AAAA
 </pre><a href="#section-4.3.3-5" class="pilcrow">¶</a>
 </div>
 <p id="section-4.3.3-6">As described in <a href="#sec_content-format" class="auto internal xref">Section 4.1</a>, a DoC server uses NotImp (RCODE = 4) if it does not support an OPCODE—a DNS Update (OPCODE = 5) for "example.org" in this case.<a href="#section-4.3.3-6" class="pilcrow">¶</a></p>

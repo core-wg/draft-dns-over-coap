@@ -484,16 +484,14 @@ Table of Contents
    case—is noted in the DNS response, the CoAP response still indicates
    success.
 
-   2.05 Content
-   Content-Format: application/dns-message
-   Payload (human-readable):
-   ;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 0
-   ;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 0
+  2.05 Content
+  Content-Format: application/dns-message
+  Payload (human-readable):
+    ;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 0
+    ;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
 
-   ;; OPT PSEUDOSECTION:
-   ; EDNS: version: 0, flags:; udp: 0
-   ;; QUESTION SECTION:
-   ;does.not.exist.                IN      A
+    ;; QUESTION SECTION:
+    ;does.not.exist.                IN      AAAA
 
    As described in Section 4.1, a DoC server uses NotImp (RCODE = 4) if
    it does not support an OPCODE—a DNS Update (OPCODE = 5) for
