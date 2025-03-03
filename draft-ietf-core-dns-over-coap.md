@@ -179,6 +179,8 @@ We are also able to transfer a query block-wise.
 Terminology
 ===========
 
+{::boilerplate bcp14-tagged}
+
 A server that provides the service specified in this document is called a "DoC
 server" to differentiate it from a classic "DNS server".
 A DoC server acts either as a DNS stub resolver {{-dns-terminology}} or a DNS recursive resolver {{-dns-terminology}}.
@@ -190,8 +192,6 @@ DNS information is called a "DoC client".
 The term "constrained nodes" is used as defined in {{-constr-nodes}}.
 
 The terms "CoAP payload" and "CoAP body" are used as defined in {{-coap-blockwise, Section 2}}.
-
-{::boilerplate bcp14-tagged}
 
 Selection of a DoC Server   {#sec:doc-server-selection}
 =========================
