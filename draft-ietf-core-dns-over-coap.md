@@ -199,23 +199,24 @@ Selection of a DoC Server   {#sec:doc-server-selection}
 While there is no path specified for the DoC resource, it is RECOMMENDED to use the root path "/"
 to keep the CoAP requests small.
 
-The DoC client needs to know the DoC server and the DNS resource at the DoC server.
+The DoC client needs to know the DoC server and the DoC resource at the DoC server.
 Possible options to assure this could be manual configuration of a URI {{-uri}} or CRI {{-cri}},
 or automatic configuration, e.g., using a CoRE resource directory
-{{-core-rd}}, DHCP or Router Advertisement options {{-dnr}} or discovery of designated resolvers
+{{-core-rd}}, DHCP or Router Advertisement options {{-dnr}}, or discovery of designated resolvers
 {{-ddr}}.
 Automatic configuration SHOULD only be done from a trusted source.
 
 ## Discovery by Resource Type
-For discovery of a the DNS resource through a link mechanism that allows describing a resource type
+For discovery of a the DoC resource through a link mechanism that allows describing a resource type
 (e.g., the Resource Type Attribute in {{-core-link-format}}), this document introduces the resource type "core.dns".
 It can be used to identify a generic DNS resolver that is available to the client.
 
 ## Discovery using SVCB Resource Records or DNR
-A DoC server can also be discovered using SVCB Resource Records (RR) {{-svcb}}, {{-svcb-dns}} or DNR
+A DoC server can also be discovered using SVCB Resource Records (RR) {{-svcb}} {{-svcb-dns}} or DNR
 Service Parameters {{-dnr}}.
 {{-coap-dtls-alpn}} provides solutions to discover CoAP over (D)TLS servers using the "alpn" SvcParam.
 {{-core-dnr}} provides a problem statement for service bindings discovery for OSCORE and EDHOC.
+
 This document specifies "docpath" as
 a single-valued SvcParamKey whose value MUST be a CBOR sequence of 0 or more text strings (see
 {{-cborseq}} and {{-cbor}}), delimited by the length of the SvcParamValue field (in octets). If the
@@ -224,9 +225,9 @@ As a text format, e.g., in DNS zone files, the CBOR diagnostic
 notation (see {{Section 8 of -cbor}} and {{-edn}})
 of that CBOR sequence can be used.
 
-Note, that this specifically does not surround the text string sequence with a CBOR array or a
+Note that this specifically does not surround the text string sequence with a CBOR array or a
 similar CBOR data item. This path format was chosen to coincide with the path representation in CRIs
-({{-cri}}). Furthermore, it is easily transferable into a sequence of CoAP Uri-Path options by
+{{-cri}}. Furthermore, it is easily transferable into a sequence of CoAP Uri-Path options by
 mapping the initial byte of any present CBOR text string (see {{-cbor, Section 3}}) into the Option
 Delta and Option Length of the CoAP option, provided these CBOR text strings are all of a length
 between 0 and 12 octets (see {{-coap, Section 3.1}}). Likewise, it can be transferred into a URI
@@ -234,23 +235,23 @@ path-abempty form (see {{-uri, Section 3.3}}) by replacing the initial byte of a
 string with the "/" character, provided these CBOR text strings are all of a length less than 24
 octets and do not contain bytes that need escaping.
 
-To use the service binding from a SVCB RR, the DoC client MUST send a DoC request constructed from the SvcParams including "docpath".
+To use the service binding from an SVCB RR, the DoC client MUST send a DoC request constructed from the SvcParams including "docpath".
 A rough construction algorithm could be as follows, going through the provided records in order of their priority.
 
-- If the "alpn" SvcParam value for the service is "coap", construct a CoAP request for CoAP over TLS,
-  if it is "co", construct a CoAP request for CoAP over DTLS. Any other SvcParamKeys specifying a
-  CoAP transport are out of scope of this document.
+- If the "alpn" SvcParam value for the service is "coap", construct a CoAP request for CoAP over TLS.
+  If it is "co", construct a CoAP request for CoAP over DTLS. Any other SvcParamKeys specifying a
+  CoAP transport are out of the scope of this document.
 - The destination address for the request should be taken from additional information about the
-  target, e.g., from an AAAA record associated to the target name or from an "ipv6hint" SvcParam
+  target, e.g., from an AAAA record associated with the target name or from an "ipv6hint" SvcParam
   value, or, as a fallback, by querying an address for the target name of the SVCB record.
 - The destination port for the address is taken from the "port" SvcParam value, if present.
   Otherwise, take the default port of the CoAP transport.
-- Set the target name of SVCB record in the URI-Host option.
+- Set the target name of SVCB record in the Uri-Host option.
 - For each element in the CBOR sequence of the "docpath" SvcParam value, add a Uri-Path option to
   the request.
 - If a "port" SvcParam value is provided or if a port was queried, and if either differs from
   the default port of the transport or the destination port selected above, set that port in the
-  URI-Port option.
+  Uri-Port option.
 - If the request constructed this way receives a response, use the same SVCB record for construction
   of future DoC queries.
   If not, or if the endpoint becomes unreachable, repeat with the SVCB record with the next highest
