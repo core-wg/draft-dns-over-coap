@@ -100,7 +100,7 @@ informative:
   I-D.ietf-core-corr-clar: core-corrclar
 --- abstract
 
-This document defines a protocol for sending DNS messages over the
+This document defines a protocol for exchanging DNS messages over the
 Constrained Application Protocol (CoAP). These CoAP messages can be protected
 by DTLS-Secured CoAP (CoAPS) or Object Security for Constrained RESTful
 Environments (OSCORE) to provide encrypted DNS message exchange for
@@ -159,7 +159,7 @@ To avoid resource requirements of DTLS or TLS on top of UDP (e.g., introduced by
 {: #fig-overview-arch title="Basic DoC architecture"}
 
 
-The most important components of DoC can be seen in {{fig-overview-arch}}: A DoC
+The most important components of DoC can be seen in {{fig-overview-arch}}: a DoC
 client tries to resolve DNS information by sending DNS queries carried within
 CoAP requests to a DoC server.
 That DoC server is a DNS client (i.e., a stub or recursive resolver) that resolves DNS information by using other DNS transports such
