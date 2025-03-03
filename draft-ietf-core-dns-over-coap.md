@@ -447,16 +447,16 @@ security properties, which are compiled in that document.
 
 Mapping DoC to DoH
 ------------------
-This document provides no specification how to map between DoC and DoH, e.g., at a CoAP-HTTP-proxy.
+This document provides no specification on how to map between DoC and DoH, e.g., at a CoAP-to-HTTP-proxy.
 In fact, such a direct mapping is NOT RECOMMENDED:
-Rewriting the FETCH method ({{sec:queries}}) and the TTL rewriting ({{sec:resp-caching}}) as
+rewriting the FETCH method ({{sec:queries}}) and the TTL rewriting ({{sec:resp-caching}}) as
 specified in this draft would be non-trivial.
 It is RECOMMENDED to use a DNS forwarder to map between DoC and DoH, as would be the case for
 mapping between any other pair of DNS transports.
 
 Considerations for Unprotected Use {#sec:unprotected-coap}
 ==================================
-The use of DoC without confidentiality protection is NOT RECOMMENDED.
+The use of DoC without confidentiality and integrity protection is NOT RECOMMENDED.
 Without confidential communication, many possible attacks need to be evaluated in the context of
 the application's threat model.
 This includes known threats for unprotected DNS {{-dns-threats}} {{-dns-privacy}} and CoAP {{Section 11 of -coap}}.
