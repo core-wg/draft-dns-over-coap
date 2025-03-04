@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-02T01:13:54.464420+00:00",
+  "timestamp": "2025-03-04T01:10:51.756594+00:00",
   "repo": "core-wg/draft-dns-over-coap",
   "labels": [
     {
@@ -4512,24 +4512,26 @@
       "id": "PR_kwDOF27TLs6M8PdU",
       "title": "Unify binary and human-readable to one example",
       "url": "https://github.com/core-wg/draft-dns-over-coap/pull/41",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "miri64",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "See https://mailarchive.ietf.org/arch/msg/core/hK-tIbZZnCUYYram_mNJbCYOgr0",
       "createdAt": "2025-02-28T13:43:37Z",
-      "updatedAt": "2025-02-28T13:59:01Z",
+      "updatedAt": "2025-03-03T16:03:29Z",
       "baseRepository": "core-wg/draft-dns-over-coap",
       "baseRefName": "main",
       "baseRefOid": "1de55bf10000c1c92d94b078fe2e6bae41d96336",
       "headRepository": "core-wg/draft-dns-over-coap",
       "headRefName": "unify-binary-human-readable",
       "headRefOid": "69ab25fdfb1f38a5d33b6cb62cc802180b5aff67",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-03-03T16:03:24Z",
+      "mergedAt": "2025-03-03T16:03:24Z",
+      "mergedBy": "miri64",
+      "mergeCommit": {
+        "oid": "e451377626e1108174d58694a6d49e7b0593b9e8"
+      },
       "comments": [],
       "reviews": [
         {
@@ -4552,26 +4554,319 @@
       "id": "PR_kwDOF27TLs6M8ysw",
       "title": "Address @EskoDijk's review on -12",
       "url": "https://github.com/core-wg/draft-dns-over-coap/pull/42",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "miri64",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "See https://mailarchive.ietf.org/arch/msg/core/dCYcRBCTUOGoktV20cTq4n-VAC0",
       "createdAt": "2025-02-28T14:50:43Z",
-      "updatedAt": "2025-02-28T14:50:43Z",
+      "updatedAt": "2025-03-03T11:56:07Z",
+      "baseRepository": "core-wg/draft-dns-over-coap",
+      "baseRefName": "main",
+      "baseRefOid": "a2e2da6bc6eac30575d98f9ddc88673948668565",
+      "headRepository": "core-wg/draft-dns-over-coap",
+      "headRefName": "address-esko-review-12",
+      "headRefOid": "e4b17e6e5972007da9a0a91e6b3fb23d46a35bde",
+      "closedAt": "2025-03-03T11:55:07Z",
+      "mergedAt": "2025-03-03T11:55:07Z",
+      "mergedBy": "miri64",
+      "mergeCommit": {
+        "oid": "3ace32c0b64800bc7eb9ddff9bf643fb520430f9"
+      },
+      "comments": [
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Fixed the example and also use AAAA record now (using A records for examples is just bad advertisement for legacy IP at this point ;-P)",
+          "createdAt": "2025-03-03T10:23:08Z",
+          "updatedAt": "2025-03-03T10:23:08Z"
+        },
+        {
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Rebased to current main to resolve conflicts caused by merging #43.",
+          "createdAt": "2025-03-03T11:25:56Z",
+          "updatedAt": "2025-03-03T11:25:56Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOF27TLs6eKrug",
+          "commit": {
+            "abbreviatedOid": "e2ec8a4"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-03T09:51:48Z",
+          "updatedAt": "2025-03-03T09:51:48Z",
+          "comments": [
+            {
+              "originalPosition": 67,
+              "body": "This looks like an EDNS(0) option per RFC 6891 is included with UDP size \"0\". That could be confusing; normally the client would have to indicate its supported UDP size?  Like 1024 can be typically achieved on all/most 6LoWPAN networks. Or maybe we shouldn't include this option for the example to avoid such details?",
+              "createdAt": "2025-03-03T09:51:48Z",
+              "updatedAt": "2025-03-03T09:51:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6eKx50",
+          "commit": {
+            "abbreviatedOid": "e2ec8a4"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-03T09:58:37Z",
+          "updatedAt": "2025-03-03T09:58:37Z",
+          "comments": [
+            {
+              "originalPosition": 64,
+              "body": "There 1 record in the Authority section included. But this record is not shown in the human-readable payload format?\r\n\r\nFor example \"dig\" seems to do this:\r\nhttps://stackoverflow.com/questions/16072817/what-does-the-authority-section-mean-in-dig-results \r\n",
+              "createdAt": "2025-03-03T09:58:37Z",
+              "updatedAt": "2025-03-03T09:58:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6eK30X",
+          "commit": {
+            "abbreviatedOid": "e2ec8a4"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-03T10:07:52Z",
+          "updatedAt": "2025-03-03T10:07:53Z",
+          "comments": [
+            {
+              "originalPosition": 71,
+              "body": "It looks like an example is missing here - it mentions an \"example.org\" DNS Update which isn't shown. The above example now has \"does.not.exist\" as name.",
+              "createdAt": "2025-03-03T10:07:52Z",
+              "updatedAt": "2025-03-03T10:07:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6eK46X",
+          "commit": {
+            "abbreviatedOid": "e2ec8a4"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-03T10:09:44Z",
+          "updatedAt": "2025-03-03T10:09:44Z",
+          "comments": [
+            {
+              "originalPosition": 71,
+              "body": "Or does \"example.org\" refer back to the first example with \"example.org\" query? But that wasn't a DNS Update.",
+              "createdAt": "2025-03-03T10:09:44Z",
+              "updatedAt": "2025-03-03T10:09:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6eK7h5",
+          "commit": {
+            "abbreviatedOid": "e2ec8a4"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-03T10:14:03Z",
+          "updatedAt": "2025-03-03T10:14:03Z",
+          "comments": [
+            {
+              "originalPosition": 71,
+              "body": "Sorry, Github was hiding the example, it's below ...",
+              "createdAt": "2025-03-03T10:14:03Z",
+              "updatedAt": "2025-03-03T10:14:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6eLBi9",
+          "commit": {
+            "abbreviatedOid": "e2ec8a4"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-03T10:20:23Z",
+          "updatedAt": "2025-03-03T10:20:23Z",
+          "comments": [
+            {
+              "originalPosition": 67,
+              "body": "Ah, sorry Copy pasta from me actually using dig to generate this example. Will remove!",
+              "createdAt": "2025-03-03T10:20:23Z",
+              "updatedAt": "2025-03-03T10:20:23Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6eLBqe",
+          "commit": {
+            "abbreviatedOid": "e2ec8a4"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-03T10:20:34Z",
+          "updatedAt": "2025-03-03T10:20:35Z",
+          "comments": [
+            {
+              "originalPosition": 64,
+              "body": "Same.",
+              "createdAt": "2025-03-03T10:20:35Z",
+              "updatedAt": "2025-03-03T10:20:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6eL0C9",
+          "commit": {
+            "abbreviatedOid": "e4b17e6"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "thanks!",
+          "createdAt": "2025-03-03T11:51:07Z",
+          "updatedAt": "2025-03-03T11:51:07Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 43,
+      "id": "PR_kwDOF27TLs6NIJkf",
+      "title": "Address @marco-tiloca-sics' review of -12",
+      "url": "https://github.com/core-wg/draft-dns-over-coap/pull/43",
+      "state": "MERGED",
+      "author": "miri64",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "See https://mailarchive.ietf.org/arch/msg/core/QdTmJ4z0QdYZ_AsQnHqqctDPgO8",
+      "createdAt": "2025-03-03T10:13:11Z",
+      "updatedAt": "2025-03-03T11:22:13Z",
       "baseRepository": "core-wg/draft-dns-over-coap",
       "baseRefName": "main",
       "baseRefOid": "1de55bf10000c1c92d94b078fe2e6bae41d96336",
       "headRepository": "core-wg/draft-dns-over-coap",
-      "headRefName": "address-esko-review-12",
-      "headRefOid": "5a54b5bd02a79efbfd44779bbc4de6a6aa023f94",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefName": "address-marco-review-12",
+      "headRefOid": "ff50104a8fa986fbd7e178be989279eabaa30b5e",
+      "closedAt": "2025-03-03T11:22:04Z",
+      "mergedAt": "2025-03-03T11:22:04Z",
+      "mergedBy": "miri64",
+      "mergeCommit": {
+        "oid": "a2e2da6bc6eac30575d98f9ddc88673948668565"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOF27TLs6eLbjA",
+          "commit": {
+            "abbreviatedOid": "9bc6748"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-03T11:03:08Z",
+          "updatedAt": "2025-03-03T11:03:08Z",
+          "comments": [
+            {
+              "originalPosition": 288,
+              "body": "s/RFC7952/RFC7942",
+              "createdAt": "2025-03-03T11:03:08Z",
+              "updatedAt": "2025-03-03T11:03:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6eLd6o",
+          "commit": {
+            "abbreviatedOid": "9bc6748"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-03T11:07:33Z",
+          "updatedAt": "2025-03-03T11:07:33Z",
+          "comments": [
+            {
+              "originalPosition": 288,
+              "body": "```suggestion\r\n    section, please also remove RFC7942 from the references of this document.\r\n```",
+              "createdAt": "2025-03-03T11:07:33Z",
+              "updatedAt": "2025-03-03T11:07:33Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6eLeGc",
+          "commit": {
+            "abbreviatedOid": "9bc6748"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-03T11:07:53Z",
+          "updatedAt": "2025-03-03T11:07:53Z",
+          "comments": [
+            {
+              "originalPosition": 336,
+              "body": "s/\"CoRE Parameters\"/\"Constrained RESTful Environments (CoRE) Parameters\"",
+              "createdAt": "2025-03-03T11:07:53Z",
+              "updatedAt": "2025-03-03T11:07:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6eLhVB",
+          "commit": {
+            "abbreviatedOid": "9bc6748"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-03T11:13:54Z",
+          "updatedAt": "2025-03-03T11:13:54Z",
+          "comments": [
+            {
+              "originalPosition": 336,
+              "body": "```suggestion\r\ntype in the \"CoAP Content-Formats\" registry, within the \"Constrained RESTful Environments (CoRE) Parameters\"\r\n```",
+              "createdAt": "2025-03-03T11:13:54Z",
+              "updatedAt": "2025-03-03T11:13:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6eLiob",
+          "commit": {
+            "abbreviatedOid": "ff50104"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "Thanks for addressing my comments!",
+          "createdAt": "2025-03-03T11:16:33Z",
+          "updatedAt": "2025-03-03T11:20:30Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
