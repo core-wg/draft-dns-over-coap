@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 4 September 2025                                               
+Expires: 14 September 2025                                              
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                            3 March 2025
+                                                           13 March 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 September 2025.
+   This Internet-Draft will expire on 14 September 2025.
 
 Copyright Notice
 
@@ -110,7 +110,7 @@ Table of Contents
      10.2.  Informative References
    Appendix A.  Evaluation
    Appendix B.  Change Log
-     B.1.  Since [draft-ietf-core-dns-over-coap-12]
+     B.1.  Since draft-ietf-core-dns-over-coap-12
      B.2.  Since draft-ietf-core-dns-over-coap-10
      B.3.  Since draft-ietf-core-dns-over-coap-09
      B.4.  Since draft-ietf-core-dns-over-coap-08
@@ -847,16 +847,16 @@ Table of Contents
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
               Identifiers", Work in Progress, Internet-Draft, draft-
-              ietf-core-href-18, 3 February 2025,
+              ietf-core-href-19, 3 March 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              href-18>.
+              href-19>.
 
    [I-D.ietf-core-transport-indication]
               Amsüss, C. and M. S. Lenders, "CoAP Transport Indication",
               Work in Progress, Internet-Draft, draft-ietf-core-
-              transport-indication-07, 21 October 2024,
+              transport-indication-08, 3 March 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              transport-indication-07>.
+              transport-indication-08>.
 
    [I-D.ietf-iotops-7228bis]
               Bormann, C., Ersue, M., Keränen, A., and C. Gomez,
@@ -949,7 +949,9 @@ Appendix B.  Change Log
 
    // RFC Ed.: Please remove this section before publication.
 
-B.1.  Since [draft-ietf-core-dns-over-coap-12]
+B.1.  Since draft-ietf-core-dns-over-coap-12
+      (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
+      coap-12)
 
    *  Address Esko's review
 
