@@ -206,8 +206,8 @@ Table of Contents
 
    A server that provides the service specified in this document is
    called a "DoC server" to differentiate it from a classic "DNS
-   server".  A DoC server acts either as a DNS stub resolver [RFC9499]
-   or a DNS recursive resolver [RFC9499].  As such, the DoC server
+   server".  A DoC server acts either as a DNS stub resolver [BCP219] or
+   a DNS recursive resolver [BCP219].  As such, the DoC server
    communicates with an "upstream DNS infrastructure" or a single
    "upstream DNS server".  A "DoC resource" is a CoAP resource [RFC7252]
    at the DoC server that responds to a DNS query in a CoAP request with
@@ -389,8 +389,9 @@ Table of Contents
 
    Each DNS query-response pair is mapped to a CoAP request-response
    operation.  DNS responses are provided in the body of the CoAP
-   response.  A DoC server MUST be able to produce responses in the
-   "application/dns-message" Content-Format (for details, see
+   response, i.e., it is also possible to transfer them using block-wise
+   transfer [RFC7959].  A DoC server MUST be able to produce responses
+   in the "application/dns-message" Content-Format (for details, see
    Section 4.1) when requested.  A DoC client MUST be able to understand
    responses in "application/dns-message" Content-Format when it does
    not send an Accept option.  Any other response Content-Format than
@@ -833,6 +834,14 @@ Table of Contents
 
 10.2.  Informative References
 
+   [BCP219]   Best Current Practice 219,
+              <https://www.rfc-editor.org/info/bcp219>.
+              At the time of writing, this BCP comprises the following:
+
+              Hoffman, P. and K. Fujiwara, "DNS Terminology", BCP 219,
+              RFC 9499, DOI 10.17487/RFC9499, March 2024,
+              <https://www.rfc-editor.org/info/rfc9499>.
+
    [DoC-paper]
               Lenders, M., Amsüss, C., Gündogan, C., Nawrocki, M.,
               Schmidt, T., and M. Wählisch, "Securing Name Resolution in
@@ -944,10 +953,6 @@ Table of Contents
               the Discovery of Network-designated Resolvers (DNR)",
               RFC 9463, DOI 10.17487/RFC9463, November 2023,
               <https://www.rfc-editor.org/rfc/rfc9463>.
-
-   [RFC9499]  Hoffman, P. and K. Fujiwara, "DNS Terminology", BCP 219,
-              RFC 9499, DOI 10.17487/RFC9499, March 2024,
-              <https://www.rfc-editor.org/rfc/rfc9499>.
 
    [RFC9528]  Selander, G., Preuß Mattsson, J., and F. Palombini,
               "Ephemeral Diffie-Hellman Over COSE (EDHOC)", RFC 9528,
