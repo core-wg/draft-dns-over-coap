@@ -78,19 +78,20 @@ normative:
   I-D.ietf-cbor-edn-literals: edn
 
 informative:
+  BCP219: dns-terminology
   RFC3833: dns-threats
   RFC6690: core-link-format
   RFC7228: constr-nodes
-  RFC7626: dns-privacy
   RFC8094: dodtls
+  RFC9076: dns-privacy
   RFC9176: core-rd
   RFC9250: doq
   RFC9364: dnssec
-  RFC8499: dns-terminology
   RFC9460: svcb
   RFC9461: svcb-dns
   RFC9462: ddr
   RFC9463: dnr
+  RFC9528: edhoc
   I-D.ietf-core-href: cri
   I-D.ietf-core-transport-indication: transport-indication
   I-D.ietf-iotops-7228bis: constr-nodes-bis
@@ -119,7 +120,7 @@ Object Security for Constrained RESTful Environments (OSCORE) {{-oscore}}
 to ensure message integrity and confidentiality.
 
 The application use case of DoC is inspired by DNS over HTTPS {{-doh}}
-(DoH). DoC, however, aims for the deployment in the constrained Internet of
+(DoH). DoC, however, aims for deployment in the constrained Internet of
 Things (IoT), which usually conflicts with the requirements introduced by
 HTTPS.
 Constrained IoT devices may be restricted in memory, power consumption,
@@ -139,7 +140,7 @@ proxies, which provide an additional level of caching; re-use of data
 structures for application traffic and DNS information, which saves memory
 on constrained devices.
 
-To avoid resource requirements of DTLS or TLS on top of UDP (e.g., introduced by DNS over DTLS {{-dodtls}} or DNS over QUIC {{-doq}}), DoC allows for lightweight payload encryption based on OSCORE.
+To avoid resource requirements of DTLS or TLS on top of UDP (e.g., introduced by DNS over DTLS {{-dodtls}} or DNS over QUIC {{-doq}}), DoC allows for lightweight message protection based on OSCORE.
 
 ~~~ aasvg
 
@@ -169,11 +170,10 @@ Using that information, the DoC server then replies to the queries of the DoC cl
 responses carried within CoAP responses.
 
 Note that this specification is distinct from DoH, since the CoRE-specific FETCH method {{-coap-fetch}} is used.
-This was done to take benefit from having the DNS query in the body as with POST, but still
-having the caching advantages we would gain with GET.
-Having the DNS query in the body means we do not need extra base64 encoding, which would increase
+This has the benefit of having the DNS query in the body like when using the POST method, but still with the same caching advantages of responses to requests that use the GET method.
+Having the DNS query in the body means that we do not need extra base64 encoding, which would increase
 code complexity and message sizes.
-We are also able to transfer a query block-wise.
+Also, this allows for the block-wise transfer of queries {{-coap-blockwise}}.
 
 
 Terminology
@@ -185,6 +185,7 @@ A server that provides the service specified in this document is called a "DoC
 server" to differentiate it from a classic "DNS server".
 A DoC server acts either as a DNS stub resolver {{-dns-terminology}} or a DNS recursive resolver {{-dns-terminology}}.
 As such, the DoC server communicates with an "upstream DNS infrastructure" or a single "upstream DNS server".
+A "DoC resource" is a CoAP resource {{-coap}} at the DoC server that DoC clients can target to send a DNS query in a CoAP request.
 
 A client using the service specified in this document to retrieve the
 DNS information is called a "DoC client".
@@ -192,7 +193,7 @@ DNS information is called a "DoC client".
 The term "constrained nodes" is used as defined in {{-constr-nodes}}.
 
 The terms "payload" and "body" are used as defined in {{-coap-blockwise, Section 2}}.
-Note, that without block-wise transfer the terms "payload" and "body" are to be understood as equal.
+Note that, when block-wise transfer is not used, the terms "payload" and "body" are to be understood as equal.
 
 Selection of a DoC Server   {#sec:doc-server-selection}
 =========================
@@ -208,15 +209,15 @@ or automatic configuration, e.g., using a CoRE resource directory
 Automatic configuration SHOULD only be done from a trusted source.
 
 ## Discovery by Resource Type
-For discovery of a the DoC resource through a link mechanism that allows describing a resource type
-(e.g., the Resource Type Attribute in {{-core-link-format}}), this document introduces the resource type "core.dns".
+For discovery of the DoC resource through a link mechanism that allows describing a resource type
+(e.g., the Resource Type attribute in {{-core-link-format}}), this document introduces the resource type "core.dns".
 It can be used to identify a generic DNS resolver that is available to the client.
 
 ## Discovery using SVCB Resource Records or DNR
 A DoC server can also be discovered using SVCB Resource Records (RR) {{-svcb}} {{-svcb-dns}} or DNR
 Service Parameters {{-dnr}}.
 {{-coap-dtls-alpn}} provides solutions to discover CoAP over (D)TLS servers using the "alpn" SvcParam.
-{{-core-dnr}} provides a problem statement for service bindings discovery for OSCORE and EDHOC.
+{{-core-dnr}} provides a problem statement for service bindings discovery for OSCORE {{-oscore}} and Ephemeral Diffie-Hellman Over COSE (EDHOC) {{-edhoc}}.
 
 This document specifies "docpath" as
 a single-valued SvcParamKey whose value MUST be a CBOR sequence of 0 or more text strings (see
@@ -230,7 +231,7 @@ Note that this specifically does not surround the text string sequence with a CB
 similar CBOR data item. This path format was chosen to coincide with the path representation in CRIs
 {{-cri}}. Furthermore, it is easily transferable into a sequence of CoAP Uri-Path options by
 mapping the initial byte of any present CBOR text string (see {{-cbor, Section 3}}) into the Option
-Delta and Option Length of the CoAP option, provided these CBOR text strings are all of a length
+Delta and Option Length of the corresponding CoAP Uri-Path option, provided these CBOR text strings are all of a length
 between 0 and 12 octets (see {{-coap, Section 3.1}}). Likewise, it can be transferred into a URI
 path-abempty form (see {{-uri, Section 3.3}}) by replacing the initial byte of any present CBOR text
 string with the "/" character, provided these CBOR text strings are all of a length less than 24
@@ -245,13 +246,13 @@ A rough construction algorithm could be as follows, going through the provided r
 - The destination address for the request should be taken from additional information about the
   target, e.g., from an AAAA record associated with the target name or from an "ipv6hint" SvcParam
   value, or, as a fallback, by querying an address for the target name of the SVCB record.
-- The destination port for the address is taken from the "port" SvcParam value, if present.
+- The destination port for the request is taken from the "port" SvcParam value, if present.
   Otherwise, take the default port of the CoAP transport.
 - Set the target name of SVCB record in the Uri-Host option.
 - For each element in the CBOR sequence of the "docpath" SvcParam value, add a Uri-Path option to
   the request.
 - If a "port" SvcParam value is provided or if a port was queried, and if either differs from
-  the default port of the transport or the destination port selected above, set that port in the
+  the default port of the transport or the destination port selected above, add the Uri-Port option to the request and set its value to that port.
   Uri-Port option.
 - If the request constructed this way receives a response, use the same SVCB record for construction
   of future DoC queries.
@@ -269,16 +270,16 @@ The "application/dns-message" Content-Format    {#sec:content-format}
 This document defines a CoAP Content-Format identifier for the Internet
 media type "application/dns-message" to be the mnemonic 553 — based on the port assignment of DNS.
 This media type is defined as in {{Section 6 of -doh}}, i.e., a single DNS message encoded in the DNS on-the-wire format {{-dns}}.
-Both DoC client and DoC server MUST be able to parse contents in the "application/dns-message" format.
+Both DoC client and DoC server MUST be able to parse contents in the "application/dns-message" Content-Format.
 For the purposes of this document, only OPCODE 0 (Query) is supported for DNS messages.
 Future work might provide specifications and considerations for other values of OPCODE.
-Unless another error takes precedence, a DoC server uses RCODE = 4, NotImp {{-dns}}, in its response when it receives a query with an OPCODE that it does not implement (see also {{sec:resp-examples}}).
+Unless another error takes precedence, a DoC server uses RCODE = 4, NotImp {{-dns}}, in its response to a query with an OPCODE that it does not implement (see also {{sec:resp-examples}}).
 
 DNS Queries in CoAP Requests    {#sec:queries}
 ----------------------------
 
 A DoC client encodes a single DNS query in one or more CoAP request
-messages that use the CoAP FETCH {{-coap-fetch}} method.
+messages that use the CoAP FETCH {{-coap-fetch}} request method.
 Requests SHOULD include an Accept option to indicate the type of content that can be parsed in the response.
 
 Since CoAP provides reliability at the message layer (e.g., through Confirmable messages) the retransmission mechanism of the
@@ -300,13 +301,13 @@ This ensures that the CoAP Cache-Key (see {{-coap-fetch, Section 2}}) does not c
 
 The following example illustrates the usage of a CoAP message to
 resolve "example.org. IN AAAA" based on the URI "coaps://\[2001:db8::1\]/". The
-CoAP body is encoded in "application/dns-message" Content Format.
-For better readability, we provide the payload in a human-readable format.
+CoAP body is encoded in the "application/dns-message" Content-Format.
+For better readability, the payload is provided in a human-readable format.
 In the actual message, however, it would be encoded in the binary message format (bytes printed in hexadecimal representation) defined in {{-dns}}.
 
     FETCH coaps://[2001:db8::1]/
-    Content-Format: application/dns-message
-    Accept: application/dns-message
+    Content-Format: 553 (application/dns-message)
+    Accept: 553 (application/dns-message)
     Payload (binary):
       00 00 01 20 00 01 00 00 00 00 00 00 07 65 78 61
       6d 70 6c 65 03 6f 72 67 00 00 1c 00 01
@@ -322,13 +323,13 @@ In the actual message, however, it would be encoded in the binary message format
 DNS Responses in CoAP Responses
 -------------------------------
 
-Each DNS query-response pair is mapped to a CoAP request-response
-operation. DNS responses are provided in the body of the CoAP response.
+Each DNS query-response pair is mapped to a CoAP request-response operation.
+DNS responses are provided in the body of the CoAP response, i.e., it is also possible to transfer them using block-wise transfer {{-coap-blockwise}}.
 A DoC server MUST be able to produce responses in the "application/dns-message"
 Content-Format (for details, see {{sec:content-format}}) when requested.
-A DoC client MUST be able to understand responses in "application/dns-message" format
+A DoC client MUST be able to understand responses in the "application/dns-message" Content-Format
 when it does not send an Accept option.
-Any other response format than "application/dns-message" MUST be indicated with
+Any other response Content-Format than "application/dns-message" MUST be indicated with
 the Content-Format option by the DoC server.
 
 ### Response Codes and Handling DNS and CoAP errors
@@ -341,6 +342,7 @@ and MUST only be used for errors in the CoAP layer or when a request does not
 fulfill the requirements of the DoC protocol.
 
 Communication errors with an upstream DNS server (e.g., timeouts) MUST be indicated by including a DNS response with the appropriate RCODE in a successful CoAP response, i.e., using a 2.xx response code.
+When an error occurs at the CoAP layer, e.g., if an unexpected request method or an unsupported Content-Format in the request are used, the DoC server SHOULD respond with an appropriate CoAP error.
 
 A DoC client might try to repeat a non-successful exchange unless otherwise prohibited.
 The DoC client might also decide to repeat a non-successful exchange with a different URI, for instance, when the response indicates an unsupported Content-Format.
@@ -366,19 +368,19 @@ If only one record set per DNS response is assumed, a simplification of this alg
 
 If shorter caching periods are plausible, e.g., if the RCODE of the message indicates an error that should only be cached for a minimal duration, the value for the Max-Age option SHOULD be set accordingly.
 This value might be 0, but if the DoC server knows that the error will persist, greater values are also conceivable, depending on the projected duration of the error.
-Same goes for DNS responses that for any reason do not carry any records with a TTL.
+The same applies for DNS responses that for any reason do not carry any records with a TTL.
 
 ### Examples {#sec:resp-examples}
 
 The following example illustrates the response to the query "example.org. IN
-AAAA record", recursion turned on. Successful responses carry one answer
+AAAA record", with recursion turned on. Successful responses carry one answer
 record including address 2001:db8:1::1:2:3:4 and TTL 79689.
-As in {{sec:req-examples}}, we use a human-readable format for the payload, but skip the binary conversion this time.
+As in {{sec:req-examples}}, a human-readable format for the payload is used, but the binary conversion is omitted this time.
 
 A successful response:
 
     2.05 Content
-    Content-Format: application/dns-message
+    Content-Format: 553 (application/dns-message)
     Max-Age: 58719
     Payload (human-readable):
       ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
@@ -392,7 +394,7 @@ A successful response:
 When a DNS error—NxDomain (RCODE = 3) for "does.not.exist" in this case—is noted in the DNS response, the CoAP response still indicates success.
 
     2.05 Content
-    Content-Format: application/dns-message
+    Content-Format: 553 (application/dns-message)
     Payload (human-readable):
       ;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 0
       ;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
@@ -403,7 +405,7 @@ When a DNS error—NxDomain (RCODE = 3) for "does.not.exist" in this case—is n
 As described in {{sec:content-format}}, a DoC server uses NotImp (RCODE = 4) if it does not support an OPCODE—a DNS Update (OPCODE = 5) for "example.org" in this case.
 
     2.05 Content
-    Content-Format: application/dns-message
+    Content-Format: 553 (application/dns-message)
     Payload (human-readable):
       ;; ->>Header<<- opcode: UPDATE, status: NOTIMP, id: 0
       ;; flags: qr ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
@@ -411,7 +413,7 @@ As described in {{sec:content-format}}, a DoC server uses NotImp (RCODE = 4) if 
       ;; QUERY SECTION:
       ;example.org.                 IN      AAAA
 
-When an error occurs at the CoAP layer, the DoC server SHOULD respond with
+When an error occurs at the CoAP layer, the DoC server responds with
 an appropriate CoAP error, for instance 4.15 (Unsupported Content-Format)
 if the Content-Format option in the request was not set to
 "application/dns-message" and the Content-Format is not otherwise supported by
@@ -425,7 +427,7 @@ CoAP/CoRE Integration
 
 DNS Push
 --------
-DNS Push requires additional overhead, which conflicts with constrained resources.
+DNS Push results in additional overhead, which conflicts with constrained resources.
 This is the reason why it is RECOMMENDED to use CoAP Observe {{-coap-observe}} instead of DNS Push
 in the DoC domain.
 The DoC server SHOULD provide Observe capabilities on its DoC resource and do as follows.
@@ -433,10 +435,10 @@ The DoC server SHOULD provide Observe capabilities on its DoC resource and do as
 If the CoAP request indicates that the DoC client wants to observe a resource record, a DoC server
 MAY use a DNS Subscribe message {{-dns-push}} instead of a classic DNS query to fetch the
 information on behalf of a DoC client.
-If this is not supported by the DoC server, it MUST act as if the resource were not observable.
+If this is not supported by the DoC server, it MUST act as if the DoC resource were not observable.
 
 Whenever the DoC server receives a DNS Push message {{-dns-push}} from the DNS
-infrastructure for an observed resource record, the DoC server sends an appropriate Observe response
+infrastructure for an observed resource record, the DoC server sends an appropriate Observe notification response
 to the DoC client.
 
 If no more DoC clients observe a resource record for which the DoC server has an open subscription,
@@ -468,11 +470,11 @@ mapping between any other pair of DNS transports.
 Considerations for Unprotected Use {#sec:unprotected-coap}
 ==================================
 The use of DoC without confidentiality and integrity protection is NOT RECOMMENDED.
-Without confidential communication, many possible attacks need to be evaluated in the context of
+Without secure communication, many possible attacks need to be evaluated in the context of
 the application's threat model.
 This includes known threats for unprotected DNS {{-dns-threats}} {{-dns-privacy}} and CoAP {{Section 11 of -coap}}.
 But there is also an attack that is mitigated even by unprotected DNS over UDP:
-The random ID of the DNS header affords some protection against off-path cache poisoning attacks.
+the random ID of the DNS header affords some protection against off-path cache poisoning attacks.
 Note, however, that this particular threat can also be mitigated by using random large token values in the CoAP request.
 
 Implementation Status
@@ -529,6 +531,7 @@ Security Considerations
 =======================
 
 General CoAP security considerations in {{Section 11 of RFC7252}} apply to DoC.
+DoC also inherits the security considerations of the protocols used for secure communication, e.g., OSCORE {{Section 12 of -oscore}} or DTLS {{Section 5 of -dtls12}} {{Section 11 of -dtls13}}.
 Additionally, DoC uses request patterns that require the maintenance of long-lived security
 contexts.
 {{Section 2.6 of -core-corrclar}} provides insights on what can be done when those are resumed from a new endpoint.
@@ -539,7 +542,7 @@ via response spoofing.
 This document requires an unpredictable CoAP token in each DoC query from the client when CoAP is
 not secured to mitigate such an attack over DoC (see {{sec:unprotected-coap}}).
 
-For secure communication via DTLS or OSCORE the impact of a fixed ID on security is limited, as both
+For secure communication via DTLS or OSCORE, the impact of a fixed ID on security is limited, as both
 harden against injecting spoofed responses.
 Consequently, the ID of the DNS message can be set to 0 without any concern in order to leverage the advantages of CoAP caching.
 
@@ -552,7 +555,7 @@ The DoC server may use another security context to communicate upstream with bot
 recommended, this is opaque to the DoC client on the protocol level.
 
 A DoC client may not be able to perform DNSSEC validation,
-e.g., due to code size constraints, or due to size of the responses.
+e.g., due to code size constraints, or due to the size of the responses.
 It may trust its DoC server to perform DNSSEC validation;
 how that trust is expressed is out of the scope of this document.
 A DoC client may be, for instance, configured to use a particular credential by which it recognizes an eligible DoC server.
@@ -572,7 +575,7 @@ This document has the following actions for IANA.
 CoAP Content-Formats Registry
 -----------------------------
 
-IANA is requested to assign a CoAP Content-Format ID for the DNS message media
+IANA is requested to assign a CoAP Content-Format ID for the "application/dns-message" media
 type in the "CoAP Content-Formats" registry, within the "Constrained RESTful Environments (CoRE) Parameters"
 registry group {{-coap}}, corresponding to the "application/dns-message" media
 type from the "Media Types" registry (see {{-doh}}).
