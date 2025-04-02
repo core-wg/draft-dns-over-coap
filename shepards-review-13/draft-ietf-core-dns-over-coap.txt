@@ -210,8 +210,8 @@ Table of Contents
    a DNS recursive resolver [BCP219].  As such, the DoC server
    communicates with an "upstream DNS infrastructure" or a single
    "upstream DNS server".  A "DoC resource" is a CoAP resource [RFC7252]
-   at the DoC server that responds to a DNS query in a CoAP request with
-   a DNS response in a CoAP response.
+   at the DoC server that DoC clients can target to send a DNS query in
+   a CoAP request.
 
    A client using the service specified in this document to retrieve the
    DNS information is called a "DoC client".
@@ -393,10 +393,10 @@ Table of Contents
    transfer [RFC7959].  A DoC server MUST be able to produce responses
    in the "application/dns-message" Content-Format (for details, see
    Section 4.1) when requested.  A DoC client MUST be able to understand
-   responses in "application/dns-message" Content-Format when it does
-   not send an Accept option.  Any other response Content-Format than
-   "application/dns-message" MUST be indicated with the Content-Format
-   option by the DoC server.
+   responses in the "application/dns-message" Content-Format when it
+   does not send an Accept option.  Any other response Content-Format
+   than "application/dns-message" MUST be indicated with the Content-
+   Format option by the DoC server.
 
 4.3.1.  Response Codes and Handling DNS and CoAP errors
 
@@ -512,8 +512,8 @@ Table of Contents
      ;; QUERY SECTION:
      ;example.org.                 IN      AAAA
 
-   When an error occurs at the CoAP layer, the DoC responds with an
-   appropriate CoAP error, for instance 4.15 (Unsupported Content-
+   When an error occurs at the CoAP layer, the DoC server responds with
+   an appropriate CoAP error, for instance 4.15 (Unsupported Content-
    Format) if the Content-Format option in the request was not set to
    "application/dns-message" and the Content-Format is not otherwise
    supported by the server.
