@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-01T01:21:26.242490+00:00",
+  "timestamp": "2025-04-03T01:13:03.028513+00:00",
   "repo": "core-wg/draft-dns-over-coap",
   "labels": [
     {
@@ -4864,6 +4864,138 @@
           "body": "Thanks for addressing my comments!",
           "createdAt": "2025-03-03T11:16:33Z",
           "updatedAt": "2025-03-03T11:20:30Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 44,
+      "id": "PR_kwDOF27TLs6RC_Ey",
+      "title": "Address shepherd review",
+      "url": "https://github.com/core-wg/draft-dns-over-coap/pull/44",
+      "state": "OPEN",
+      "author": "miri64",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "See https://mailarchive.ietf.org/arch/msg/core/9nxjNsM6WQBc2xDKH4dlPZOpSoU",
+      "createdAt": "2025-04-02T08:22:57Z",
+      "updatedAt": "2025-04-02T17:52:54Z",
+      "baseRepository": "core-wg/draft-dns-over-coap",
+      "baseRefName": "main",
+      "baseRefOid": "403e588df21bd21501865186dd1b072925d5c3d3",
+      "headRepository": "core-wg/draft-dns-over-coap",
+      "headRefName": "shepards-review-13",
+      "headRefOid": "99345ff64b832c8d7a1131fabe5d382d7559522d",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOF27TLs6jFkZx",
+          "commit": {
+            "abbreviatedOid": "66ac488"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-02T12:45:29Z",
+          "updatedAt": "2025-04-02T12:45:30Z",
+          "comments": [
+            {
+              "originalPosition": 57,
+              "body": "What about this?\r\n\r\n> A \"DoC resource\" is a CoAP resource {{-coap}} at the DoC server that DoC clients can target to send a DNS query in a CoAP request.",
+              "createdAt": "2025-04-02T12:45:29Z",
+              "updatedAt": "2025-04-02T12:45:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6jFr5V",
+          "commit": {
+            "abbreviatedOid": "66ac488"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-02T12:53:54Z",
+          "updatedAt": "2025-04-02T12:53:55Z",
+          "comments": [
+            {
+              "originalPosition": 157,
+              "body": "s/responses in/responses in the",
+              "createdAt": "2025-04-02T12:53:55Z",
+              "updatedAt": "2025-04-02T12:53:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6jFtA6",
+          "commit": {
+            "abbreviatedOid": "66ac488"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-02T12:55:30Z",
+          "updatedAt": "2025-04-02T12:55:31Z",
+          "comments": [
+            {
+              "originalPosition": 219,
+              "body": "s/the DoC responds/the DoC server responds",
+              "createdAt": "2025-04-02T12:55:31Z",
+              "updatedAt": "2025-04-02T12:55:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6jHty6",
+          "commit": {
+            "abbreviatedOid": "52bb18f"
+          },
+          "author": "miri64",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-04-02T15:25:37Z",
+          "updatedAt": "2025-04-02T15:27:13Z",
+          "comments": [
+            {
+              "originalPosition": 57,
+              "body": "```suggestion\r\nA \"DoC resource\" is a CoAP resource {{-coap}} at the DoC server that DoC clients can target to send a DNS query in a CoAP request.\r\n```",
+              "createdAt": "2025-04-02T15:25:37Z",
+              "updatedAt": "2025-04-02T15:27:13Z"
+            },
+            {
+              "originalPosition": 157,
+              "body": "```suggestion\r\nA DoC client MUST be able to understand responses in the \"application/dns-message\" Content-Format\r\n```",
+              "createdAt": "2025-04-02T15:25:58Z",
+              "updatedAt": "2025-04-02T15:27:13Z"
+            },
+            {
+              "originalPosition": 219,
+              "body": "```suggestion\r\nWhen an error occurs at the CoAP layer, the DoC server responds with\r\n```",
+              "createdAt": "2025-04-02T15:26:24Z",
+              "updatedAt": "2025-04-02T15:27:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOF27TLs6jJPSU",
+          "commit": {
+            "abbreviatedOid": "99345ff"
+          },
+          "author": "marco-tiloca-sics",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-02T17:52:54Z",
+          "updatedAt": "2025-04-02T17:52:54Z",
           "comments": []
         }
       ]
