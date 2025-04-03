@@ -625,6 +625,10 @@ Change Log
 
 [^remove-changelog]: RFC Ed.: Please remove this section before publication.
 
+Since [draft-ietf-core-dns-over-coap-13]
+----------------------------------------
+- Address shepherd review
+
 Since [draft-ietf-core-dns-over-coap-12]
 ----------------------------------------
 - Address Esko's review
@@ -730,6 +734,7 @@ Since [draft-lenders-dns-over-coap-04]
 
 The authors of this document want to thank Carsten Bormann, Esko Dijk, Thomas Fossati, Mikolai Gütschow, Ben Schwartz, Marco Tiloca, and Tim Wicinski for their feedback and comments.
 
+[draft-ietf-core-dns-over-coap-13]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-13
 [draft-ietf-core-dns-over-coap-12]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-12
 [draft-ietf-core-dns-over-coap-10]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-10
 [draft-ietf-core-dns-over-coap-09]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-09
