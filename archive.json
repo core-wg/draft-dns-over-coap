@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-03T01:13:03.028513+00:00",
+  "timestamp": "2025-04-06T01:17:35.688123+00:00",
   "repo": "core-wg/draft-dns-over-coap",
   "labels": [
     {
@@ -4873,24 +4873,26 @@
       "id": "PR_kwDOF27TLs6RC_Ey",
       "title": "Address shepherd review",
       "url": "https://github.com/core-wg/draft-dns-over-coap/pull/44",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "miri64",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "See https://mailarchive.ietf.org/arch/msg/core/9nxjNsM6WQBc2xDKH4dlPZOpSoU",
       "createdAt": "2025-04-02T08:22:57Z",
-      "updatedAt": "2025-04-02T17:52:54Z",
+      "updatedAt": "2025-04-03T11:41:10Z",
       "baseRepository": "core-wg/draft-dns-over-coap",
       "baseRefName": "main",
       "baseRefOid": "403e588df21bd21501865186dd1b072925d5c3d3",
       "headRepository": "core-wg/draft-dns-over-coap",
       "headRefName": "shepards-review-13",
       "headRefOid": "99345ff64b832c8d7a1131fabe5d382d7559522d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-04-03T11:41:05Z",
+      "mergedAt": "2025-04-03T11:41:05Z",
+      "mergedBy": "miri64",
+      "mergeCommit": {
+        "oid": "072a86305c04cbb441158dbf3f48957303d79901"
+      },
       "comments": [],
       "reviews": [
         {
@@ -4899,7 +4901,7 @@
             "abbreviatedOid": "66ac488"
           },
           "author": "marco-tiloca-sics",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-04-02T12:45:29Z",
@@ -4919,7 +4921,7 @@
             "abbreviatedOid": "66ac488"
           },
           "author": "marco-tiloca-sics",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-04-02T12:53:54Z",
@@ -4939,7 +4941,7 @@
             "abbreviatedOid": "66ac488"
           },
           "author": "marco-tiloca-sics",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-04-02T12:55:30Z",
@@ -4991,7 +4993,7 @@
             "abbreviatedOid": "99345ff"
           },
           "author": "marco-tiloca-sics",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "APPROVED",
           "body": "",
           "createdAt": "2025-04-02T17:52:54Z",
