@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 5 October 2025                                                 
+Expires: 12 October 2025                                                
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                            3 April 2025
+                                                           10 April 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 October 2025.
+   This Internet-Draft will expire on 12 October 2025.
 
 Copyright Notice
 
@@ -301,11 +301,6 @@ Table of Contents
 
    *  For each element in the CBOR sequence of the "docpath" SvcParam
       value, add a Uri-Path option to the request.
-
-   *  If a "port" SvcParam value is provided or if a port was queried,
-      and if either differs from the default port of the transport or
-      the destination port selected above, add the Uri-Port option to
-      the request and set its value to that port.  Uri-Port option.
 
    *  If the request constructed this way receives a response, use the
       same SVCB record for construction of future DoC queries.  If not,
