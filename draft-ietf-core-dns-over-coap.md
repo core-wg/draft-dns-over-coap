@@ -251,9 +251,6 @@ A rough construction algorithm could be as follows, going through the provided r
 - Set the target name of SVCB record in the Uri-Host option.
 - For each element in the CBOR sequence of the "docpath" SvcParam value, add a Uri-Path option to
   the request.
-- If a "port" SvcParam value is provided or if a port was queried, and if either differs from
-  the default port of the transport or the destination port selected above, add the Uri-Port option to the request and set its value to that port.
-  Uri-Port option.
 - If the request constructed this way receives a response, use the same SVCB record for construction
   of future DoC queries.
   If not, or if the endpoint becomes unreachable, repeat with the SVCB record with the next highest
