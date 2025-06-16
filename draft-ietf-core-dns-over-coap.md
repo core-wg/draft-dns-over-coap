@@ -454,9 +454,9 @@ It is RECOMMENDED to carry DNS messages protected using OSCORE {{-oscore}} betwe
 and the DoC server. The establishment and maintenance of the OSCORE Security Context is out of the
 scope of this document.
 
-If cache retrieval of OSCORE responses is desired, it can be achieved, for instance, by using the
-method defined in {{-cachable-oscore}}. This has, however, implications on message sizes and
-security properties, which are compiled in that document.
+
+{{-cachable-oscore}} describes a method to allow cache retrieval of OSCORE responses and discusses
+the corresponding implications on message sizes and security properties.
 
 Mapping DoC to DoH
 ------------------
