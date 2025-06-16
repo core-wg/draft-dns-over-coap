@@ -177,8 +177,8 @@ code complexity and message sizes.
 Also, this allows for the block-wise transfer of queries {{-coap-blockwise}}.
 
 
-Terminology
-===========
+Terminology and Conventions
+===========================
 
 {::boilerplate bcp14-tagged}
 
@@ -195,6 +195,9 @@ The term "constrained nodes" is used as defined in {{-constr-nodes}}.
 
 The terms "payload" and "body" are used as defined in {{-coap-blockwise, Section 2}}.
 Note that, when block-wise transfer is not used, the terms "payload" and "body" are to be understood as equal.
+
+For better readability, examples in this document the binary payload is provided in hexadecimal representation as well as a human-readable format.
+In the actual message, however, it would be encoded in the binary message format defined in {{-dns}}.
 
 Selection of a DoC Server   {#sec:doc-server-selection}
 =========================
@@ -301,8 +304,6 @@ This ensures that the CoAP Cache-Key (see {{-coap-fetch, Section 2}}) does not c
 The following example illustrates the usage of a CoAP message to
 resolve "example.org. IN AAAA" based on the URI "coaps://\[2001:db8::1\]/". The
 CoAP body is encoded in the "application/dns-message" Content-Format.
-For better readability, the payload is provided in a human-readable format.
-In the actual message, however, it would be encoded in the binary message format (bytes printed in hexadecimal representation) defined in {{-dns}}.
 
     FETCH coaps://[2001:db8::1]/
     Content-Format: 553 (application/dns-message)
@@ -374,7 +375,6 @@ The same applies for DNS responses that for any reason do not carry any records 
 The following example illustrates the response to the query "example.org. IN
 AAAA record", with recursion turned on. Successful responses carry one answer
 record including address 2001:db8:1::1:2:3:4 and TTL 79689.
-As in {{sec:req-examples}}, a human-readable format for the payload is used, but the binary conversion is omitted this time.
 
 A successful response:
 
