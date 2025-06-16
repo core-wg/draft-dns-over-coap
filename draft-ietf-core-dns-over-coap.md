@@ -424,24 +424,25 @@ the server.
 Interaction with other CoAP and CoRE Features
 =============================================
 
-DNS Push
---------
-DNS Push results in additional overhead, which conflicts with constrained resources.
+DNS Push Notifications and CoAP Observe
+---------------------------------------
+DNS Push Notifications {{-dns-push}} provides the capability to asynchronously notify clients about resource record changes.
+However, it results in additional overhead, which conflicts with constrained resources.
 This is the reason why it is RECOMMENDED to use CoAP Observe {{-coap-observe}} instead of DNS Push
 in the DoC domain.
 The DoC server SHOULD provide Observe capabilities on its DoC resource and do as follows.
 
 If the CoAP request indicates that the DoC client wants to observe a resource record, a DoC server
-MAY use a DNS Subscribe message {{-dns-push}} instead of a classic DNS query to fetch the
+MAY use a DNS Subscribe message instead of a classic DNS query to fetch the
 information on behalf of a DoC client.
 If this is not supported by the DoC server, it MUST act as if the DoC resource were not observable.
 
-Whenever the DoC server receives a DNS Push message {{-dns-push}} from the DNS
+Whenever the DoC server receives a DNS Push message from the DNS
 infrastructure for an observed resource record, the DoC server sends an appropriate Observe notification response
 to the DoC client.
 
 If no more DoC clients observe a resource record for which the DoC server has an open subscription,
-the DoC server MUST use a DNS Unsubscribe message {{-dns-push}} to close its subscription to the
+the DoC server MUST use a DNS Unsubscribe message to close its subscription to the
 resource record as well.
 
 A DoC server can still provide Observe capabilities to its DoC resource without providing this
