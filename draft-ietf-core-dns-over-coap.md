@@ -296,7 +296,7 @@ A DoC server MUST be able to parse requests of Content-Format "application/dns-m
 
 ### Support of CoAP Caching {#sec:req-caching}
 
-The DoC client SHOULD set the ID field of the DNS header always to 0 to enable a CoAP cache (e.g., a CoAP proxy en-route) to respond to the same DNS queries with a cache entry.
+The DoC client SHOULD set the ID field of the DNS header to 0 to enable a CoAP cache (e.g., a CoAP proxy en-route) to respond to the same DNS queries with a cache entry.
 This ensures that the CoAP Cache-Key (see {{-coap-fetch, Section 2}}) does not change when multiple DNS queries for the same DNS data, carried in CoAP requests, are issued.
 Apart from losing these caching benefits, there is no harm it not setting it to 0, e.g., when the query was received from somewhere else.
 In any instance, a DoC server MUST copy the ID from the query in its response to that query.
@@ -331,7 +331,7 @@ A DoC server MUST be able to produce responses in the "application/dns-message"
 Content-Format (for details, see {{sec:content-format}}) when requested.
 A DoC client MUST be able to understand responses in the "application/dns-message" Content-Format
 when it does not send an Accept option.
-Any other response Content-Format than "application/dns-message" MUST be indicated with
+Any response Content-Format other than "application/dns-message" MUST be indicated with
 the Content-Format option by the DoC server.
 
 ### Response Codes and Handling DNS and CoAP errors
@@ -351,13 +351,13 @@ The DoC client might also decide to repeat a non-successful exchange with a diff
 
 ### Support of CoAP Caching {#sec:resp-caching}
 
-For reliability and energy saving measures, content decoupling, i.e., en-route caching on proxies, takes a far greater role than it does, e.g., in HTTP.
-Likewise, CoAP makes it possible to use cache validation to refresh stale cache entries to reduce the amount of large response messages.
+For reliability and energy saving measures, content decoupling (such as en-route caching on proxies) takes a far greater role than it does in HTTP.
+Likewise, CoAP makes it possible to use cache validation to refresh stale cache entries to reduce the number of large response messages.
 For cache validation, CoAP implementations regularly use hashing over the message content for ETag generation.
 As such, the approach to guarantee the same cache key for DNS responses as proposed in DoH ({{-doh, Section 5.1}}) is not sufficient and needs to be updated so that the TTLs in the response are more often the same regardless of query time.
 
-The DoC server MUST ensure that any sum of the Max-Age value of a CoAP response and any TTL in the
-DNS response is less or equal to the corresponding TTL received from an upstream DNS server.
+The DoC server MUST ensure that the sum of the Max-Age value of a CoAP response and any TTL in the
+DNS response is less than or equal to the corresponding TTL received from an upstream DNS server.
 This also includes the default Max-Age value of 60 seconds (see {{Section 5.10.5 of -coap}}) when no Max-Age option is provided.
 The DoC client MUST then add the Max-Age value of the carrying CoAP response to all TTLs in a DNS response on reception and use these calculated TTLs for the associated records.
 
@@ -475,7 +475,7 @@ The use of DoC without confidentiality and integrity protection is NOT RECOMMEND
 Without secure communication, many possible attacks need to be evaluated in the context of
 the application's threat model.
 This includes known threats for unprotected DNS {{-dns-threats}} {{-dns-privacy}} and CoAP {{Section 11 of -coap}}.
-While DoC does not use the random ID of the DNS header (see Section {{sec:req-caching}}), equivalent protection against off-path poisoning attacks is achieved by using random large token values in the CoAP request.
+While DoC does not use the random ID of the DNS header (see Section {{sec:req-caching}}), equivalent protection against off-path poisoning attacks is achieved by using random large token values for unprotected CoAP request.
 If a DoC message is unprotected it MUST use a random token of at least 2 bytes length to mitigate this kind of poisoning attacks.
 
 Implementation Status
@@ -559,7 +559,7 @@ A DoC client may not be able to perform DNSSEC validation,
 e.g., due to code size constraints, or due to the size of the responses.
 It may trust its DoC server to perform DNSSEC validation;
 how that trust is expressed is out of the scope of this document.
-A DoC client may be, for instance, configured to use a particular credential by which it recognizes an eligible DoC server.
+For instance, a DoC client may be, configured to use a particular credential by which it recognizes an eligible DoC server.
 That information can also imply trust in the DNSSEC validation by that server.
 
 IANA Considerations
