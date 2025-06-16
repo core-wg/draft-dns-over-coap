@@ -68,6 +68,7 @@ normative:
   RFC7641: coap-observe
   RFC7959: coap-blockwise
   RFC8132: coap-fetch
+  RFC8323: coap-tcp
   RFC8484: doh
   RFC8613: oscore
   RFC8742: cborseq
@@ -216,8 +217,10 @@ It can be used to identify a generic DNS resolver that is available to the clien
 ## Discovery using SVCB Resource Records or DNR
 A DoC server can also be discovered using SVCB Resource Records (RR) {{-svcb}} {{-svcb-dns}} or DNR
 Service Parameters {{-dnr}}.
-{{-coap-dtls-alpn}} provides solutions to discover CoAP over (D)TLS servers using the "alpn" SvcParam.
-{{-core-dnr}} provides a problem statement for service bindings discovery for OSCORE {{-oscore}} and Ephemeral Diffie-Hellman Over COSE (EDHOC) {{-edhoc}}.
+{{-coap-tcp}} defines the ALPN ID for CoAP over TLS servers and {{-coap-dtls-alpn}} defines the ALPN ID for CoAP over DTLS servers.
+Because the ALPN extension is only defined for (D)TLS, these mechanisms cannot be used for DoC servers which use only OSCORE {{-oscore}} and Ephemeral Diffie-Hellman Over COSE (EDHOC) {{-edhoc}} for security.
+Specifying an alternate discovery mechanism is out of scope of this specification.
+{{-core-dnr}} provides  further exploration of the challenges here.
 
 This document specifies "docpath" as
 a single-valued SvcParamKey whose value MUST be a CBOR sequence of 0 or more text strings (see
