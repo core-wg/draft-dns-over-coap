@@ -421,8 +421,8 @@ the server.
     4.15 Unsupported Content-Format
     [no payload]
 
-CoAP/CoRE Integration
-=====================
+Interaction with other CoAP and CoRE Features
+=============================================
 
 DNS Push
 --------
