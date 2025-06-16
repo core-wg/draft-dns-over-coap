@@ -473,9 +473,7 @@ The use of DoC without confidentiality and integrity protection is NOT RECOMMEND
 Without secure communication, many possible attacks need to be evaluated in the context of
 the application's threat model.
 This includes known threats for unprotected DNS {{-dns-threats}} {{-dns-privacy}} and CoAP {{Section 11 of -coap}}.
-But there is also an attack that is mitigated even by unprotected DNS over UDP:
-the random ID of the DNS header affords some protection against off-path cache poisoning attacks.
-Note, however, that this particular threat can also be mitigated by using random large token values in the CoAP request.
+While DoC does not use the random ID of the DNS header (see Section {{sec:req-caching}}), equivalent protection against off-path poisoning attacks is achieved by using random large token values in the CoAP request.
 
 Implementation Status
 =====================
