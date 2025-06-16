@@ -552,8 +552,8 @@ may communicate unprotected with the upstream DNS infrastructure, e.g., using DN
 DoC can only guarantee confidentiality and integrity of communication between parties for which the
 security context is exchanged.
 The DoC server may use another security context to communicate upstream with both confidentiality and integrity
-(e.g., DNS over QUIC {{-doq}}) or with just integrity (e.g., DNSSEC {{-dnssec}}), but, while
-recommended, this is opaque to the DoC client on the protocol level.
+(e.g., DNS over QUIC {{-doq}}), but, while recommended, this is opaque to the DoC client on the protocol level.
+Record integrity can also be ensured upstream using, e.g., DNSSEC {{-dnssec}}.
 
 A DoC client may not be able to perform DNSSEC validation,
 e.g., due to code size constraints, or due to the size of the responses.
