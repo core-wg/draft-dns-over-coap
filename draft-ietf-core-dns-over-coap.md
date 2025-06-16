@@ -531,8 +531,8 @@ Last update of this information:
 Security Considerations
 =======================
 
-General CoAP security considerations in {{Section 11 of RFC7252}} apply to DoC.
-DoC also inherits the security considerations of the protocols used for secure communication, e.g., OSCORE {{Section 12 of -oscore}} or DTLS {{Section 5 of -dtls12}} {{Section 11 of -dtls13}}.
+General CoAP security considerations ({{RFC7252, Section 11}}) apply to DoC.
+DoC also inherits the security considerations of the protocols used for secure communication, e.g., OSCORE ({{-oscore, Section 12}}) or DTLS ({{-dtls12, Section 5}} and {{-dtls13, Section 11}}).
 Additionally, DoC uses request patterns that require the maintenance of long-lived security
 contexts.
 {{Section 2.6 of -core-corrclar}} provides insights on what can be done when those are resumed from a new endpoint.
