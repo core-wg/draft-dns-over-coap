@@ -298,6 +298,8 @@ A DoC server MUST be able to parse requests of Content-Format "application/dns-m
 
 The DoC client SHOULD set the ID field of the DNS header always to 0 to enable a CoAP cache (e.g., a CoAP proxy en-route) to respond to the same DNS queries with a cache entry.
 This ensures that the CoAP Cache-Key (see {{-coap-fetch, Section 2}}) does not change when multiple DNS queries for the same DNS data, carried in CoAP requests, are issued.
+Apart from losing these caching benefits, there is no harm it not setting it to 0, e.g., when the query was received from somewhere else.
+In any instance, a DoC server MUST copy the ID from the query in its response to that query.
 
 ### Examples {#sec:req-examples}
 
