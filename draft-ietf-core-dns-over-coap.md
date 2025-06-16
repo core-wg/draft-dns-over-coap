@@ -224,8 +224,7 @@ a single-valued SvcParamKey whose value MUST be a CBOR sequence of 0 or more tex
 {{-cborseq}} and {{-cbor}}), delimited by the length of the SvcParamValue field (in octets). If the
 SvcParamValue ends within a CBOR text string, the SVCB RR MUST be considered as malformed.
 As a text format, e.g., in DNS zone files, the CBOR diagnostic
-notation (see {{Section 8 of -cbor}} and {{-edn}})
-of that CBOR sequence can be used.
+notation (see {{-edn}}) of that CBOR sequence can be used.
 
 Note that this specifically does not surround the text string sequence with a CBOR array or a
 similar CBOR data item. This path format was chosen to coincide with the path representation in CRIs
