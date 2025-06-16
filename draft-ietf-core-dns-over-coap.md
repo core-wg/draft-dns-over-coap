@@ -474,6 +474,7 @@ Without secure communication, many possible attacks need to be evaluated in the 
 the application's threat model.
 This includes known threats for unprotected DNS {{-dns-threats}} {{-dns-privacy}} and CoAP {{Section 11 of -coap}}.
 While DoC does not use the random ID of the DNS header (see Section {{sec:req-caching}}), equivalent protection against off-path poisoning attacks is achieved by using random large token values in the CoAP request.
+If a DoC message is unprotected it MUST use a random token of at least 2 bytes length to mitigate this kind of poisoning attacks.
 
 Implementation Status
 =====================
