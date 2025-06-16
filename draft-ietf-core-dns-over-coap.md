@@ -169,7 +169,7 @@ DNS infrastructure.
 Using that information, the DoC server then replies to the queries of the DoC client with DNS
 responses carried within CoAP responses.
 
-Note that this specification is distinct from DoH, since the CoRE-specific FETCH method {{-coap-fetch}} is used.
+Note that this specification is distinct from DoH, since the CoAP-specific FETCH method {{-coap-fetch}} is used.
 This has the benefit of having the DNS query in the body like when using the POST method, but still with the same caching advantages of responses to requests that use the GET method.
 Having the DNS query in the body means that we do not need extra base64 encoding, which would increase
 code complexity and message sizes.
