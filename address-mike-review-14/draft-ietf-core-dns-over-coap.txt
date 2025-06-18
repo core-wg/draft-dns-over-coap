@@ -285,37 +285,42 @@ Table of Contents
    less than 24 octets and do not contain bytes that need escaping.
 
    To use the service binding from an SVCB RR, the DoC client MUST send
-   a DoC request constructed from the SvcParams including "docpath".  A
-   rough construction algorithm could be as follows, going through the
-   provided records in order of their priority.
+   a DoC request constructed from the SvcParams including "docpath".
+   The construction algorithm for DoC requests is as follows, going
+   through the provided records in order of their priority.
 
-   *  If the "alpn" SvcParam value for the service is "coap", construct
-      a CoAP request for CoAP over TLS.  If it is "co", construct a CoAP
-      request for CoAP over DTLS.  Any other SvcParamKeys specifying a
-      CoAP transport are out of the scope of this document.
+   *  If the "alpn" SvcParam value for the service is "coap", a CoAP
+      request for CoAP over TLS MUST be construct.  If it is "co", a
+      CoAP request for CoAP over DTLS MUST be constructed.  Any other
+      SvcParamKeys specifying a transport are out of the scope of this
+      document.
 
-   *  The destination address for the request should be taken from
+   *  The destination address for the request SHOULD be taken from
       additional information about the target, e.g., from an AAAA record
       associated with the target name or from an "ipv6hint" SvcParam
-      value, or, as a fallback, by querying an address for the target
+      value.  As a fallback, an address MAY be queried for the target
       name of the SVCB record.
 
-   *  The destination port for the request is taken from the "port"
+   *  The destination port for the request MUST be taken from the "port"
       SvcParam value, if present.  Otherwise, take the default port of
       the CoAP transport.
 
-   *  Set the target name of SVCB record in the Uri-Host option.
+   *  The target name of the SVCB record MUST be set in the Uri-Host
+      option if the resolved address for the target name differs from
+      the destination address.  Otherwise, the Uri-Host option MAY be
+      set from the target name.
 
    *  For each element in the CBOR sequence of the "docpath" SvcParam
-      value, add a Uri-Path option to the request.
+      value, a Uri-Path option MUST be added to the request.
 
-   *  If the request constructed this way receives a response, use the
-      same SVCB record for construction of future DoC queries.  If not,
-      or if the endpoint becomes unreachable, repeat with the SVCB
-      record with the next highest priority.
+   *  If the request constructed this way receives a response, the same
+      SVCB record MUST be used for construction of future DoC queries.
+      If not, or if the endpoint becomes unreachable, the algorithm
+      SHOULD be repeated with the SVCB record with the next highest
+      priority.
 
-   A more generalized construction algorithm can be found in
-   [I-D.ietf-core-transport-indication].
+   A more generalized construction algorithm for any CoAP request can be
+   found in [I-D.ietf-core-transport-indication].
 
 4.  Basic Message Exchange
 

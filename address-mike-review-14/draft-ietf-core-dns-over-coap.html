@@ -1542,37 +1542,34 @@ path-abempty form (see <span>[<a href="#RFC3986" class="cite xref">RFC3986</a>],
 string with the "/" character, provided these CBOR text strings are all of a length less than 24
 octets and do not contain bytes that need escaping.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
 <p id="section-3.2-4">To use the service binding from an SVCB RR, the DoC client <span class="bcp14">MUST</span> send a DoC request constructed from the SvcParams including "docpath".
-A rough construction algorithm could be as follows, going through the provided records in order of their priority.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+The construction algorithm for DoC requests is as follows, going through the provided records in order of their priority.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2-5.1">
-            <p id="section-3.2-5.1.1">If the "alpn" SvcParam value for the service is "coap", construct a CoAP request for CoAP over TLS.
-If it is "co", construct a CoAP request for CoAP over DTLS. Any other SvcParamKeys specifying a
-CoAP transport are out of the scope of this document.<a href="#section-3.2-5.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-5.1.1">If the "alpn" SvcParam value for the service is "coap", a CoAP request for CoAP over TLS <span class="bcp14">MUST</span> be construct.
+If it is "co", a CoAP request for CoAP over DTLS <span class="bcp14">MUST</span> be constructed.
+Any other SvcParamKeys specifying a transport are out of the scope of this document.<a href="#section-3.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.2-5.2">
-            <p id="section-3.2-5.2.1">The destination address for the request should be taken from additional information about the
-target, e.g., from an AAAA record associated with the target name or from an "ipv6hint" SvcParam
-value, or, as a fallback, by querying an address for the target name of the SVCB record.<a href="#section-3.2-5.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-5.2.1">The destination address for the request <span class="bcp14">SHOULD</span> be taken from additional information about the target, e.g., from an AAAA record associated with the target name or from an "ipv6hint" SvcParam value.
+As a fallback, an address <span class="bcp14">MAY</span> be queried for the target name of the SVCB record.<a href="#section-3.2-5.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.2-5.3">
-            <p id="section-3.2-5.3.1">The destination port for the request is taken from the "port" SvcParam value, if present.
+            <p id="section-3.2-5.3.1">The destination port for the request <span class="bcp14">MUST</span> be taken from the "port" SvcParam value, if present.
 Otherwise, take the default port of the CoAP transport.<a href="#section-3.2-5.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.2-5.4">
-            <p id="section-3.2-5.4.1">Set the target name of SVCB record in the Uri-Host option.<a href="#section-3.2-5.4.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-5.4.1">The target name of the SVCB record <span class="bcp14">MUST</span> be set in the Uri-Host option if the resolved address for the target name differs from the destination address.
+Otherwise, the Uri-Host option <span class="bcp14">MAY</span> be set from the target name.<a href="#section-3.2-5.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.2-5.5">
-            <p id="section-3.2-5.5.1">For each element in the CBOR sequence of the "docpath" SvcParam value, add a Uri-Path option to
-the request.<a href="#section-3.2-5.5.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-5.5.1">For each element in the CBOR sequence of the "docpath" SvcParam value, a Uri-Path option <span class="bcp14">MUST</span> be added to the request.<a href="#section-3.2-5.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.2-5.6">
-            <p id="section-3.2-5.6.1">If the request constructed this way receives a response, use the same SVCB record for construction
-of future DoC queries.
-If not, or if the endpoint becomes unreachable, repeat with the SVCB record with the next highest
-priority.<a href="#section-3.2-5.6.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-5.6.1">If the request constructed this way receives a response, the same SVCB record <span class="bcp14">MUST</span> be used for construction of future DoC queries.
+If not, or if the endpoint becomes unreachable, the algorithm <span class="bcp14">SHOULD</span> be repeated with the SVCB record with the next highest priority.<a href="#section-3.2-5.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-3.2-6">A more generalized construction algorithm can be found in <span>[<a href="#I-D.ietf-core-transport-indication" class="cite xref">I-D.ietf-core-transport-indication</a>]</span>.<a href="#section-3.2-6" class="pilcrow">¶</a></p>
+<p id="section-3.2-6">A more generalized construction algorithm for any CoAP request can be found in <span>[<a href="#I-D.ietf-core-transport-indication" class="cite xref">I-D.ietf-core-transport-indication</a>]</span>.<a href="#section-3.2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
