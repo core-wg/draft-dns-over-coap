@@ -218,6 +218,9 @@ Table of Contents
    DNS information is called a "DoC client".
 
    The term "constrained nodes" is used as defined in [RFC7228].
+   [RFC6690] describes that "Constrained RESTful Environments (CoRE)"
+   realize the Representational State Transfer (REST) architecture
+   [REST] in a suitable form for such constrained nodes.
 
    The terms "payload" and "body" are used as defined in [RFC7959],
    Section 2.  Note that, when block-wise transfer is not used, the
@@ -896,6 +899,12 @@ Table of Contents
               Draft, draft-lenders-core-dnr-05, 3 March 2025,
               <https://datatracker.ietf.org/doc/html/draft-lenders-core-
               dnr-05>.
+
+   [REST]     Fielding, R., "Architectural Styles and the Design of
+              Network-based Software Architectures", Ph.D. Dissertation,
+              University of California, Irvine, 2000,
+              <https://www.ics.uci.edu/~fielding/pubs/dissertation/
+              fielding_dissertation.pdf>.
 
    [RFC3833]  Atkins, D. and R. Austein, "Threat Analysis of the Domain
               Name System (DNS)", RFC 3833, DOI 10.17487/RFC3833, August
