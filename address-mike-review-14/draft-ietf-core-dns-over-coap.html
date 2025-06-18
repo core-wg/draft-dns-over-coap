@@ -1532,7 +1532,7 @@ a single-valued SvcParamKey whose value <span class="bcp14">MUST</span> be a CBO
 <span>[<a href="#RFC8742" class="cite xref">RFC8742</a>]</span> and <span>[<a href="#RFC8949" class="cite xref">RFC8949</a>]</span>), delimited by the length of the SvcParamValue field (in octets). If the
 SvcParamValue ends within a CBOR text string, the SVCB RR <span class="bcp14">MUST</span> be considered as malformed.
 As a text format, e.g., in DNS zone files, the CBOR diagnostic
-notation (see <span><a href="https://rfc-editor.org/rfc/rfc8949#section-8" class="relref">Section 8</a> of [<a href="#RFC8949" class="cite xref">RFC8949</a>]</span> of that CBOR sequence can be used.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+notation (see <span>[<a href="#I-D.ietf-cbor-edn-literals" class="cite xref">I-D.ietf-cbor-edn-literals</a>]</span>) of that CBOR sequence can be used.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 <p id="section-3.2-3">Note that this specifically does not surround the text string sequence with a CBOR array or a
 similar CBOR data item. This path format was chosen to coincide with the path representation in CRIs
 <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>. Furthermore, it is easily transferable into a sequence of CoAP Uri-Path options by
@@ -2059,6 +2059,10 @@ The definition of this parameter can be found in <a href="#sec_doc-server-select
 <a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
+<dt id="I-D.ietf-cbor-edn-literals">[I-D.ietf-cbor-edn-literals]</dt>
+        <dd>
+<span class="refAuthor">Bormann, C.</span>, <span class="refTitle">"CBOR Extended Diagnostic Notation (EDN)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cbor-edn-literals-17</span>, <time datetime="2025-05-12" class="refDate">12 May 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cbor-edn-literals-17">https://datatracker.ietf.org/doc/html/draft-ietf-cbor-edn-literals-17</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.ietf-core-coap-dtls-alpn">[I-D.ietf-core-coap-dtls-alpn]</dt>
         <dd>
 <span class="refAuthor">Lenders, M. S.</span>, <span class="refAuthor">Amsüss, C.</span>, <span class="refAuthor">Schmidt, T. C.</span>, and <span class="refAuthor">M. Wählisch</span>, <span class="refTitle">"ALPN ID Specification for CoAP over DTLS"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-coap-dtls-alpn-04</span>, <time datetime="2025-04-01" class="refDate">1 April 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-coap-dtls-alpn-04">https://datatracker.ietf.org/doc/html/draft-ietf-core-coap-dtls-alpn-04</a>&gt;</span>. </dd>

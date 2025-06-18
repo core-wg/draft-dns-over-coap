@@ -271,7 +271,7 @@ Table of Contents
    SvcParamValue field (in octets).  If the SvcParamValue ends within a
    CBOR text string, the SVCB RR MUST be considered as malformed.  As a
    text format, e.g., in DNS zone files, the CBOR diagnostic notation
-   (see Section 8 of [RFC8949] of that CBOR sequence can be used.
+   (see [I-D.ietf-cbor-edn-literals]) of that CBOR sequence can be used.
 
    Note that this specifically does not surround the text string
    sequence with a CBOR array or a similar CBOR data item.  This path
@@ -755,6 +755,13 @@ Table of Contents
 10.  References
 
 10.1.  Normative References
+
+   [I-D.ietf-cbor-edn-literals]
+              Bormann, C., "CBOR Extended Diagnostic Notation (EDN)",
+              Work in Progress, Internet-Draft, draft-ietf-cbor-edn-
+              literals-17, 12 May 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-cbor-
+              edn-literals-17>.
 
    [I-D.ietf-core-coap-dtls-alpn]
               Lenders, M. S., Amsüss, C., Schmidt, T. C., and M.
