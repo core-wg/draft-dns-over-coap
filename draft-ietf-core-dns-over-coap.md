@@ -100,6 +100,19 @@ informative:
   I-D.amsuess-core-cachable-oscore: cachable-oscore
   DoC-paper: DOI.10.1145/3609423
   I-D.ietf-core-corr-clar: core-corrclar
+  REST:
+    target: https://www.ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation.pdf
+    title: Architectural Styles and the Design of Network-based Software Architectures
+    author:
+      ins: R. Fielding
+      name: Roy Thomas Fielding
+      org: University of California, Irvine
+    date: 2000
+    seriesinfo:
+      "Ph.D.": "Dissertation, University of California, Irvine"
+    format:
+      HTML: https://ics.uci.edu/~fielding/pubs/dissertation/top.htm
+      PDF: https://www.ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation.pdf
 --- abstract
 
 This document defines a protocol for exchanging DNS messages over the
@@ -192,6 +205,8 @@ A client using the service specified in this document to retrieve the
 DNS information is called a "DoC client".
 
 The term "constrained nodes" is used as defined in {{-constr-nodes}}.
+{{-core-link-format}} describes that "Constrained RESTful Environments (CoRE)" realize the Representational State Transfer (REST) architecture {{REST}} in a suitable form for such constrained nodes.
+
 
 The terms "payload" and "body" are used as defined in {{-coap-blockwise, Section 2}}.
 Note that, when block-wise transfer is not used, the terms "payload" and "body" are to be understood as equal.
