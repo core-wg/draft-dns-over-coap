@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 18 December 2025                                               
+Expires: 20 December 2025                                               
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                            16 June 2025
+                                                            18 June 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 December 2025.
+   This Internet-Draft will expire on 20 December 2025.
 
 Copyright Notice
 
@@ -260,9 +260,10 @@ Table of Contents
    Hellman Over COSE (EDHOC) [RFC9528].  Because the ALPN extension is
    only defined for (D)TLS, these mechanisms cannot be used for DoC
    servers which use only OSCORE [RFC8613] and Ephemeral Diffie-Hellman
-   Over COSE (EDHOC) [RFC9528] for security.  It is out of scope of this
-   specification.  [I-D.lenders-core-dnr] provides further exploration
-   of the challenges here.
+   Over COSE (EDHOC) [RFC9528] for security.  Specifying an alternate
+   discovery mechanism is out of scope of this specification.
+   [I-D.lenders-core-dnr] provides further exploration of the challenges
+   here.
 
    This document specifies "docpath" as a single-valued SvcParamKey
    whose value MUST be a CBOR sequence of 0 or more text strings (see
