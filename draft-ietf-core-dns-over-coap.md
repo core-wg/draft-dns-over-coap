@@ -638,6 +638,22 @@ Change Log
 
 [^remove-changelog]: RFC Ed.: Please remove this section before publication.
 
+Since [draft-ietf-core-dns-over-coap-14]
+----------------------------------------
+- Remove superfluous and confusing step in SVCB to request algorithm
+- Address AD review:
+  - Remove RFC8949 as CBOR diagnostic notation reference
+  - CoRE-specific FETCH method -> CoAP-specific FETCH method
+  - Remove double reference to BCP 219
+  - Fix wording and references around SVCB records and ALPN
+  - Move format description for examples to Terminology section
+  - Retitle section 5 to "Interaction with other CoAP and CoRE Features"
+  - Make prevention of poisoning attacks normative for unprotected CoAP
+  - Provide specs on if the SHOULD on ID=0 does not apply
+  - Make construction algorithm normative
+  - Add definition for CoRE
+  - General grammar, wording, and spelling cleanups
+
 Since [draft-ietf-core-dns-over-coap-13]
 ----------------------------------------
 - Address shepherd review
@@ -747,6 +763,7 @@ Since [draft-lenders-dns-over-coap-04]
 
 The authors of this document want to thank Carsten Bormann, Esko Dijk, Thomas Fossati, Mikolai Gütschow, Ben Schwartz, Marco Tiloca, and Tim Wicinski for their feedback and comments.
 
+[draft-ietf-core-dns-over-coap-14]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-14
 [draft-ietf-core-dns-over-coap-13]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-13
 [draft-ietf-core-dns-over-coap-12]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-12
 [draft-ietf-core-dns-over-coap-10]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-10
