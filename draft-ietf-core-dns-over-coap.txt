@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 12 October 2025                                                
+Expires: 21 December 2025                                               
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                           10 April 2025
+                                                            19 June 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 October 2025.
+   This Internet-Draft will expire on 21 December 2025.
 
 Copyright Notice
 
@@ -78,7 +78,7 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction
-   2.  Terminology
+   2.  Terminology and Conventions
    3.  Selection of a DoC Server
      3.1.  Discovery by Resource Type
      3.2.  Discovery using SVCB Resource Records or DNR
@@ -92,8 +92,8 @@ Table of Contents
        4.3.1.  Response Codes and Handling DNS and CoAP errors
        4.3.2.  Support of CoAP Caching
        4.3.3.  Examples
-   5.  CoAP/CoRE Integration
-     5.1.  DNS Push
+   5.  Interaction with other CoAP and CoRE Features
+     5.1.  DNS Push Notifications and CoAP Observe
      5.2.  OSCORE
      5.3.  Mapping DoC to DoH
    6.  Considerations for Unprotected Use
@@ -188,7 +188,7 @@ Table of Contents
    information, the DoC server then replies to the queries of the DoC
    client with DNS responses carried within CoAP responses.
 
-   Note that this specification is distinct from DoH, since the CoRE-
+   Note that this specification is distinct from DoH, since the CoAP-
    specific FETCH method [RFC8132] is used.  This has the benefit of
    having the DNS query in the body like when using the POST method, but
    still with the same caching advantages of responses to requests that
@@ -197,7 +197,7 @@ Table of Contents
    complexity and message sizes.  Also, this allows for the block-wise
    transfer of queries [RFC7959].
 
-2.  Terminology
+2.  Terminology and Conventions
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
@@ -207,21 +207,29 @@ Table of Contents
 
    A server that provides the service specified in this document is
    called a "DoC server" to differentiate it from a classic "DNS
-   server".  A DoC server acts either as a DNS stub resolver [BCP219] or
-   a DNS recursive resolver [BCP219].  As such, the DoC server
-   communicates with an "upstream DNS infrastructure" or a single
-   "upstream DNS server".  A "DoC resource" is a CoAP resource [RFC7252]
-   at the DoC server that DoC clients can target to send a DNS query in
-   a CoAP request.
+   server".  A DoC server acts either as a DNS stub resolver or a DNS
+   recursive resolver [BCP219].  As such, the DoC server communicates
+   with an "upstream DNS infrastructure" or a single "upstream DNS
+   server".  A "DoC resource" is a CoAP resource [RFC7252] at the DoC
+   server that DoC clients can target to send a DNS query in a CoAP
+   request.
 
    A client using the service specified in this document to retrieve the
    DNS information is called a "DoC client".
 
    The term "constrained nodes" is used as defined in [RFC7228].
+   [RFC6690] describes that "Constrained RESTful Environments (CoRE)"
+   realize the Representational State Transfer (REST) architecture
+   [REST] in a suitable form for such constrained nodes.
 
    The terms "payload" and "body" are used as defined in [RFC7959],
    Section 2.  Note that, when block-wise transfer is not used, the
    terms "payload" and "body" are to be understood as equal.
+
+   For better readability, examples in this document the binary payload
+   is provided in hexadecimal representation as well as a human-readable
+   format.  In the actual message, however, it would be encoded in the
+   binary message format defined in [RFC1035].
 
 3.  Selection of a DoC Server
 
@@ -247,12 +255,15 @@ Table of Contents
 3.2.  Discovery using SVCB Resource Records or DNR
 
    A DoC server can also be discovered using SVCB Resource Records (RR)
-   [RFC9460] [RFC9461] or DNR Service Parameters [RFC9463].
-   [I-D.ietf-core-coap-dtls-alpn] provides solutions to discover CoAP
-   over (D)TLS servers using the "alpn" SvcParam.
-   [I-D.lenders-core-dnr] provides a problem statement for service
-   bindings discovery for OSCORE [RFC8613] and Ephemeral Diffie-Hellman
-   Over COSE (EDHOC) [RFC9528].
+   [RFC9460] [RFC9461] or DNR Service Parameters [RFC9463].  [RFC8323]
+   defines the ALPN ID for CoAP over TLS servers and
+   [I-D.ietf-core-coap-dtls-alpn] defines the ALPN ID for CoAP over DTLS
+   servers.  Because the ALPN extension is only defined for (D)TLS,
+   these mechanisms cannot be used for DoC servers which use only OSCORE
+   [RFC8613] and Ephemeral Diffie-Hellman Over COSE (EDHOC) [RFC9528]
+   for security.  Specifying an alternate discovery mechanism is out of
+   scope of this specification.  [I-D.lenders-core-dnr] provides further
+   exploration of the challenges here.
 
    This document specifies "docpath" as a single-valued SvcParamKey
    whose value MUST be a CBOR sequence of 0 or more text strings (see
@@ -260,8 +271,7 @@ Table of Contents
    SvcParamValue field (in octets).  If the SvcParamValue ends within a
    CBOR text string, the SVCB RR MUST be considered as malformed.  As a
    text format, e.g., in DNS zone files, the CBOR diagnostic notation
-   (see Section 8 of [RFC8949] and [I-D.ietf-cbor-edn-literals]) of that
-   CBOR sequence can be used.
+   (see [I-D.ietf-cbor-edn-literals]) of that CBOR sequence can be used.
 
    Note that this specifically does not surround the text string
    sequence with a CBOR array or a similar CBOR data item.  This path
@@ -278,37 +288,42 @@ Table of Contents
    less than 24 octets and do not contain bytes that need escaping.
 
    To use the service binding from an SVCB RR, the DoC client MUST send
-   a DoC request constructed from the SvcParams including "docpath".  A
-   rough construction algorithm could be as follows, going through the
-   provided records in order of their priority.
+   a DoC request constructed from the SvcParams including "docpath".
+   The construction algorithm for DoC requests is as follows, going
+   through the provided records in order of their priority.
 
-   *  If the "alpn" SvcParam value for the service is "coap", construct
-      a CoAP request for CoAP over TLS.  If it is "co", construct a CoAP
-      request for CoAP over DTLS.  Any other SvcParamKeys specifying a
-      CoAP transport are out of the scope of this document.
+   *  If the "alpn" SvcParam value for the service is "coap", a CoAP
+      request for CoAP over TLS MUST be construct.  If it is "co", a
+      CoAP request for CoAP over DTLS MUST be constructed.  Any other
+      SvcParamKeys specifying a transport are out of the scope of this
+      document.
 
-   *  The destination address for the request should be taken from
+   *  The destination address for the request SHOULD be taken from
       additional information about the target, e.g., from an AAAA record
       associated with the target name or from an "ipv6hint" SvcParam
-      value, or, as a fallback, by querying an address for the target
+      value.  As a fallback, an address MAY be queried for the target
       name of the SVCB record.
 
-   *  The destination port for the request is taken from the "port"
+   *  The destination port for the request MUST be taken from the "port"
       SvcParam value, if present.  Otherwise, take the default port of
       the CoAP transport.
 
-   *  Set the target name of SVCB record in the Uri-Host option.
+   *  The target name of the SVCB record MUST be set in the Uri-Host
+      option if the resolved address for the target name differs from
+      the destination address.  Otherwise, the Uri-Host option MAY be
+      set from the target name.
 
    *  For each element in the CBOR sequence of the "docpath" SvcParam
-      value, add a Uri-Path option to the request.
+      value, a Uri-Path option MUST be added to the request.
 
-   *  If the request constructed this way receives a response, use the
-      same SVCB record for construction of future DoC queries.  If not,
-      or if the endpoint becomes unreachable, repeat with the SVCB
-      record with the next highest priority.
+   *  If the request constructed this way receives a response, the same
+      SVCB record MUST be used for construction of future DoC queries.
+      If not, or if the endpoint becomes unreachable, the algorithm
+      SHOULD be repeated with the SVCB record with the next highest
+      priority.
 
-   A more generalized construction algorithm can be found in
-   [I-D.ietf-core-transport-indication].
+   A more generalized construction algorithm for any CoAP request can be
+   found in [I-D.ietf-core-transport-indication].
 
 4.  Basic Message Exchange
 
@@ -350,22 +365,22 @@ Table of Contents
 
 4.2.2.  Support of CoAP Caching
 
-   The DoC client SHOULD set the ID field of the DNS header always to 0
-   to enable a CoAP cache (e.g., a CoAP proxy en-route) to respond to
-   the same DNS queries with a cache entry.  This ensures that the CoAP
+   The DoC client SHOULD set the ID field of the DNS header to 0 to
+   enable a CoAP cache (e.g., a CoAP proxy en-route) to respond to the
+   same DNS queries with a cache entry.  This ensures that the CoAP
    Cache-Key (see [RFC8132], Section 2) does not change when multiple
    DNS queries for the same DNS data, carried in CoAP requests, are
-   issued.
+   issued.  Apart from losing these caching benefits, there is no harm
+   it not setting it to 0, e.g., when the query was received from
+   somewhere else.  In any instance, a DoC server MUST copy the ID from
+   the query in its response to that query.
 
 4.2.3.  Examples
 
    The following example illustrates the usage of a CoAP message to
    resolve "example.org.  IN AAAA" based on the URI
    "coaps://[2001:db8::1]/".  The CoAP body is encoded in the
-   "application/dns-message" Content-Format.  For better readability,
-   the payload is provided in a human-readable format.  In the actual
-   message, however, it would be encoded in the binary message format
-   (bytes printed in hexadecimal representation) defined in [RFC1035].
+   "application/dns-message" Content-Format.
 
    FETCH coaps://[2001:db8::1]/
    Content-Format: 553 (application/dns-message)
@@ -390,7 +405,7 @@ Table of Contents
    in the "application/dns-message" Content-Format (for details, see
    Section 4.1) when requested.  A DoC client MUST be able to understand
    responses in the "application/dns-message" Content-Format when it
-   does not send an Accept option.  Any other response Content-Format
+   does not send an Accept option.  Any response Content-Format other
    than "application/dns-message" MUST be indicated with the Content-
    Format option by the DoC server.
 
@@ -419,25 +434,25 @@ Table of Contents
 
 4.3.2.  Support of CoAP Caching
 
-   For reliability and energy saving measures, content decoupling, i.e.,
-   en-route caching on proxies, takes a far greater role than it does,
-   e.g., in HTTP.  Likewise, CoAP makes it possible to use cache
-   validation to refresh stale cache entries to reduce the amount of
-   large response messages.  For cache validation, CoAP implementations
-   regularly use hashing over the message content for ETag generation.
-   As such, the approach to guarantee the same cache key for DNS
-   responses as proposed in DoH ([RFC8484], Section 5.1) is not
-   sufficient and needs to be updated so that the TTLs in the response
-   are more often the same regardless of query time.
+   For reliability and energy saving measures, content decoupling (such
+   as en-route caching on proxies) takes a far greater role than it does
+   in HTTP.  Likewise, CoAP makes it possible to use cache validation to
+   refresh stale cache entries to reduce the number of large response
+   messages.  For cache validation, CoAP implementations regularly use
+   hashing over the message content for ETag generation.  As such, the
+   approach to guarantee the same cache key for DNS responses as
+   proposed in DoH ([RFC8484], Section 5.1) is not sufficient and needs
+   to be updated so that the TTLs in the response are more often the
+   same regardless of query time.
 
-   The DoC server MUST ensure that any sum of the Max-Age value of a
-   CoAP response and any TTL in the DNS response is less or equal to the
-   corresponding TTL received from an upstream DNS server.  This also
-   includes the default Max-Age value of 60 seconds (see Section 5.10.5
-   of [RFC7252]) when no Max-Age option is provided.  The DoC client
-   MUST then add the Max-Age value of the carrying CoAP response to all
-   TTLs in a DNS response on reception and use these calculated TTLs for
-   the associated records.
+   The DoC server MUST ensure that the sum of the Max-Age value of a
+   CoAP response and any TTL in the DNS response is less than or equal
+   to the corresponding TTL received from an upstream DNS server.  This
+   also includes the default Max-Age value of 60 seconds (see
+   Section 5.10.5 of [RFC7252]) when no Max-Age option is provided.  The
+   DoC client MUST then add the Max-Age value of the carrying CoAP
+   response to all TTLs in a DNS response on reception and use these
+   calculated TTLs for the associated records.
 
    The RECOMMENDED algorithm for a DoC server to meet the requirement
    for DoC is as follows: Set the Max-Age option of a response to the
@@ -464,9 +479,7 @@ Table of Contents
    The following example illustrates the response to the query
    "example.org.  IN AAAA record", with recursion turned on.  Successful
    responses carry one answer record including address
-   2001:db8:1::1:2:3:4 and TTL 79689.  As in Section 4.2.3, a human-
-   readable format for the payload is used, but the binary conversion is
-   omitted this time.
+   2001:db8:1::1:2:3:4 and TTL 79689.
 
    A successful response:
 
@@ -517,31 +530,32 @@ Table of Contents
    4.15 Unsupported Content-Format
    [no payload]
 
-5.  CoAP/CoRE Integration
+5.  Interaction with other CoAP and CoRE Features
 
-5.1.  DNS Push
+5.1.  DNS Push Notifications and CoAP Observe
 
-   DNS Push results in additional overhead, which conflicts with
+   DNS Push Notifications [RFC8765] provides the capability to
+   asynchronously notify clients about resource record changes.
+   However, it results in additional overhead, which conflicts with
    constrained resources.  This is the reason why it is RECOMMENDED to
    use CoAP Observe [RFC7641] instead of DNS Push in the DoC domain.
    The DoC server SHOULD provide Observe capabilities on its DoC
    resource and do as follows.
 
    If the CoAP request indicates that the DoC client wants to observe a
-   resource record, a DoC server MAY use a DNS Subscribe message
-   [RFC8765] instead of a classic DNS query to fetch the information on
-   behalf of a DoC client.  If this is not supported by the DoC server,
-   it MUST act as if the DoC resource were not observable.
+   resource record, a DoC server MAY use a DNS Subscribe message instead
+   of a classic DNS query to fetch the information on behalf of a DoC
+   client.  If this is not supported by the DoC server, it MUST act as
+   if the DoC resource were not observable.
 
-   Whenever the DoC server receives a DNS Push message [RFC8765] from
-   the DNS infrastructure for an observed resource record, the DoC
-   server sends an appropriate Observe notification response to the DoC
-   client.
+   Whenever the DoC server receives a DNS Push message from the DNS
+   infrastructure for an observed resource record, the DoC server sends
+   an appropriate Observe notification response to the DoC client.
 
    If no more DoC clients observe a resource record for which the DoC
    server has an open subscription, the DoC server MUST use a DNS
-   Unsubscribe message [RFC8765] to close its subscription to the
-   resource record as well.
+   Unsubscribe message to close its subscription to the resource record
+   as well.
 
    A DoC server can still provide Observe capabilities to its DoC
    resource without providing this proxying to DNS Push, e.g., if it
@@ -554,11 +568,9 @@ Table of Contents
    establishment and maintenance of the OSCORE Security Context is out
    of the scope of this document.
 
-   If cache retrieval of OSCORE responses is desired, it can be
-   achieved, for instance, by using the method defined in
-   [I-D.amsuess-core-cachable-oscore].  This has, however, implications
-   on message sizes and security properties, which are compiled in that
-   document.
+   [I-D.amsuess-core-cachable-oscore] describes a method to allow cache
+   retrieval of OSCORE responses and discusses the corresponding
+   implications on message sizes and security properties.
 
 5.3.  Mapping DoC to DoH
 
@@ -576,12 +588,12 @@ Table of Contents
    NOT RECOMMENDED.  Without secure communication, many possible attacks
    need to be evaluated in the context of the application's threat
    model.  This includes known threats for unprotected DNS [RFC3833]
-   [RFC9076] and CoAP Section 11 of [RFC7252].  But there is also an
-   attack that is mitigated even by unprotected DNS over UDP: the random
-   ID of the DNS header affords some protection against off-path cache
-   poisoning attacks.  Note, however, that this particular threat can
-   also be mitigated by using random large token values in the CoAP
-   request.
+   [RFC9076] and CoAP Section 11 of [RFC7252].  While DoC does not use
+   the random ID of the DNS header (see Section Section 4.2.2),
+   equivalent protection against off-path poisoning attacks is achieved
+   by using random large token values for unprotected CoAP request.  If
+   a DoC message is unprotected it MUST use a random token of at least 2
+   bytes length to mitigate this kind of poisoning attacks.
 
 7.  Implementation Status
 
@@ -645,10 +657,10 @@ Table of Contents
 
 8.  Security Considerations
 
-   General CoAP security considerations in Section 11 of [RFC7252] apply
-   to DoC.  DoC also inherits the security considerations of the
-   protocols used for secure communication, e.g., OSCORE Section 12 of
-   [RFC8613] or DTLS Section 5 of [RFC6347] Section 11 of [RFC9147].
+   General CoAP security considerations ([RFC7252], Section 11) apply to
+   DoC.  DoC also inherits the security considerations of the protocols
+   used for secure communication, e.g., OSCORE ([RFC8613], Section 12)
+   or DTLS ([RFC6347], Section 5 and [RFC9147], Section 11).
    Additionally, DoC uses request patterns that require the maintenance
    of long-lived security contexts.  Section 2.6 of
    [I-D.ietf-core-corr-clar] provides insights on what can be done when
@@ -673,15 +685,15 @@ Table of Contents
    communication between parties for which the security context is
    exchanged.  The DoC server may use another security context to
    communicate upstream with both confidentiality and integrity (e.g.,
-   DNS over QUIC [RFC9250]) or with just integrity (e.g., DNSSEC
-   [RFC9364]), but, while recommended, this is opaque to the DoC client
-   on the protocol level.
+   DNS over QUIC [RFC9250]), but, while recommended, this is opaque to
+   the DoC client on the protocol level.  Record integrity can also be
+   ensured upstream using, e.g., DNSSEC [RFC9364].
 
    A DoC client may not be able to perform DNSSEC validation, e.g., due
    to code size constraints, or due to the size of the responses.  It
    may trust its DoC server to perform DNSSEC validation; how that trust
-   is expressed is out of the scope of this document.  A DoC client may
-   be, for instance, configured to use a particular credential by which
+   is expressed is out of the scope of this document.  For instance, a
+   DoC client may be, configured to use a particular credential by which
    it recognizes an eligible DoC server.  That information can also
    imply trust in the DNSSEC validation by that server.
 
@@ -747,9 +759,9 @@ Table of Contents
    [I-D.ietf-cbor-edn-literals]
               Bormann, C., "CBOR Extended Diagnostic Notation (EDN)",
               Work in Progress, Internet-Draft, draft-ietf-cbor-edn-
-              literals-16, 8 January 2025,
+              literals-17, 12 May 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cbor-
-              edn-literals-16>.
+              edn-literals-17>.
 
    [I-D.ietf-core-coap-dtls-alpn]
               Lenders, M. S., Amsüss, C., Schmidt, T. C., and M.
@@ -800,6 +812,12 @@ Table of Contents
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC8323]  Bormann, C., Lemay, S., Tschofenig, H., Hartke, K.,
+              Silverajan, B., and B. Raymor, Ed., "CoAP (Constrained
+              Application Protocol) over TCP, TLS, and WebSockets",
+              RFC 8323, DOI 10.17487/RFC8323, February 2018,
+              <https://www.rfc-editor.org/rfc/rfc8323>.
 
    [RFC8484]  Hoffman, P. and P. McManus, "DNS Queries over HTTPS
               (DoH)", RFC 8484, DOI 10.17487/RFC8484, October 2018,
@@ -888,6 +906,12 @@ Table of Contents
               Draft, draft-lenders-core-dnr-05, 3 March 2025,
               <https://datatracker.ietf.org/doc/html/draft-lenders-core-
               dnr-05>.
+
+   [REST]     Fielding, R., "Architectural Styles and the Design of
+              Network-based Software Architectures", Ph.D. Dissertation,
+              University of California, Irvine, 2000,
+              <https://www.ics.uci.edu/~fielding/pubs/dissertation/
+              fielding_dissertation.pdf>.
 
    [RFC3833]  Atkins, D. and R. Austein, "Threat Analysis of the Domain
               Name System (DNS)", RFC 3833, DOI 10.17487/RFC3833, August
