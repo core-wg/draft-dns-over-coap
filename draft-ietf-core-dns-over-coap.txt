@@ -110,20 +110,21 @@ Table of Contents
      10.2.  Informative References
    Appendix A.  Evaluation
    Appendix B.  Change Log
-     B.1.  Since draft-ietf-core-dns-over-coap-13
-     B.2.  Since draft-ietf-core-dns-over-coap-12
-     B.3.  Since draft-ietf-core-dns-over-coap-10
-     B.4.  Since draft-ietf-core-dns-over-coap-09
-     B.5.  Since draft-ietf-core-dns-over-coap-08
-     B.6.  Since draft-ietf-core-dns-over-coap-07
-     B.7.  Since draft-ietf-core-dns-over-coap-06
-     B.8.  Since draft-ietf-core-dns-over-coap-05
-     B.9.  Since draft-ietf-core-dns-over-coap-04
-     B.10. Since draft-ietf-core-dns-over-coap-03
-     B.11. Since draft-ietf-core-dns-over-coap-02
-     B.12. Since draft-ietf-core-dns-over-coap-01
-     B.13. Since draft-ietf-core-dns-over-coap-00
-     B.14. Since draft-lenders-dns-over-coap-04
+     B.1.  Since draft-ietf-core-dns-over-coap-14
+     B.2.  Since draft-ietf-core-dns-over-coap-13
+     B.3.  Since draft-ietf-core-dns-over-coap-12
+     B.4.  Since draft-ietf-core-dns-over-coap-10
+     B.5.  Since draft-ietf-core-dns-over-coap-09
+     B.6.  Since draft-ietf-core-dns-over-coap-08
+     B.7.  Since draft-ietf-core-dns-over-coap-07
+     B.8.  Since draft-ietf-core-dns-over-coap-06
+     B.9.  Since draft-ietf-core-dns-over-coap-05
+     B.10. Since draft-ietf-core-dns-over-coap-04
+     B.11. Since draft-ietf-core-dns-over-coap-03
+     B.12. Since draft-ietf-core-dns-over-coap-02
+     B.13. Since draft-ietf-core-dns-over-coap-01
+     B.14. Since draft-ietf-core-dns-over-coap-00
+     B.15. Since draft-lenders-dns-over-coap-04
    Acknowledgments
    Authors' Addresses
 
@@ -990,13 +991,45 @@ Appendix B.  Change Log
 
    // RFC Ed.: Please remove this section before publication.
 
-B.1.  Since draft-ietf-core-dns-over-coap-13
+B.1.  Since draft-ietf-core-dns-over-coap-14
+      (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
+      coap-14)
+
+   *  Remove superfluous and confusing step in SVCB to request algorithm
+
+   *  Address AD review:
+
+      -  Remove RFC8949 as CBOR diagnostic notation reference
+
+      -  CoRE-specific FETCH method -> CoAP-specific FETCH method
+
+      -  Remove double reference to BCP 219
+
+      -  Fix wording and references around SVCB records and ALPN
+
+      -  Move format description for examples to Terminology section
+
+      -  Retitle section 5 to "Interaction with other CoAP and CoRE
+         Features"
+
+      -  Make prevention of poisoning attacks normative for unprotected
+         CoAP
+
+      -  Provide specs on if the SHOULD on ID=0 does not apply
+
+      -  Make construction algorithm normative
+
+      -  Add definition for CoRE
+
+      -  General grammar, wording, and spelling cleanups
+
+B.2.  Since draft-ietf-core-dns-over-coap-13
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-13)
 
    *  Address shepherd review
 
-B.2.  Since draft-ietf-core-dns-over-coap-12
+B.3.  Since draft-ietf-core-dns-over-coap-12
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-12)
 
@@ -1006,7 +1039,7 @@ B.2.  Since draft-ietf-core-dns-over-coap-12
 
    *  Address Mikolai's review
 
-B.3.  Since draft-ietf-core-dns-over-coap-10
+B.4.  Since draft-ietf-core-dns-over-coap-10
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-10)
 
@@ -1040,7 +1073,7 @@ B.3.  Since draft-ietf-core-dns-over-coap-10
 
    *  General language check pass
 
-B.4.  Since draft-ietf-core-dns-over-coap-09
+B.5.  Since draft-ietf-core-dns-over-coap-09
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-09)
 
@@ -1055,13 +1088,13 @@ B.4.  Since draft-ietf-core-dns-over-coap-09
    *  Add to security considerations: unprotected upstream DNS and
       DNSSEC
 
-B.5.  Since draft-ietf-core-dns-over-coap-08
+B.6.  Since draft-ietf-core-dns-over-coap-08
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-08)
 
    *  Update Cenk's Affiliation
 
-B.6.  Since draft-ietf-core-dns-over-coap-07
+B.7.  Since draft-ietf-core-dns-over-coap-07
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-07)
 
@@ -1075,7 +1108,7 @@ B.6.  Since draft-ietf-core-dns-over-coap-07
 
    *  Implementation Status: Update to current version
 
-B.7.  Since draft-ietf-core-dns-over-coap-06
+B.8.  Since draft-ietf-core-dns-over-coap-06
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-06)
 
@@ -1090,21 +1123,21 @@ B.7.  Since draft-ietf-core-dns-over-coap-06
 
       -  IANA: unify self references
 
-B.8.  Since draft-ietf-core-dns-over-coap-05
+B.9.  Since draft-ietf-core-dns-over-coap-05
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-05)
 
    *  Add references to relevant SVCB/DNR RFCs and drafts
 
-B.9.  Since draft-ietf-core-dns-over-coap-04
-      (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
-      coap-04)
+B.10.  Since draft-ietf-core-dns-over-coap-04
+       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
+       coap-04)
 
    *  Add note on cacheable OSCORE
 
    *  Address early IANA review
 
-B.10.  Since draft-ietf-core-dns-over-coap-03
+B.11.  Since draft-ietf-core-dns-over-coap-03
        (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
        coap-03)
 
@@ -1113,7 +1146,7 @@ B.10.  Since draft-ietf-core-dns-over-coap-03
 
    *  Add Appendix A on evaluation
 
-B.11.  Since draft-ietf-core-dns-over-coap-02
+B.12.  Since draft-ietf-core-dns-over-coap-02
        (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
        coap-02)
 
@@ -1135,7 +1168,7 @@ B.11.  Since draft-ietf-core-dns-over-coap-02
 
    *  Don't call OSCORE end-to-end encrypted
 
-B.12.  Since draft-ietf-core-dns-over-coap-01
+B.13.  Since draft-ietf-core-dns-over-coap-01
        (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
        coap-01)
 
@@ -1148,7 +1181,7 @@ B.12.  Since draft-ietf-core-dns-over-coap-01
 
    *  Add appendix on reference implementation
 
-B.13.  Since draft-ietf-core-dns-over-coap-00
+B.14.  Since draft-ietf-core-dns-over-coap-00
        (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
        coap-00)
 
@@ -1162,7 +1195,7 @@ B.13.  Since draft-ietf-core-dns-over-coap-00
 
    *  Add security considerations on ID=0
 
-B.14.  Since draft-lenders-dns-over-coap-04
+B.15.  Since draft-lenders-dns-over-coap-04
        (https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-
        coap-04)
 
