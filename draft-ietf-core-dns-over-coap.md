@@ -260,7 +260,7 @@ octets and do not contain bytes that need escaping.
 To use the service binding from an SVCB RR, the DoC client MUST send a DoC request constructed from the SvcParams including "docpath".
 The construction algorithm for DoC requests is as follows, going through the provided records in order of their priority.
 
-- If the "alpn" SvcParam value for the service is "coap", a CoAP request for CoAP over TLS MUST be construct.
+- If the "alpn" SvcParam value for the service is "coap", a CoAP request for CoAP over TLS MUST be constructed.
   If it is "co", a CoAP request for CoAP over DTLS MUST be constructed.
   Any other SvcParamKeys specifying a transport are out of the scope of this document.
 - The destination address for the request SHOULD be taken from additional information about the target, e.g., from an AAAA record associated with the target name or from an "ipv6hint" SvcParam value.
@@ -388,7 +388,7 @@ The same applies for DNS responses that for any reason do not carry any records 
 
 The following example illustrates the response to the query "example.org. IN
 AAAA record", with recursion turned on. Successful responses carry one answer
-record including address 2001:db8:1::1:2:3:4 and TTL 79689.
+record including address 2001:db8:1:0:1:2:3:4 and TTL 79689.
 
 A successful response:
 
@@ -402,7 +402,7 @@ A successful response:
       ;; QUESTION SECTION:
       ;example.org.                 IN      AAAA
       ;; ANSWER SECTION:
-      ;example.org.         79689   IN      AAAA    2001:db8:1::1:2:3:4
+      ;example.org.         79689   IN      AAAA    2001:db8:1:0:1:2:3:4
 
 When a DNS error—NxDomain (RCODE = 3) for "does.not.exist" in this case—is noted in the DNS response, the CoAP response still indicates success.
 
@@ -487,7 +487,7 @@ The use of DoC without confidentiality and integrity protection is NOT RECOMMEND
 Without secure communication, many possible attacks need to be evaluated in the context of
 the application's threat model.
 This includes known threats for unprotected DNS {{-dns-threats}} {{-dns-privacy}} and CoAP {{Section 11 of -coap}}.
-While DoC does not use the random ID of the DNS header (see Section {{sec:req-caching}}), equivalent protection against off-path poisoning attacks is achieved by using random large token values for unprotected CoAP request.
+While DoC does not use the random ID of the DNS header (see Section {{sec:req-caching}}), equivalent protection against off-path poisoning attacks is achieved by using random large token values for unprotected CoAP requests.
 If a DoC message is unprotected it MUST use a random token of at least 2 bytes length to mitigate this kind of poisoning attacks.
 
 Implementation Status
