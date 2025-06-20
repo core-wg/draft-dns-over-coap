@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 21 December 2025                                               
+Expires: 22 December 2025                                               
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                            19 June 2025
+                                                            20 June 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 December 2025.
+   This Internet-Draft will expire on 22 December 2025.
 
 Copyright Notice
 
@@ -294,7 +294,7 @@ Table of Contents
    through the provided records in order of their priority.
 
    *  If the "alpn" SvcParam value for the service is "coap", a CoAP
-      request for CoAP over TLS MUST be construct.  If it is "co", a
+      request for CoAP over TLS MUST be constructed.  If it is "co", a
       CoAP request for CoAP over DTLS MUST be constructed.  Any other
       SvcParamKeys specifying a transport are out of the scope of this
       document.
@@ -480,7 +480,7 @@ Table of Contents
    The following example illustrates the response to the query
    "example.org.  IN AAAA record", with recursion turned on.  Successful
    responses carry one answer record including address
-   2001:db8:1::1:2:3:4 and TTL 79689.
+   2001:db8:1:0:1:2:3:4 and TTL 79689.
 
    A successful response:
 
@@ -494,7 +494,7 @@ Table of Contents
      ;; QUESTION SECTION:
      ;example.org.                 IN      AAAA
      ;; ANSWER SECTION:
-     ;example.org.         79689   IN      AAAA    2001:db8:1::1:2:3:4
+     ;example.org.         79689   IN      AAAA    2001:db8:1:0:1:2:3:4
 
    When a DNS error—NxDomain (RCODE = 3) for "does.not.exist" in this
    case—is noted in the DNS response, the CoAP response still indicates
@@ -592,7 +592,7 @@ Table of Contents
    [RFC9076] and CoAP Section 11 of [RFC7252].  While DoC does not use
    the random ID of the DNS header (see Section Section 4.2.2),
    equivalent protection against off-path poisoning attacks is achieved
-   by using random large token values for unprotected CoAP request.  If
+   by using random large token values for unprotected CoAP requests.  If
    a DoC message is unprotected it MUST use a random token of at least 2
    bytes length to mitigate this kind of poisoning attacks.
 
