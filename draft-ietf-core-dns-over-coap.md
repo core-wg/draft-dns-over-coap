@@ -156,7 +156,7 @@ proxies, which provide an additional level of caching; re-use of data
 structures for application traffic and DNS information, which saves memory
 on constrained devices.
 
-To avoid resource requirements of DTLS or TLS on top of UDP (e.g., introduced by DNS over DTLS {{-dodtls}} or DNS over QUIC {{-doq}}), DoC allows for lightweight message protection based on OSCORE.
+To avoid the resource requirements of DTLS or TLS on top of UDP (e.g., introduced by DNS over DTLS {{-dodtls}} or DNS over QUIC {{-doq}}), DoC allows for lightweight message protection based on OSCORE.
 
 ~~~ aasvg
 
@@ -186,7 +186,7 @@ Using that information, the DoC server then replies to the queries of the DoC cl
 responses carried within CoAP responses.
 
 Note that this specification is distinct from DoH, since the CoAP-specific FETCH method {{-coap-fetch}} is used.
-This has the benefit of having the DNS query in the body like when using the POST method, but still with the same caching advantages of responses to requests that use the GET method.
+This has the benefit of having the DNS query in the body as when using the POST method, but still with the same caching advantages of responses to requests that use the GET method.
 Having the DNS query in the body means that we do not need extra base64 encoding, which would increase
 code complexity and message sizes.
 Also, this allows for the block-wise transfer of queries {{-coap-blockwise}}.
@@ -213,7 +213,7 @@ The term "constrained nodes" is used as defined in {{-constr-nodes}}.
 The terms "payload" and "body" are used as defined in {{-coap-blockwise, Section 2}}.
 Note that, when block-wise transfer is not used, the terms "payload" and "body" are to be understood as equal.
 
-For better readability, examples in this document the binary payload is provided in hexadecimal representation as well as a human-readable format.
+For better readability, in the examples in this document the binary payload is shown in a hexadecimal representation as well as a human-readable format.
 In the actual message, however, it would be encoded in the binary message format defined in {{-dns}}.
 
 Selection of a DoC Server   {#sec:doc-server-selection}
@@ -406,7 +406,7 @@ A successful response:
       ;; ANSWER SECTION:
       ;example.org.         79689   IN      AAAA    2001:db8:1:0:1:2:3:4
 
-When a DNS error—NxDomain (RCODE = 3) for "does.not.exist" in this case—is noted in the DNS response, the CoAP response still indicates success.
+When a DNS error &ndash; NxDomain (RCODE = 3) for "does.not.exist" in this case &ndash; is noted in the DNS response, the CoAP response still indicates success.
 
     2.05 Content
     Content-Format: 553 (application/dns-message)
@@ -489,7 +489,7 @@ The use of DoC without confidentiality and integrity protection is NOT RECOMMEND
 Without secure communication, many possible attacks need to be evaluated in the context of
 the application's threat model.
 This includes known threats for unprotected DNS {{-dns-threats}} {{-dns-privacy}} and CoAP {{Section 11 of -coap}}.
-While DoC does not use the random ID of the DNS header (see Section {{sec:req-caching}}), equivalent protection against off-path poisoning attacks is achieved by using random large token values for unprotected CoAP requests.
+While DoC does not use the random ID of the DNS header (see {{sec:req-caching}}), equivalent protection against off-path poisoning attacks is achieved by using random large token values for unprotected CoAP requests.
 If a DoC message is unprotected it MUST use a random token of at least 2 bytes length to mitigate this kind of poisoning attacks.
 
 Implementation Status
@@ -601,7 +601,7 @@ Content Coding: -
 
 ID: 553 (suggested)
 
-Reference: {{-doh}}\[RFC-XXXX, {{sec:content-format}}\]
+Reference: {{-doh}} and \[RFC-XXXX\], {{sec:content-format}}
 
 DNS Service Bindings (SVCB) Registry
 ------------------------------------
@@ -611,7 +611,7 @@ The definition of this parameter can be found in {{sec:doc-server-selection}}.
 
 | Number  | Name           | Meaning                            | Change Controller | Reference       |
 | ------- | -------------- | ---------------------------------- | ----------------- | --------------- |
-| 10 (suggested)     | docpath        | DNS over CoAP resource path | IETF | \[RFC-XXXX, {{sec:doc-server-selection}}\] |
+| 10 (suggested)     | docpath        | DNS over CoAP resource path | IETF | \[RFC-XXXX\], {{sec:doc-server-selection}} |
 {: #tab-svc-param-keys title="Values for SvcParamKeys"}
 
 Resource Type (rt=) Link Target Attribute Values Registry
@@ -623,7 +623,7 @@ Value: core.dns
 
 Description: DNS over CoAP resource.
 
-Reference: \[RFC-XXXX, {{sec:doc-server-selection}}\]
+Reference: \[RFC-XXXX\], {{sec:doc-server-selection}}
 
 
 --- back
