@@ -223,7 +223,7 @@ While there is no path specified for the DoC resource, it is RECOMMENDED to use 
 to keep the CoAP requests small.
 
 The DoC client needs to know the DoC server and the DoC resource at the DoC server.
-Possible options to assure this could be manual configuration of a URI {{-uri}} or CRI {{-cri}},
+Possible options to assure this could be manual configuration of a Uniform Resource Identifier (URI) {{-uri}} or Constrained Resource Identifier (CRI) {{-cri}},
 or automatic configuration, e.g., using a CoRE resource directory
 {{-core-rd}}, DHCP or Router Advertisement options {{-dnr}}, or discovery of designated resolvers
 {{-ddr}}.
@@ -235,10 +235,10 @@ For discovery of the DoC resource through a link mechanism that allows describin
 It can be used to identify a generic DNS resolver that is available to the client.
 
 ## Discovery using SVCB Resource Records or DNR
-A DoC server can also be discovered using SVCB Resource Records (RR) {{-svcb}} {{-svcb-dns}} or DNR
+A DoC server can also be discovered using Service Binding (SVCB) Resource Records (RR) {{-svcb}} {{-svcb-dns}} or Discovery of Network-designated Resolvers (DNR)
 Service Parameters {{-dnr}}.
-{{-coap-tcp}} defines the ALPN ID for CoAP over TLS servers and {{-coap-dtls-alpn}} defines the ALPN ID for CoAP over DTLS servers.
-Because the ALPN extension is only defined for (D)TLS, these mechanisms cannot be used for DoC servers which use only OSCORE {{-oscore}} and Ephemeral Diffie-Hellman Over COSE (EDHOC) {{-edhoc}} for security.
+{{-coap-tcp}} defines the Application-Layer Protocol Negotiation (ALPN) ID for CoAP over TLS servers and {{-coap-dtls-alpn}} defines the ALPN ID for CoAP over DTLS servers.
+Because the ALPN extension is only defined for (D)TLS, these mechanisms cannot be used for DoC servers which use only OSCORE {{-oscore}} and Ephemeral Diffie-Hellman Over COSE (EDHOC) {{-edhoc}} (with COSE abbreviating "Concise Binary Object Notation (CBOR) Object Signing and Encryption" {{?RFC9052}}) for security.
 Specifying an alternate discovery mechanism is out of scope of this specification.
 {{-core-dnr}} provides  further exploration of the challenges here.
 
