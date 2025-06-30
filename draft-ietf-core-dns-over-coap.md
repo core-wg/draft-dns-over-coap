@@ -143,7 +143,9 @@ only have a handful kilobytes of both RAM and ROM. They may sleep for long
 durations of time, after which they need to refresh the named resources they
 know about. Name resolution in such scenarios must take into account link
 layer frame sizes of only a few hundred bytes, bit rates in the magnitude
-of kilobits per second, and latencies of several seconds {{-constr-nodes}} {{-constr-nodes-bis}}.
+of kilobits per second, and latencies of several seconds {{-constr-nodes}} {{-constr-nodes-bis}} [^remove-constr-nodes].
+
+[^remove-constr-nodes]: RFC Ed.: Please remove the {{-constr-nodes}} reference and replace it with {{-constr-nodes-bis}} throughout the document in case {{-constr-nodes-bis}} becomes an RFC before publication.
 
 In order not to be burdened by the resource requirements of TCP and HTTPS, constrained IoT devices could use DNS over DTLS {{-dodtls}}.
 In contrast to DNS over DTLS, DoC
