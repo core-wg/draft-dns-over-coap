@@ -268,7 +268,7 @@ The construction algorithm for DoC requests is as follows, going through the pro
 - The destination address for the request SHOULD be taken from additional information about the target, e.g., from an AAAA record associated with the target name or from an "ipv6hint" SvcParam value.
   As a fallback, an address MAY be queried for the target name of the SVCB record.
 - The destination port for the request MUST be taken from the "port" SvcParam value, if present.
-  Otherwise, take the default port of the CoAP transport.
+  Otherwise, take the default port of the CoAP transport, e.g., with regards to this specification TCP port 5684 for "coap" or UDP port 5684 for "co".
 - The target name of the SVCB record MUST be set in the Uri-Host option if the resolved address for the target name differs from the destination address.
   Otherwise, the Uri-Host option MAY be set from the target name.
 - For each element in the CBOR sequence of the "docpath" SvcParam value, a Uri-Path option MUST be added to the request.
