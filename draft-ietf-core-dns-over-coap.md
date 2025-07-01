@@ -213,8 +213,8 @@ The term "constrained nodes" is used as defined in {{-constr-nodes}}.
 The terms "payload" and "body" are used as defined in {{-coap-blockwise, Section 2}}.
 Note that, when block-wise transfer is not used, the terms "payload" and "body" are to be understood as equal.
 
-For better readability, in the examples in this document the binary payload is shown in a hexadecimal representation as well as a human-readable format.
-In the actual message, however, it would be encoded in the binary message format defined in {{-dns}}.
+For better readability, in the examples in this document the binary payload and resource records are shown in a hexadecimal representation as well as a human-readable format.
+In the actual message sent and received, however, they are encoded in the binary message format defined in {{-dns}}.
 
 Selection of a DoC Server   {#sec:doc-server-selection}
 =========================
@@ -243,9 +243,12 @@ Specifying an alternate discovery mechanism is out of scope of this specificatio
 {{-core-dnr}} provides  further exploration of the challenges here.
 
 This document specifies "docpath" as
-a single-valued SvcParamKey whose value MUST be a CBOR sequence of 0 or more text strings (see
-{{-cborseq}} and {{-cbor}}), delimited by the length of the SvcParamValue field (in octets). If the
-SvcParamValue ends within a CBOR text string, the SVCB RR MUST be considered as malformed.
+a single-valued SvcParamKey that is mandatory for DoC SVCB records.
+If the "docpath" SvcParamKey is absent, the service should not be considered a valid DoC service.
+The value of "docpath" MUST be a CBOR sequence of 0 or more text strings (see
+{{-cborseq}} and {{-cbor}}), delimited by the length of the SvcParamValue field (in octets), i.e.,
+a value length of 0 denotes a CBOR sequence of 0 text strings.
+If the SvcParamValue ends within a CBOR text string, the SVCB RR MUST be considered as malformed.
 As a text format, e.g., in DNS zone files, the CBOR diagnostic
 notation (see {{-edn}}) of that CBOR sequence can be used.
 
@@ -277,6 +280,69 @@ The construction algorithm for DoC requests is as follows, going through the pro
 
 A more generalized construction algorithm for any CoAP request can be found in {{-transport-indication}}.
 
+### Examples
+
+[^replace-hex]
+
+[^replace-hex]: RFC Ed.: Since the number for "docpath" was not assigned at the time of writing, we
+    used the hex `ff 0a` (in decimal 65290; from the private use range of SvcParamKeys) throughout
+    this section. Before publication, please replace `ff 0a` with the hexadecimal representation of
+    the final value assigned by IANA in this section.
+
+A typical SVCB resource record response for a DoC server at the root path "/" of the server looks
+like the following (the "docpath" SvcParam is the last 4 bytes `ff 0a 00 00` in the binary):
+
+    Resource record (binary):
+      04 5f 64 6e 73 07 65 78 61 6d 70 6c 65 03 6f 72
+      67 00 00 40 00 01 00 00 06 28 00 1e 00 01 03 64
+      6e 73 07 65 78 61 6d 70 6c 65 03 6f 72 67 00 00
+      01 00 03 02 63 6f ff 0a 00 00
+
+    Resource record (human-readable):
+      _dns.example.org.  1576  IN SVCB 1 dns.example.org (
+          alpn=co docpath )
+
+The root path is RECOMMENDED but not required. Here are two examples where the "docpath" represents
+paths of varying depth. First, "/dns" is provided in the following example
+(the last 8 bytes `ff 0a 00 04 63 64 6e 73`, `63` marking the CBOR element as a text string of
+length 3, see {{Section 3 of -cbor}}):
+
+    Resource record (binary):
+      04 5f 64 6e 73 07 65 78 61 6d 70 6c 65 03 6f 72
+      67 00 00 40 00 01 00 00 00 55 00 22 00 01 03 64
+      6e 73 07 65 78 61 6d 70 6c 65 03 6f 72 67 00 00
+      01 00 03 02 63 6f ff 0a 00 04 63 64 6e 73
+
+    Resource record (human-readable):
+      _dns.example.org.    85  IN SVCB 1 dns.example.org (
+          alpn=co docpath="dns" )
+
+Second, an examples for the path "/n/s" (the last 8 bytes `ff 0a 00 04 61 6e 61 73`, `61` marking
+each CBOR element as a text string of length 1, see {{Section 3 of -cbor}})):
+
+    Resource record (binary):
+      04 5f 64 6e 73 07 65 78 61 6d 70 6c 65 03 6f 72
+      67 00 00 40 00 01 00 00 06 6b 00 22 00 01 03 64
+      6e 73 07 65 78 61 6d 70 6c 65 03 6f 72 67 00 00
+      01 00 03 02 63 6f ff 0a 00 04 61 6e 61 73
+
+    Resource record (human-readable):
+      _dns.example.org.   643  IN SVCB 1 dns.example.org (
+          alpn=co docpath="n","s" )
+
+
+If the server also provides DNS over HTTPS, "dohpath" and "docpath" MAY co-exist:
+
+    Resource record (binary):
+      04 5f 64 6e 73 07 65 78 61 6d 70 6c 65 03 6f 72
+      67 00 00 40 00 01 00 00 01 ad 00 2b 00 01 03 64
+      6e 73 07 65 78 61 6d 70 6c 65 03 6f 72 67 00 00
+      01 00 06 02 68 33 02 63 6f 00 07 00 07 2f 7b 3f
+      64 6e 73 7d ff 0a 00 00
+
+    Resource record (human-readable):
+      _dns.example.org.   429  IN SVCB 1 dns.example.org (
+          alpn=h3,co dohpath=/{?dns} docpath )
 
 Basic Message Exchange
 ======================
