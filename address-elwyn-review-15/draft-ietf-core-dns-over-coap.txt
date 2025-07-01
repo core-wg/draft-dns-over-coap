@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 1 January 2026                                                 
+Expires: 2 January 2026                                                 
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                            30 June 2025
+                                                             1 July 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 January 2026.
+   This Internet-Draft will expire on 2 January 2026.
 
 Copyright Notice
 
@@ -489,7 +489,7 @@ Table of Contents
    The following example illustrates the response to the query
    "example.org.  IN AAAA record", with recursion turned on.  Successful
    responses carry one answer record including address
-   2001:db8:1::1:2:3:4 and TTL 79689.
+   2001:db8:1:0:1:2:3:4 and TTL 79689.
 
    A successful response:
 
@@ -503,7 +503,7 @@ Table of Contents
      ;; QUESTION SECTION:
      ;example.org.                 IN      AAAA
      ;; ANSWER SECTION:
-     ;example.org.         79689   IN      AAAA    2001:db8:1::1:2:3:4
+     ;example.org.         79689   IN      AAAA    2001:db8:1:0:1:2:3:4
 
    When a DNS error – NxDomain (RCODE = 3) for "does.not.exist" in this
    case – is noted in the DNS response, the CoAP response still
