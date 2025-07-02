@@ -761,7 +761,7 @@ Since [draft-lenders-dns-over-coap-04]
 # Acknowledgments
 {:unnumbered}
 
-The authors of this document want to thank Carsten Bormann, Esko Dijk, Thomas Fossati, Mikolai Gütschow, Ben Schwartz, Marco Tiloca, and Tim Wicinski for their feedback and comments.
+The authors of this document want to thank Mike Bishop, Carsten Bormann, Elwyn B. Davies, Esko Dijk, Thomas Fossati, Mikolai Gütschow, Todd Herr, Tommy Pauly, Ben Schwartz, Marco Tiloca, and Tim Wicinski for their feedback and comments.
 
 [draft-ietf-core-dns-over-coap-14]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-14
 [draft-ietf-core-dns-over-coap-13]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-13
