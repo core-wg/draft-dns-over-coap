@@ -345,7 +345,7 @@ Table of Contents
 
    Resource record (human-readable):
      _dns.example.org.  1576  IN SVCB 1 dns.example.org (
-         alpn=co docpath= )
+         alpn=co docpath )
 
    The root path is RECOMMENDED but not required.  Here are two examples
    where the "docpath" represents paths of varying depth.  First, "/dns"
