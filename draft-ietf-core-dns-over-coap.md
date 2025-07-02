@@ -63,6 +63,7 @@ author:
 normative:
   RFC1035: dns
   RFC3986: uri
+  RFC5234: abnf
   RFC6347: dtls12
   RFC7252: coap
   RFC7641: coap-observe
@@ -76,7 +77,6 @@ normative:
   RFC8949: cbor
   RFC9147: dtls13
   I-D.ietf-core-coap-dtls-alpn: coap-dtls-alpn
-  I-D.ietf-cbor-edn-literals: edn
 
 informative:
   BCP219: dns-terminology
@@ -245,22 +245,44 @@ Specifying an alternate discovery mechanism is out of scope of this specificatio
 This document specifies "docpath" as
 a single-valued SvcParamKey that is mandatory for DoC SVCB records.
 If the "docpath" SvcParamKey is absent, the service should not be considered a valid DoC service.
-The value of "docpath" MUST be a CBOR sequence of 0 or more text strings (see
-{{-cborseq}} and {{-cbor}}), delimited by the length of the SvcParamValue field (in octets), i.e.,
-a value length of 0 denotes a CBOR sequence of 0 text strings.
-If the SvcParamValue ends within a CBOR text string, the SVCB RR MUST be considered as malformed.
-As a text format, e.g., in DNS zone files, the CBOR diagnostic
-notation (see {{-edn}}) of that CBOR sequence can be used.
 
-Note that this specifically does not surround the text string sequence with a CBOR array or a
-similar CBOR data item. This path format was chosen to coincide with the path representation in CRIs
-{{-cri}}. Furthermore, it is easily transferable into a sequence of CoAP Uri-Path options by
-mapping the initial byte of any present CBOR text string (see {{-cbor, Section 3}}) into the Option
-Delta and Option Length of the corresponding CoAP Uri-Path option, provided these CBOR text strings are all of a length
-between 0 and 12 octets (see {{-coap, Section 3.1}}). Likewise, it can be transferred into a URI
-path-abempty form (see {{-uri, Section 3.3}}) by replacing the initial byte of any present CBOR text
-string with the "/" character, provided these CBOR text strings are all of a length less than 24
-octets and do not contain bytes that need escaping.
+The docpath is devided up into segments of the absolute path to the DoC resource (docpath-segment),
+each a sequence of 1-255 octets.
+In ABNF {{-abnf}}:
+
+~~~
+docpath-segment = 1*255OCTET
+~~~
+
+Note that this restricts the length of each docpath-segment to at most 255 octets.
+Paths with longer segments cannot be advertised with the "docpath" SvcParam and are thus NOT
+RECOMMENDED for the path to the DoC resource.
+
+The presentation format value of "docpath" SHALL be a comma-sperated list ({{Appendix A.1 of -svcb}})
+of 0 or more docpath-segments.
+The root path "/" is represented by 0 docpath-segments, i.e., an empty list.
+The same considerations for the "," and "\" characters in docpath-segments for zone-file
+implementations as for the alpn-ids in an "alpn" SvcParam MAY apply ({{Section 7.1.1 of -svcb}}).
+
+The wire-format value for "docpath" consists of 0 or more sequences of octets prefixed by their
+respective length as a single octet, the length octet, and these length-value pairs are concatenated
+to form the SvcParamValue.
+These pairs MUST exactly fill the SvcParamValue; otherwise, the SvcParamValue is malformed.
+Each such length-value pair represents one segment of the absolute path to the DoC resource.
+The root path "/" is represented by 0 length-value pairs, i.e., SvcParamValue length 0.
+
+Note that this format uses the same encoding as the "alpn" SvcParam and can reuse the
+decoders and encoders for that SvcParam with the adaption that a length of zero is allowed.
+As long as each docpath-segment is of length 0 and 24 octets, it is easily transferred into the path
+representation in CRIs {{-cri}} by masking each length octet with the CBOR text string major type 3
+(`0x60` as an octet, see {{-cbor}}).
+Furthermore, it is easily transferable into a sequence of CoAP Uri-Path options by
+mapping each length octet into the Option Delta and Option Length of the corresponding CoAP Uri-Path
+option, provided the docpath-segments are all of a length between 0 and 12 octets (see {{-coap,
+Section 3.1}}).
+Likewise, it can be transferred into a URI path-abempty form by replacing each length octet with the "/" character
+None of the abovementioned prevent longer docpath-segments than the considered, they just make the
+translation harder, as they require to make space for the longer delimiters, in turn requiring to move octets.
 
 To use the service binding from an SVCB RR, the DoC client MUST send a DoC request constructed from the SvcParams including "docpath".
 The construction algorithm for DoC requests is as follows, going through the provided records in order of their priority.
@@ -304,31 +326,29 @@ like the following (the "docpath" SvcParam is the last 4 bytes `ff 0a 00 00` in 
 
 The root path is RECOMMENDED but not required. Here are two examples where the "docpath" represents
 paths of varying depth. First, "/dns" is provided in the following example
-(the last 8 bytes `ff 0a 00 04 63 64 6e 73`, `63` marking the CBOR element as a text string of
-length 3, see {{Section 3 of -cbor}}):
+(the last 8 bytes `ff 0a 00 04 03 64 6e 73`):
 
     Resource record (binary):
       04 5f 64 6e 73 07 65 78 61 6d 70 6c 65 03 6f 72
       67 00 00 40 00 01 00 00 00 55 00 22 00 01 03 64
       6e 73 07 65 78 61 6d 70 6c 65 03 6f 72 67 00 00
-      01 00 03 02 63 6f ff 0a 00 04 63 64 6e 73
+      01 00 03 02 63 6f ff 0a 00 04 03 64 6e 73
 
     Resource record (human-readable):
       _dns.example.org.    85  IN SVCB 1 dns.example.org (
-          alpn=co docpath="dns" )
+          alpn=co docpath=/dns )
 
-Second, an examples for the path "/n/s" (the last 8 bytes `ff 0a 00 04 61 6e 61 73`, `61` marking
-each CBOR element as a text string of length 1, see {{Section 3 of -cbor}})):
+Second, an examples for the path "/n/s" (the last 8 bytes `ff 0a 00 04 01 6e 01 73`):
 
     Resource record (binary):
       04 5f 64 6e 73 07 65 78 61 6d 70 6c 65 03 6f 72
       67 00 00 40 00 01 00 00 06 6b 00 22 00 01 03 64
       6e 73 07 65 78 61 6d 70 6c 65 03 6f 72 67 00 00
-      01 00 03 02 63 6f ff 0a 00 04 61 6e 61 73
+      01 00 03 02 63 6f ff 0a 00 04 01 6e 01 73
 
     Resource record (human-readable):
       _dns.example.org.   643  IN SVCB 1 dns.example.org (
-          alpn=co docpath="n","s" )
+          alpn=co docpath=/n/s )
 
 
 If the server also provides DNS over HTTPS, "dohpath" and "docpath" MAY co-exist:
