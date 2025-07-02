@@ -1537,118 +1537,123 @@ Specifying an alternate discovery mechanism is out of scope of this specificatio
 <span>[<a href="#I-D.lenders-core-dnr" class="cite xref">I-D.lenders-core-dnr</a>]</span> provides  further exploration of the challenges here.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2-2">This document specifies "docpath" as
 a single-valued SvcParamKey that is mandatory for DoC SVCB records.
-If the "docpath" SvcParamKey is absent, the service should not be considered a valid DoC service.
-The value of "docpath" <span class="bcp14">MUST</span> be a CBOR sequence of 0 or more text strings (see
-<span>[<a href="#RFC8742" class="cite xref">RFC8742</a>]</span> and <span>[<a href="#RFC8949" class="cite xref">RFC8949</a>]</span>), delimited by the length of the SvcParamValue field (in octets), i.e.,
-a value length of 0 denotes a CBOR sequence of 0 text strings.
-If the SvcParamValue ends within a CBOR text string, the SVCB RR <span class="bcp14">MUST</span> be considered as malformed.
-As a text format, e.g., in DNS zone files, the CBOR diagnostic
-notation (see <span>[<a href="#I-D.ietf-cbor-edn-literals" class="cite xref">I-D.ietf-cbor-edn-literals</a>]</span>) of that CBOR sequence can be used.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
-<p id="section-3.2-3">Note that this specifically does not surround the text string sequence with a CBOR array or a
-similar CBOR data item. This path format was chosen to coincide with the path representation in CRIs
-<span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>. Furthermore, it is easily transferable into a sequence of CoAP Uri-Path options by
-mapping the initial byte of any present CBOR text string (see <span>[<a href="#RFC8949" class="cite xref">RFC8949</a>], <a href="https://rfc-editor.org/rfc/rfc8949#section-3" class="relref">Section 3</a></span>) into the Option
-Delta and Option Length of the corresponding CoAP Uri-Path option, provided these CBOR text strings are all of a length
-between 0 and 12 octets (see <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>], <a href="https://rfc-editor.org/rfc/rfc7252#section-3.1" class="relref">Section 3.1</a></span>). Likewise, it can be transferred into a URI
-path-abempty form (see <span>[<a href="#RFC3986" class="cite xref">RFC3986</a>], <a href="https://rfc-editor.org/rfc/rfc3986#section-3.3" class="relref">Section 3.3</a></span>) by replacing the initial byte of any present CBOR text
-string with the "/" character, provided these CBOR text strings are all of a length less than 24
-octets and do not contain bytes that need escaping.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
-<p id="section-3.2-4">To use the service binding from an SVCB RR, the DoC client <span class="bcp14">MUST</span> send a DoC request constructed from the SvcParams including "docpath".
-The construction algorithm for DoC requests is as follows, going through the provided records in order of their priority.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+If the "docpath" SvcParamKey is absent, the service should not be considered a valid DoC service.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+<p id="section-3.2-3">The presentation format value of "docpath" <span class="bcp14">MUST</span> be the absolute path in the URI path-abempty form
+(see <span>[<a href="#RFC3986" class="cite xref">RFC3986</a>], <a href="https://rfc-editor.org/rfc/rfc3986#section-3.3" class="relref">Section 3.3</a></span>).<a href="#section-3.2-3" class="pilcrow">¶</a></p>
+<p id="section-3.2-4">The wire-format value for "docpath" consists of 0 or more sequences of octets prefixed by their
+respective length as a single octet, the length octet, and these length-value pairs are concatenated
+to form the SvcParamValue.
+These pairs <span class="bcp14">MUST</span> exactly fill the SvcParamValue; otherwise, the SvcParamValue is malformed.
+Each such length-value pair represents one segment of the absolute path to the DoC resource.
+0 length-value pairs represent the root path "/".
+Note that this restricts the length of each segment to at most 255 octets.
+Paths with longer segments can not be advertised with the "docpath" SvcParam and are thus <span class="bcp14">NOT RECOMMENDED</span> for the path to the DoC resource.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.2-5">Note that this wire-format uses the same encoding as the "alpn" SvcParam.
+As long as each path segment are of length 0 and 24 octets, it is easily transferred into the path
+representation in CRIs <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span> by masking each length octet with the CBOR text string major type 3
+(<code>0x60</code> as an octet, see <span>[<a href="#RFC8949" class="cite xref">RFC8949</a>]</span>).
+Furthermore, it is easily transferable into a sequence of CoAP Uri-Path options by
+mapping each length octet into the Option Delta and Option Length of the corresponding CoAP Uri-Path
+option, provided these CBOR text strings are all of a length between 0 and 12 octets (see <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>], <a href="https://rfc-editor.org/rfc/rfc7252#section-3.1" class="relref">Section 3.1</a></span>).
+Likewise, it can be transferred into a URI path-abempty form by replacing each length octet with the "/" character<a href="#section-3.2-5" class="pilcrow">¶</a></p>
+<p id="section-3.2-6">To use the service binding from an SVCB RR, the DoC client <span class="bcp14">MUST</span> send a DoC request constructed from the SvcParams including "docpath".
+The construction algorithm for DoC requests is as follows, going through the provided records in order of their priority.<a href="#section-3.2-6" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.2-5.1">
-            <p id="section-3.2-5.1.1">If the "alpn" SvcParam value for the service is "coap", a CoAP request for CoAP over TLS <span class="bcp14">MUST</span> be constructed.
+<li class="normal" id="section-3.2-7.1">
+            <p id="section-3.2-7.1.1">If the "alpn" SvcParam value for the service is "coap", a CoAP request for CoAP over TLS <span class="bcp14">MUST</span> be constructed.
 If it is "co", a CoAP request for CoAP over DTLS <span class="bcp14">MUST</span> be constructed.
-Any other SvcParamKeys specifying a transport are out of the scope of this document.<a href="#section-3.2-5.1.1" class="pilcrow">¶</a></p>
+Any other SvcParamKeys specifying a transport are out of the scope of this document.<a href="#section-3.2-7.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.2-5.2">
-            <p id="section-3.2-5.2.1">The destination address for the request <span class="bcp14">SHOULD</span> be taken from additional information about the target, e.g., from an AAAA record associated with the target name or from an "ipv6hint" SvcParam value.
-As a fallback, an address <span class="bcp14">MAY</span> be queried for the target name of the SVCB record.<a href="#section-3.2-5.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.2-7.2">
+            <p id="section-3.2-7.2.1">The destination address for the request <span class="bcp14">SHOULD</span> be taken from additional information about the target, e.g., from an AAAA record associated with the target name or from an "ipv6hint" SvcParam value.
+As a fallback, an address <span class="bcp14">MAY</span> be queried for the target name of the SVCB record.<a href="#section-3.2-7.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.2-5.3">
-            <p id="section-3.2-5.3.1">The destination port for the request <span class="bcp14">MUST</span> be taken from the "port" SvcParam value, if present.
-Otherwise, take the default port of the CoAP transport.<a href="#section-3.2-5.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.2-7.3">
+            <p id="section-3.2-7.3.1">The destination port for the request <span class="bcp14">MUST</span> be taken from the "port" SvcParam value, if present.
+Otherwise, take the default port of the CoAP transport.<a href="#section-3.2-7.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.2-5.4">
-            <p id="section-3.2-5.4.1">The target name of the SVCB record <span class="bcp14">MUST</span> be set in the Uri-Host option if the resolved address for the target name differs from the destination address.
-Otherwise, the Uri-Host option <span class="bcp14">MAY</span> be set from the target name.<a href="#section-3.2-5.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.2-7.4">
+            <p id="section-3.2-7.4.1">The target name of the SVCB record <span class="bcp14">MUST</span> be set in the Uri-Host option if the resolved address for the target name differs from the destination address.
+Otherwise, the Uri-Host option <span class="bcp14">MAY</span> be set from the target name.<a href="#section-3.2-7.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.2-5.5">
-            <p id="section-3.2-5.5.1">For each element in the CBOR sequence of the "docpath" SvcParam value, a Uri-Path option <span class="bcp14">MUST</span> be added to the request.<a href="#section-3.2-5.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.2-7.5">
+            <p id="section-3.2-7.5.1">For each element in the CBOR sequence of the "docpath" SvcParam value, a Uri-Path option <span class="bcp14">MUST</span> be added to the request.<a href="#section-3.2-7.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.2-5.6">
-            <p id="section-3.2-5.6.1">If the request constructed this way receives a response, the same SVCB record <span class="bcp14">MUST</span> be used for construction of future DoC queries.
-If not, or if the endpoint becomes unreachable, the algorithm <span class="bcp14">SHOULD</span> be repeated with the SVCB record with the next highest priority.<a href="#section-3.2-5.6.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.2-7.6">
+            <p id="section-3.2-7.6.1">If the request constructed this way receives a response, the same SVCB record <span class="bcp14">MUST</span> be used for construction of future DoC queries.
+If not, or if the endpoint becomes unreachable, the algorithm <span class="bcp14">SHOULD</span> be repeated with the SVCB record with the next highest priority.<a href="#section-3.2-7.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-3.2-6">A more generalized construction algorithm for any CoAP request can be found in <span>[<a href="#I-D.ietf-core-transport-indication" class="cite xref">I-D.ietf-core-transport-indication</a>]</span>.<a href="#section-3.2-6" class="pilcrow">¶</a></p>
+<p id="section-3.2-8">A more generalized construction algorithm for any CoAP request can be found in <span>[<a href="#I-D.ietf-core-transport-indication" class="cite xref">I-D.ietf-core-transport-indication</a>]</span>.<a href="#section-3.2-8" class="pilcrow">¶</a></p>
 <div id="examples">
 <section id="section-3.2.1">
           <h4 id="name-examples">
 <a href="#section-3.2.1" class="section-number selfRef">3.2.1. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
           </h4>
-<p id="section-3.2.1-1">A typical SVCB resource record response for a DoC server at the root path "/" of the server looks
-like the following (the "docpath" SvcParam is the last 4 bytes "00 0a 00 00" in the binary):<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.2.1-2">
+<p id="section-3.2.1-1"><span class="cref" id="replace-hex">RFC Ed.: Since the number for "docpath" was not assigned at the time of writing, we
+used the hex <code>ff 0a</code> (in decimal 65290; from the private use range of SvcParamKeys) throughout
+this section. Before publication, please replace <code>ff 0a</code> with the hexadecimal representation of
+the final value assigned by IANA in this section.</span><a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.1-2">A typical SVCB resource record response for a DoC server at the root path "/" of the server looks
+like the following (the "docpath" SvcParam is the last 4 bytes <code>ff 0a 00 00</code> in the binary):<a href="#section-3.2.1-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.2.1-3">
 <pre>
 Resource record (binary):
   04 5f 64 6e 73 07 65 78 61 6d 70 6c 65 03 6f 72
   67 00 00 40 00 01 00 00 06 28 00 1e 00 01 03 64
   6e 73 07 65 78 61 6d 70 6c 65 03 6f 72 67 00 00
-  01 00 03 02 63 6f 00 0a 00 00
+  01 00 03 02 63 6f ff 0a 00 00
 
 Resource record (human-readable):
   _dns.example.org.  1576  IN SVCB 1 dns.example.org (
       alpn=co docpath )
-</pre><a href="#section-3.2.1-2" class="pilcrow">¶</a>
+</pre><a href="#section-3.2.1-3" class="pilcrow">¶</a>
 </div>
-<p id="section-3.2.1-3">The root path is <span class="bcp14">RECOMMENDED</span> but not required. Here are two examples where the "docpath" represents
+<p id="section-3.2.1-4">The root path is <span class="bcp14">RECOMMENDED</span> but not required. Here are two examples where the "docpath" represents
 paths of varying depth. First, "/dns" is provided in the following example
-(the last 8 bytes "00 0a 00 04 63 64 6e 73", "63" marking the CBOR element as a text string of
-length 3, see <span><a href="https://rfc-editor.org/rfc/rfc8949#section-3" class="relref">Section 3</a> of [<a href="#RFC8949" class="cite xref">RFC8949</a>]</span>):<a href="#section-3.2.1-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.2.1-4">
+(the last 8 bytes <code>ff 0a 00 04 03 64 6e 73</code>):<a href="#section-3.2.1-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.2.1-5">
 <pre>
 Resource record (binary):
   04 5f 64 6e 73 07 65 78 61 6d 70 6c 65 03 6f 72
   67 00 00 40 00 01 00 00 00 55 00 22 00 01 03 64
   6e 73 07 65 78 61 6d 70 6c 65 03 6f 72 67 00 00
-  01 00 03 02 63 6f 00 0a 00 04 63 64 6e 73
+  01 00 03 02 63 6f ff 0a 00 04 03 64 6e 73
 
 Resource record (human-readable):
   _dns.example.org.    85  IN SVCB 1 dns.example.org (
-      alpn=co docpath="dns" )
-</pre><a href="#section-3.2.1-4" class="pilcrow">¶</a>
+      alpn=co docpath=/dns )
+</pre><a href="#section-3.2.1-5" class="pilcrow">¶</a>
 </div>
-<p id="section-3.2.1-5">Second, an examples for the path "/n/s" (the last 8 bytes "00 0a 00 04 61 6e 61 73", "61" marking
-each CBOR element as a text string of length 1, see <span><a href="https://rfc-editor.org/rfc/rfc8949#section-3" class="relref">Section 3</a> of [<a href="#RFC8949" class="cite xref">RFC8949</a>]</span>)):<a href="#section-3.2.1-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.2.1-6">
+<p id="section-3.2.1-6">Second, an examples for the path "/n/s" (the last 8 bytes <code>ff 0a 00 04 01 6e 01 73</code>):<a href="#section-3.2.1-6" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.2.1-7">
 <pre>
 Resource record (binary):
   04 5f 64 6e 73 07 65 78 61 6d 70 6c 65 03 6f 72
   67 00 00 40 00 01 00 00 06 6b 00 22 00 01 03 64
   6e 73 07 65 78 61 6d 70 6c 65 03 6f 72 67 00 00
-  01 00 03 02 63 6f 00 0a 00 04 61 6e 61 73
+  01 00 03 02 63 6f ff 0a 00 04 01 6e 01 73
 
 Resource record (human-readable):
   _dns.example.org.   643  IN SVCB 1 dns.example.org (
-      alpn=co docpath="n","s" )
-</pre><a href="#section-3.2.1-6" class="pilcrow">¶</a>
+      alpn=co docpath=/n/s )
+</pre><a href="#section-3.2.1-7" class="pilcrow">¶</a>
 </div>
-<p id="section-3.2.1-7">If the server also provides DNS over HTTPS, "dohpath" and "docpath" <span class="bcp14">MAY</span> co-exist, though it is
-<span class="bcp14">RECOMMENDED</span> to use a separate SVCB record for each service:<a href="#section-3.2.1-7" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.2.1-8">
+<p id="section-3.2.1-8">If the server also provides DNS over HTTPS, "dohpath" and "docpath" <span class="bcp14">MAY</span> co-exist, though it is
+<span class="bcp14">RECOMMENDED</span> to use a separate SVCB record for each service:<a href="#section-3.2.1-8" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.2.1-9">
 <pre>
 Resource record (binary):
   04 5f 64 6e 73 07 65 78 61 6d 70 6c 65 03 6f 72
   67 00 00 40 00 01 00 00 01 ad 00 2b 00 01 03 64
   6e 73 07 65 78 61 6d 70 6c 65 03 6f 72 67 00 00
   01 00 06 02 68 33 02 63 6f 00 07 00 07 2f 7b 3f
-  64 6e 73 7d 0a 00 00
+  64 6e 73 7d ff 0a 00 00
 
 Resource record (human-readable):
   _dns.example.org.   429  IN SVCB 1 dns.example.org (
-      alpn=h3,co dohpath=/{?dns} docpath= )
-</pre><a href="#section-3.2.1-8" class="pilcrow">¶</a>
+      alpn=h3,co dohpath=/{?dns} docpath )
+</pre><a href="#section-3.2.1-9" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -2140,10 +2145,6 @@ The definition of this parameter can be found in <a href="#sec_doc-server-select
 <a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
-<dt id="I-D.ietf-cbor-edn-literals">[I-D.ietf-cbor-edn-literals]</dt>
-        <dd>
-<span class="refAuthor">Bormann, C.</span>, <span class="refTitle">"CBOR Extended Diagnostic Notation (EDN)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cbor-edn-literals-17</span>, <time datetime="2025-05-12" class="refDate">12 May 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cbor-edn-literals-17">https://datatracker.ietf.org/doc/html/draft-ietf-cbor-edn-literals-17</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="I-D.ietf-core-coap-dtls-alpn">[I-D.ietf-core-coap-dtls-alpn]</dt>
         <dd>
 <span class="refAuthor">Lenders, M. S.</span>, <span class="refAuthor">Amsüss, C.</span>, <span class="refAuthor">Schmidt, T. C.</span>, and <span class="refAuthor">M. Wählisch</span>, <span class="refTitle">"ALPN ID Specification for CoAP over DTLS"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-coap-dtls-alpn-04</span>, <time datetime="2025-04-01" class="refDate">1 April 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-coap-dtls-alpn-04">https://datatracker.ietf.org/doc/html/draft-ietf-core-coap-dtls-alpn-04</a>&gt;</span>. </dd>
