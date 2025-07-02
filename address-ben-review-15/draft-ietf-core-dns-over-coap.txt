@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 2 January 2026                                                 
+Expires: 3 January 2026                                                 
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                             1 July 2025
+                                                             2 July 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 January 2026.
+   This Internet-Draft will expire on 3 January 2026.
 
 Copyright Notice
 
@@ -228,11 +228,11 @@ Table of Contents
    Section 2.  Note that, when block-wise transfer is not used, the
    terms "payload" and "body" are to be understood as equal.
 
-   For better readability, examples in this document the binary payload
-   and resource records are provided in hexadecimal representation as
-   well as a human-readable format.  In the actual message, however,
-   they would be encoded in the binary message format defined in
-   [RFC1035].
+   For better readability, in the examples in this document the binary
+   payload and resource records are shown in a hexadecimal
+   representation as well as a human-readable format.  In the actual
+   message sent and received, however, they are encoded in the binary
+   message format defined in [RFC1035].
 
 3.  Selection of a DoC Server
 
@@ -335,7 +335,7 @@ Table of Contents
 
    A typical SVCB resource record response for a DoC server at the root
    path "/" of the server looks like the following (the "docpath"
-   SvcParam is the last 3 bytes "0a 00 00" in the binary):
+   SvcParam is the last 4 bytes "00 0a 00 00" in the binary):
 
    Resource record (binary):
      04 5f 64 6e 73 07 65 78 61 6d 70 6c 65 03 6f 72
@@ -347,11 +347,11 @@ Table of Contents
      _dns.example.org.  1576  IN SVCB 1 dns.example.org (
          alpn=co docpath= )
 
-   Though the root path is RECOMMENDED, here are two examples with the
-   "docpath" as paths of varying depth for illustration purposes, first
-   "/dns" (the last 8 bytes "00 0a 00 04 63 64 6e 73", "63" marking the
-   CBOR element as a text string of length 3, see Section 3 of
-   [RFC8949]):
+   The root path is RECOMMENDED but not required.  Here are two examples
+   where the "docpath" represents paths of varying depth.  First, "/dns"
+   is provided in the following example (the last 8 bytes "00 0a 00 04
+   63 64 6e 73", "63" marking the CBOR element as a text string of
+   length 3, see Section 3 of [RFC8949]):
 
    Resource record (binary):
      04 5f 64 6e 73 07 65 78 61 6d 70 6c 65 03 6f 72
@@ -363,8 +363,8 @@ Table of Contents
      _dns.example.org.    85  IN SVCB 1 dns.example.org (
          alpn=co docpath="dns" )
 
-   Here an examples for the path "/n/s" (the last 8 bytes "00 0a 00 04
-   61 6e 61 73", "61" marking each CBOR element as a text string of
+   Second, an examples for the path "/n/s" (the last 8 bytes "00 0a 00
+   04 61 6e 61 73", "61" marking each CBOR element as a text string of
    length 1, see Section 3 of [RFC8949])):
 
    Resource record (binary):
