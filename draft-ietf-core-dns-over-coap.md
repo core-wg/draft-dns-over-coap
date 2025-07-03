@@ -242,6 +242,11 @@ Because the ALPN extension is only defined for (D)TLS, these mechanisms cannot b
 Specifying an alternate discovery mechanism is out of scope of this specification.
 {{-core-dnr}} provides  further exploration of the challenges here.
 
+This document is not an SVCB mapping document for the CoAP schemes
+as defined in {{Section 2.4.3 of -svcb}}.
+A full SVCB mapping is being prepared in {{-transport-indication}},
+generalizing mechanisms that are introduced in this document for discovery of DoC.
+
 This document specifies "docpath" as
 a single-valued SvcParamKey that is mandatory for DoC SVCB records.
 If the "docpath" SvcParamKey is absent, the service should not be considered a valid DoC service.
