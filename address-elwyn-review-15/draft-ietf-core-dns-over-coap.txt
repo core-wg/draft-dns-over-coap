@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 2 January 2026                                                 
+Expires: 4 January 2026                                                 
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                             1 July 2025
+                                                             3 July 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 January 2026.
+   This Internet-Draft will expire on 4 January 2026.
 
 Copyright Notice
 
@@ -675,6 +675,12 @@ Table of Contents
    of long-lived security contexts.  Section 2.6 of
    [I-D.ietf-core-corr-clar] provides insights on what can be done when
    those are resumed from a new endpoint.
+
+   Though DTLS v1.2 [RFC6347] was obsoleteted by DTLS v1.3 [RFC9147]
+   there are still many CoAP implementations that still use v1.2 at the
+   time of writing.  As such, this document also accounts for the usage
+   of DTLS v1.2 even though newer versions are RECOMMENDED when using
+   DTLS to secure CoAP.
 
    When using unprotected CoAP (see Section 6), setting the ID of a DNS
    message to 0 as specified in Section 4.2.2 opens the DNS cache of a
