@@ -551,6 +551,11 @@ Additionally, DoC uses request patterns that require the maintenance of long-liv
 contexts.
 {{Section 2.6 of -core-corrclar}} provides insights on what can be done when those are resumed from a new endpoint.
 
+Though DTLS v1.2 {{-dtls12}} was obsoleteted by DTLS v1.3 {{-dtls13}} there are still many CoAP
+implementations that still use v1.2 at the time of writing.
+As such, this document also accounts for the usage of DTLS v1.2 even though newer versions are
+RECOMMENDED when using DTLS to secure CoAP.
+
 When using unprotected CoAP (see {{sec:unprotected-coap}}), setting the ID of a DNS message to 0 as
 specified in {{sec:req-caching}} opens the DNS cache of a DoC client to cache poisoning attacks
 via response spoofing.
