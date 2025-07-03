@@ -407,8 +407,7 @@ Table of Contents
          alpn=co docpath=/n/s )
 
    If the server also provides DNS over HTTPS, "dohpath" and "docpath"
-   MAY co-exist, though it is RECOMMENDED to use a separate SVCB record
-   for each service:
+   MAY co-exist:
 
    Resource record (binary):
      04 5f 64 6e 73 07 65 78 61 6d 70 6c 65 03 6f 72
