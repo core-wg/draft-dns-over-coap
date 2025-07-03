@@ -304,8 +304,11 @@ The construction algorithm for DoC requests is as follows, going through the pro
   The records used in this document only infuence the Uri-Path option.
   That option is only sent in the plaintext of an encrytped (D)TLS channel,
   and thus does not warrant any limitations.
-- The target name of the SVCB record MUST be set in the Uri-Host option if the resolved address for the target name differs from the destination address.
-  Otherwise, the Uri-Host option MAY be set from the target name.
+- The request URI's hostname component MUST be the Authentication Domain Name (ADN) when obtained through DNR
+  and MUST be the target name of the SVCB record when obtained through a `_dns` query
+  (if AliasMode is used, to the target name of the AliasMode record).
+  This is usually achieved by setting that name in TLS Server Name Indication (SNI) {{?RFC8446}},
+  as that removes the need to set the value as the Uri-Host option.
 - For each element in the CBOR sequence of the "docpath" SvcParam value, a Uri-Path option MUST be added to the request.
 - If the request constructed this way receives a response, the same SVCB record MUST be used for construction of future DoC queries.
   If not, or if the endpoint becomes unreachable, the algorithm SHOULD be repeated with the SVCB record with the next highest priority.
