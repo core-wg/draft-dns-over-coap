@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 3 January 2026                                                 
+Expires: 4 January 2026                                                 
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                             2 July 2025
+                                                             3 July 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 January 2026.
+   This Internet-Draft will expire on 4 January 2026.
 
 Copyright Notice
 
@@ -272,8 +272,23 @@ Table of Contents
    is mandatory for DoC SVCB records.  If the "docpath" SvcParamKey is
    absent, the service should not be considered a valid DoC service.
 
-   The presentation format value of "docpath" MUST be the absolute path
-   in the URI path-abempty form (see [RFC3986], Section 3.3).
+   The docpath is devided up into segments of the absolute path to the
+   DoC resource (docpath-segment), each a sequence of 1-255 octets.  In
+   ABNF [RFC5234]:
+
+   docpath-segment = 1*255OCTET
+
+   Note that this restricts the length of each docpath-segment to at
+   most 255 octets.  Paths with longer segments can not be advertised
+   with the "docpath" SvcParam and are thus NOT RECOMMENDED for the path
+   to the DoC resource.
+
+   The presentation format value of "docpath" SHALL be a comma-sperated
+   list (Appendix A.1 of [RFC9460]) of 0 or more docpath-segments.  The
+   root path "/" is represented by 0 docpath-segments, i.e., an empty
+   list.  The same considerations for the "," and "" characters in
+   docpath-segments for zone-file implementations as for the alpn-ids in
+   an "alpn" SvcParam MAY apply (Section 7.1.1 of [RFC9460]).
 
    The wire-format value for "docpath" consists of 0 or more sequences
    of octets prefixed by their respective length as a single octet, the
@@ -281,23 +296,25 @@ Table of Contents
    the SvcParamValue.  These pairs MUST exactly fill the SvcParamValue;
    otherwise, the SvcParamValue is malformed.  Each such length-value
    pair represents one segment of the absolute path to the DoC resource.
-   0 length-value pairs represent the root path "/".  Note that this
-   restricts the length of each segment to at most 255 octets.  Paths
-   with longer segments can not be advertised with the "docpath"
-   SvcParam and are thus NOT RECOMMENDED for the path to the DoC
-   resource.
+   The root path "/" is represented by 0 length-value pairs, i.e.,
+   SvcParamValue length 0.
 
-   Note that this wire-format uses the same encoding as the "alpn"
-   SvcParam.  As long as each path segment are of length 0 and 24
-   octets, it is easily transferred into the path representation in CRIs
-   [I-D.ietf-core-href] by masking each length octet with the CBOR text
-   string major type 3 (0x60 as an octet, see [RFC8949]).  Furthermore,
-   it is easily transferable into a sequence of CoAP Uri-Path options by
-   mapping each length octet into the Option Delta and Option Length of
-   the corresponding CoAP Uri-Path option, provided these CBOR text
-   strings are all of a length between 0 and 12 octets (see [RFC7252],
-   Section 3.1).  Likewise, it can be transferred into a URI path-
-   abempty form by replacing each length octet with the "/" character
+   Note, that this format uses the same encoding as the "alpn" SvcParam
+   and can just reuse the decoders and encoders for that SvcParam with
+   the adaption that 0 elements are allowed.  As long as each docpath-
+   segment are of length 0 and 24 octets, it is easily transferred into
+   the path representation in CRIs [I-D.ietf-core-href] by masking each
+   length octet with the CBOR text string major type 3 (0x60 as an
+   octet, see [RFC8949]).  Furthermore, it is easily transferable into a
+   sequence of CoAP Uri-Path options by mapping each length octet into
+   the Option Delta and Option Length of the corresponding CoAP Uri-Path
+   option, provided the docpath-segments are all of a length between 0
+   and 12 octets (see [RFC7252], Section 3.1).  Likewise, it can be
+   transferred into a URI path-abempty form by replacing each length
+   octet with the "/" character None of the abovementioned prevent
+   longer docpath-segments than the considered, they just make the
+   translation harder, as they require to make space for the longer
+   delimiters, in turn requiring to move octets.
 
    To use the service binding from an SVCB RR, the DoC client MUST send
    a DoC request constructed from the SvcParams including "docpath".
@@ -856,6 +873,11 @@ Table of Contents
               Resource Identifier (URI): Generic Syntax", STD 66,
               RFC 3986, DOI 10.17487/RFC3986, January 2005,
               <https://www.rfc-editor.org/rfc/rfc3986>.
+
+   [RFC5234]  Crocker, D., Ed. and P. Overell, "Augmented BNF for Syntax
+              Specifications: ABNF", STD 68, RFC 5234,
+              DOI 10.17487/RFC5234, January 2008,
+              <https://www.rfc-editor.org/rfc/rfc5234>.
 
    [RFC6347]  Rescorla, E. and N. Modadugu, "Datagram Transport Layer
               Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
