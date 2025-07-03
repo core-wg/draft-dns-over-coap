@@ -449,11 +449,11 @@ Table of Contents
    in HTTP.  Likewise, CoAP makes it possible to use cache validation to
    refresh stale cache entries to reduce the number of large response
    messages.  For cache validation, CoAP implementations regularly use
-   hashing over the message content for ETag generation.  As such, the
-   approach to guarantee the same cache key for DNS responses as
-   proposed in DoH ([RFC8484], Section 5.1) is not sufficient and needs
-   to be updated so that the TTLs in the response are more often the
-   same regardless of query time.
+   hashing over the message content for ETag generation (see [RFC7252],
+   Section 5.10.6).  As such, the approach to guarantee the same cache
+   key for DNS responses as proposed in DoH ([RFC8484], Section 5.1) is
+   not sufficient and needs to be updated so that the TTLs in the
+   response are more often the same regardless of query time.
 
    The DoC server MUST ensure that the sum of the Max-Age value of a
    CoAP response and any TTL in the DNS response is less than or equal
