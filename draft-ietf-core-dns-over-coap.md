@@ -367,7 +367,7 @@ The DoC client might also decide to repeat a non-successful exchange with a diff
 
 For reliability and energy saving measures, content decoupling (such as en-route caching on proxies) takes a far greater role than it does in HTTP.
 Likewise, CoAP makes it possible to use cache validation to refresh stale cache entries to reduce the number of large response messages.
-For cache validation, CoAP implementations regularly use hashing over the message content for ETag generation.
+For cache validation, CoAP implementations regularly use hashing over the message content for ETag generation (see {{-coap, Section 5.10.6}}).
 As such, the approach to guarantee the same cache key for DNS responses as proposed in DoH ({{-doh, Section 5.1}}) is not sufficient and needs to be updated so that the TTLs in the response are more often the same regardless of query time.
 
 The DoC server MUST ensure that the sum of the Max-Age value of a CoAP response and any TTL in the
