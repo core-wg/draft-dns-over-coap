@@ -150,7 +150,10 @@ Table of Contents
    resolution in such scenarios must take into account link layer frame
    sizes of only a few hundred bytes, bit rates in the magnitude of
    kilobits per second, and latencies of several seconds [RFC7228]
-   [I-D.ietf-iotops-7228bis].
+   [I-D.ietf-iotops-7228bis]
+   // RFC Ed.: Please remove the [RFC7228] reference and replace it with
+   // [I-D.ietf-iotops-7228bis] throughout the document in case
+   // [I-D.ietf-iotops-7228bis] becomes an RFC before publication..
 
    In order not to be burdened by the resource requirements of TCP and
    HTTPS, constrained IoT devices could use DNS over DTLS [RFC8094].  In
@@ -162,9 +165,10 @@ Table of Contents
    structures for application traffic and DNS information, which saves
    memory on constrained devices.
 
-   To avoid resource requirements of DTLS or TLS on top of UDP (e.g.,
-   introduced by DNS over DTLS [RFC8094] or DNS over QUIC [RFC9250]),
-   DoC allows for lightweight message protection based on OSCORE.
+   To avoid the resource requirements of DTLS or TLS on top of UDP
+   (e.g., introduced by DNS over DTLS [RFC8094] or DNS over QUIC
+   [RFC9250]), DoC allows for lightweight message protection based on
+   OSCORE.
 
                  . FETCH coaps://[2001:db8::1]/
                 /
@@ -192,7 +196,7 @@ Table of Contents
 
    Note that this specification is distinct from DoH, since the CoAP-
    specific FETCH method [RFC8132] is used.  This has the benefit of
-   having the DNS query in the body like when using the POST method, but
+   having the DNS query in the body as when using the POST method, but
    still with the same caching advantages of responses to requests that
    use the GET method.  Having the DNS query in the body means that we
    do not need extra base64 encoding, which would increase code
@@ -241,7 +245,8 @@ Table of Contents
 
    The DoC client needs to know the DoC server and the DoC resource at
    the DoC server.  Possible options to assure this could be manual
-   configuration of a URI [RFC3986] or CRI [I-D.ietf-core-href], or
+   configuration of a Uniform Resource Identifier (URI) [RFC3986] or
+   Constrained Resource Identifier (CRI) [I-D.ietf-core-href], or
    automatic configuration, e.g., using a CoRE resource directory
    [RFC9176], DHCP or Router Advertisement options [RFC9463], or
    discovery of designated resolvers [RFC9462].  Automatic configuration
@@ -257,14 +262,17 @@ Table of Contents
 
 3.2.  Discovery using SVCB Resource Records or DNR
 
-   A DoC server can also be discovered using SVCB Resource Records (RR)
-   [RFC9460] [RFC9461] or DNR Service Parameters [RFC9463].  [RFC8323]
-   defines the ALPN ID for CoAP over TLS servers and
-   [I-D.ietf-core-coap-dtls-alpn] defines the ALPN ID for CoAP over DTLS
-   servers.  Because the ALPN extension is only defined for (D)TLS,
-   these mechanisms cannot be used for DoC servers which use only OSCORE
-   [RFC8613] and Ephemeral Diffie-Hellman Over COSE (EDHOC) [RFC9528]
-   for security.  Specifying an alternate discovery mechanism is out of
+   A DoC server can also be discovered using Service Binding (SVCB)
+   Resource Records (RR) [RFC9460] [RFC9461] or Discovery of Network-
+   designated Resolvers (DNR) Service Parameters [RFC9463].  [RFC8323]
+   defines the Application-Layer Protocol Negotiation (ALPN) ID for CoAP
+   over TLS servers and [I-D.ietf-core-coap-dtls-alpn] defines the ALPN
+   ID for CoAP over DTLS servers.  Because the ALPN extension is only
+   defined for (D)TLS, these mechanisms cannot be used for DoC servers
+   which use only OSCORE [RFC8613] and Ephemeral Diffie-Hellman Over
+   COSE (EDHOC) [RFC9528] (with COSE abbreviating "Concise Binary Object
+   Notation (CBOR) Object Signing and Encryption" [RFC9052]) for
+   security.  Specifying an alternate discovery mechanism is out of
    scope of this specification.  [I-D.lenders-core-dnr] provides further
    exploration of the challenges here.
 
@@ -335,7 +343,8 @@ Table of Contents
 
    *  The destination port for the request MUST be taken from the "port"
       SvcParam value, if present.  Otherwise, take the default port of
-      the CoAP transport.
+      the CoAP transport, e.g., with regards to this specification TCP
+      port 5684 for "coap" or UDP port 5684 for "co".
 
    *  The target name of the SVCB record MUST be set in the Uri-Host
       option if the resolved address for the target name differs from
@@ -534,11 +543,11 @@ Table of Contents
    in HTTP.  Likewise, CoAP makes it possible to use cache validation to
    refresh stale cache entries to reduce the number of large response
    messages.  For cache validation, CoAP implementations regularly use
-   hashing over the message content for ETag generation.  As such, the
-   approach to guarantee the same cache key for DNS responses as
-   proposed in DoH ([RFC8484], Section 5.1) is not sufficient and needs
-   to be updated so that the TTLs in the response are more often the
-   same regardless of query time.
+   hashing over the message content for ETag generation (see [RFC7252],
+   Section 5.10.6).  As such, the approach to guarantee the same cache
+   key for DNS responses as proposed in DoH ([RFC8484], Section 5.1) is
+   not sufficient and needs to be updated so that the TTLs in the
+   response are more often the same regardless of query time.
 
    The DoC server MUST ensure that the sum of the Max-Age value of a
    CoAP response and any TTL in the DNS response is less than or equal
@@ -590,9 +599,9 @@ Table of Contents
      ;; ANSWER SECTION:
      ;example.org.         79689   IN      AAAA    2001:db8:1:0:1:2:3:4
 
-   When a DNS error—NxDomain (RCODE = 3) for "does.not.exist" in this
-   case—is noted in the DNS response, the CoAP response still indicates
-   success.
+   When a DNS error – NxDomain (RCODE = 3) for "does.not.exist" in this
+   case – is noted in the DNS response, the CoAP response still
+   indicates success.
 
   2.05 Content
   Content-Format: 553 (application/dns-message)
@@ -684,11 +693,11 @@ Table of Contents
    need to be evaluated in the context of the application's threat
    model.  This includes known threats for unprotected DNS [RFC3833]
    [RFC9076] and CoAP Section 11 of [RFC7252].  While DoC does not use
-   the random ID of the DNS header (see Section Section 4.2.2),
-   equivalent protection against off-path poisoning attacks is achieved
-   by using random large token values for unprotected CoAP requests.  If
-   a DoC message is unprotected it MUST use a random token of at least 2
-   bytes length to mitigate this kind of poisoning attacks.
+   the random ID of the DNS header (see Section 4.2.2), equivalent
+   protection against off-path poisoning attacks is achieved by using
+   random large token values for unprotected CoAP requests.  If a DoC
+   message is unprotected it MUST use a random token of at least 2 bytes
+   length to mitigate this kind of poisoning attacks.
 
 7.  Implementation Status
 
@@ -761,6 +770,12 @@ Table of Contents
    [I-D.ietf-core-corr-clar] provides insights on what can be done when
    those are resumed from a new endpoint.
 
+   Though DTLS v1.2 [RFC6347] was obsoleteted by DTLS v1.3 [RFC9147]
+   there are still many CoAP implementations that still use v1.2 at the
+   time of writing.  As such, this document also accounts for the usage
+   of DTLS v1.2 even though newer versions are RECOMMENDED when using
+   DTLS to secure CoAP.
+
    When using unprotected CoAP (see Section 6), setting the ID of a DNS
    message to 0 as specified in Section 4.2.2 opens the DNS cache of a
    DoC client to cache poisoning attacks via response spoofing.  This
@@ -815,7 +830,7 @@ Table of Contents
 
    ID: 553 (suggested)
 
-   Reference: [RFC8484][RFC-XXXX, Section 4.1]
+   Reference: [RFC8484] and [RFC-XXXX], Section 4.1
 
 9.2.  DNS Service Bindings (SVCB) Registry
 
@@ -824,15 +839,15 @@ Table of Contents
    Bindings (SVCB)" registry group.  The definition of this parameter
    can be found in Section 3.
 
-    +=============+=========+===============+============+============+
-    | Number      | Name    | Meaning       | Change     | Reference  |
-    |             |         |               | Controller |            |
-    +=============+=========+===============+============+============+
-    | 10          | docpath | DNS over CoAP | IETF       | [RFC-XXXX, |
-    | (suggested) |         | resource path |            | Section 3] |
-    +-------------+---------+---------------+------------+------------+
+   +=============+=========+===============+============+=============+
+   | Number      | Name    | Meaning       | Change     | Reference   |
+   |             |         |               | Controller |             |
+   +=============+=========+===============+============+=============+
+   | 10          | docpath | DNS over CoAP | IETF       | [RFC-XXXX], |
+   | (suggested) |         | resource path |            | Section 3   |
+   +-------------+---------+---------------+------------+-------------+
 
-                      Table 1: Values for SvcParamKeys
+                     Table 1: Values for SvcParamKeys
 
 9.3.  Resource Type (rt=) Link Target Attribute Values Registry
 
@@ -845,7 +860,7 @@ Table of Contents
 
    Description: DNS over CoAP resource.
 
-   Reference: [RFC-XXXX, Section 3]
+   Reference: [RFC-XXXX], Section 3
 
 10.  References
 
@@ -1028,6 +1043,11 @@ Table of Contents
               Transport Layer Security (DTLS)", RFC 8094,
               DOI 10.17487/RFC8094, February 2017,
               <https://www.rfc-editor.org/rfc/rfc8094>.
+
+   [RFC9052]  Schaad, J., "CBOR Object Signing and Encryption (COSE):
+              Structures and Process", STD 96, RFC 9052,
+              DOI 10.17487/RFC9052, August 2022,
+              <https://www.rfc-editor.org/rfc/rfc9052>.
 
    [RFC9076]  Wicinski, T., Ed., "DNS Privacy Considerations", RFC 9076,
               DOI 10.17487/RFC9076, July 2021,
