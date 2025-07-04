@@ -1368,7 +1368,7 @@ only have a handful kilobytes of both RAM and ROM. They may sleep for long
 durations of time, after which they need to refresh the named resources they
 know about. Name resolution in such scenarios must take into account link
 layer frame sizes of only a few hundred bytes, bit rates in the magnitude
-of kilobits per second, and latencies of several seconds <span>[<a href="#RFC7228" class="cite xref">RFC7228</a>]</span> <span>[<a href="#I-D.ietf-iotops-7228bis" class="cite xref">I-D.ietf-iotops-7228bis</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
+of kilobits per second, and latencies of several seconds <span>[<a href="#RFC7228" class="cite xref">RFC7228</a>]</span> <span>[<a href="#I-D.ietf-iotops-7228bis" class="cite xref">I-D.ietf-iotops-7228bis</a>]</span> <span class="cref" id="remove-constr-nodes">RFC Ed.: Please remove the <span>[<a href="#RFC7228" class="cite xref">RFC7228</a>]</span> reference and replace it with <span>[<a href="#I-D.ietf-iotops-7228bis" class="cite xref">I-D.ietf-iotops-7228bis</a>]</span> throughout the document in case <span>[<a href="#I-D.ietf-iotops-7228bis" class="cite xref">I-D.ietf-iotops-7228bis</a>]</span> becomes an RFC before publication.</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">In order not to be burdened by the resource requirements of TCP and HTTPS, constrained IoT devices could use DNS over DTLS <span>[<a href="#RFC8094" class="cite xref">RFC8094</a>]</span>.
 In contrast to DNS over DTLS, DoC
 can take advantage of CoAP features to mitigate drawbacks of datagram-based
@@ -1377,7 +1377,7 @@ the Path MTU problem of DNS over DTLS (see <span>[<a href="#RFC8094" class="cite
 proxies, which provide an additional level of caching; re-use of data
 structures for application traffic and DNS information, which saves memory
 on constrained devices.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">To avoid resource requirements of DTLS or TLS on top of UDP (e.g., introduced by DNS over DTLS <span>[<a href="#RFC8094" class="cite xref">RFC8094</a>]</span> or DNS over QUIC <span>[<a href="#RFC9250" class="cite xref">RFC9250</a>]</span>), DoC allows for lightweight message protection based on OSCORE.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-4">To avoid the resource requirements of DTLS or TLS on top of UDP (e.g., introduced by DNS over DTLS <span>[<a href="#RFC8094" class="cite xref">RFC8094</a>]</span> or DNS over QUIC <span>[<a href="#RFC9250" class="cite xref">RFC9250</a>]</span>), DoC allows for lightweight message protection based on OSCORE.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <span id="name-basic-doc-architecture"></span><div id="fig-overview-arch">
 <figure id="figure-1">
         <div id="section-1-5.1">
@@ -1466,7 +1466,7 @@ DNS infrastructure.
 Using that information, the DoC server then replies to the queries of the DoC client with DNS
 responses carried within CoAP responses.<a href="#section-1-6" class="pilcrow">¶</a></p>
 <p id="section-1-7">Note that this specification is distinct from DoH, since the CoAP-specific FETCH method <span>[<a href="#RFC8132" class="cite xref">RFC8132</a>]</span> is used.
-This has the benefit of having the DNS query in the body like when using the POST method, but still with the same caching advantages of responses to requests that use the GET method.
+This has the benefit of having the DNS query in the body as when using the POST method, but still with the same caching advantages of responses to requests that use the GET method.
 Having the DNS query in the body means that we do not need extra base64 encoding, which would increase
 code complexity and message sizes.
 Also, this allows for the block-wise transfer of queries <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>]</span>.<a href="#section-1-7" class="pilcrow">¶</a></p>
@@ -1492,7 +1492,7 @@ DNS information is called a "DoC client".<a href="#section-2-3" class="pilcrow">
 <span>[<a href="#RFC6690" class="cite xref">RFC6690</a>]</span> describes that "Constrained RESTful Environments (CoRE)" realize the Representational State Transfer (REST) architecture <span>[<a href="#REST" class="cite xref">REST</a>]</span> in a suitable form for such constrained nodes.<a href="#section-2-4" class="pilcrow">¶</a></p>
 <p id="section-2-5">The terms "payload" and "body" are used as defined in <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>], <a href="https://rfc-editor.org/rfc/rfc7959#section-2" class="relref">Section 2</a></span>.
 Note that, when block-wise transfer is not used, the terms "payload" and "body" are to be understood as equal.<a href="#section-2-5" class="pilcrow">¶</a></p>
-<p id="section-2-6">For better readability, examples in this document the binary payload is provided in hexadecimal representation as well as a human-readable format.
+<p id="section-2-6">For better readability, in the examples in this document the binary payload is shown in a hexadecimal representation as well as a human-readable format.
 In the actual message, however, it would be encoded in the binary message format defined in <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>.<a href="#section-2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1504,7 +1504,7 @@ In the actual message, however, it would be encoded in the binary message format
 <p id="section-3-1">While there is no path specified for the DoC resource, it is <span class="bcp14">RECOMMENDED</span> to use the root path "/"
 to keep the CoAP requests small.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">The DoC client needs to know the DoC server and the DoC resource at the DoC server.
-Possible options to assure this could be manual configuration of a URI <span>[<a href="#RFC3986" class="cite xref">RFC3986</a>]</span> or CRI <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>,
+Possible options to assure this could be manual configuration of a Uniform Resource Identifier (URI) <span>[<a href="#RFC3986" class="cite xref">RFC3986</a>]</span> or Constrained Resource Identifier (CRI) <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>,
 or automatic configuration, e.g., using a CoRE resource directory
 <span>[<a href="#RFC9176" class="cite xref">RFC9176</a>]</span>, DHCP or Router Advertisement options <span>[<a href="#RFC9463" class="cite xref">RFC9463</a>]</span>, or discovery of designated resolvers
 <span>[<a href="#RFC9462" class="cite xref">RFC9462</a>]</span>.
@@ -1524,10 +1524,10 @@ It can be used to identify a generic DNS resolver that is available to the clien
         <h3 id="name-discovery-using-svcb-resour">
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-discovery-using-svcb-resour" class="section-name selfRef">Discovery using SVCB Resource Records or DNR</a>
         </h3>
-<p id="section-3.2-1">A DoC server can also be discovered using SVCB Resource Records (RR) <span>[<a href="#RFC9460" class="cite xref">RFC9460</a>]</span> <span>[<a href="#RFC9461" class="cite xref">RFC9461</a>]</span> or DNR
+<p id="section-3.2-1">A DoC server can also be discovered using Service Binding (SVCB) Resource Records (RR) <span>[<a href="#RFC9460" class="cite xref">RFC9460</a>]</span> <span>[<a href="#RFC9461" class="cite xref">RFC9461</a>]</span> or Discovery of Network-designated Resolvers (DNR)
 Service Parameters <span>[<a href="#RFC9463" class="cite xref">RFC9463</a>]</span>.
-<span>[<a href="#RFC8323" class="cite xref">RFC8323</a>]</span> defines the ALPN ID for CoAP over TLS servers and <span>[<a href="#I-D.ietf-core-coap-dtls-alpn" class="cite xref">I-D.ietf-core-coap-dtls-alpn</a>]</span> defines the ALPN ID for CoAP over DTLS servers.
-Because the ALPN extension is only defined for (D)TLS, these mechanisms cannot be used for DoC servers which use only OSCORE <span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span> and Ephemeral Diffie-Hellman Over COSE (EDHOC) <span>[<a href="#RFC9528" class="cite xref">RFC9528</a>]</span> for security.
+<span>[<a href="#RFC8323" class="cite xref">RFC8323</a>]</span> defines the Application-Layer Protocol Negotiation (ALPN) ID for CoAP over TLS servers and <span>[<a href="#I-D.ietf-core-coap-dtls-alpn" class="cite xref">I-D.ietf-core-coap-dtls-alpn</a>]</span> defines the ALPN ID for CoAP over DTLS servers.
+Because the ALPN extension is only defined for (D)TLS, these mechanisms cannot be used for DoC servers which use only OSCORE <span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span> and Ephemeral Diffie-Hellman Over COSE (EDHOC) <span>[<a href="#RFC9528" class="cite xref">RFC9528</a>]</span> (with COSE abbreviating "Concise Binary Object Notation (CBOR) Object Signing and Encryption" <span>[<a href="#RFC9052" class="cite xref">RFC9052</a>]</span>) for security.
 Specifying an alternate discovery mechanism is out of scope of this specification.
 <span>[<a href="#I-D.lenders-core-dnr" class="cite xref">I-D.lenders-core-dnr</a>]</span> provides  further exploration of the challenges here.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2-2">This document is not an SVCB mapping document for the CoAP schemes
@@ -1563,7 +1563,7 @@ As a fallback, an address <span class="bcp14">MAY</span> be queried for the targ
 </li>
           <li class="normal" id="section-3.2-6.3">
             <p id="section-3.2-6.3.1">The destination port for the request <span class="bcp14">MUST</span> be taken from the "port" SvcParam value, if present.
-Otherwise, take the default port of the CoAP transport.
+Otherwise, take the default port of the CoAP transport, e.g., with regards to this specification TCP port 5684 for "coap" or UDP port 5684 for "co".
 There are no limitations on the ports that can be used.
 If a malicious SVCB record allows its originator to influence message payloads, <span><a href="https://rfc-editor.org/rfc/rfc9460#section-12" class="relref">Section 12</a> of [<a href="#RFC9460" class="cite xref">RFC9460</a>]</span> recommends placing such restrictions.
 However, the SVCB record for DoC services only infuences the Uri-Path option.
@@ -1702,7 +1702,7 @@ The DoC client might also decide to repeat a non-successful exchange with a diff
           </h4>
 <p id="section-4.3.2-1">For reliability and energy saving measures, content decoupling (such as en-route caching on proxies) takes a far greater role than it does in HTTP.
 Likewise, CoAP makes it possible to use cache validation to refresh stale cache entries to reduce the number of large response messages.
-For cache validation, CoAP implementations regularly use hashing over the message content for ETag generation.
+For cache validation, CoAP implementations regularly use hashing over the message content for ETag generation (see <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>], <a href="https://rfc-editor.org/rfc/rfc7252#section-5.10.6" class="relref">Section 5.10.6</a></span>).
 As such, the approach to guarantee the same cache key for DNS responses as proposed in DoH (<span>[<a href="#RFC8484" class="cite xref">RFC8484</a>], <a href="https://rfc-editor.org/rfc/rfc8484#section-5.1" class="relref">Section 5.1</a></span>) is not sufficient and needs to be updated so that the TTLs in the response are more often the same regardless of query time.<a href="#section-4.3.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.3.2-2">The DoC server <span class="bcp14">MUST</span> ensure that the sum of the Max-Age value of a CoAP response and any TTL in the
 DNS response is less than or equal to the corresponding TTL received from an upstream DNS server.
@@ -1743,7 +1743,7 @@ Payload (human-readable):
   ;example.org.         79689   IN      AAAA    2001:db8:1:0:1:2:3:4
 </pre><a href="#section-4.3.3-3" class="pilcrow">¶</a>
 </div>
-<p id="section-4.3.3-4">When a DNS error—NxDomain (RCODE = 3) for "does.not.exist" in this case—is noted in the DNS response, the CoAP response still indicates success.<a href="#section-4.3.3-4" class="pilcrow">¶</a></p>
+<p id="section-4.3.3-4">When a DNS error – NxDomain (RCODE = 3) for "does.not.exist" in this case – is noted in the DNS response, the CoAP response still indicates success.<a href="#section-4.3.3-4" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.3.3-5">
 <pre>
 2.05 Content
@@ -1851,7 +1851,7 @@ mapping between any other pair of DNS transports.<a href="#section-5.3-1" class=
 Without secure communication, many possible attacks need to be evaluated in the context of
 the application's threat model.
 This includes known threats for unprotected DNS <span>[<a href="#RFC3833" class="cite xref">RFC3833</a>]</span> <span>[<a href="#RFC9076" class="cite xref">RFC9076</a>]</span> and CoAP <span><a href="https://rfc-editor.org/rfc/rfc7252#section-11" class="relref">Section 11</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>.
-While DoC does not use the random ID of the DNS header (see Section <a href="#sec_req-caching" class="auto internal xref">Section 4.2.2</a>), equivalent protection against off-path poisoning attacks is achieved by using random large token values for unprotected CoAP requests.
+While DoC does not use the random ID of the DNS header (see <a href="#sec_req-caching" class="auto internal xref">Section 4.2.2</a>), equivalent protection against off-path poisoning attacks is achieved by using random large token values for unprotected CoAP requests.
 If a DoC message is unprotected it <span class="bcp14">MUST</span> use a random token of at least 2 bytes length to mitigate this kind of poisoning attacks.<a href="#section-6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1964,27 +1964,31 @@ DoC also inherits the security considerations of the protocols used for secure c
 Additionally, DoC uses request patterns that require the maintenance of long-lived security
 contexts.
 <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-corr-clar-02#section-2.6" class="relref">Section 2.6</a> of [<a href="#I-D.ietf-core-corr-clar" class="cite xref">I-D.ietf-core-corr-clar</a>]</span> provides insights on what can be done when those are resumed from a new endpoint.<a href="#section-8-1" class="pilcrow">¶</a></p>
-<p id="section-8-2">When using unprotected CoAP (see <a href="#sec_unprotected-coap" class="auto internal xref">Section 6</a>), setting the ID of a DNS message to 0 as
+<p id="section-8-2">Though DTLS v1.2 <span>[<a href="#RFC6347" class="cite xref">RFC6347</a>]</span> was obsoleteted by DTLS v1.3 <span>[<a href="#RFC9147" class="cite xref">RFC9147</a>]</span> there are still many CoAP
+implementations that still use v1.2 at the time of writing.
+As such, this document also accounts for the usage of DTLS v1.2 even though newer versions are
+<span class="bcp14">RECOMMENDED</span> when using DTLS to secure CoAP.<a href="#section-8-2" class="pilcrow">¶</a></p>
+<p id="section-8-3">When using unprotected CoAP (see <a href="#sec_unprotected-coap" class="auto internal xref">Section 6</a>), setting the ID of a DNS message to 0 as
 specified in <a href="#sec_req-caching" class="auto internal xref">Section 4.2.2</a> opens the DNS cache of a DoC client to cache poisoning attacks
 via response spoofing.
 This document requires an unpredictable CoAP token in each DoC query from the client when CoAP is
-not secured to mitigate such an attack over DoC (see <a href="#sec_unprotected-coap" class="auto internal xref">Section 6</a>).<a href="#section-8-2" class="pilcrow">¶</a></p>
-<p id="section-8-3">For secure communication via DTLS or OSCORE, the impact of a fixed ID on security is limited, as both
+not secured to mitigate such an attack over DoC (see <a href="#sec_unprotected-coap" class="auto internal xref">Section 6</a>).<a href="#section-8-3" class="pilcrow">¶</a></p>
+<p id="section-8-4">For secure communication via DTLS or OSCORE, the impact of a fixed ID on security is limited, as both
 harden against injecting spoofed responses.
-Consequently, the ID of the DNS message can be set to 0 without any concern in order to leverage the advantages of CoAP caching.<a href="#section-8-3" class="pilcrow">¶</a></p>
-<p id="section-8-4">A DoC client must be aware that the DoC server
+Consequently, the ID of the DNS message can be set to 0 without any concern in order to leverage the advantages of CoAP caching.<a href="#section-8-4" class="pilcrow">¶</a></p>
+<p id="section-8-5">A DoC client must be aware that the DoC server
 may communicate unprotected with the upstream DNS infrastructure, e.g., using DNS over UDP.
 DoC can only guarantee confidentiality and integrity of communication between parties for which the
 security context is exchanged.
 The DoC server may use another security context to communicate upstream with both confidentiality and integrity
 (e.g., DNS over QUIC <span>[<a href="#RFC9250" class="cite xref">RFC9250</a>]</span>), but, while recommended, this is opaque to the DoC client on the protocol level.
-Record integrity can also be ensured upstream using, e.g., DNSSEC <span>[<a href="#RFC9364" class="cite xref">RFC9364</a>]</span>.<a href="#section-8-4" class="pilcrow">¶</a></p>
-<p id="section-8-5">A DoC client may not be able to perform DNSSEC validation,
+Record integrity can also be ensured upstream using, e.g., DNSSEC <span>[<a href="#RFC9364" class="cite xref">RFC9364</a>]</span>.<a href="#section-8-5" class="pilcrow">¶</a></p>
+<p id="section-8-6">A DoC client may not be able to perform DNSSEC validation,
 e.g., due to code size constraints, or due to the size of the responses.
 It may trust its DoC server to perform DNSSEC validation;
 how that trust is expressed is out of the scope of this document.
 For instance, a DoC client may be, configured to use a particular credential by which it recognizes an eligible DoC server.
-That information can also imply trust in the DNSSEC validation by that server.<a href="#section-8-5" class="pilcrow">¶</a></p>
+That information can also imply trust in the DNSSEC validation by that server.<a href="#section-8-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -2008,7 +2012,7 @@ type from the "Media Types" registry (see <span>[<a href="#RFC8484" class="cite 
 <p id="section-9.1-2">Content Type: application/dns-message<a href="#section-9.1-2" class="pilcrow">¶</a></p>
 <p id="section-9.1-3">Content Coding: -<a href="#section-9.1-3" class="pilcrow">¶</a></p>
 <p id="section-9.1-4">ID: 553 (suggested)<a href="#section-9.1-4" class="pilcrow">¶</a></p>
-<p id="section-9.1-5">Reference: <span>[<a href="#RFC8484" class="cite xref">RFC8484</a>]</span>[RFC-XXXX, <a href="#sec_content-format" class="auto internal xref">Section 4.1</a>]<a href="#section-9.1-5" class="pilcrow">¶</a></p>
+<p id="section-9.1-5">Reference: <span>[<a href="#RFC8484" class="cite xref">RFC8484</a>]</span> and [RFC-XXXX], <a href="#sec_content-format" class="auto internal xref">Section 4.1</a><a href="#section-9.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="dns-service-bindings-svcb-registry">
@@ -2039,7 +2043,8 @@ The definition of this parameter can be found in <a href="#sec_doc-server-select
               <td class="text-left" rowspan="1" colspan="1">docpath</td>
               <td class="text-left" rowspan="1" colspan="1">DNS over CoAP resource path</td>
               <td class="text-left" rowspan="1" colspan="1">IETF</td>
-              <td class="text-left" rowspan="1" colspan="1">[RFC-XXXX, <a href="#sec_doc-server-selection" class="auto internal xref">Section 3</a>]</td>
+              <td class="text-left" rowspan="1" colspan="1">[RFC-XXXX], <a href="#sec_doc-server-selection" class="auto internal xref">Section 3</a>
+</td>
             </tr>
           </tbody>
         </table>
@@ -2054,7 +2059,7 @@ The definition of this parameter can be found in <a href="#sec_doc-server-select
 <p id="section-9.3-1">IANA is requested to add a new Resource Type (rt=) Link Target Attribute "core.dns" to the "Resource Type (rt=) Link Target Attribute Values" registry within the "Constrained RESTful Environments (CoRE) Parameters" registry group.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
 <p id="section-9.3-2">Value: core.dns<a href="#section-9.3-2" class="pilcrow">¶</a></p>
 <p id="section-9.3-3">Description: DNS over CoAP resource.<a href="#section-9.3-3" class="pilcrow">¶</a></p>
-<p id="section-9.3-4">Reference: [RFC-XXXX, <a href="#sec_doc-server-selection" class="auto internal xref">Section 3</a>]<a href="#section-9.3-4" class="pilcrow">¶</a></p>
+<p id="section-9.3-4">Reference: [RFC-XXXX], <a href="#sec_doc-server-selection" class="auto internal xref">Section 3</a><a href="#section-9.3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2210,6 +2215,10 @@ The definition of this parameter can be found in <a href="#sec_doc-server-select
 <dt id="RFC8094">[RFC8094]</dt>
         <dd>
 <span class="refAuthor">Reddy, T.</span>, <span class="refAuthor">Wing, D.</span>, and <span class="refAuthor">P. Patil</span>, <span class="refTitle">"DNS over Datagram Transport Layer Security (DTLS)"</span>, <span class="seriesInfo">RFC 8094</span>, <span class="seriesInfo">DOI 10.17487/RFC8094</span>, <time datetime="2017-02" class="refDate">February 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8094">https://www.rfc-editor.org/rfc/rfc8094</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9052">[RFC9052]</dt>
+        <dd>
+<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Structures and Process"</span>, <span class="seriesInfo">STD 96</span>, <span class="seriesInfo">RFC 9052</span>, <span class="seriesInfo">DOI 10.17487/RFC9052</span>, <time datetime="2022-08" class="refDate">August 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9052">https://www.rfc-editor.org/rfc/rfc9052</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9076">[RFC9076]</dt>
         <dd>
@@ -2621,7 +2630,7 @@ section as a consequence<a href="#appendix-B.4-1.6.1" class="pilcrow">¶</a></p>
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-C-1">The authors of this document want to thank Carsten Bormann, Esko Dijk, Thomas Fossati, Mikolai Gütschow, Ben Schwartz, Marco Tiloca, and Tim Wicinski for their feedback and comments.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<p id="appendix-C-1">The authors of this document want to thank Mike Bishop, Carsten Bormann, Elwyn B. Davies, Esko Dijk, Thomas Fossati, Mikolai Gütschow, Todd Herr, Tommy Pauly, Ben Schwartz, Marco Tiloca, and Tim Wicinski for their feedback and comments.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
