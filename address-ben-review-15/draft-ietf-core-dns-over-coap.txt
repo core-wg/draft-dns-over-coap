@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 4 January 2026                                                 
+Expires: 5 January 2026                                                 
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                             3 July 2025
+                                                             4 July 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 January 2026.
+   This Internet-Draft will expire on 5 January 2026.
 
 Copyright Notice
 
@@ -279,7 +279,7 @@ Table of Contents
    docpath-segment = 1*255OCTET
 
    Note that this restricts the length of each docpath-segment to at
-   most 255 octets.  Paths with longer segments can not be advertised
+   most 255 octets.  Paths with longer segments cannot be advertised
    with the "docpath" SvcParam and are thus NOT RECOMMENDED for the path
    to the DoC resource.
 
@@ -299,10 +299,10 @@ Table of Contents
    The root path "/" is represented by 0 length-value pairs, i.e.,
    SvcParamValue length 0.
 
-   Note, that this format uses the same encoding as the "alpn" SvcParam
-   and can just reuse the decoders and encoders for that SvcParam with
-   the adaption that 0 elements are allowed.  As long as each docpath-
-   segment are of length 0 and 24 octets, it is easily transferred into
+   Note that this format uses the same encoding as the "alpn" SvcParam
+   and can reuse the decoders and encoders for that SvcParam with the
+   adaption that a length of zero is allowed.  As long as each docpath-
+   segment is of length 0 and 24 octets, it is easily transferred into
    the path representation in CRIs [I-D.ietf-core-href] by masking each
    length octet with the CBOR text string major type 3 (0x60 as an
    octet, see [RFC8949]).  Furthermore, it is easily transferable into a
