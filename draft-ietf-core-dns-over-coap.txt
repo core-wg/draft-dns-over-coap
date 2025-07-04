@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 22 December 2025                                               
+Expires: 5 January 2026                                                 
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                            20 June 2025
+                                                             4 July 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 December 2025.
+   This Internet-Draft will expire on 5 January 2026.
 
 Copyright Notice
 
@@ -875,9 +875,9 @@ Table of Contents
    [I-D.ietf-core-corr-clar]
               Bormann, C., "Constrained Application Protocol (CoAP):
               Corrections and Clarifications", Work in Progress,
-              Internet-Draft, draft-ietf-core-corr-clar-01, 18 December
-              2024, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              core-corr-clar-01>.
+              Internet-Draft, draft-ietf-core-corr-clar-02, 20 June
+              2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              core-corr-clar-02>.
 
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
@@ -1203,9 +1203,10 @@ B.15.  Since draft-lenders-dns-over-coap-04
 
 Acknowledgments
 
-   The authors of this document want to thank Carsten Bormann, Esko
-   Dijk, Thomas Fossati, Mikolai Gütschow, Ben Schwartz, Marco Tiloca,
-   and Tim Wicinski for their feedback and comments.
+   The authors of this document want to thank Mike Bishop, Carsten
+   Bormann, Elwyn B.  Davies, Esko Dijk, Thomas Fossati, Mikolai
+   Gütschow, Todd Herr, Tommy Pauly, Ben Schwartz, Marco Tiloca, and Tim
+   Wicinski for their feedback and comments.
 
 Authors' Addresses
 
