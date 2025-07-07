@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 5 January 2026                                                 
+Expires: 8 January 2026                                                 
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                             4 July 2025
+                                                             7 July 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 January 2026.
+   This Internet-Draft will expire on 8 January 2026.
 
 Copyright Notice
 
@@ -322,9 +322,9 @@ Table of Contents
       Domain Name (ADN) when obtained through DNR and MUST be the target
       name of the SVCB record when obtained through a _dns query (if
       AliasMode is used, to the target name of the AliasMode record).
-      This is usually achieved by setting that name in TLS Server Name
-      Indication (SNI) [RFC8446], as that removes the need to set the
-      value as the Uri-Host option.
+      This can be achieved efficiently by setting that name in TLS
+      Server Name Indication (SNI) [RFC8446], or by setting the Uri-Host
+      option on each request.
 
    *  For each element in the CBOR sequence of the "docpath" SvcParam
       value, a Uri-Path option MUST be added to the request.
@@ -886,9 +886,9 @@ Table of Contents
    [I-D.amsuess-core-cachable-oscore]
               Amsüss, C. and M. Tiloca, "Cacheable OSCORE", Work in
               Progress, Internet-Draft, draft-amsuess-core-cachable-
-              oscore-10, 8 January 2025,
+              oscore-11, 6 July 2025,
               <https://datatracker.ietf.org/doc/html/draft-amsuess-core-
-              cachable-oscore-10>.
+              cachable-oscore-11>.
 
    [I-D.ietf-core-corr-clar]
               Bormann, C., "Constrained Application Protocol (CoAP):
@@ -914,17 +914,17 @@ Table of Contents
    [I-D.ietf-iotops-7228bis]
               Bormann, C., Ersue, M., Keränen, A., and C. Gomez,
               "Terminology for Constrained-Node Networks", Work in
-              Progress, Internet-Draft, draft-ietf-iotops-7228bis-01, 8
-              January 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-iotops-7228bis-01>.
+              Progress, Internet-Draft, draft-ietf-iotops-7228bis-02, 7
+              July 2025, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-iotops-7228bis-02>.
 
    [I-D.lenders-core-dnr]
               Lenders, M. S., Amsüss, C., Schmidt, T. C., and M.
               Wählisch, "Discovery of Network-designated OSCORE-based
               Resolvers: Problem Statement", Work in Progress, Internet-
-              Draft, draft-lenders-core-dnr-05, 3 March 2025,
+              Draft, draft-lenders-core-dnr-06, 7 July 2025,
               <https://datatracker.ietf.org/doc/html/draft-lenders-core-
-              dnr-05>.
+              dnr-06>.
 
    [REST]     Fielding, R., "Architectural Styles and the Design of
               Network-based Software Architectures", Ph.D. Dissertation,
