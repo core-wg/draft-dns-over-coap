@@ -1596,8 +1596,11 @@ That option is only sent in the plaintext of an encrytped (D)TLS channel,
 and thus does not warrant any limitations.<a href="#section-3.2-11.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.2-11.4">
-            <p id="section-3.2-11.4.1">The target name of the SVCB record <span class="bcp14">MUST</span> be set in the Uri-Host option if the resolved address for the target name differs from the destination address.
-Otherwise, the Uri-Host option <span class="bcp14">MAY</span> be set from the target name.<a href="#section-3.2-11.4.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-11.4.1">The request URI's hostname component <span class="bcp14">MUST</span> be the Authentication Domain Name (ADN) when obtained through DNR
+and <span class="bcp14">MUST</span> be the target name of the SVCB record when obtained through a <code>_dns</code> query
+(if AliasMode is used, to the target name of the AliasMode record).
+This can be achieved efficiently by setting that name in TLS Server Name Indication (SNI) <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>,
+or by setting the Uri-Host option on each request.<a href="#section-3.2-11.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.2-11.5">
             <p id="section-3.2-11.5.1">For each element in the CBOR sequence of the "docpath" SvcParam value, a Uri-Path option <span class="bcp14">MUST</span> be added to the request.<a href="#section-3.2-11.5.1" class="pilcrow">¶</a></p>
@@ -2312,6 +2315,10 @@ The definition of this parameter can be found in <a href="#sec_doc-server-select
 <dt id="RFC8094">[RFC8094]</dt>
         <dd>
 <span class="refAuthor">Reddy, T.</span>, <span class="refAuthor">Wing, D.</span>, and <span class="refAuthor">P. Patil</span>, <span class="refTitle">"DNS over Datagram Transport Layer Security (DTLS)"</span>, <span class="seriesInfo">RFC 8094</span>, <span class="seriesInfo">DOI 10.17487/RFC8094</span>, <time datetime="2017-02" class="refDate">February 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8094">https://www.rfc-editor.org/rfc/rfc8094</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8446">[RFC8446]</dt>
+        <dd>
+<span class="refAuthor">Rescorla, E.</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 8446</span>, <span class="seriesInfo">DOI 10.17487/RFC8446</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8446">https://www.rfc-editor.org/rfc/rfc8446</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9052">[RFC9052]</dt>
         <dd>
