@@ -744,6 +744,25 @@ Change Log
 
 [^remove-changelog]: RFC Ed.: Please remove this section before publication.
 
+Since [draft-ietf-core-dns-over-coap-15]
+----------------------------------------
+- Address Genart and Artart review:
+    - Add editor's note about removing RFC7228 reference in case rfc7228bis comes out before
+      publication
+    - Address minor nits
+    - Resolve less well-known abbreviations
+    - Name default ports for "coap" and "co"
+    - Add reasoning why we also consider DTLS v1.2 (RFC 6347)
+    - Add illustrative reference for ETag generation
+- Address DNS SVCB SvcParamKeys IANA expert review:
+    - docpath: clarifications and examples
+    - Rework representation format and wire-format of "docpath"
+    - State that we don't do the full SVCB mapping
+    - Explicitly do not limit what port= can do.
+    - port limitations: We're not the SVCB mapping document
+- Address Tsvart Review
+    - Prefer ADN for Uri-Host; don't prescribe *how* it is set
+
 Since [draft-ietf-core-dns-over-coap-14]
 ----------------------------------------
 - Remove superfluous and confusing step in SVCB to request algorithm
@@ -869,6 +888,7 @@ Since [draft-lenders-dns-over-coap-04]
 
 The authors of this document want to thank Mike Bishop, Carsten Bormann, Elwyn B. Davies, Esko Dijk, Thomas Fossati, Mikolai Gütschow, Todd Herr, Tommy Pauly, Ben Schwartz, Marco Tiloca, and Tim Wicinski for their feedback and comments.
 
+[draft-ietf-core-dns-over-coap-15]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-15
 [draft-ietf-core-dns-over-coap-14]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-14
 [draft-ietf-core-dns-over-coap-13]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-13
 [draft-ietf-core-dns-over-coap-12]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-12
