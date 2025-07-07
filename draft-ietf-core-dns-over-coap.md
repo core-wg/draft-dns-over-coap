@@ -307,8 +307,8 @@ The construction algorithm for DoC requests is as follows, going through the pro
 - The request URI's hostname component MUST be the Authentication Domain Name (ADN) when obtained through DNR
   and MUST be the target name of the SVCB record when obtained through a `_dns` query
   (if AliasMode is used, to the target name of the AliasMode record).
-  This is usually achieved by setting that name in TLS Server Name Indication (SNI) {{?RFC8446}},
-  as that removes the need to set the value as the Uri-Host option.
+  This can be achieved efficiently by setting that name in TLS Server Name Indication (SNI) {{?RFC8446}},
+  or by setting the Uri-Host option on each request.
 - For each element in the CBOR sequence of the "docpath" SvcParam value, a Uri-Path option MUST be added to the request.
 - If the request constructed this way receives a response, the same SVCB record MUST be used for construction of future DoC queries.
   If not, or if the endpoint becomes unreachable, the algorithm SHOULD be repeated with the SVCB record with the next highest priority.
