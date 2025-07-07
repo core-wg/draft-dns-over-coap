@@ -276,6 +276,11 @@ Table of Contents
    scope of this specification.  [I-D.lenders-core-dnr] provides further
    exploration of the challenges here.
 
+   This document is not an SVCB mapping document for the CoAP schemes as
+   defined in Section 2.4.3 of [RFC9460].  A full SVCB mapping is being
+   prepared in [I-D.ietf-core-transport-indication], generalizing
+   mechanisms that are introduced in this document for discovery of DoC.
+
    This document specifies "docpath" as a single-valued SvcParamKey that
    is mandatory for DoC SVCB records.  If the "docpath" SvcParamKey is
    absent, the service should not be considered a valid DoC service.
@@ -344,7 +349,14 @@ Table of Contents
    *  The destination port for the request MUST be taken from the "port"
       SvcParam value, if present.  Otherwise, take the default port of
       the CoAP transport, e.g., with regards to this specification TCP
-      port 5684 for "coap" or UDP port 5684 for "co".
+      port 5684 for "coap" or UDP port 5684 for "co".  This document
+      introduces no limitations on the ports that can be used.  If a
+      malicious SVCB record allows its originator to influence message
+      payloads, Section 12 of [RFC9460] recommends placing such
+      restrictions in the SVCB mapping document.  The records used in
+      this document only infuence the Uri-Path option.  That option is
+      only sent in the plaintext of an encrytped (D)TLS channel, and
+      thus does not warrant any limitations.
 
    *  The target name of the SVCB record MUST be set in the Uri-Host
       option if the resolved address for the target name differs from
@@ -1003,9 +1015,9 @@ Table of Contents
    [I-D.ietf-iotops-7228bis]
               Bormann, C., Ersue, M., Keränen, A., and C. Gomez,
               "Terminology for Constrained-Node Networks", Work in
-              Progress, Internet-Draft, draft-ietf-iotops-7228bis-01, 8
-              January 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-iotops-7228bis-01>.
+              Progress, Internet-Draft, draft-ietf-iotops-7228bis-02, 7
+              July 2025, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-iotops-7228bis-02>.
 
    [I-D.lenders-core-dnr]
               Lenders, M. S., Amsüss, C., Schmidt, T. C., and M.
