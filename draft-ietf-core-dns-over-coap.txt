@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 5 January 2026                                                 
+Expires: 8 January 2026                                                 
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                             4 July 2025
+                                                             7 July 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 January 2026.
+   This Internet-Draft will expire on 8 January 2026.
 
 Copyright Notice
 
@@ -82,6 +82,7 @@ Table of Contents
    3.  Selection of a DoC Server
      3.1.  Discovery by Resource Type
      3.2.  Discovery using SVCB Resource Records or DNR
+       3.2.1.  Examples
    4.  Basic Message Exchange
      4.1.  The "application/dns-message" Content-Format
      4.2.  DNS Queries in CoAP Requests
@@ -232,9 +233,10 @@ Table of Contents
    terms "payload" and "body" are to be understood as equal.
 
    For better readability, in the examples in this document the binary
-   payload is shown in a hexadecimal representation as well as a human-
-   readable format.  In the actual message, however, it would be encoded
-   in the binary message format defined in [RFC1035].
+   payload and resource records are shown in a hexadecimal
+   representation as well as a human-readable format.  In the actual
+   message sent and received, however, they are encoded in the binary
+   message format defined in [RFC1035].
 
 3.  Selection of a DoC Server
 
@@ -274,27 +276,53 @@ Table of Contents
    scope of this specification.  [I-D.lenders-core-dnr] provides further
    exploration of the challenges here.
 
-   This document specifies "docpath" as a single-valued SvcParamKey
-   whose value MUST be a CBOR sequence of 0 or more text strings (see
-   [RFC8742] and [RFC8949]), delimited by the length of the
-   SvcParamValue field (in octets).  If the SvcParamValue ends within a
-   CBOR text string, the SVCB RR MUST be considered as malformed.  As a
-   text format, e.g., in DNS zone files, the CBOR diagnostic notation
-   (see [I-D.ietf-cbor-edn-literals]) of that CBOR sequence can be used.
+   This document specifies "docpath" as a single-valued SvcParamKey that
+   is mandatory for DoC SVCB records.  If the "docpath" SvcParamKey is
+   absent, the service should not be considered a valid DoC service.
 
-   Note that this specifically does not surround the text string
-   sequence with a CBOR array or a similar CBOR data item.  This path
-   format was chosen to coincide with the path representation in CRIs
-   [I-D.ietf-core-href].  Furthermore, it is easily transferable into a
-   sequence of CoAP Uri-Path options by mapping the initial byte of any
-   present CBOR text string (see [RFC8949], Section 3) into the Option
-   Delta and Option Length of the corresponding CoAP Uri-Path option,
-   provided these CBOR text strings are all of a length between 0 and 12
-   octets (see [RFC7252], Section 3.1).  Likewise, it can be transferred
-   into a URI path-abempty form (see [RFC3986], Section 3.3) by
-   replacing the initial byte of any present CBOR text string with the
-   "/" character, provided these CBOR text strings are all of a length
-   less than 24 octets and do not contain bytes that need escaping.
+   The docpath is devided up into segments of the absolute path to the
+   DoC resource (docpath-segment), each a sequence of 1-255 octets.  In
+   ABNF [RFC5234]:
+
+   docpath-segment = 1*255OCTET
+
+   Note that this restricts the length of each docpath-segment to at
+   most 255 octets.  Paths with longer segments cannot be advertised
+   with the "docpath" SvcParam and are thus NOT RECOMMENDED for the path
+   to the DoC resource.
+
+   The presentation format value of "docpath" SHALL be a comma-sperated
+   list (Appendix A.1 of [RFC9460]) of 0 or more docpath-segments.  The
+   root path "/" is represented by 0 docpath-segments, i.e., an empty
+   list.  The same considerations for the "," and "" characters in
+   docpath-segments for zone-file implementations as for the alpn-ids in
+   an "alpn" SvcParam MAY apply (Section 7.1.1 of [RFC9460]).
+
+   The wire-format value for "docpath" consists of 0 or more sequences
+   of octets prefixed by their respective length as a single octet, the
+   length octet, and these length-value pairs are concatenated to form
+   the SvcParamValue.  These pairs MUST exactly fill the SvcParamValue;
+   otherwise, the SvcParamValue is malformed.  Each such length-value
+   pair represents one segment of the absolute path to the DoC resource.
+   The root path "/" is represented by 0 length-value pairs, i.e.,
+   SvcParamValue length 0.
+
+   Note that this format uses the same encoding as the "alpn" SvcParam
+   and can reuse the decoders and encoders for that SvcParam with the
+   adaption that a length of zero is allowed.  As long as each docpath-
+   segment is of length 0 and 24 octets, it is easily transferred into
+   the path representation in CRIs [I-D.ietf-core-href] by masking each
+   length octet with the CBOR text string major type 3 (0x60 as an
+   octet, see [RFC8949]).  Furthermore, it is easily transferable into a
+   sequence of CoAP Uri-Path options by mapping each length octet into
+   the Option Delta and Option Length of the corresponding CoAP Uri-Path
+   option, provided the docpath-segments are all of a length between 0
+   and 12 octets (see [RFC7252], Section 3.1).  Likewise, it can be
+   transferred into a URI path-abempty form by replacing each length
+   octet with the "/" character None of the abovementioned prevent
+   longer docpath-segments than the considered, they just make the
+   translation harder, as they require to make space for the longer
+   delimiters, in turn requiring to move octets.
 
    To use the service binding from an SVCB RR, the DoC client MUST send
    a DoC request constructed from the SvcParams including "docpath".
@@ -334,6 +362,72 @@ Table of Contents
 
    A more generalized construction algorithm for any CoAP request can be
    found in [I-D.ietf-core-transport-indication].
+
+3.2.1.  Examples
+
+
+   // RFC Ed.: Since the number for "docpath" was not assigned at the
+   // time of writing, we used the hex ff 0a (in decimal 65290; from the
+   // private use range of SvcParamKeys) throughout this section.
+   // Before publication, please replace ff 0a with the hexadecimal
+   // representation of the final value assigned by IANA in this
+   // section.
+
+   A typical SVCB resource record response for a DoC server at the root
+   path "/" of the server looks like the following (the "docpath"
+   SvcParam is the last 4 bytes ff 0a 00 00 in the binary):
+
+   Resource record (binary):
+     04 5f 64 6e 73 07 65 78 61 6d 70 6c 65 03 6f 72
+     67 00 00 40 00 01 00 00 06 28 00 1e 00 01 03 64
+     6e 73 07 65 78 61 6d 70 6c 65 03 6f 72 67 00 00
+     01 00 03 02 63 6f ff 0a 00 00
+
+   Resource record (human-readable):
+     _dns.example.org.  1576  IN SVCB 1 dns.example.org (
+         alpn=co docpath )
+
+   The root path is RECOMMENDED but not required.  Here are two examples
+   where the "docpath" represents paths of varying depth.  First, "/dns"
+   is provided in the following example (the last 8 bytes ff 0a 00 04 03
+   64 6e 73):
+
+   Resource record (binary):
+     04 5f 64 6e 73 07 65 78 61 6d 70 6c 65 03 6f 72
+     67 00 00 40 00 01 00 00 00 55 00 22 00 01 03 64
+     6e 73 07 65 78 61 6d 70 6c 65 03 6f 72 67 00 00
+     01 00 03 02 63 6f ff 0a 00 04 03 64 6e 73
+
+   Resource record (human-readable):
+     _dns.example.org.    85  IN SVCB 1 dns.example.org (
+         alpn=co docpath=/dns )
+
+   Second, an examples for the path "/n/s" (the last 8 bytes ff 0a 00 04
+   01 6e 01 73):
+
+   Resource record (binary):
+     04 5f 64 6e 73 07 65 78 61 6d 70 6c 65 03 6f 72
+     67 00 00 40 00 01 00 00 06 6b 00 22 00 01 03 64
+     6e 73 07 65 78 61 6d 70 6c 65 03 6f 72 67 00 00
+     01 00 03 02 63 6f ff 0a 00 04 01 6e 01 73
+
+   Resource record (human-readable):
+     _dns.example.org.   643  IN SVCB 1 dns.example.org (
+         alpn=co docpath=/n/s )
+
+   If the server also provides DNS over HTTPS, "dohpath" and "docpath"
+   MAY co-exist:
+
+   Resource record (binary):
+     04 5f 64 6e 73 07 65 78 61 6d 70 6c 65 03 6f 72
+     67 00 00 40 00 01 00 00 01 ad 00 2b 00 01 03 64
+     6e 73 07 65 78 61 6d 70 6c 65 03 6f 72 67 00 00
+     01 00 06 02 68 33 02 63 6f 00 07 00 07 2f 7b 3f
+     64 6e 73 7d ff 0a 00 00
+
+   Resource record (human-readable):
+     _dns.example.org.   429  IN SVCB 1 dns.example.org (
+         alpn=h3,co dohpath=/{?dns} docpath )
 
 4.  Basic Message Exchange
 
@@ -772,13 +866,6 @@ Table of Contents
 
 10.1.  Normative References
 
-   [I-D.ietf-cbor-edn-literals]
-              Bormann, C., "CBOR Extended Diagnostic Notation (EDN)",
-              Work in Progress, Internet-Draft, draft-ietf-cbor-edn-
-              literals-17, 12 May 2025,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-cbor-
-              edn-literals-17>.
-
    [I-D.ietf-core-coap-dtls-alpn]
               Lenders, M. S., Amsüss, C., Schmidt, T. C., and M.
               Wählisch, "ALPN ID Specification for CoAP over DTLS", Work
@@ -800,6 +887,11 @@ Table of Contents
               Resource Identifier (URI): Generic Syntax", STD 66,
               RFC 3986, DOI 10.17487/RFC3986, January 2005,
               <https://www.rfc-editor.org/rfc/rfc3986>.
+
+   [RFC5234]  Crocker, D., Ed. and P. Overell, "Augmented BNF for Syntax
+              Specifications: ABNF", STD 68, RFC 5234,
+              DOI 10.17487/RFC5234, January 2008,
+              <https://www.rfc-editor.org/rfc/rfc5234>.
 
    [RFC6347]  Rescorla, E. and N. Modadugu, "Datagram Transport Layer
               Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
@@ -883,9 +975,9 @@ Table of Contents
    [I-D.amsuess-core-cachable-oscore]
               Amsüss, C. and M. Tiloca, "Cacheable OSCORE", Work in
               Progress, Internet-Draft, draft-amsuess-core-cachable-
-              oscore-10, 8 January 2025,
+              oscore-11, 6 July 2025,
               <https://datatracker.ietf.org/doc/html/draft-amsuess-core-
-              cachable-oscore-10>.
+              cachable-oscore-11>.
 
    [I-D.ietf-core-corr-clar]
               Bormann, C., "Constrained Application Protocol (CoAP):
@@ -919,9 +1011,9 @@ Table of Contents
               Lenders, M. S., Amsüss, C., Schmidt, T. C., and M.
               Wählisch, "Discovery of Network-designated OSCORE-based
               Resolvers: Problem Statement", Work in Progress, Internet-
-              Draft, draft-lenders-core-dnr-05, 3 March 2025,
+              Draft, draft-lenders-core-dnr-06, 7 July 2025,
               <https://datatracker.ietf.org/doc/html/draft-lenders-core-
-              dnr-05>.
+              dnr-06>.
 
    [REST]     Fielding, R., "Architectural Styles and the Design of
               Network-based Software Architectures", Ph.D. Dissertation,
