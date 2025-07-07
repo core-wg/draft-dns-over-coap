@@ -299,10 +299,11 @@ The construction algorithm for DoC requests is as follows, going through the pro
   As a fallback, an address MAY be queried for the target name of the SVCB record.
 - The destination port for the request MUST be taken from the "port" SvcParam value, if present.
   Otherwise, take the default port of the CoAP transport, e.g., with regards to this specification TCP port 5684 for "coap" or UDP port 5684 for "co".
-  There are no limitations on the ports that can be used.
-  If a malicious SVCB record allows its originator to influence message payloads, {{Section 12 of -svcb}} recommends placing such restrictions.
-  However, the SVCB record for DoC services only infuences the Uri-Path option.
-  That option is only sent in the plaintext of an encrytped (D)TLS channel.
+  This document introduces no limitations on the ports that can be used.
+  If a malicious SVCB record allows its originator to influence message payloads, {{Section 12 of -svcb}} recommends placing such restrictions in the SVCB mapping document.
+  The records used in this document only infuence the Uri-Path option.
+  That option is only sent in the plaintext of an encrytped (D)TLS channel,
+  and thus does not warrant any limitations.
 - The target name of the SVCB record MUST be set in the Uri-Host option if the resolved address for the target name differs from the destination address.
   Otherwise, the Uri-Host option MAY be set from the target name.
 - For each element in the CBOR sequence of the "docpath" SvcParam value, a Uri-Path option MUST be added to the request.
