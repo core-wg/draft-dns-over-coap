@@ -117,7 +117,7 @@ informative:
 
 This document defines a protocol for exchanging DNS messages over the
 Constrained Application Protocol (CoAP). These CoAP messages can be protected
-by DTLS-Secured CoAP (CoAPS) or Object Security for Constrained RESTful
+by (D)TLS-Secured CoAP (CoAPS) or Object Security for Constrained RESTful
 Environments (OSCORE) to provide encrypted DNS message exchange for
 constrained devices in the Internet of Things (IoT).
 
@@ -131,6 +131,7 @@ This document defines DNS over CoAP (DoC), a protocol to send DNS
 Protocol (CoAP) {{-coap}}. Each DNS query-response pair is mapped into a
 CoAP message exchange. Each CoAP message can be secured by DTLS {{-dtls12}} {{-dtls13}} or
 Object Security for Constrained RESTful Environments (OSCORE) {{-oscore}}
+but also TLS {{-coap-tcp}} {{?RFC8446}}
 to ensure message integrity and confidentiality.
 
 The application use case of DoC is inspired by DNS over HTTPS {{-doh}}
