@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 8 January 2026                                                 
+Expires: 10 January 2026                                                
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                             7 July 2025
+                                                             9 July 2025
 
 
                           DNS over CoAP (DoC)
@@ -22,7 +22,7 @@ Abstract
 
    This document defines a protocol for exchanging DNS messages over the
    Constrained Application Protocol (CoAP).  These CoAP messages can be
-   protected by DTLS-Secured CoAP (CoAPS) or Object Security for
+   protected by (D)TLS-Secured CoAP (CoAPS) or Object Security for
    Constrained RESTful Environments (OSCORE) to provide encrypted DNS
    message exchange for constrained devices in the Internet of Things
    (IoT).
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 January 2026.
+   This Internet-Draft will expire on 10 January 2026.
 
 Copyright Notice
 
@@ -137,8 +137,8 @@ Table of Contents
    Application Protocol (CoAP) [RFC7252].  Each DNS query-response pair
    is mapped into a CoAP message exchange.  Each CoAP message can be
    secured by DTLS [RFC6347] [RFC9147] or Object Security for
-   Constrained RESTful Environments (OSCORE) [RFC8613] to ensure message
-   integrity and confidentiality.
+   Constrained RESTful Environments (OSCORE) [RFC8613] but also TLS
+   [RFC8323] [RFC8446] to ensure message integrity and confidentiality.
 
    The application use case of DoC is inspired by DNS over HTTPS
    [RFC8484] (DoH).  DoC, however, aims for deployment in the
@@ -1005,16 +1005,16 @@ Table of Contents
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
               Identifiers", Work in Progress, Internet-Draft, draft-
-              ietf-core-href-22, 20 March 2025,
+              ietf-core-href-23, 7 July 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              href-22>.
+              href-23>.
 
    [I-D.ietf-core-transport-indication]
               Amsüss, C. and M. S. Lenders, "CoAP Transport Indication",
               Work in Progress, Internet-Draft, draft-ietf-core-
-              transport-indication-08, 3 March 2025,
+              transport-indication-09, 7 July 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              transport-indication-08>.
+              transport-indication-09>.
 
    [I-D.ietf-iotops-7228bis]
               Bormann, C., Ersue, M., Keränen, A., and C. Gomez,
