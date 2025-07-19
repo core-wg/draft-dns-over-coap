@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 10 January 2026                                                
+Expires: 20 January 2026                                                
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                             9 July 2025
+                                                            19 July 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 January 2026.
+   This Internet-Draft will expire on 20 January 2026.
 
 Copyright Notice
 
@@ -297,7 +297,7 @@ Table of Contents
    with the "docpath" SvcParam and are thus NOT RECOMMENDED for the path
    to the DoC resource.
 
-   The presentation format value of "docpath" SHALL be a comma-sperated
+   The presentation format value of "docpath" SHALL be a comma-separated
    list (Appendix A.1 of [RFC9460]) of 0 or more docpath-segments.  The
    root path "/" is represented by 0 docpath-segments, i.e., an empty
    list.  The same considerations for the "," and "" characters in
@@ -305,13 +305,14 @@ Table of Contents
    an "alpn" SvcParam MAY apply (Section 7.1.1 of [RFC9460]).
 
    The wire-format value for "docpath" consists of 0 or more sequences
-   of octets prefixed by their respective length as a single octet, the
-   length octet, and these length-value pairs are concatenated to form
-   the SvcParamValue.  These pairs MUST exactly fill the SvcParamValue;
-   otherwise, the SvcParamValue is malformed.  Each such length-value
-   pair represents one segment of the absolute path to the DoC resource.
-   The root path "/" is represented by 0 length-value pairs, i.e.,
-   SvcParamValue length 0.
+   of octets prefixed by their respective length as a single octet.  We
+   call this single octets the length octet.  The length octet and the
+   corresponding sequence form a length-value pair.  These length-value
+   pairs are concatenated to form the SvcParamValue.  These pairs MUST
+   exactly fill the SvcParamValue; otherwise, the SvcParamValue is
+   malformed.  Each such length-value pair represents one segment of the
+   absolute path to the DoC resource.  The root path "/" is represented
+   by 0 length-value pairs, i.e., SvcParamValue length 0.
 
    Note that this format uses the same encoding as the "alpn" SvcParam
    and can reuse the decoders and encoders for that SvcParam with the
@@ -416,7 +417,7 @@ Table of Contents
 
    Resource record (human-readable):
      _dns.example.org.    85  IN SVCB 1 dns.example.org (
-         alpn=co docpath=/dns )
+         alpn=co docpath=dns )
 
    Second, an examples for the path "/n/s" (the last 8 bytes ff 0a 00 04
    01 6e 01 73):
@@ -429,7 +430,7 @@ Table of Contents
 
    Resource record (human-readable):
      _dns.example.org.   643  IN SVCB 1 dns.example.org (
-         alpn=co docpath=/n/s )
+         alpn=co docpath=n,s )
 
    If the server also provides DNS over HTTPS, "dohpath" and "docpath"
    MAY co-exist:
