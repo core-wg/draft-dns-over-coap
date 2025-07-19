@@ -350,7 +350,7 @@ paths of varying depth. First, "/dns" is provided in the following example
 
     Resource record (human-readable):
       _dns.example.org.    85  IN SVCB 1 dns.example.org (
-          alpn=co docpath=/dns )
+          alpn=co docpath=dns )
 
 Second, an examples for the path "/n/s" (the last 8 bytes `ff 0a 00 04 01 6e 01 73`):
 
@@ -362,7 +362,7 @@ Second, an examples for the path "/n/s" (the last 8 bytes `ff 0a 00 04 01 6e 01 
 
     Resource record (human-readable):
       _dns.example.org.   643  IN SVCB 1 dns.example.org (
-          alpn=co docpath=/n/s )
+          alpn=co docpath=n,s )
 
 
 If the server also provides DNS over HTTPS, "dohpath" and "docpath" MAY co-exist:
