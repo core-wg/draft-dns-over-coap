@@ -264,7 +264,7 @@ Note that this restricts the length of each docpath-segment to at most 255 octet
 Paths with longer segments cannot be advertised with the "docpath" SvcParam and are thus NOT
 RECOMMENDED for the path to the DoC resource.
 
-The presentation format value of "docpath" SHALL be a comma-sperated list ({{Appendix A.1 of -svcb}})
+The presentation format value of "docpath" SHALL be a comma-separated list ({{Appendix A.1 of -svcb}})
 of 0 or more docpath-segments.
 The root path "/" is represented by 0 docpath-segments, i.e., an empty list.
 The same considerations for the "," and "\" characters in docpath-segments for zone-file
