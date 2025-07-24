@@ -1566,7 +1566,7 @@ The same considerations for the "," and "" characters in docpath-segments for zo
 implementations as for the alpn-ids in an "alpn" SvcParam <span class="bcp14">MAY</span> apply (<span><a href="https://rfc-editor.org/rfc/rfc9460#section-7.1.1" class="relref">Section 7.1.1</a> of [<a href="#RFC9460" class="cite xref">RFC9460</a>]</span>).<a href="#section-3.2-7" class="pilcrow">¶</a></p>
 <p id="section-3.2-8">The wire-format value for "docpath" consists of 0 or more sequences of octets prefixed by their
 respective length as a single octet.
-We call this single octets the length octet.
+We call this single octet the length octet.
 The length octet and the corresponding sequence form a length-value pair.
 These length-value pairs are concatenated to form the SvcParamValue.
 These pairs <span class="bcp14">MUST</span> exactly fill the SvcParamValue; otherwise, the SvcParamValue is malformed.
