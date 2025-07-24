@@ -272,7 +272,7 @@ implementations as for the alpn-ids in an "alpn" SvcParam MAY apply ({{Section 7
 
 The wire-format value for "docpath" consists of 0 or more sequences of octets prefixed by their
 respective length as a single octet.
-We call this single octets the length octet.
+We call this single octet the length octet.
 The length octet and the corresponding sequence form a length-value pair.
 These length-value pairs are concatenated to form the SvcParamValue.
 These pairs MUST exactly fill the SvcParamValue; otherwise, the SvcParamValue is malformed.
