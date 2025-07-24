@@ -747,6 +747,12 @@ Change Log
 
 [^remove-changelog]: RFC Ed.: Please remove this section before publication.
 
+Since [draft-ietf-core-dns-over-coap-16]
+----------------------------------------
+- Mention TLS as possible protection mechanism in abstract and intro
+- Fix representation format in the docpath examples
+- Make docpath wire-format paragraph easier to parse
+
 Since [draft-ietf-core-dns-over-coap-15]
 ----------------------------------------
 - Address Genart and Artart review:
@@ -891,6 +897,7 @@ Since [draft-lenders-dns-over-coap-04]
 
 The authors of this document want to thank Mike Bishop, Carsten Bormann, Elwyn B. Davies, Esko Dijk, Thomas Fossati, Mikolai Gütschow, Todd Herr, Tommy Pauly, Ben Schwartz, Marco Tiloca, and Tim Wicinski for their feedback and comments.
 
+[draft-ietf-core-dns-over-coap-16]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-16
 [draft-ietf-core-dns-over-coap-15]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-15
 [draft-ietf-core-dns-over-coap-14]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-14
 [draft-ietf-core-dns-over-coap-13]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-13
