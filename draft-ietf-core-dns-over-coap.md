@@ -417,7 +417,6 @@ DNS protocol as defined in {{-dns}} is not needed.
 When sending a CoAP request, a DoC client MUST include the DNS query in the body of the CoAP request.
 As specified in {{Section 2.3.1 of -coap-fetch}}, the type of content of the body MUST be indicated using the Content-Format option.
 This document specifies the usage of Content-Format "application/dns-message" (for details, see {{sec:content-format}}).
-A DoC server MUST be able to parse requests of Content-Format "application/dns-message".
 
 ### Support of CoAP Caching {#sec:req-caching}
 
