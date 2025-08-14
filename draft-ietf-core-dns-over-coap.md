@@ -72,7 +72,6 @@ normative:
   RFC8323: coap-tcp
   RFC8484: doh
   RFC8613: oscore
-  RFC8742: cborseq
   RFC8765: dns-push
   RFC8949: cbor
   RFC9147: dtls13
