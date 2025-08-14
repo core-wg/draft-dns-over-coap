@@ -737,33 +737,26 @@ Operational Considerations
 ==========================
 
 Many other DNS transports may co-exist on the DoC server, such as DNS over UDP {{-dns}}, DNS over (D)TLS {{-dot}} {{-dodtls}}, DNS over HTTPS {{-doh}}, or DNS over QUIC {{-doq}}.
-The choice of preference which one to advertise or which one to configure is very use case dependent.
-Protected transports employing transport or object security should be preferred.
-In constrained scenarios with small link layer PDUs, DNS over CoAP should take preference over DNS over DTLS.
+In principle, transports employing channel or object security should be preferred.
+In constrained scenarios, DNS over CoAP is preferable to DNS over DTLS.
+The final decision regarding the preference, however, heavily depends on the use case and is therefore left to the implementers or users and is not defined in this document.
 
-At the time of writing, CoAP does not support redirections.
-Nevertheless, changing DNS servers may lead to different results, e.g., with split horizon DNS
-configurations {{?RFC6950}}.
-Any general considerations on a potential CoAP redirect or changing DNS servers apply.
+CoAP supports Confirmable and Non-Confirmable messages {{-coap}} to deploy different levels of reliability.
+This document, however, does not enforce any of these message types, as the decision on which one is appropriate depends on the characteristics of the network where DoC is deployed.
 
-CoAP over unreliable transport layers such as UDP might support different message
-types for Confirmable or Non-Confirmable messages {{-coap}}.
-This document does not enforce any of these message types, as they are very dependent on the
-circumstances of the network and transport chosen for CoAP.
-As DNS over UDP also works over unreliable transports, DNS clients are usually aware, that they might
-never receive a response to a query even after many retries.
-Non-Confirmable messages just reduce the number of such retries to one.
+At the time of writing, CoAP does not support redirection.
+Nevertheless, changing DNS servers may lead to different results.
+In case an HTTP-like redirection is supported in the future, the same considerations need to be taken into account as for changing a DNS server.
 
-A careless administration might lead to CoAP proxies forming infinite loops.
-The CoAP Hop-Limit option {{-coap-hop-limit}} helps to mitigate such loops.
+Mistakes might lead to CoAP proxies forming infinite loops.
+Using the CoAP Hop-Limit option {{-coap-hop-limit}} mitigates such loops.
 
 {{sec:resp-codes}} specifies that DNS operational errors should be reported back to a DoC client
 using the appropriate DNS RCODE.
 If a DoC client did not receive any successful DNS message from a DoC server for a while, it might
 indicate that the DoC server lost connectivity to the upstream DNS infrastructure.
-This should be handled like any recursive resolver that lost connectivity to the upstream DNS
-infrastructure.
-For CoAP errors, the usual mechanisms for CoAP response codes apply.
+The DoC client should handle this error case like a recursive resolver that lost connectivity to the upstream DNS infrastructure.
+In case of CoAP errors, the usual mechanisms for CoAP response codes apply.
 
 DNS extensions that are specific to the choice of transport, such as {{?RFC7828}}, are not applicable to DoC.
 
