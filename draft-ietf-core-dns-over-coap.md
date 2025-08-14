@@ -431,7 +431,7 @@ CoAP body is encoded in the "application/dns-message" Content-Format.
 
     Payload (human-readable):
       ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
-      ;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
+      ;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
 
       ;; QUESTION SECTION:
       ;example.org.             IN      AAAA
