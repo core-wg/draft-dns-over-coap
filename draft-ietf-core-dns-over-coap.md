@@ -388,8 +388,8 @@ This document defines a CoAP Content-Format identifier for the Internet
 media type "application/dns-message" to be the mnemonic 553 — based on the port assignment of DNS.
 This media type is defined as in {{Section 6 of -doh}}, i.e., a single DNS message encoded in the DNS on-the-wire format {{-dns}}.
 Both DoC client and DoC server MUST be able to parse contents in the "application/dns-message" Content-Format.
-For the purposes of this document, only OPCODE 0 (Query) is supported for DNS messages.
-Future work might provide specifications and considerations for other values of OPCODE.
+This document only specifies OPCODE 0 (Query) for DNS over CoAP messages.
+Future documents can provide considerations for additional OPCODEs or extend its specification (e.g. by describing whether other CoAP codes need to be used for which OPCODE).
 Unless another error takes precedence, a DoC server uses RCODE = 4, NotImp {{-dns}}, in its response to a query with an OPCODE that it does not implement (see also {{sec:resp-examples}}).
 
 DNS Queries in CoAP Requests    {#sec:queries}
