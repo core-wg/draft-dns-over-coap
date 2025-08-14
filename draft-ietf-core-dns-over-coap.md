@@ -77,6 +77,10 @@ normative:
   RFC8768: coap-hop-limit
   RFC8949: cbor
   RFC9147: dtls13
+  RFC9460: svcb
+  RFC9461: svcb-dns
+  RFC9462: ddr
+  RFC9463: dnr
   I-D.ietf-core-coap-dtls-alpn: coap-dtls-alpn
 
 informative:
@@ -90,10 +94,6 @@ informative:
   RFC9176: core-rd
   RFC9250: doq
   RFC9364: dnssec
-  RFC9460: svcb
-  RFC9461: svcb-dns
-  RFC9462: ddr
-  RFC9463: dnr
   RFC9528: edhoc
   I-D.ietf-core-href: cri
   I-D.ietf-core-transport-indication: transport-indication
