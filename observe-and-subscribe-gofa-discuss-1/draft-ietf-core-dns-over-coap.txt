@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 8 January 2026                                                 
+Expires: 15 February 2026                                               
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                             7 July 2025
+                                                          14 August 2025
 
 
                           DNS over CoAP (DoC)
@@ -22,7 +22,7 @@ Abstract
 
    This document defines a protocol for exchanging DNS messages over the
    Constrained Application Protocol (CoAP).  These CoAP messages can be
-   protected by DTLS-Secured CoAP (CoAPS) or Object Security for
+   protected by (D)TLS-Secured CoAP (CoAPS) or Object Security for
    Constrained RESTful Environments (OSCORE) to provide encrypted DNS
    message exchange for constrained devices in the Internet of Things
    (IoT).
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 January 2026.
+   This Internet-Draft will expire on 15 February 2026.
 
 Copyright Notice
 
@@ -111,22 +111,23 @@ Table of Contents
      10.2.  Informative References
    Appendix A.  Evaluation
    Appendix B.  Change Log
-     B.1.  Since draft-ietf-core-dns-over-coap-15
-     B.2.  Since draft-ietf-core-dns-over-coap-14
-     B.3.  Since draft-ietf-core-dns-over-coap-13
-     B.4.  Since draft-ietf-core-dns-over-coap-12
-     B.5.  Since draft-ietf-core-dns-over-coap-10
-     B.6.  Since draft-ietf-core-dns-over-coap-09
-     B.7.  Since draft-ietf-core-dns-over-coap-08
-     B.8.  Since draft-ietf-core-dns-over-coap-07
-     B.9.  Since draft-ietf-core-dns-over-coap-06
-     B.10. Since draft-ietf-core-dns-over-coap-05
-     B.11. Since draft-ietf-core-dns-over-coap-04
-     B.12. Since draft-ietf-core-dns-over-coap-03
-     B.13. Since draft-ietf-core-dns-over-coap-02
-     B.14. Since draft-ietf-core-dns-over-coap-01
-     B.15. Since draft-ietf-core-dns-over-coap-00
-     B.16. Since draft-lenders-dns-over-coap-04
+     B.1.  Since draft-ietf-core-dns-over-coap-16
+     B.2.  Since draft-ietf-core-dns-over-coap-15
+     B.3.  Since draft-ietf-core-dns-over-coap-14
+     B.4.  Since draft-ietf-core-dns-over-coap-13
+     B.5.  Since draft-ietf-core-dns-over-coap-12
+     B.6.  Since draft-ietf-core-dns-over-coap-10
+     B.7.  Since draft-ietf-core-dns-over-coap-09
+     B.8.  Since draft-ietf-core-dns-over-coap-08
+     B.9.  Since draft-ietf-core-dns-over-coap-07
+     B.10. Since draft-ietf-core-dns-over-coap-06
+     B.11. Since draft-ietf-core-dns-over-coap-05
+     B.12. Since draft-ietf-core-dns-over-coap-04
+     B.13. Since draft-ietf-core-dns-over-coap-03
+     B.14. Since draft-ietf-core-dns-over-coap-02
+     B.15. Since draft-ietf-core-dns-over-coap-01
+     B.16. Since draft-ietf-core-dns-over-coap-00
+     B.17. Since draft-lenders-dns-over-coap-04
    Acknowledgments
    Authors' Addresses
 
@@ -137,8 +138,8 @@ Table of Contents
    Application Protocol (CoAP) [RFC7252].  Each DNS query-response pair
    is mapped into a CoAP message exchange.  Each CoAP message can be
    secured by DTLS [RFC6347] [RFC9147] or Object Security for
-   Constrained RESTful Environments (OSCORE) [RFC8613] to ensure message
-   integrity and confidentiality.
+   Constrained RESTful Environments (OSCORE) [RFC8613] but also TLS
+   [RFC8323] [RFC8446] to ensure message integrity and confidentiality.
 
    The application use case of DoC is inspired by DNS over HTTPS
    [RFC8484] (DoH).  DoC, however, aims for deployment in the
@@ -297,7 +298,7 @@ Table of Contents
    with the "docpath" SvcParam and are thus NOT RECOMMENDED for the path
    to the DoC resource.
 
-   The presentation format value of "docpath" SHALL be a comma-sperated
+   The presentation format value of "docpath" SHALL be a comma-separated
    list (Appendix A.1 of [RFC9460]) of 0 or more docpath-segments.  The
    root path "/" is represented by 0 docpath-segments, i.e., an empty
    list.  The same considerations for the "," and "" characters in
@@ -305,13 +306,14 @@ Table of Contents
    an "alpn" SvcParam MAY apply (Section 7.1.1 of [RFC9460]).
 
    The wire-format value for "docpath" consists of 0 or more sequences
-   of octets prefixed by their respective length as a single octet, the
-   length octet, and these length-value pairs are concatenated to form
-   the SvcParamValue.  These pairs MUST exactly fill the SvcParamValue;
-   otherwise, the SvcParamValue is malformed.  Each such length-value
-   pair represents one segment of the absolute path to the DoC resource.
-   The root path "/" is represented by 0 length-value pairs, i.e.,
-   SvcParamValue length 0.
+   of octets prefixed by their respective length as a single octet.  We
+   call this single octet the length octet.  The length octet and the
+   corresponding sequence form a length-value pair.  These length-value
+   pairs are concatenated to form the SvcParamValue.  These pairs MUST
+   exactly fill the SvcParamValue; otherwise, the SvcParamValue is
+   malformed.  Each such length-value pair represents one segment of the
+   absolute path to the DoC resource.  The root path "/" is represented
+   by 0 length-value pairs, i.e., SvcParamValue length 0.
 
    Note that this format uses the same encoding as the "alpn" SvcParam
    and can reuse the decoders and encoders for that SvcParam with the
@@ -416,7 +418,7 @@ Table of Contents
 
    Resource record (human-readable):
      _dns.example.org.    85  IN SVCB 1 dns.example.org (
-         alpn=co docpath=/dns )
+         alpn=co docpath=dns )
 
    Second, an examples for the path "/n/s" (the last 8 bytes ff 0a 00 04
    01 6e 01 73):
@@ -429,7 +431,7 @@ Table of Contents
 
    Resource record (human-readable):
      _dns.example.org.   643  IN SVCB 1 dns.example.org (
-         alpn=co docpath=/n/s )
+         alpn=co docpath=n,s )
 
    If the server also provides DNS over HTTPS, "dohpath" and "docpath"
    MAY co-exist:
@@ -662,24 +664,27 @@ Table of Contents
    The DoC server SHOULD provide Observe capabilities on its DoC
    resource and do as follows.
 
-   If the CoAP request indicates that the DoC client wants to observe a
-   resource record, a DoC server MAY use a DNS Subscribe message instead
-   of a classic DNS query to fetch the information on behalf of a DoC
-   client.  If this is not supported by the DoC server, it MUST act as
-   if the DoC resource were not observable.
+   A DoC server MAY subscribe to DNS push notifications (Section 6.2 of
+   [RFC8765]; using a DNS Subscribe message) instead of a classic DNS
+   query to fetch the information on behalf of a DoC client.
+
+   This is particularly useful when a CoAP request indicates that the
+   DoC client wants to observe a resource record, or when a short-lived
+   record is requested frequently.  After the list of observers for a
+   particular DNS query has become empty (by explicit or implicit
+   cancellation of the observation as per Section 3.6 of [RFC7641]), and
+   no other reason to subscribe to that request is present, the DoC
+   server SHOULD cancel the corresponding subscription (Section 6.4 of
+   [RFC8765]; this can involve sending an DNS Unsubscribe message or
+   closing the session).
 
    Whenever the DoC server receives a DNS Push message from the DNS
    infrastructure for an observed resource record, the DoC server sends
    an appropriate Observe notification response to the DoC client.
 
-   If no more DoC clients observe a resource record for which the DoC
-   server has an open subscription, the DoC server MUST use a DNS
-   Unsubscribe message to close its subscription to the resource record
-   as well.
-
-   A DoC server can still provide Observe capabilities to its DoC
-   resource without providing this proxying to DNS Push, e.g., if it
-   receives new information on a record through other means.
+   A server that can not proxy to DNS Push (or any other means of
+   obtaining new records) SHOULD NOT send a notification response (i.e.,
+   it should not send the Observe option).
 
 5.2.  OSCORE
 
@@ -886,9 +891,9 @@ Table of Contents
               Lenders, M. S., Amsüss, C., Schmidt, T. C., and M.
               Wählisch, "ALPN ID Specification for CoAP over DTLS", Work
               in Progress, Internet-Draft, draft-ietf-core-coap-dtls-
-              alpn-04, 1 April 2025,
+              alpn-05, 11 August 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              coap-dtls-alpn-04>.
+              coap-dtls-alpn-05>.
 
    [RFC1035]  Mockapetris, P., "Domain names - implementation and
               specification", STD 13, RFC 1035, DOI 10.17487/RFC1035,
@@ -1005,16 +1010,16 @@ Table of Contents
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
               Identifiers", Work in Progress, Internet-Draft, draft-
-              ietf-core-href-22, 20 March 2025,
+              ietf-core-href-23, 7 July 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              href-22>.
+              href-23>.
 
    [I-D.ietf-core-transport-indication]
               Amsüss, C. and M. S. Lenders, "CoAP Transport Indication",
               Work in Progress, Internet-Draft, draft-ietf-core-
-              transport-indication-08, 3 March 2025,
+              transport-indication-09, 7 July 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              transport-indication-08>.
+              transport-indication-09>.
 
    [I-D.ietf-iotops-7228bis]
               Bormann, C., Ersue, M., Keränen, A., and C. Gomez,
@@ -1123,7 +1128,17 @@ Appendix B.  Change Log
 
    // RFC Ed.: Please remove this section before publication.
 
-B.1.  Since draft-ietf-core-dns-over-coap-15
+B.1.  Since draft-ietf-core-dns-over-coap-16
+      (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
+      coap-16)
+
+   *  Mention TLS as possible protection mechanism in abstract and intro
+
+   *  Fix representation format in the docpath examples
+
+   *  Make docpath wire-format paragraph easier to parse
+
+B.2.  Since draft-ietf-core-dns-over-coap-15
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-15)
 
@@ -1158,7 +1173,7 @@ B.1.  Since draft-ietf-core-dns-over-coap-15
 
       -  Prefer ADN for Uri-Host; don't prescribe _how_ it is set
 
-B.2.  Since draft-ietf-core-dns-over-coap-14
+B.3.  Since draft-ietf-core-dns-over-coap-14
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-14)
 
@@ -1190,13 +1205,13 @@ B.2.  Since draft-ietf-core-dns-over-coap-14
 
       -  General grammar, wording, and spelling cleanups
 
-B.3.  Since draft-ietf-core-dns-over-coap-13
+B.4.  Since draft-ietf-core-dns-over-coap-13
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-13)
 
    *  Address shepherd review
 
-B.4.  Since draft-ietf-core-dns-over-coap-12
+B.5.  Since draft-ietf-core-dns-over-coap-12
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-12)
 
@@ -1206,7 +1221,7 @@ B.4.  Since draft-ietf-core-dns-over-coap-12
 
    *  Address Mikolai's review
 
-B.5.  Since draft-ietf-core-dns-over-coap-10
+B.6.  Since draft-ietf-core-dns-over-coap-10
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-10)
 
@@ -1240,7 +1255,7 @@ B.5.  Since draft-ietf-core-dns-over-coap-10
 
    *  General language check pass
 
-B.6.  Since draft-ietf-core-dns-over-coap-09
+B.7.  Since draft-ietf-core-dns-over-coap-09
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-09)
 
@@ -1255,13 +1270,13 @@ B.6.  Since draft-ietf-core-dns-over-coap-09
    *  Add to security considerations: unprotected upstream DNS and
       DNSSEC
 
-B.7.  Since draft-ietf-core-dns-over-coap-08
+B.8.  Since draft-ietf-core-dns-over-coap-08
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-08)
 
    *  Update Cenk's Affiliation
 
-B.8.  Since draft-ietf-core-dns-over-coap-07
+B.9.  Since draft-ietf-core-dns-over-coap-07
       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
       coap-07)
 
@@ -1275,9 +1290,9 @@ B.8.  Since draft-ietf-core-dns-over-coap-07
 
    *  Implementation Status: Update to current version
 
-B.9.  Since draft-ietf-core-dns-over-coap-06
-      (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
-      coap-06)
+B.10.  Since draft-ietf-core-dns-over-coap-06
+       (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
+       coap-06)
 
    *  Add "docpath" SVCB ParamKey definition
 
@@ -1290,13 +1305,13 @@ B.9.  Since draft-ietf-core-dns-over-coap-06
 
       -  IANA: unify self references
 
-B.10.  Since draft-ietf-core-dns-over-coap-05
+B.11.  Since draft-ietf-core-dns-over-coap-05
        (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
        coap-05)
 
    *  Add references to relevant SVCB/DNR RFCs and drafts
 
-B.11.  Since draft-ietf-core-dns-over-coap-04
+B.12.  Since draft-ietf-core-dns-over-coap-04
        (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
        coap-04)
 
@@ -1304,7 +1319,7 @@ B.11.  Since draft-ietf-core-dns-over-coap-04
 
    *  Address early IANA review
 
-B.12.  Since draft-ietf-core-dns-over-coap-03
+B.13.  Since draft-ietf-core-dns-over-coap-03
        (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
        coap-03)
 
@@ -1313,7 +1328,7 @@ B.12.  Since draft-ietf-core-dns-over-coap-03
 
    *  Add Appendix A on evaluation
 
-B.13.  Since draft-ietf-core-dns-over-coap-02
+B.14.  Since draft-ietf-core-dns-over-coap-02
        (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
        coap-02)
 
@@ -1335,7 +1350,7 @@ B.13.  Since draft-ietf-core-dns-over-coap-02
 
    *  Don't call OSCORE end-to-end encrypted
 
-B.14.  Since draft-ietf-core-dns-over-coap-01
+B.15.  Since draft-ietf-core-dns-over-coap-01
        (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
        coap-01)
 
@@ -1348,7 +1363,7 @@ B.14.  Since draft-ietf-core-dns-over-coap-01
 
    *  Add appendix on reference implementation
 
-B.15.  Since draft-ietf-core-dns-over-coap-00
+B.16.  Since draft-ietf-core-dns-over-coap-00
        (https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-
        coap-00)
 
@@ -1362,7 +1377,7 @@ B.15.  Since draft-ietf-core-dns-over-coap-00
 
    *  Add security considerations on ID=0
 
-B.16.  Since draft-lenders-dns-over-coap-04
+B.17.  Since draft-lenders-dns-over-coap-04
        (https://datatracker.ietf.org/doc/html/draft-lenders-dns-over-
        coap-04)
 
