@@ -426,12 +426,12 @@ CoAP body is encoded in the "application/dns-message" Content-Format.
     Content-Format: 553 (application/dns-message)
     Accept: 553 (application/dns-message)
     Payload (binary):
-      00 00 01 20 00 01 00 00 00 00 00 00 07 65 78 61
+      00 00 01 00 00 01 00 00 00 00 00 00 07 65 78 61
       6d 70 6c 65 03 6f 72 67 00 00 1c 00 01
 
     Payload (human-readable):
       ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
-      ;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
+      ;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
 
       ;; QUESTION SECTION:
       ;example.org.             IN      AAAA
