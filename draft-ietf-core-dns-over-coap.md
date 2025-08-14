@@ -416,7 +416,7 @@ This ensures that the CoAP Cache-Key (see {{-coap-fetch, Section 2}}) does not c
 Apart from losing these caching benefits, there is no harm it not setting it to 0, e.g., when the query was received from somewhere else.
 In any instance, a DoC server MUST copy the ID from the query in its response to that query.
 
-### Examples {#sec:req-examples}
+### Example {#sec:req-examples}
 
 The following example illustrates the usage of a CoAP message to
 resolve "example.org. IN AAAA" based on the URI "coaps://\[2001:db8::1\]/". The
