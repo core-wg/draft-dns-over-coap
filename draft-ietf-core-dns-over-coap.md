@@ -114,7 +114,7 @@ informative:
       PDF: https://www.ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation.pdf
 --- abstract
 
-This document defines a protocol for exchanging DNS messages over the
+This document defines a protocol for exchanging DNS queries (OPCODE 0) over the
 Constrained Application Protocol (CoAP). These CoAP messages can be protected
 by (D)TLS-Secured CoAP (CoAPS) or Object Security for Constrained RESTful
 Environments (OSCORE) to provide encrypted DNS message exchange for
@@ -127,7 +127,7 @@ Introduction
 
 This document defines DNS over CoAP (DoC), a protocol to send DNS
 {{-dns}} queries and get DNS responses over the Constrained Application
-Protocol (CoAP) {{-coap}}. Each DNS query-response pair is mapped into a
+Protocol (CoAP) {{-coap}} using OPCODE 0 (Query). Each DNS query-response pair is mapped into a
 CoAP message exchange. Each CoAP message can be secured by DTLS {{-dtls12}} {{-dtls13}} or
 Object Security for Constrained RESTful Environments (OSCORE) {{-oscore}}
 but also TLS {{-coap-tcp}} {{?RFC8446}}
