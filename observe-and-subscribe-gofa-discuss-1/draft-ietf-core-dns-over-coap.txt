@@ -683,8 +683,8 @@ Table of Contents
    an appropriate Observe notification response to the DoC client.
 
    A server that can not proxy to DNS Push (or any other means of
-   obtaining new records) SHOULD NOT send a notification response (i.e.,
-   it should not send the Observe option).
+   obtaining new records) SHOULD NOT send the response as a notification
+   (i.e., it should not send the Observe option).
 
 5.2.  OSCORE
 
