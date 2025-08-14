@@ -578,8 +578,7 @@ the corresponding implications on message sizes and security properties.
 
 Mapping DoC to DoH
 ------------------
-This document provides no specification on how to map between DoC and DoH, e.g., at a CoAP-to-HTTP-proxy.
-In fact, such a direct mapping is NOT RECOMMENDED:
+This document provides no specification on how to map between DoC and DoH, e.g., at a CoAP-to-HTTP-proxy, such a direct mapping is NOT RECOMMENDED:
 rewriting the FETCH method ({{sec:queries}}) and the TTL rewriting ({{sec:resp-caching}}) as
 specified in this draft would be non-trivial.
 It is RECOMMENDED to use a DNS forwarder to map between DoC and DoH, as would be the case for
@@ -592,7 +591,7 @@ Without secure communication, many possible attacks need to be evaluated in the 
 the application's threat model.
 This includes known threats for unprotected DNS {{-dns-threats}} {{-dns-privacy}} and CoAP {{Section 11 of -coap}}.
 While DoC does not use the random ID of the DNS header (see {{sec:req-caching}}), equivalent protection against off-path poisoning attacks is achieved by using random large token values for unprotected CoAP requests.
-If a DoC message is unprotected it MUST use a random token of at least 2 bytes length to mitigate this kind of poisoning attacks.
+If a DoC message is unprotected it MUST use a random token of at least 2 bytes length to mitigate this kind of poisoning attack.
 
 Implementation Status
 =====================
