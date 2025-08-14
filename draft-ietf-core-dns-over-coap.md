@@ -79,6 +79,7 @@ normative:
 
 informative:
   BCP219: dns-terminology
+  BCP237: dnssec
   RFC3833: dns-threats
   RFC6690: core-link-format
   RFC7228: constr-nodes
@@ -86,7 +87,6 @@ informative:
   RFC9076: dns-privacy
   RFC9176: core-rd
   RFC9250: doq
-  RFC9364: dnssec
   RFC9460: svcb
   RFC9461: svcb-dns
   RFC9462: ddr
@@ -184,6 +184,8 @@ as DNS over UDP {{-dns}}, DNS over HTTPS {{-doh}}, or DNS over QUIC {{-doq}} whe
 DNS infrastructure.
 Using that information, the DoC server then replies to the queries of the DoC client with DNS
 responses carried within CoAP responses.
+A DoC server MAY also serve as DNSSEC validator to provide DNSSEC validation to the more
+constrained DoC clients.
 
 Note that this specification is distinct from DoH, since the CoAP-specific FETCH method {{-coap-fetch}} is used.
 This has the benefit of having the DNS query in the body as when using the POST method, but still with the same caching advantages of responses to requests that use the GET method.
@@ -680,7 +682,7 @@ e.g., due to code size constraints, or due to the size of the responses.
 It may trust its DoC server to perform DNSSEC validation;
 how that trust is expressed is out of the scope of this document.
 For instance, a DoC client may be, configured to use a particular credential by which it recognizes an eligible DoC server.
-That information can also imply trust in the DNSSEC validation by that server.
+That information can also imply trust in the DNSSEC validation by that DoC server.
 
 IANA Considerations
 ===================
