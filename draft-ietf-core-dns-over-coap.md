@@ -97,7 +97,6 @@ informative:
   I-D.ietf-core-href: cri
   I-D.ietf-core-transport-indication: transport-indication
   I-D.ietf-iotops-7228bis: constr-nodes-bis
-  I-D.lenders-core-dnr: core-dnr
   I-D.amsuess-core-cachable-oscore: cachable-oscore
   DoC-paper: DOI.10.1145/3609423
   I-D.ietf-core-corr-clar: core-corrclar
@@ -246,9 +245,8 @@ It can be used to identify a generic DNS resolver that is available to the clien
 A DoC server can also be discovered using Service Binding (SVCB) Resource Records (RR) {{-svcb}} {{-svcb-dns}} or Discovery of Network-designated Resolvers (DNR)
 Service Parameters {{-dnr}}.
 {{-coap-tcp}} defines the Application-Layer Protocol Negotiation (ALPN) ID for CoAP over TLS servers and {{-coap-dtls-alpn}} defines the ALPN ID for CoAP over DTLS servers.
-Because the ALPN extension is only defined for (D)TLS, these mechanisms cannot be used for DoC servers which use only OSCORE {{-oscore}} and Ephemeral Diffie-Hellman Over COSE (EDHOC) {{-edhoc}} (with COSE abbreviating "Concise Binary Object Notation (CBOR) Object Signing and Encryption" {{?RFC9052}}) for security.
-Specifying an alternate discovery mechanism is out of scope of this specification.
-{{-core-dnr}} provides  further exploration of the challenges here.
+DoC servers that use only OSCORE {{-oscore}} and Ephemeral Diffie-Hellman Over COSE (EDHOC) {{-edhoc}} (with COSE abbreviating "Concise Binary Object Notation (CBOR) Object Signing and Encryption" {{?RFC9052}}) to support security cannot be discovered using these SVCB RR or DNR mechanisms.
+Specifying an alternate discovery mechanism is out of scope of this document.
 
 This document is not an SVCB mapping document for the CoAP schemes
 as defined in {{Section 2.4.3 of -svcb}}.
