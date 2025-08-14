@@ -61,7 +61,7 @@ author:
     email: m.waehlisch@tu-dresden.de
 
 normative:
-  RFC1035: dns
+  STD13: dns
   RFC3986: uri
   RFC5234: abnf
   RFC6347: dtls12
@@ -451,7 +451,7 @@ the Content-Format option by the DoC server.
 
 ### Response Codes and Handling DNS and CoAP errors
 
-A DNS response indicates either success or failure in the RCODE of the DNS header (see {{Section 4.1.1 of -dns}}).
+A DNS response indicates either success or failure in the RCODE of the DNS header (see {{-dns}}).
 It is RECOMMENDED that CoAP responses that carry a parseable DNS response use a 2.05 (Content) response code.
 
 CoAP responses using non-successful response codes MUST NOT contain a DNS response
