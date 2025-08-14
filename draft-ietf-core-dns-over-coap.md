@@ -297,8 +297,8 @@ translation harder, as they require to make space for the longer delimiters, in 
 To use the service binding from an SVCB RR, the DoC client MUST send a DoC request constructed from the SvcParams including "docpath".
 The construction algorithm for DoC requests is as follows, going through the provided records in order of their priority.
 
-- If the "alpn" SvcParam value for the service is "coap", a CoAP request for CoAP over TLS MUST be constructed.
-  If it is "co", a CoAP request for CoAP over DTLS MUST be constructed.
+- If the "alpn" SvcParam value for the service is "coap", a CoAP request for CoAP over TLS MUST be constructed {{-coap-tcp}}.
+  If it is "co", a CoAP request for CoAP over DTLS MUST be constructed {{-coap-dtls-alpn}}.
   Any other SvcParamKeys specifying a transport are out of the scope of this document.
 - The destination address for the request SHOULD be taken from additional information about the target, e.g., from an AAAA record associated with the target name or from an "ipv6hint" SvcParam value.
   As a fallback, an address MAY be queried for the target name of the SVCB record.
