@@ -2181,29 +2181,22 @@ The definition of this parameter can be found in <a href="#sec_doc-server-select
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
       </h2>
 <p id="section-10-1">Many other DNS transports may co-exist on the DoC server, such as DNS over UDP <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>, DNS over (D)TLS <span>[<a href="#RFC7858" class="cite xref">RFC7858</a>]</span> <span>[<a href="#RFC8094" class="cite xref">RFC8094</a>]</span>, DNS over HTTPS <span>[<a href="#RFC8484" class="cite xref">RFC8484</a>]</span>, or DNS over QUIC <span>[<a href="#RFC9250" class="cite xref">RFC9250</a>]</span>.
-The choice of preference which one to advertise or which one to configure is very use case dependent.
-Protected transports employing transport or object security should be preferred.
-In constrained scenarios with small link layer PDUs, DNS over CoAP should take preference over DNS over DTLS.<a href="#section-10-1" class="pilcrow">¶</a></p>
-<p id="section-10-2">At the time of writing, CoAP does not support redirections.
-Nevertheless, changing DNS servers may lead to different results, e.g., with split horizon DNS
-configurations <span>[<a href="#RFC6950" class="cite xref">RFC6950</a>]</span>.
-Any general considerations on a potential CoAP redirect or changing DNS servers apply.<a href="#section-10-2" class="pilcrow">¶</a></p>
-<p id="section-10-3">CoAP over unreliable transport layers such as UDP might support different message
-types for Confirmable or Non-Confirmable messages <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>.
-This document does not enforce any of these message types, as they are very dependent on the
-circumstances of the network and transport chosen for CoAP.
-As DNS over UDP also works over unreliable transports, DNS clients are usually aware, that they might
-never receive a response to a query even after many retries.
-Non-Confirmable messages just reduce the number of such retries to one.<a href="#section-10-3" class="pilcrow">¶</a></p>
-<p id="section-10-4">A careless administration might lead to CoAP proxies forming infinite loops.
-The CoAP Hop-Limit option <span>[<a href="#RFC8768" class="cite xref">RFC8768</a>]</span> helps to mitigate such loops.<a href="#section-10-4" class="pilcrow">¶</a></p>
+In principle, transports employing channel or object security should be preferred.
+In constrained scenarios, DNS over CoAP is preferable to DNS over DTLS.
+The final decision regarding the preference, however, heavily depends on the use case and is therefore left to the implementers or users and is not defined in this document.<a href="#section-10-1" class="pilcrow">¶</a></p>
+<p id="section-10-2">CoAP supports Confirmable and Non-Confirmable messages <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> to deploy different levels of reliability.
+This document, however, does not enforce any of these message types, as the decision on which one is appropriate depends on the characteristics of the network where DoC is deployed.<a href="#section-10-2" class="pilcrow">¶</a></p>
+<p id="section-10-3">At the time of writing, CoAP does not support redirection.
+Nevertheless, changing DNS servers may lead to different results.
+In case an HTTP-like redirection is supported in the future, the same considerations need to be taken into account as for changing a DNS server.<a href="#section-10-3" class="pilcrow">¶</a></p>
+<p id="section-10-4">Mistakes might lead to CoAP proxies forming infinite loops.
+Using the CoAP Hop-Limit option <span>[<a href="#RFC8768" class="cite xref">RFC8768</a>]</span> mitigates such loops.<a href="#section-10-4" class="pilcrow">¶</a></p>
 <p id="section-10-5"><a href="#sec_resp-codes" class="auto internal xref">Section 4.3.1</a> specifies that DNS operational errors should be reported back to a DoC client
 using the appropriate DNS RCODE.
 If a DoC client did not receive any successful DNS message from a DoC server for a while, it might
 indicate that the DoC server lost connectivity to the upstream DNS infrastructure.
-This should be handled like any recursive resolver that lost connectivity to the upstream DNS
-infrastructure.
-For CoAP errors, the usual mechanisms for CoAP response codes apply.<a href="#section-10-5" class="pilcrow">¶</a></p>
+The DoC client should handle this error case like a recursive resolver that lost connectivity to the upstream DNS infrastructure.
+In case of CoAP errors, the usual mechanisms for CoAP response codes apply.<a href="#section-10-5" class="pilcrow">¶</a></p>
 <p id="section-10-6">DNS extensions that are specific to the choice of transport, such as <span>[<a href="#RFC7828" class="cite xref">RFC7828</a>]</span>, are not applicable to DoC.<a href="#section-10-6" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2366,10 +2359,6 @@ For CoAP errors, the usual mechanisms for CoAP response codes apply.<a href="#se
 <dt id="RFC6690">[RFC6690]</dt>
         <dd>
 <span class="refAuthor">Shelby, Z.</span>, <span class="refTitle">"Constrained RESTful Environments (CoRE) Link Format"</span>, <span class="seriesInfo">RFC 6690</span>, <span class="seriesInfo">DOI 10.17487/RFC6690</span>, <time datetime="2012-08" class="refDate">August 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6690">https://www.rfc-editor.org/rfc/rfc6690</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC6950">[RFC6950]</dt>
-        <dd>
-<span class="refAuthor">Peterson, J.</span>, <span class="refAuthor">Kolkman, O.</span>, <span class="refAuthor">Tschofenig, H.</span>, and <span class="refAuthor">B. Aboba</span>, <span class="refTitle">"Architectural Considerations on Application Features in the DNS"</span>, <span class="seriesInfo">RFC 6950</span>, <span class="seriesInfo">DOI 10.17487/RFC6950</span>, <time datetime="2013-10" class="refDate">October 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6950">https://www.rfc-editor.org/rfc/rfc6950</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7228">[RFC7228]</dt>
         <dd>
