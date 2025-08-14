@@ -325,7 +325,7 @@ A more generalized construction algorithm for any CoAP request can be found in {
 [^replace-hex]: RFC Ed.: Since the number for "docpath" was not assigned at the time of writing, we
     used the hex `ff 0a` (in decimal 65290; from the private use range of SvcParamKeys) throughout
     this section. Before publication, please replace `ff 0a` with the hexadecimal representation of
-    the final value assigned by IANA in this section.
+    the final value assigned by IANA in this section. Please remove this paragraph after that.
 
 A typical SVCB resource record response for a DoC server at the root path "/" of the server looks
 like the following (the "docpath" SvcParam is the last 4 bytes `ff 0a 00 00` in the binary):
