@@ -231,7 +231,7 @@ Possible options to assure this could be manual configuration of a Uniform Resou
 or automatic configuration, e.g., using a CoRE resource directory
 {{-core-rd}}, DHCP or Router Advertisement options {{-dnr}}, or discovery of designated resolvers
 {{-ddr}}.
-Automatic configuration SHOULD only be done from a trusted source.
+Automatic configuration MUST only be done from a trusted source.
 
 ## Discovery by Resource Type
 For discovery of the DoC resource through a link mechanism that allows describing a resource type
