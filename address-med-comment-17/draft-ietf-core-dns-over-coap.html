@@ -1542,9 +1542,8 @@ It can be used to identify a generic DNS resolver that is available to the clien
 <p id="section-3.2-1">A DoC server can also be discovered using Service Binding (SVCB) Resource Records (RR) <span>[<a href="#RFC9460" class="cite xref">RFC9460</a>]</span> <span>[<a href="#RFC9461" class="cite xref">RFC9461</a>]</span> or Discovery of Network-designated Resolvers (DNR)
 Service Parameters <span>[<a href="#RFC9463" class="cite xref">RFC9463</a>]</span>.
 <span>[<a href="#RFC8323" class="cite xref">RFC8323</a>]</span> defines the Application-Layer Protocol Negotiation (ALPN) ID for CoAP over TLS servers and <span>[<a href="#I-D.ietf-core-coap-dtls-alpn" class="cite xref">I-D.ietf-core-coap-dtls-alpn</a>]</span> defines the ALPN ID for CoAP over DTLS servers.
-Because the ALPN extension is only defined for (D)TLS, these mechanisms cannot be used for DoC servers which use only OSCORE <span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span> and Ephemeral Diffie-Hellman Over COSE (EDHOC) <span>[<a href="#RFC9528" class="cite xref">RFC9528</a>]</span> (with COSE abbreviating "Concise Binary Object Notation (CBOR) Object Signing and Encryption" <span>[<a href="#RFC9052" class="cite xref">RFC9052</a>]</span>) for security.
-Specifying an alternate discovery mechanism is out of scope of this specification.
-<span>[<a href="#I-D.lenders-core-dnr" class="cite xref">I-D.lenders-core-dnr</a>]</span> provides  further exploration of the challenges here.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+DoC servers which use only OSCORE <span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span> and Ephemeral Diffie-Hellman Over COSE (EDHOC) <span>[<a href="#RFC9528" class="cite xref">RFC9528</a>]</span> (with COSE abbreviating "Concise Binary Object Notation (CBOR) Object Signing and Encryption" <span>[<a href="#RFC9052" class="cite xref">RFC9052</a>]</span>) for security currently cannot be discovered using SVCB RR or DNR.
+Specifying an alternate discovery mechanism is out of scope of this document.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2-2">This document is not an SVCB mapping document for the CoAP schemes
 as defined in <span><a href="https://rfc-editor.org/rfc/rfc9460#section-2.4.3" class="relref">Section 2.4.3</a> of [<a href="#RFC9460" class="cite xref">RFC9460</a>]</span>.
 A full SVCB mapping is being prepared in <span>[<a href="#I-D.ietf-core-transport-indication" class="cite xref">I-D.ietf-core-transport-indication</a>]</span>,
@@ -2343,10 +2342,6 @@ In case of CoAP errors, the usual mechanisms for CoAP response codes apply.<a hr
 <dt id="I-D.ietf-iotops-7228bis">[I-D.ietf-iotops-7228bis]</dt>
         <dd>
 <span class="refAuthor">Bormann, C.</span>, <span class="refAuthor">Ersue, M.</span>, <span class="refAuthor">Keränen, A.</span>, and <span class="refAuthor">C. Gomez</span>, <span class="refTitle">"Terminology for Constrained-Node Networks"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-iotops-7228bis-02</span>, <time datetime="2025-07-07" class="refDate">7 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-iotops-7228bis-02">https://datatracker.ietf.org/doc/html/draft-ietf-iotops-7228bis-02</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.lenders-core-dnr">[I-D.lenders-core-dnr]</dt>
-        <dd>
-<span class="refAuthor">Lenders, M. S.</span>, <span class="refAuthor">Amsüss, C.</span>, <span class="refAuthor">Schmidt, T. C.</span>, and <span class="refAuthor">M. Wählisch</span>, <span class="refTitle">"Discovery of Network-designated OSCORE-based Resolvers: Problem Statement"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-lenders-core-dnr-06</span>, <time datetime="2025-07-07" class="refDate">7 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-lenders-core-dnr-06">https://datatracker.ietf.org/doc/html/draft-lenders-core-dnr-06</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="REST">[REST]</dt>
         <dd>

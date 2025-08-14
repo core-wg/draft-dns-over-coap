@@ -270,14 +270,12 @@ Table of Contents
    designated Resolvers (DNR) Service Parameters [RFC9463].  [RFC8323]
    defines the Application-Layer Protocol Negotiation (ALPN) ID for CoAP
    over TLS servers and [I-D.ietf-core-coap-dtls-alpn] defines the ALPN
-   ID for CoAP over DTLS servers.  Because the ALPN extension is only
-   defined for (D)TLS, these mechanisms cannot be used for DoC servers
-   which use only OSCORE [RFC8613] and Ephemeral Diffie-Hellman Over
-   COSE (EDHOC) [RFC9528] (with COSE abbreviating "Concise Binary Object
-   Notation (CBOR) Object Signing and Encryption" [RFC9052]) for
-   security.  Specifying an alternate discovery mechanism is out of
-   scope of this specification.  [I-D.lenders-core-dnr] provides further
-   exploration of the challenges here.
+   ID for CoAP over DTLS servers.  DoC servers which use only OSCORE
+   [RFC8613] and Ephemeral Diffie-Hellman Over COSE (EDHOC) [RFC9528]
+   (with COSE abbreviating "Concise Binary Object Notation (CBOR) Object
+   Signing and Encryption" [RFC9052]) for security currently cannot be
+   discovered using SVCB RR or DNR.  Specifying an alternate discovery
+   mechanism is out of scope of this document.
 
    This document is not an SVCB mapping document for the CoAP schemes as
    defined in Section 2.4.3 of [RFC9460].  A full SVCB mapping is being
@@ -1087,14 +1085,6 @@ Table of Contents
               Progress, Internet-Draft, draft-ietf-iotops-7228bis-02, 7
               July 2025, <https://datatracker.ietf.org/doc/html/draft-
               ietf-iotops-7228bis-02>.
-
-   [I-D.lenders-core-dnr]
-              Lenders, M. S., Amsüss, C., Schmidt, T. C., and M.
-              Wählisch, "Discovery of Network-designated OSCORE-based
-              Resolvers: Problem Statement", Work in Progress, Internet-
-              Draft, draft-lenders-core-dnr-06, 7 July 2025,
-              <https://datatracker.ietf.org/doc/html/draft-lenders-core-
-              dnr-06>.
 
    [REST]     Fielding, R., "Architectural Styles and the Design of
               Network-based Software Architectures", Ph.D. Dissertation,
