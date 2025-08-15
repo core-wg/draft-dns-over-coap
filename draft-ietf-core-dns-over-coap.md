@@ -73,8 +73,13 @@ normative:
   RFC8484: doh
   RFC8613: oscore
   RFC8765: dns-push
+  RFC8768: coap-hop-limit
   RFC8949: cbor
   RFC9147: dtls13
+  RFC9460: svcb
+  RFC9461: svcb-dns
+  RFC9462: ddr
+  RFC9463: dnr
   I-D.ietf-core-coap-dtls-alpn: coap-dtls-alpn
 
 informative:
@@ -82,20 +87,16 @@ informative:
   RFC3833: dns-threats
   RFC6690: core-link-format
   RFC7228: constr-nodes
+  RFC7858: dot
   RFC8094: dodtls
   RFC9076: dns-privacy
   RFC9176: core-rd
   RFC9250: doq
   RFC9364: dnssec
-  RFC9460: svcb
-  RFC9461: svcb-dns
-  RFC9462: ddr
-  RFC9463: dnr
   RFC9528: edhoc
   I-D.ietf-core-href: cri
   I-D.ietf-core-transport-indication: transport-indication
   I-D.ietf-iotops-7228bis: constr-nodes-bis
-  I-D.lenders-core-dnr: core-dnr
   I-D.amsuess-core-cachable-oscore: cachable-oscore
   DoC-paper: DOI.10.1145/3609423
   I-D.ietf-core-corr-clar: core-corrclar
@@ -227,7 +228,7 @@ Possible options to assure this could be manual configuration of a Uniform Resou
 or automatic configuration, e.g., using a CoRE resource directory
 {{-core-rd}}, DHCP or Router Advertisement options {{-dnr}}, or discovery of designated resolvers
 {{-ddr}}.
-Automatic configuration SHOULD only be done from a trusted source.
+Automatic configuration MUST only be done from a trusted source.
 
 ## Discovery by Resource Type
 For discovery of the DoC resource through a link mechanism that allows describing a resource type
@@ -238,9 +239,8 @@ It can be used to identify a generic DNS resolver that is available to the clien
 A DoC server can also be discovered using Service Binding (SVCB) Resource Records (RR) {{-svcb}} {{-svcb-dns}} or Discovery of Network-designated Resolvers (DNR)
 Service Parameters {{-dnr}}.
 {{-coap-tcp}} defines the Application-Layer Protocol Negotiation (ALPN) ID for CoAP over TLS servers and {{-coap-dtls-alpn}} defines the ALPN ID for CoAP over DTLS servers.
-Because the ALPN extension is only defined for (D)TLS, these mechanisms cannot be used for DoC servers which use only OSCORE {{-oscore}} and Ephemeral Diffie-Hellman Over COSE (EDHOC) {{-edhoc}} (with COSE abbreviating "Concise Binary Object Notation (CBOR) Object Signing and Encryption" {{?RFC9052}}) for security.
-Specifying an alternate discovery mechanism is out of scope of this specification.
-{{-core-dnr}} provides  further exploration of the challenges here.
+DoC servers which use only OSCORE {{-oscore}} and Ephemeral Diffie-Hellman Over COSE (EDHOC) {{-edhoc}} (with COSE abbreviating "Concise Binary Object Notation (CBOR) Object Signing and Encryption" {{?RFC9052}}) for security currently cannot be discovered using SVCB RR or DNR.
+Specifying an alternate discovery mechanism is out of scope of this document.
 
 This document is not an SVCB mapping document for the CoAP schemes
 as defined in {{Section 2.4.3 of -svcb}}.
@@ -407,7 +407,6 @@ DNS protocol as defined in {{-dns}} is not needed.
 When sending a CoAP request, a DoC client MUST include the DNS query in the body of the CoAP request.
 As specified in {{Section 2.3.1 of -coap-fetch}}, the type of content of the body MUST be indicated using the Content-Format option.
 This document specifies the usage of Content-Format "application/dns-message" (for details, see {{sec:content-format}}).
-A DoC server MUST be able to parse requests of Content-Format "application/dns-message".
 
 ### Support of CoAP Caching {#sec:req-caching}
 
@@ -449,7 +448,7 @@ when it does not send an Accept option.
 Any response Content-Format other than "application/dns-message" MUST be indicated with
 the Content-Format option by the DoC server.
 
-### Response Codes and Handling DNS and CoAP errors
+### Response Codes and Handling DNS and CoAP errors {#sec:resp-codes}
 
 A DNS response indicates either success or failure in the RCODE of the DNS header (see {{Section 4.1.1 of -dns}}).
 It is RECOMMENDED that CoAP responses that carry a parseable DNS response use a 2.05 (Content) response code.
@@ -731,6 +730,32 @@ Description: DNS over CoAP resource.
 
 Reference: \[RFC-XXXX\], {{sec:doc-server-selection}}
 
+Operational Considerations
+==========================
+
+Many other DNS transports may co-exist on the DoC server, such as DNS over UDP {{-dns}}, DNS over (D)TLS {{-dot}} {{-dodtls}}, DNS over HTTPS {{-doh}}, or DNS over QUIC {{-doq}}.
+In principle, transports employing channel or object security should be preferred.
+In constrained scenarios, DNS over CoAP is preferable to DNS over DTLS.
+The final decision regarding the preference, however, heavily depends on the use case and is therefore left to the implementers or users and is not defined in this document.
+
+CoAP supports Confirmable and Non-Confirmable messages {{-coap}} to deploy different levels of reliability.
+This document, however, does not enforce any of these message types, as the decision on which one is appropriate depends on the characteristics of the network where DoC is deployed.
+
+At the time of writing, CoAP does not support redirection.
+Nevertheless, changing DNS servers may lead to different results.
+In case an HTTP-like redirection is supported in the future, the same considerations need to be taken into account as for changing a DNS server.
+
+Mistakes might lead to CoAP proxies forming infinite loops.
+Using the CoAP Hop-Limit option {{-coap-hop-limit}} mitigates such loops.
+
+{{sec:resp-codes}} specifies that DNS operational errors should be reported back to a DoC client
+using the appropriate DNS RCODE.
+If a DoC client did not receive any successful DNS message from a DoC server for a while, it might
+indicate that the DoC server lost connectivity to the upstream DNS infrastructure.
+The DoC client should handle this error case like a recursive resolver that lost connectivity to the upstream DNS infrastructure.
+In case of CoAP errors, the usual mechanisms for CoAP response codes apply.
+
+DNS extensions that are specific to the choice of transport, such as {{?RFC7828}}, are not applicable to DoC.
 
 --- back
 
