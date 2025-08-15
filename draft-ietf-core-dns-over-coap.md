@@ -294,8 +294,9 @@ Likewise, it can be transferred into a URI path-abempty form by replacing each l
 None of the abovementioned prevent longer docpath-segments than the considered, they just make the
 translation harder, as they require to make space for the longer delimiters, in turn requiring to move octets.
 
-To use the service binding from an SVCB RR, the DoC client MUST send a DoC request constructed from the SvcParams including "docpath".
+To use the service binding from an SVCB RR or DNR Encrypted DNS option, the DoC client MUST send a DoC request constructed from the SvcParams including "docpath".
 The construction algorithm for DoC requests is as follows, going through the provided records in order of their priority.
+For the purposes of this algorithm, the DoC client is assumed to be SVCB-optional (see {{Section 3 of -svcb}}).
 
 - If the "alpn" SvcParam value for the service is "coap", a CoAP request for CoAP over TLS MUST be constructed {{-coap-tcp}}.
   If it is "co", a CoAP request for CoAP over DTLS MUST be constructed {{-coap-dtls-alpn}}.
@@ -316,7 +317,7 @@ The construction algorithm for DoC requests is as follows, going through the pro
   or by setting the Uri-Host option on each request.
 - For each element in the CBOR sequence of the "docpath" SvcParam value, a Uri-Path option MUST be added to the request.
 - If the request constructed this way receives a response, the same SVCB record MUST be used for construction of future DoC queries.
-  If not, or if the endpoint becomes unreachable, the algorithm SHOULD be repeated with the SVCB record with the next highest priority.
+  If not, or if the endpoint becomes unreachable, the algorithm repeats with the SVCB RR or DNR Encrypted DNS option with the next highest Service Priority as a fallback (see {{Sections 2.4.1 and 3 of -svcb}}).
 
 A more generalized construction algorithm for any CoAP request can be found in {{-transport-indication}}.
 
