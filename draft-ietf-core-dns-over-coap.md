@@ -671,8 +671,8 @@ via response spoofing.
 This document requires an unpredictable CoAP token in each DoC query from the client when CoAP is
 not secured to mitigate such an attack over DoC (see {{sec:unprotected-coap}}).
 
-For secure communication via DTLS or OSCORE, the impact of a fixed ID on security is limited, as both
-harden against injecting spoofed responses.
+For secure communication via (D)TLS or OSCORE, an unpredictable ID against spoofing is not necessary.
+Both (D)TLS and OSCORE offer mechanisms to harden against injecting spoofed responses in their protocol design.
 Consequently, the ID of the DNS message can be set to 0 without any concern in order to leverage the advantages of CoAP caching.
 
 A DoC client must be aware that the DoC server
