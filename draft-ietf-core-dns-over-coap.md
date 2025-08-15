@@ -448,8 +448,8 @@ Each DNS query-response pair is mapped to a CoAP request-response operation.
 DNS responses are provided in the body of the CoAP response, i.e., it is also possible to transfer them using block-wise transfer {{-coap-blockwise}}.
 A DoC server MUST be able to produce responses in the "application/dns-message"
 Content-Format (for details, see {{sec:content-format}}) when requested.
-A DoC client MUST be able to understand responses in the "application/dns-message" Content-Format
-when it does not send an Accept option.
+The use of the Accept option in the request is optional.
+However, all DoC clients MUST be able to parse a "application/dns-message" response (see also {{sec:content-format}}).
 Any response Content-Format other than "application/dns-message" MUST be indicated with
 the Content-Format option by the DoC server.
 
