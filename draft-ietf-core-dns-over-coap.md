@@ -244,8 +244,9 @@ Specifying an alternate discovery mechanism is out of scope of this specificatio
 
 This document is not an SVCB mapping document for the CoAP schemes
 as defined in {{Section 2.4.3 of -svcb}}.
-A full SVCB mapping is being prepared in {{-transport-indication}},
-generalizing mechanisms that are introduced in this document for discovery of DoC.
+A full SVCB mapping is specified in {{-transport-indication}}.
+It generalizes mechanisms for all CoAP services.
+This document introduces only the discovery of DoC services.
 
 This document specifies "docpath" as
 a single-valued SvcParamKey that is mandatory for DoC SVCB records.
@@ -431,7 +432,7 @@ CoAP body is encoded in the "application/dns-message" Content-Format.
 
     Payload (human-readable):
       ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
-      ;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
+      ;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
 
       ;; QUESTION SECTION:
       ;example.org.             IN      AAAA
