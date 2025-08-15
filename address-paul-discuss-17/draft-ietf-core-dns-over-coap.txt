@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 15 February 2026                                               
+Expires: 16 February 2026                                               
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                          14 August 2025
+                                                          15 August 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 February 2026.
+   This Internet-Draft will expire on 16 February 2026.
 
 Copyright Notice
 
@@ -514,7 +514,7 @@ Table of Contents
 
    Payload (human-readable):
      ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
-     ;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
+     ;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
 
      ;; QUESTION SECTION:
      ;example.org.             IN      AAAA
@@ -606,17 +606,17 @@ Table of Contents
 
    A successful response:
 
-   2.05 Content
-   Content-Format: 553 (application/dns-message)
-   Max-Age: 58719
-   Payload (human-readable):
-     ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
-     ;; flags: qr rd ad; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ARCOUNT: 0
+  2.05 Content
+  Content-Format: 553 (application/dns-message)
+  Max-Age: 58719
+  Payload (human-readable):
+    ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
+    ;; flags: qr rd ad; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
 
-     ;; QUESTION SECTION:
-     ;example.org.                 IN      AAAA
-     ;; ANSWER SECTION:
-     ;example.org.         79689   IN      AAAA    2001:db8:1:0:1:2:3:4
+    ;; QUESTION SECTION:
+    ;example.org.                 IN      AAAA
+    ;; ANSWER SECTION:
+    ;example.org.         79689   IN      AAAA    2001:db8:1:0:1:2:3:4
 
    When a DNS error – NxDomain (RCODE = 3) for "does.not.exist" in this
    case – is noted in the DNS response, the CoAP response still
@@ -639,7 +639,7 @@ Table of Contents
    Content-Format: 553 (application/dns-message)
    Payload (human-readable):
      ;; ->>Header<<- opcode: UPDATE, status: NOTIMP, id: 0
-     ;; flags: qr ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
+     ;; flags: qr ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
 
      ;; QUERY SECTION:
      ;example.org.                 IN      AAAA
@@ -954,10 +954,6 @@ Table of Contents
               "Object Security for Constrained RESTful Environments
               (OSCORE)", RFC 8613, DOI 10.17487/RFC8613, July 2019,
               <https://www.rfc-editor.org/rfc/rfc8613>.
-
-   [RFC8742]  Bormann, C., "Concise Binary Object Representation (CBOR)
-              Sequences", RFC 8742, DOI 10.17487/RFC8742, February 2020,
-              <https://www.rfc-editor.org/rfc/rfc8742>.
 
    [RFC8765]  Pusateri, T. and S. Cheshire, "DNS Push Notifications",
               RFC 8765, DOI 10.17487/RFC8765, June 2020,
