@@ -294,8 +294,8 @@ translation harder, as they require to make space for the longer delimiters, in 
 To use the service binding from an SVCB RR, the DoC client MUST send a DoC request constructed from the SvcParams including "docpath".
 The construction algorithm for DoC requests is as follows, going through the provided records in order of their priority.
 
-- If the "alpn" SvcParam value for the service is "coap", a CoAP request for CoAP over TLS MUST be constructed.
-  If it is "co", a CoAP request for CoAP over DTLS MUST be constructed.
+- If the "alpn" SvcParam value for the service is "coap", a CoAP request for CoAP over TLS MUST be constructed {{-coap-tcp}}.
+  If it is "co", a CoAP request for CoAP over DTLS MUST be constructed {{-coap-dtls-alpn}}.
   Any other SvcParamKeys specifying a transport are out of the scope of this document.
 - The destination address for the request SHOULD be taken from additional information about the target, e.g., from an AAAA record associated with the target name or from an "ipv6hint" SvcParam value.
   As a fallback, an address MAY be queried for the target name of the SVCB record.
@@ -324,7 +324,7 @@ A more generalized construction algorithm for any CoAP request can be found in {
 [^replace-hex]: RFC Ed.: Since the number for "docpath" was not assigned at the time of writing, we
     used the hex `ff 0a` (in decimal 65290; from the private use range of SvcParamKeys) throughout
     this section. Before publication, please replace `ff 0a` with the hexadecimal representation of
-    the final value assigned by IANA in this section.
+    the final value assigned by IANA in this section. Please remove this paragraph after that.
 
 A typical SVCB resource record response for a DoC server at the root path "/" of the server looks
 like the following (the "docpath" SvcParam is the last 4 bytes `ff 0a 00 00` in the binary):
@@ -577,8 +577,7 @@ the corresponding implications on message sizes and security properties.
 
 Mapping DoC to DoH
 ------------------
-This document provides no specification on how to map between DoC and DoH, e.g., at a CoAP-to-HTTP-proxy.
-In fact, such a direct mapping is NOT RECOMMENDED:
+This document provides no specification on how to map between DoC and DoH, e.g., at a CoAP-to-HTTP-proxy, such a direct mapping is NOT RECOMMENDED:
 rewriting the FETCH method ({{sec:queries}}) and the TTL rewriting ({{sec:resp-caching}}) as
 specified in this draft would be non-trivial.
 It is RECOMMENDED to use a DNS forwarder to map between DoC and DoH, as would be the case for
@@ -591,7 +590,7 @@ Without secure communication, many possible attacks need to be evaluated in the 
 the application's threat model.
 This includes known threats for unprotected DNS {{-dns-threats}} {{-dns-privacy}} and CoAP {{Section 11 of -coap}}.
 While DoC does not use the random ID of the DNS header (see {{sec:req-caching}}), equivalent protection against off-path poisoning attacks is achieved by using random large token values for unprotected CoAP requests.
-If a DoC message is unprotected it MUST use a random token of at least 2 bytes length to mitigate this kind of poisoning attacks.
+If a DoC message is unprotected it MUST use a random token of at least 2 bytes length to mitigate this kind of poisoning attack.
 
 Implementation Status
 =====================
