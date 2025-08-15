@@ -270,7 +270,7 @@ The presentation format value of "docpath" SHALL be a comma-separated list ({{Ap
 of 0 or more docpath-segments.
 The root path "/" is represented by 0 docpath-segments, i.e., an empty list.
 The same considerations for the "," and "\" characters in docpath-segments for zone-file
-implementations as for the alpn-ids in an "alpn" SvcParam MAY apply ({{Section 7.1.1 of -svcb}}).
+implementations as for the alpn-ids in an "alpn" SvcParam apply ({{Section 7.1.1 of -svcb}}).
 
 The wire-format value for "docpath" consists of 0 or more sequences of octets prefixed by their
 respective length as a single octet.
