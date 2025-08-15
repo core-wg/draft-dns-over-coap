@@ -676,7 +676,7 @@ DoC can only guarantee confidentiality and integrity of communication between pa
 security context is exchanged.
 The DoC server may use another security context to communicate upstream with both confidentiality and integrity
 (e.g., DNS over QUIC {{-doq}}), but, while recommended, this is opaque to the DoC client on the protocol level.
-Record integrity can also be ensured upstream using, e.g., DNSSEC {{-dnssec}}.
+Record integrity can also be ensured upstream using DNSSEC {{-dnssec}}.
 
 A DoC client may not be able to perform DNSSEC validation,
 e.g., due to code size constraints, or due to the size of the responses.
