@@ -431,7 +431,7 @@ CoAP body is encoded in the "application/dns-message" Content-Format.
 
     Payload (human-readable):
       ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
-      ;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
+      ;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
 
       ;; QUESTION SECTION:
       ;example.org.             IN      AAAA
@@ -500,7 +500,7 @@ A successful response:
     Max-Age: 58719
     Payload (human-readable):
       ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
-      ;; flags: qr rd ad; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ARCOUNT: 0
+      ;; flags: qr rd ad; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
 
       ;; QUESTION SECTION:
       ;example.org.                 IN      AAAA
@@ -524,7 +524,7 @@ As described in {{sec:content-format}}, a DoC server uses NotImp (RCODE = 4) if 
     Content-Format: 553 (application/dns-message)
     Payload (human-readable):
       ;; ->>Header<<- opcode: UPDATE, status: NOTIMP, id: 0
-      ;; flags: qr ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
+      ;; flags: qr ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
 
       ;; QUERY SECTION:
       ;example.org.                 IN      AAAA
