@@ -128,9 +128,9 @@ Introduction
 This document defines DNS over CoAP (DoC), a protocol to send DNS
 {{-dns}} queries and get DNS responses over the Constrained Application
 Protocol (CoAP) {{-coap}}. Each DNS query-response pair is mapped into a
-CoAP message exchange. Each CoAP message can be secured by DTLS {{-dtls12}} {{-dtls13}} or
-Object Security for Constrained RESTful Environments (OSCORE) {{-oscore}}
-but also TLS {{-coap-tcp}} {{?RFC8446}}
+CoAP message exchange. Each CoAP message can be secured by DTLS 1.2 or newer {{-dtls12}} {{-dtls13}}
+as well as Object Security for Constrained RESTful Environments (OSCORE) {{-oscore}}
+but also TLS 1.3 or newer {{-coap-tcp}} {{?RFC8446}}
 to ensure message integrity and confidentiality.
 
 The application use case of DoC is inspired by DNS over HTTPS {{-doh}}
@@ -647,7 +647,7 @@ Security Considerations
 =======================
 
 General CoAP security considerations ({{RFC7252, Section 11}}) apply to DoC.
-DoC also inherits the security considerations of the protocols used for secure communication, e.g., OSCORE ({{-oscore, Section 12}}) or DTLS ({{-dtls12, Section 5}} and {{-dtls13, Section 11}}).
+DoC also inherits the security considerations of the protocols used for secure communication, e.g., OSCORE ({{-oscore, Section 12}}) as well as DTLS 1.2 or newer ({{-dtls12, Section 5}} {{-dtls13, Section 11}}).
 Additionally, DoC uses request patterns that require the maintenance of long-lived security
 contexts.
 {{Section 2.6 of -core-corrclar}} provides insights on what can be done when those are resumed from a new endpoint.
@@ -663,8 +663,8 @@ via response spoofing.
 This document requires an unpredictable CoAP token in each DoC query from the client when CoAP is
 not secured to mitigate such an attack over DoC (see {{sec:unprotected-coap}}).
 
-For secure communication via DTLS or OSCORE, the impact of a fixed ID on security is limited, as both
-harden against injecting spoofed responses.
+For secure communication via (D)TLS or OSCORE, an unpredictable ID against spoofing is not necessary.
+Both (D)TLS and OSCORE offer mechanisms to harden against injecting spoofed responses in their protocol design.
 Consequently, the ID of the DNS message can be set to 0 without any concern in order to leverage the advantages of CoAP caching.
 
 A DoC client must be aware that the DoC server
@@ -673,7 +673,7 @@ DoC can only guarantee confidentiality and integrity of communication between pa
 security context is exchanged.
 The DoC server may use another security context to communicate upstream with both confidentiality and integrity
 (e.g., DNS over QUIC {{-doq}}), but, while recommended, this is opaque to the DoC client on the protocol level.
-Record integrity can also be ensured upstream using, e.g., DNSSEC {{-dnssec}}.
+Record integrity can also be ensured upstream using DNSSEC {{-dnssec}}.
 
 A DoC client may not be able to perform DNSSEC validation,
 e.g., due to code size constraints, or due to the size of the responses.
