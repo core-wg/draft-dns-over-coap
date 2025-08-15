@@ -267,7 +267,7 @@ The presentation format value of "docpath" SHALL be a comma-separated list ({{Ap
 of 0 or more docpath-segments.
 The root path "/" is represented by 0 docpath-segments, i.e., an empty list.
 The same considerations for the "," and "\" characters in docpath-segments for zone-file
-implementations as for the alpn-ids in an "alpn" SvcParam MAY apply ({{Section 7.1.1 of -svcb}}).
+implementations as for the alpn-ids in an "alpn" SvcParam apply ({{Section 7.1.1 of -svcb}}).
 
 The wire-format value for "docpath" consists of 0 or more sequences of octets prefixed by their
 respective length as a single octet.
@@ -291,8 +291,9 @@ Likewise, it can be transferred into a URI path-abempty form by replacing each l
 None of the abovementioned prevent longer docpath-segments than the considered, they just make the
 translation harder, as they require to make space for the longer delimiters, in turn requiring to move octets.
 
-To use the service binding from an SVCB RR, the DoC client MUST send a DoC request constructed from the SvcParams including "docpath".
+To use the service binding from an SVCB RR or DNR Encrypted DNS option, the DoC client MUST send a DoC request constructed from the SvcParams including "docpath".
 The construction algorithm for DoC requests is as follows, going through the provided records in order of their priority.
+For the purposes of this algorithm, the DoC client is assumed to be SVCB-optional (see {{Section 3 of -svcb}}).
 
 - If the "alpn" SvcParam value for the service is "coap", a CoAP request for CoAP over TLS MUST be constructed.
   If it is "co", a CoAP request for CoAP over DTLS MUST be constructed.
@@ -313,7 +314,7 @@ The construction algorithm for DoC requests is as follows, going through the pro
   or by setting the Uri-Host option on each request.
 - For each element in the CBOR sequence of the "docpath" SvcParam value, a Uri-Path option MUST be added to the request.
 - If the request constructed this way receives a response, the same SVCB record MUST be used for construction of future DoC queries.
-  If not, or if the endpoint becomes unreachable, the algorithm SHOULD be repeated with the SVCB record with the next highest priority.
+  If not, or if the endpoint becomes unreachable, the algorithm repeats with the SVCB RR or DNR Encrypted DNS option with the next highest Service Priority as a fallback (see {{Sections 2.4.1 and 3 of -svcb}}).
 
 A more generalized construction algorithm for any CoAP request can be found in {{-transport-indication}}.
 
@@ -444,8 +445,8 @@ Each DNS query-response pair is mapped to a CoAP request-response operation.
 DNS responses are provided in the body of the CoAP response, i.e., it is also possible to transfer them using block-wise transfer {{-coap-blockwise}}.
 A DoC server MUST be able to produce responses in the "application/dns-message"
 Content-Format (for details, see {{sec:content-format}}) when requested.
-A DoC client MUST be able to understand responses in the "application/dns-message" Content-Format
-when it does not send an Accept option.
+The use of the Accept option in the request is optional.
+However, all DoC clients MUST be able to parse a "application/dns-message" response (see also {{sec:content-format}}).
 Any response Content-Format other than "application/dns-message" MUST be indicated with
 the Content-Format option by the DoC server.
 
