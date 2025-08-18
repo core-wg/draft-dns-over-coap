@@ -1059,7 +1059,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Lenders, et al.</td>
-<td class="center">Expires 15 February 2026</td>
+<td class="center">Expires 19 February 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1072,12 +1072,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-core-dns-over-coap-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-08-14" class="published">14 August 2025</time>
+<time datetime="2025-08-18" class="published">18 August 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-02-15">15 February 2026</time></dd>
+<dd class="expires"><time datetime="2026-02-19">19 February 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1146,7 +1146,7 @@ constrained devices in the Internet of Things (IoT).<a href="#section-abstract-1
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 15 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 19 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1914,20 +1914,20 @@ The DoC server <span class="bcp14">SHOULD</span> provide Observe capabilities on
 <span class="bcp14">MAY</span> subscribe to DNS push notifications
 (<span><a href="https://rfc-editor.org/rfc/rfc8765#section-6.2" class="relref">Section 6.2</a> of [<a href="#RFC8765" class="cite xref">RFC8765</a>]</span>; using a DNS Subscribe message)
 instead of a classic DNS query to fetch the
-information on behalf of a DoC client.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
-<p id="section-5.1-3">This is particularly useful
+information on behalf of a DoC client.
+This is particularly useful
 when a CoAP request indicates that the DoC client wants to observe a resource record,
 or when a short-lived record is requested frequently.
 After the list of observers for a particular DNS query has become empty
 (by explicit or implicit cancellation of the observation as per <span><a href="https://rfc-editor.org/rfc/rfc7641#section-3.6" class="relref">Section 3.6</a> of [<a href="#RFC7641" class="cite xref">RFC7641</a>]</span>),
 and no other reason to subscribe to that request is present,
-the DoC server <span class="bcp14">SHOULD</span> cancel the corresponding subscription
-(<span><a href="https://rfc-editor.org/rfc/rfc8765#section-6.4" class="relref">Section 6.4</a> of [<a href="#RFC8765" class="cite xref">RFC8765</a>]</span>; this can involve sending an DNS Unsubscribe message or closing the session).<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.1-4">Whenever the DoC server receives a DNS Push message from the DNS
+the DoC server <span class="bcp14">SHOULD</span> cancel the corresponding subscription.
+This can involve sending an DNS Unsubscribe message or closing the session (see <span><a href="https://rfc-editor.org/rfc/rfc8765#section-6.4" class="relref">Section 6.4</a> of [<a href="#RFC8765" class="cite xref">RFC8765</a>]</span>).<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.1-3">Whenever the DoC server receives a DNS Push message from the DNS
 infrastructure for an observed resource record, the DoC server sends an appropriate Observe notification response
-to the DoC client.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
-<p id="section-5.1-5">A server that can not proxy to DNS Push (or any other means of obtaining new records) <span class="bcp14">SHOULD NOT</span> send the response as a notification
-(i.e., it should not send the Observe option).<a href="#section-5.1-5" class="pilcrow">¶</a></p>
+to the DoC client.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.1-4">A server that cannot proxy to DNS Push (or any other means of obtaining new records) <span class="bcp14">SHOULD NOT</span> send the response as a notification
+(i.e., it should not send the Observe option).<a href="#section-5.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="oscore">
