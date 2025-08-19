@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 15 February 2026                                               
+Expires: 20 February 2026                                               
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                          14 August 2025
+                                                          19 August 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 February 2026.
+   This Internet-Draft will expire on 20 February 2026.
 
 Copyright Notice
 
@@ -107,6 +107,11 @@ Table of Contents
      9.2.  DNS Service Bindings (SVCB) Registry
      9.3.  Resource Type (rt=) Link Target Attribute Values Registry
    10. Operational Considerations
+     10.1.  Co-existence of different DNS and CoAP transports
+     10.2.  Redirects
+     10.3.  Proxy Hop-Limit
+     10.4.  Error Handling
+     10.5.  DNS Extensions
    11. References
      11.1.  Normative References
      11.2.  Informative References
@@ -880,6 +885,8 @@ Table of Contents
 
 10.  Operational Considerations
 
+10.1.  Co-existence of different DNS and CoAP transports
+
    Many other DNS transports may co-exist on the DoC server, such as DNS
    over UDP [RFC1035], DNS over (D)TLS [RFC7858] [RFC8094], DNS over
    HTTPS [RFC8484], or DNS over QUIC [RFC9250].  In principle,
@@ -895,14 +902,22 @@ Table of Contents
    is appropriate depends on the characteristics of the network where
    DoC is deployed.
 
-   At the time of writing, CoAP does not support redirection.
-   Nevertheless, changing DNS servers may lead to different results.  In
-   case an HTTP-like redirection is supported in the future, the same
-   considerations need to be taken into account as for changing a DNS
-   server.
+10.2.  Redirects
+
+   Application-layer redirects (e.g., HTTP) redirct a client to a new
+   server.  In the case of DoC, this leads to a new DNS server.  This
+   new DNS server may provide different answers to the same DNS query
+   than the previous DNS server.  At the time of writing, CoAP does not
+   support redirection.  Future specifications of CoAP redirect may need
+   to consider the impact of different results between previous and new
+   DNS server.
+
+10.3.  Proxy Hop-Limit
 
    Mistakes might lead to CoAP proxies forming infinite loops.  Using
    the CoAP Hop-Limit option [RFC8768] mitigates such loops.
+
+10.4.  Error Handling
 
    Section 4.3.1 specifies that DNS operational errors should be
    reported back to a DoC client using the appropriate DNS RCODE.  If a
@@ -912,6 +927,8 @@ Table of Contents
    should handle this error case like a recursive resolver that lost
    connectivity to the upstream DNS infrastructure.  In case of CoAP
    errors, the usual mechanisms for CoAP response codes apply.
+
+10.5.  DNS Extensions
 
    DNS extensions that are specific to the choice of transport, such as
    [RFC7828], are not applicable to DoC.

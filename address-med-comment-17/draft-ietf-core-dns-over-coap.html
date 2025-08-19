@@ -1059,7 +1059,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Lenders, et al.</td>
-<td class="center">Expires 15 February 2026</td>
+<td class="center">Expires 20 February 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1072,12 +1072,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-core-dns-over-coap-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-08-14" class="published">14 August 2025</time>
+<time datetime="2025-08-19" class="published">19 August 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-02-15">15 February 2026</time></dd>
+<dd class="expires"><time datetime="2026-02-20">20 February 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1146,7 +1146,7 @@ constrained devices in the Internet of Things (IoT).<a href="#section-abstract-1
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 15 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 20 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1280,6 +1280,23 @@ constrained devices in the Internet of Things (IoT).<a href="#section-abstract-1
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
             <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-operational-considerations" class="internal xref">Operational Considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
+                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-co-existence-of-different-d" class="internal xref">Co-existence of different DNS and CoAP transports</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
+                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-redirects" class="internal xref">Redirects</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.3">
+                <p id="section-toc.1-1.10.2.3.1"><a href="#section-10.3" class="auto internal xref">10.3</a>.  <a href="#name-proxy-hop-limit" class="internal xref">Proxy Hop-Limit</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.4">
+                <p id="section-toc.1-1.10.2.4.1"><a href="#section-10.4" class="auto internal xref">10.4</a>.  <a href="#name-error-handling" class="internal xref">Error Handling</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.5">
+                <p id="section-toc.1-1.10.2.5.1"><a href="#section-10.5" class="auto internal xref">10.5</a>.  <a href="#name-dns-extensions" class="internal xref">DNS Extensions</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
             <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-references" class="internal xref">References</a></p>
@@ -2179,24 +2196,61 @@ The definition of this parameter can be found in <a href="#sec_doc-server-select
       <h2 id="name-operational-considerations">
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
       </h2>
-<p id="section-10-1">Many other DNS transports may co-exist on the DoC server, such as DNS over UDP <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>, DNS over (D)TLS <span>[<a href="#RFC7858" class="cite xref">RFC7858</a>]</span> <span>[<a href="#RFC8094" class="cite xref">RFC8094</a>]</span>, DNS over HTTPS <span>[<a href="#RFC8484" class="cite xref">RFC8484</a>]</span>, or DNS over QUIC <span>[<a href="#RFC9250" class="cite xref">RFC9250</a>]</span>.
+<div id="co-existence-of-different-dns-and-coap-transports">
+<section id="section-10.1">
+        <h3 id="name-co-existence-of-different-d">
+<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-co-existence-of-different-d" class="section-name selfRef">Co-existence of different DNS and CoAP transports</a>
+        </h3>
+<p id="section-10.1-1">Many other DNS transports may co-exist on the DoC server, such as DNS over UDP <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>, DNS over (D)TLS <span>[<a href="#RFC7858" class="cite xref">RFC7858</a>]</span> <span>[<a href="#RFC8094" class="cite xref">RFC8094</a>]</span>, DNS over HTTPS <span>[<a href="#RFC8484" class="cite xref">RFC8484</a>]</span>, or DNS over QUIC <span>[<a href="#RFC9250" class="cite xref">RFC9250</a>]</span>.
 In principle, transports employing channel or object security should be preferred.
 In constrained scenarios, DNS over CoAP is preferable to DNS over DTLS.
-The final decision regarding the preference, however, heavily depends on the use case and is therefore left to the implementers or users and is not defined in this document.<a href="#section-10-1" class="pilcrow">¶</a></p>
-<p id="section-10-2">CoAP supports Confirmable and Non-Confirmable messages <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> to deploy different levels of reliability.
-This document, however, does not enforce any of these message types, as the decision on which one is appropriate depends on the characteristics of the network where DoC is deployed.<a href="#section-10-2" class="pilcrow">¶</a></p>
-<p id="section-10-3">At the time of writing, CoAP does not support redirection.
-Nevertheless, changing DNS servers may lead to different results.
-In case an HTTP-like redirection is supported in the future, the same considerations need to be taken into account as for changing a DNS server.<a href="#section-10-3" class="pilcrow">¶</a></p>
-<p id="section-10-4">Mistakes might lead to CoAP proxies forming infinite loops.
-Using the CoAP Hop-Limit option <span>[<a href="#RFC8768" class="cite xref">RFC8768</a>]</span> mitigates such loops.<a href="#section-10-4" class="pilcrow">¶</a></p>
-<p id="section-10-5"><a href="#sec_resp-codes" class="auto internal xref">Section 4.3.1</a> specifies that DNS operational errors should be reported back to a DoC client
+The final decision regarding the preference, however, heavily depends on the use case and is therefore left to the implementers or users and is not defined in this document.<a href="#section-10.1-1" class="pilcrow">¶</a></p>
+<p id="section-10.1-2">CoAP supports Confirmable and Non-Confirmable messages <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> to deploy different levels of reliability.
+This document, however, does not enforce any of these message types, as the decision on which one is appropriate depends on the characteristics of the network where DoC is deployed.<a href="#section-10.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="redirects">
+<section id="section-10.2">
+        <h3 id="name-redirects">
+<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-redirects" class="section-name selfRef">Redirects</a>
+        </h3>
+<p id="section-10.2-1">Application-layer redirects (e.g., HTTP) redirct a client to a new server.
+In the case of DoC, this leads to a new DNS server.
+This new DNS server may provide different answers to the same DNS query than the previous DNS server.
+At the time of writing, CoAP does not support redirection.
+Future specifications of CoAP redirect may need to consider the impact of different results between previous and new DNS server.<a href="#section-10.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="proxy-hop-limit">
+<section id="section-10.3">
+        <h3 id="name-proxy-hop-limit">
+<a href="#section-10.3" class="section-number selfRef">10.3. </a><a href="#name-proxy-hop-limit" class="section-name selfRef">Proxy Hop-Limit</a>
+        </h3>
+<p id="section-10.3-1">Mistakes might lead to CoAP proxies forming infinite loops.
+Using the CoAP Hop-Limit option <span>[<a href="#RFC8768" class="cite xref">RFC8768</a>]</span> mitigates such loops.<a href="#section-10.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="error-handling">
+<section id="section-10.4">
+        <h3 id="name-error-handling">
+<a href="#section-10.4" class="section-number selfRef">10.4. </a><a href="#name-error-handling" class="section-name selfRef">Error Handling</a>
+        </h3>
+<p id="section-10.4-1"><a href="#sec_resp-codes" class="auto internal xref">Section 4.3.1</a> specifies that DNS operational errors should be reported back to a DoC client
 using the appropriate DNS RCODE.
 If a DoC client did not receive any successful DNS message from a DoC server for a while, it might
 indicate that the DoC server lost connectivity to the upstream DNS infrastructure.
 The DoC client should handle this error case like a recursive resolver that lost connectivity to the upstream DNS infrastructure.
-In case of CoAP errors, the usual mechanisms for CoAP response codes apply.<a href="#section-10-5" class="pilcrow">¶</a></p>
-<p id="section-10-6">DNS extensions that are specific to the choice of transport, such as <span>[<a href="#RFC7828" class="cite xref">RFC7828</a>]</span>, are not applicable to DoC.<a href="#section-10-6" class="pilcrow">¶</a></p>
+In case of CoAP errors, the usual mechanisms for CoAP response codes apply.<a href="#section-10.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="dns-extensions">
+<section id="section-10.5">
+        <h3 id="name-dns-extensions">
+<a href="#section-10.5" class="section-number selfRef">10.5. </a><a href="#name-dns-extensions" class="section-name selfRef">DNS Extensions</a>
+        </h3>
+<p id="section-10.5-1">DNS extensions that are specific to the choice of transport, such as <span>[<a href="#RFC7828" class="cite xref">RFC7828</a>]</span>, are not applicable to DoC.<a href="#section-10.5-1" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="sec-combined-references">
