@@ -578,7 +578,7 @@ the corresponding implications on message sizes and security properties.
 
 Mapping DoC to DoH
 ------------------
-This document provides no specification on how to map between DoC and DoH, e.g., at a CoAP-to-HTTP-proxy, such a direct mapping is NOT RECOMMENDED:
+This document provides no specification on how to map between DoC and DoH, e.g., at a CoAP-to-HTTP-proxy; such a direct mapping is NOT RECOMMENDED:
 rewriting the FETCH method ({{sec:queries}}) and the TTL rewriting ({{sec:resp-caching}}) as
 specified in this draft would be non-trivial.
 It is RECOMMENDED to use a DNS forwarder to map between DoC and DoH, as would be the case for
