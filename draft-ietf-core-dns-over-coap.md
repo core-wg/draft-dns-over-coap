@@ -138,7 +138,7 @@ The application use case of DoC is inspired by DNS over HTTPS {{-doh}}
 Things (IoT), which usually conflicts with the requirements introduced by
 HTTPS.
 Constrained IoT devices may be restricted in memory, power consumption,
-link layer frame sizes, throughput, and latency. They may
+link-layer frame sizes, throughput, and latency. They may
 only have a handful kilobytes of both RAM and ROM. They may sleep for long
 durations of time, after which they need to refresh the named resources they
 know about. Name resolution in such scenarios must take into account link
