@@ -11,7 +11,7 @@
 <meta content="Thomas C. Schmidt" name="author">
 <meta content="Matthias Wählisch" name="author">
 <meta content="
-       This document defines a protocol for exchanging DNS messages over the
+       This document defines a protocol for exchanging DNS queries (OPCODE 0) over the
 Constrained Application Protocol (CoAP). These CoAP messages can be protected
 by (D)TLS-Secured CoAP (CoAPS) or Object Security for Constrained RESTful
 Environments (OSCORE) to provide encrypted DNS message exchange for
@@ -1059,7 +1059,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Lenders, et al.</td>
-<td class="center">Expires 16 February 2026</td>
+<td class="center">Expires 21 February 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1072,12 +1072,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-core-dns-over-coap-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-08-15" class="published">15 August 2025</time>
+<time datetime="2025-08-20" class="published">20 August 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-02-16">16 February 2026</time></dd>
+<dd class="expires"><time datetime="2026-02-21">21 February 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1105,7 +1105,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">DNS over CoAP (DoC)</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document defines a protocol for exchanging DNS messages over the
+<p id="section-abstract-1">This document defines a protocol for exchanging DNS queries (OPCODE 0) over the
 Constrained Application Protocol (CoAP). These CoAP messages can be protected
 by (D)TLS-Secured CoAP (CoAPS) or Object Security for Constrained RESTful
 Environments (OSCORE) to provide encrypted DNS message exchange for
@@ -1146,7 +1146,7 @@ constrained devices in the Internet of Things (IoT).<a href="#section-abstract-1
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 16 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 21 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1213,7 +1213,7 @@ constrained devices in the Internet of Things (IoT).<a href="#section-abstract-1
                     <p id="section-toc.1-1.4.2.2.2.2.1"><a href="#section-4.2.2" class="auto internal xref">4.2.2</a>.  <a href="#name-support-of-coap-caching" class="internal xref">Support of CoAP Caching</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2.2.3">
-                    <p id="section-toc.1-1.4.2.2.2.3.1"><a href="#section-4.2.3" class="auto internal xref">4.2.3</a>.  <a href="#name-examples-2" class="internal xref">Examples</a></p>
+                    <p id="section-toc.1-1.4.2.2.2.3.1"><a href="#section-4.2.3" class="auto internal xref">4.2.3</a>.  <a href="#name-example" class="internal xref">Example</a></p>
 </li>
                 </ul>
 </li>
@@ -1227,7 +1227,7 @@ constrained devices in the Internet of Things (IoT).<a href="#section-abstract-1
                     <p id="section-toc.1-1.4.2.3.2.2.1"><a href="#section-4.3.2" class="auto internal xref">4.3.2</a>.  <a href="#name-support-of-coap-caching-2" class="internal xref">Support of CoAP Caching</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3.2.3">
-                    <p id="section-toc.1-1.4.2.3.2.3.1"><a href="#section-4.3.3" class="auto internal xref">4.3.3</a>.  <a href="#name-examples-3" class="internal xref">Examples</a></p>
+                    <p id="section-toc.1-1.4.2.3.2.3.1"><a href="#section-4.3.3" class="auto internal xref">4.3.3</a>.  <a href="#name-examples-2" class="internal xref">Examples</a></p>
 </li>
                 </ul>
 </li>
@@ -1364,8 +1364,8 @@ constrained devices in the Internet of Things (IoT).<a href="#section-abstract-1
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">This document defines DNS over CoAP (DoC), a protocol to send DNS
-<span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span> queries and get DNS responses over the Constrained Application
-Protocol (CoAP) <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>. Each DNS query-response pair is mapped into a
+<span>[<a href="#STD13" class="cite xref">STD13</a>]</span> queries and get DNS responses over the Constrained Application
+Protocol (CoAP) <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> using OPCODE 0 (Query). Each DNS query-response pair is mapped into a
 CoAP message exchange. Each CoAP message can be secured by DTLS 1.2 or newer <span>[<a href="#RFC6347" class="cite xref">RFC6347</a>]</span> <span>[<a href="#RFC9147" class="cite xref">RFC9147</a>]</span>
 as well as Object Security for Constrained RESTful Environments (OSCORE) <span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span>
 but also TLS 1.3 or newer <span>[<a href="#RFC8323" class="cite xref">RFC8323</a>]</span> <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>
@@ -1375,7 +1375,7 @@ to ensure message integrity and confidentiality.<a href="#section-1-1" class="pi
 Things (IoT), which usually conflicts with the requirements introduced by
 HTTPS.
 Constrained IoT devices may be restricted in memory, power consumption,
-link layer frame sizes, throughput, and latency. They may
+link-layer frame sizes, throughput, and latency. They may
 only have a handful kilobytes of both RAM and ROM. They may sleep for long
 durations of time, after which they need to refresh the named resources they
 know about. Name resolution in such scenarios must take into account link
@@ -1473,10 +1473,12 @@ on constrained devices.<a href="#section-1-3" class="pilcrow">¶</a></p>
 client tries to resolve DNS information by sending DNS queries carried within
 CoAP requests to a DoC server.
 That DoC server is a DNS client (i.e., a stub or recursive resolver) that resolves DNS information by using other DNS transports such
-as DNS over UDP <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>, DNS over HTTPS <span>[<a href="#RFC8484" class="cite xref">RFC8484</a>]</span>, or DNS over QUIC <span>[<a href="#RFC9250" class="cite xref">RFC9250</a>]</span> when communicating with the upstream
+as DNS over UDP <span>[<a href="#STD13" class="cite xref">STD13</a>]</span>, DNS over HTTPS <span>[<a href="#RFC8484" class="cite xref">RFC8484</a>]</span>, or DNS over QUIC <span>[<a href="#RFC9250" class="cite xref">RFC9250</a>]</span> when communicating with the upstream
 DNS infrastructure.
 Using that information, the DoC server then replies to the queries of the DoC client with DNS
-responses carried within CoAP responses.<a href="#section-1-6" class="pilcrow">¶</a></p>
+responses carried within CoAP responses.
+A DoC server <span class="bcp14">MAY</span> also serve as DNSSEC validator to provide DNSSEC validation to the more
+constrained DoC clients.<a href="#section-1-6" class="pilcrow">¶</a></p>
 <p id="section-1-7">Note that this specification is distinct from DoH, since the CoAP-specific FETCH method <span>[<a href="#RFC8132" class="cite xref">RFC8132</a>]</span> is used.
 This has the benefit of having the DNS query in the body as when using the POST method, but still with the same caching advantages of responses to requests that use the GET method.
 Having the DNS query in the body means that we do not need extra base64 encoding, which would increase
@@ -1505,7 +1507,7 @@ DNS information is called a "DoC client".<a href="#section-2-3" class="pilcrow">
 <p id="section-2-5">The terms "payload" and "body" are used as defined in <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>], <a href="https://rfc-editor.org/rfc/rfc7959#section-2" class="relref">Section 2</a></span>.
 Note that, when block-wise transfer is not used, the terms "payload" and "body" are to be understood as equal.<a href="#section-2-5" class="pilcrow">¶</a></p>
 <p id="section-2-6">For better readability, in the examples in this document the binary payload and resource records are shown in a hexadecimal representation as well as a human-readable format.
-In the actual message sent and received, however, they are encoded in the binary message format defined in <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>.<a href="#section-2-6" class="pilcrow">¶</a></p>
+In the actual message sent and received, however, they are encoded in the binary message format defined in <span>[<a href="#STD13" class="cite xref">STD13</a>]</span>.<a href="#section-2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec_doc-server-selection">
@@ -1544,8 +1546,9 @@ Specifying an alternate discovery mechanism is out of scope of this specificatio
 <span>[<a href="#I-D.lenders-core-dnr" class="cite xref">I-D.lenders-core-dnr</a>]</span> provides  further exploration of the challenges here.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2-2">This document is not an SVCB mapping document for the CoAP schemes
 as defined in <span><a href="https://rfc-editor.org/rfc/rfc9460#section-2.4.3" class="relref">Section 2.4.3</a> of [<a href="#RFC9460" class="cite xref">RFC9460</a>]</span>.
-A full SVCB mapping is being prepared in <span>[<a href="#I-D.ietf-core-transport-indication" class="cite xref">I-D.ietf-core-transport-indication</a>]</span>,
-generalizing mechanisms that are introduced in this document for discovery of DoC.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+A full SVCB mapping is specified in <span>[<a href="#I-D.ietf-core-transport-indication" class="cite xref">I-D.ietf-core-transport-indication</a>]</span>.
+It generalizes mechanisms for all CoAP services.
+This document introduces only the discovery of DoC services.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 <p id="section-3.2-3">This document specifies "docpath" as
 a single-valued SvcParamKey that is mandatory for DoC SVCB records.
 If the "docpath" SvcParamKey is absent, the service should not be considered a valid DoC service.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
@@ -1707,11 +1710,11 @@ Resource record (human-readable):
         </h3>
 <p id="section-4.1-1">This document defines a CoAP Content-Format identifier for the Internet
 media type "application/dns-message" to be the mnemonic 553 — based on the port assignment of DNS.
-This media type is defined as in <span><a href="https://rfc-editor.org/rfc/rfc8484#section-6" class="relref">Section 6</a> of [<a href="#RFC8484" class="cite xref">RFC8484</a>]</span>, i.e., a single DNS message encoded in the DNS on-the-wire format <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>.
+This media type is defined as in <span><a href="https://rfc-editor.org/rfc/rfc8484#section-6" class="relref">Section 6</a> of [<a href="#RFC8484" class="cite xref">RFC8484</a>]</span>, i.e., a single DNS message encoded in the DNS on-the-wire format <span>[<a href="#STD13" class="cite xref">STD13</a>]</span>.
 Both DoC client and DoC server <span class="bcp14">MUST</span> be able to parse contents in the "application/dns-message" Content-Format.
-For the purposes of this document, only OPCODE 0 (Query) is supported for DNS messages.
-Future work might provide specifications and considerations for other values of OPCODE.
-Unless another error takes precedence, a DoC server uses RCODE = 4, NotImp <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>, in its response to a query with an OPCODE that it does not implement (see also <a href="#sec_resp-examples" class="auto internal xref">Section 4.3.3</a>).<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+This document only specifies OPCODE 0 (Query) for DNS over CoAP messages.
+Future documents can provide considerations for additional OPCODEs or extend its specification (e.g. by describing whether other CoAP codes need to be used for which OPCODE).
+Unless another error takes precedence, a DoC server uses RCODE = 4, NotImp <span>[<a href="#STD13" class="cite xref">STD13</a>]</span>, in its response to a query with an OPCODE that it does not implement (see also <a href="#sec_resp-examples" class="auto internal xref">Section 4.3.3</a>).<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec_queries">
@@ -1723,7 +1726,7 @@ Unless another error takes precedence, a DoC server uses RCODE = 4, NotImp <span
 messages that use the CoAP FETCH <span>[<a href="#RFC8132" class="cite xref">RFC8132</a>]</span> request method.
 Requests <span class="bcp14">SHOULD</span> include an Accept option to indicate the type of content that can be parsed in the response.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.2-2">Since CoAP provides reliability at the message layer (e.g., through Confirmable messages) the retransmission mechanism of the
-DNS protocol as defined in <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span> is not needed.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
+DNS protocol as defined in <span>[<a href="#STD13" class="cite xref">STD13</a>]</span> is not needed.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
 <div id="request-format">
 <section id="section-4.2.1">
           <h4 id="name-request-format">
@@ -1748,8 +1751,8 @@ In any instance, a DoC server <span class="bcp14">MUST</span> copy the ID from t
 </div>
 <div id="sec_req-examples">
 <section id="section-4.2.3">
-          <h4 id="name-examples-2">
-<a href="#section-4.2.3" class="section-number selfRef">4.2.3. </a><a href="#name-examples-2" class="section-name selfRef">Examples</a>
+          <h4 id="name-example">
+<a href="#section-4.2.3" class="section-number selfRef">4.2.3. </a><a href="#name-example" class="section-name selfRef">Example</a>
           </h4>
 <p id="section-4.2.3-1">The following example illustrates the usage of a CoAP message to
 resolve "example.org. IN AAAA" based on the URI "coaps://[2001:db8::1]/". The
@@ -1760,12 +1763,12 @@ FETCH coaps://[2001:db8::1]/
 Content-Format: 553 (application/dns-message)
 Accept: 553 (application/dns-message)
 Payload (binary):
-  00 00 01 20 00 01 00 00 00 00 00 00 07 65 78 61
+  00 00 01 00 00 01 00 00 00 00 00 00 07 65 78 61
   6d 70 6c 65 03 6f 72 67 00 00 1c 00 01
 
 Payload (human-readable):
   ;; -&gt;&gt;Header&lt;&lt;- opcode: QUERY, status: NOERROR, id: 0
-  ;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
+  ;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
 
   ;; QUESTION SECTION:
   ;example.org.             IN      AAAA
@@ -1793,7 +1796,7 @@ the Content-Format option by the DoC server.<a href="#section-4.3-1" class="pilc
           <h4 id="name-response-codes-and-handling">
 <a href="#section-4.3.1" class="section-number selfRef">4.3.1. </a><a href="#name-response-codes-and-handling" class="section-name selfRef">Response Codes and Handling DNS and CoAP errors</a>
           </h4>
-<p id="section-4.3.1-1">A DNS response indicates either success or failure in the RCODE of the DNS header (see <span><a href="https://rfc-editor.org/rfc/rfc1035#section-4.1.1" class="relref">Section 4.1.1</a> of [<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>).
+<p id="section-4.3.1-1">A DNS response indicates either success or failure in the RCODE of the DNS header (see <span>[<a href="#STD13" class="cite xref">STD13</a>]</span>).
 It is <span class="bcp14">RECOMMENDED</span> that CoAP responses that carry a parseable DNS response use a 2.05 (Content) response code.<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.3.1-2">CoAP responses using non-successful response codes <span class="bcp14">MUST NOT</span> contain a DNS response
 and <span class="bcp14">MUST</span> only be used for errors in the CoAP layer or when a request does not
@@ -1830,8 +1833,8 @@ The same applies for DNS responses that for any reason do not carry any records 
 </div>
 <div id="sec_resp-examples">
 <section id="section-4.3.3">
-          <h4 id="name-examples-3">
-<a href="#section-4.3.3" class="section-number selfRef">4.3.3. </a><a href="#name-examples-3" class="section-name selfRef">Examples</a>
+          <h4 id="name-examples-2">
+<a href="#section-4.3.3" class="section-number selfRef">4.3.3. </a><a href="#name-examples-2" class="section-name selfRef">Examples</a>
           </h4>
 <p id="section-4.3.3-1">The following example illustrates the response to the query "example.org. IN
 AAAA record", with recursion turned on. Successful responses carry one answer
@@ -1844,7 +1847,7 @@ Content-Format: 553 (application/dns-message)
 Max-Age: 58719
 Payload (human-readable):
   ;; -&gt;&gt;Header&lt;&lt;- opcode: QUERY, status: NOERROR, id: 0
-  ;; flags: qr rd ad; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ARCOUNT: 0
+  ;; flags: qr rd ad; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
 
   ;; QUESTION SECTION:
   ;example.org.                 IN      AAAA
@@ -1872,7 +1875,7 @@ Payload (human-readable):
 Content-Format: 553 (application/dns-message)
 Payload (human-readable):
   ;; -&gt;&gt;Header&lt;&lt;- opcode: UPDATE, status: NOTIMP, id: 0
-  ;; flags: qr ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
+  ;; flags: qr ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
 
   ;; QUERY SECTION:
   ;example.org.                 IN      AAAA
@@ -2091,13 +2094,13 @@ DoC can only guarantee confidentiality and integrity of communication between pa
 security context is exchanged.
 The DoC server may use another security context to communicate upstream with both confidentiality and integrity
 (e.g., DNS over QUIC <span>[<a href="#RFC9250" class="cite xref">RFC9250</a>]</span>), but, while recommended, this is opaque to the DoC client on the protocol level.
-Record integrity can also be ensured upstream using DNSSEC <span>[<a href="#RFC9364" class="cite xref">RFC9364</a>]</span>.<a href="#section-8-5" class="pilcrow">¶</a></p>
+Record integrity can also be ensured upstream using DNSSEC <span>[<a href="#BCP237" class="cite xref">BCP237</a>]</span>.<a href="#section-8-5" class="pilcrow">¶</a></p>
 <p id="section-8-6">A DoC client may not be able to perform DNSSEC validation,
 e.g., due to code size constraints, or due to the size of the responses.
 It may trust its DoC server to perform DNSSEC validation;
 how that trust is expressed is out of the scope of this document.
 For instance, a DoC client may be, configured to use a particular credential by which it recognizes an eligible DoC server.
-That information can also imply trust in the DNSSEC validation by that server.<a href="#section-8-6" class="pilcrow">¶</a></p>
+That information can also imply trust in the DNSSEC validation by that DoC server.<a href="#section-8-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -2188,10 +2191,6 @@ The definition of this parameter can be found in <a href="#sec_doc-server-select
         <dd>
 <span class="refAuthor">Lenders, M. S.</span>, <span class="refAuthor">Amsüss, C.</span>, <span class="refAuthor">Schmidt, T. C.</span>, and <span class="refAuthor">M. Wählisch</span>, <span class="refTitle">"ALPN ID Specification for CoAP over DTLS"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-coap-dtls-alpn-05</span>, <time datetime="2025-08-11" class="refDate">11 August 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-coap-dtls-alpn-05">https://datatracker.ietf.org/doc/html/draft-ietf-core-coap-dtls-alpn-05</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC1035">[RFC1035]</dt>
-        <dd>
-<span class="refAuthor">Mockapetris, P.</span>, <span class="refTitle">"Domain names - implementation and specification"</span>, <span class="seriesInfo">STD 13</span>, <span class="seriesInfo">RFC 1035</span>, <span class="seriesInfo">DOI 10.17487/RFC1035</span>, <time datetime="1987-11" class="refDate">November 1987</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc1035">https://www.rfc-editor.org/rfc/rfc1035</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
@@ -2249,8 +2248,18 @@ The definition of this parameter can be found in <a href="#sec_doc-server-select
 <span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">P. Hoffman</span>, <span class="refTitle">"Concise Binary Object Representation (CBOR)"</span>, <span class="seriesInfo">STD 94</span>, <span class="seriesInfo">RFC 8949</span>, <span class="seriesInfo">DOI 10.17487/RFC8949</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8949">https://www.rfc-editor.org/rfc/rfc8949</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9147">[RFC9147]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Rescorla, E.</span>, <span class="refAuthor">Tschofenig, H.</span>, and <span class="refAuthor">N. Modadugu</span>, <span class="refTitle">"The Datagram Transport Layer Security (DTLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 9147</span>, <span class="seriesInfo">DOI 10.17487/RFC9147</span>, <time datetime="2022-04" class="refDate">April 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9147">https://www.rfc-editor.org/rfc/rfc9147</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="STD13">[STD13]</dt>
+      <dd>
+<div class="refInstance">Internet Standard 13, <span>&lt;<a href="https://www.rfc-editor.org/info/std13">https://www.rfc-editor.org/info/std13</a>&gt;</span>.<br><span>At the time of writing, this STD comprises the following:</span>
+</div>
+<div class="refInstance" id="RFC1034">
+            <span class="refAuthor">Mockapetris, P.</span>, <span class="refTitle">"Domain names - concepts and facilities"</span>, <span class="seriesInfo">STD 13</span>, <span class="seriesInfo">RFC 1034</span>, <span class="seriesInfo">DOI 10.17487/RFC1034</span>, <time datetime="1987-11" class="refDate">November 1987</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc1034">https://www.rfc-editor.org/info/rfc1034</a>&gt;</span>. </div>
+<div class="refInstance" id="RFC1035">
+            <span class="refAuthor">Mockapetris, P.</span>, <span class="refTitle">"Domain names - implementation and specification"</span>, <span class="seriesInfo">STD 13</span>, <span class="seriesInfo">RFC 1035</span>, <span class="seriesInfo">DOI 10.17487/RFC1035</span>, <time datetime="1987-11" class="refDate">November 1987</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc1035">https://www.rfc-editor.org/info/rfc1035</a>&gt;</span>. </div>
+</dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -2267,6 +2276,14 @@ The definition of this parameter can be found in <a href="#sec_doc-server-select
 </div>
 <div class="refInstance" id="RFC9499">
             <span class="refAuthor">Hoffman, P.</span> and <span class="refAuthor">K. Fujiwara</span>, <span class="refTitle">"DNS Terminology"</span>, <span class="seriesInfo">BCP 219</span>, <span class="seriesInfo">RFC 9499</span>, <span class="seriesInfo">DOI 10.17487/RFC9499</span>, <time datetime="2024-03" class="refDate">March 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9499">https://www.rfc-editor.org/info/rfc9499</a>&gt;</span>. </div>
+</dd>
+<dd class="break"></dd>
+<dt id="BCP237">[BCP237]</dt>
+        <dd>
+<div class="refInstance">Best Current Practice 237, <span>&lt;<a href="https://www.rfc-editor.org/info/bcp237">https://www.rfc-editor.org/info/bcp237</a>&gt;</span>.<br><span>At the time of writing, this BCP comprises the following:</span>
+</div>
+<div class="refInstance" id="RFC9364">
+            <span class="refAuthor">Hoffman, P.</span>, <span class="refTitle">"DNS Security Extensions (DNSSEC)"</span>, <span class="seriesInfo">BCP 237</span>, <span class="seriesInfo">RFC 9364</span>, <span class="seriesInfo">DOI 10.17487/RFC9364</span>, <time datetime="2023-02" class="refDate">February 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9364">https://www.rfc-editor.org/info/rfc9364</a>&gt;</span>. </div>
 </dd>
 <dd class="break"></dd>
 <dt id="DoC-paper">[DoC-paper]</dt>
@@ -2340,10 +2357,6 @@ The definition of this parameter can be found in <a href="#sec_doc-server-select
 <dt id="RFC9250">[RFC9250]</dt>
         <dd>
 <span class="refAuthor">Huitema, C.</span>, <span class="refAuthor">Dickinson, S.</span>, and <span class="refAuthor">A. Mankin</span>, <span class="refTitle">"DNS over Dedicated QUIC Connections"</span>, <span class="seriesInfo">RFC 9250</span>, <span class="seriesInfo">DOI 10.17487/RFC9250</span>, <time datetime="2022-05" class="refDate">May 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9250">https://www.rfc-editor.org/rfc/rfc9250</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC9364">[RFC9364]</dt>
-        <dd>
-<span class="refAuthor">Hoffman, P.</span>, <span class="refTitle">"DNS Security Extensions (DNSSEC)"</span>, <span class="seriesInfo">BCP 237</span>, <span class="seriesInfo">RFC 9364</span>, <span class="seriesInfo">DOI 10.17487/RFC9364</span>, <time datetime="2023-02" class="refDate">February 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9364">https://www.rfc-editor.org/rfc/rfc9364</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9460">[RFC9460]</dt>
         <dd>

@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 16 February 2026                                               
+Expires: 21 February 2026                                               
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                          15 August 2025
+                                                          20 August 2025
 
 
                           DNS over CoAP (DoC)
@@ -20,12 +20,12 @@ Expires: 16 February 2026
 
 Abstract
 
-   This document defines a protocol for exchanging DNS messages over the
-   Constrained Application Protocol (CoAP).  These CoAP messages can be
-   protected by (D)TLS-Secured CoAP (CoAPS) or Object Security for
-   Constrained RESTful Environments (OSCORE) to provide encrypted DNS
-   message exchange for constrained devices in the Internet of Things
-   (IoT).
+   This document defines a protocol for exchanging DNS queries (OPCODE
+   0) over the Constrained Application Protocol (CoAP).  These CoAP
+   messages can be protected by (D)TLS-Secured CoAP (CoAPS) or Object
+   Security for Constrained RESTful Environments (OSCORE) to provide
+   encrypted DNS message exchange for constrained devices in the
+   Internet of Things (IoT).
 
 About This Document
 
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 February 2026.
+   This Internet-Draft will expire on 21 February 2026.
 
 Copyright Notice
 
@@ -88,7 +88,7 @@ Table of Contents
      4.2.  DNS Queries in CoAP Requests
        4.2.1.  Request Format
        4.2.2.  Support of CoAP Caching
-       4.2.3.  Examples
+       4.2.3.  Example
      4.3.  DNS Responses in CoAP Responses
        4.3.1.  Response Codes and Handling DNS and CoAP errors
        4.3.2.  Support of CoAP Caching
@@ -134,19 +134,19 @@ Table of Contents
 1.  Introduction
 
    This document defines DNS over CoAP (DoC), a protocol to send DNS
-   [RFC1035] queries and get DNS responses over the Constrained
-   Application Protocol (CoAP) [RFC7252].  Each DNS query-response pair
-   is mapped into a CoAP message exchange.  Each CoAP message can be
-   secured by DTLS 1.2 or newer [RFC6347] [RFC9147] as well as Object
-   Security for Constrained RESTful Environments (OSCORE) [RFC8613] but
-   also TLS 1.3 or newer [RFC8323] [RFC8446] to ensure message integrity
-   and confidentiality.
+   [STD13] queries and get DNS responses over the Constrained
+   Application Protocol (CoAP) [RFC7252] using OPCODE 0 (Query).  Each
+   DNS query-response pair is mapped into a CoAP message exchange.  Each
+   CoAP message can be secured by DTLS 1.2 or newer [RFC6347] [RFC9147]
+   as well as Object Security for Constrained RESTful Environments
+   (OSCORE) [RFC8613] but also TLS 1.3 or newer [RFC8323] [RFC8446] to
+   ensure message integrity and confidentiality.
 
    The application use case of DoC is inspired by DNS over HTTPS
    [RFC8484] (DoH).  DoC, however, aims for deployment in the
    constrained Internet of Things (IoT), which usually conflicts with
    the requirements introduced by HTTPS.  Constrained IoT devices may be
-   restricted in memory, power consumption, link layer frame sizes,
+   restricted in memory, power consumption, link-layer frame sizes,
    throughput, and latency.  They may only have a handful kilobytes of
    both RAM and ROM.  They may sleep for long durations of time, after
    which they need to refresh the named resources they know about.  Name
@@ -192,10 +192,12 @@ Table of Contents
    carried within CoAP requests to a DoC server.  That DoC server is a
    DNS client (i.e., a stub or recursive resolver) that resolves DNS
    information by using other DNS transports such as DNS over UDP
-   [RFC1035], DNS over HTTPS [RFC8484], or DNS over QUIC [RFC9250] when
+   [STD13], DNS over HTTPS [RFC8484], or DNS over QUIC [RFC9250] when
    communicating with the upstream DNS infrastructure.  Using that
    information, the DoC server then replies to the queries of the DoC
-   client with DNS responses carried within CoAP responses.
+   client with DNS responses carried within CoAP responses.  A DoC
+   server MAY also serve as DNSSEC validator to provide DNSSEC
+   validation to the more constrained DoC clients.
 
    Note that this specification is distinct from DoH, since the CoAP-
    specific FETCH method [RFC8132] is used.  This has the benefit of
@@ -239,7 +241,7 @@ Table of Contents
    payload and resource records are shown in a hexadecimal
    representation as well as a human-readable format.  In the actual
    message sent and received, however, they are encoded in the binary
-   message format defined in [RFC1035].
+   message format defined in [STD13].
 
 3.  Selection of a DoC Server
 
@@ -280,9 +282,10 @@ Table of Contents
    exploration of the challenges here.
 
    This document is not an SVCB mapping document for the CoAP schemes as
-   defined in Section 2.4.3 of [RFC9460].  A full SVCB mapping is being
-   prepared in [I-D.ietf-core-transport-indication], generalizing
-   mechanisms that are introduced in this document for discovery of DoC.
+   defined in Section 2.4.3 of [RFC9460].  A full SVCB mapping is
+   specified in [I-D.ietf-core-transport-indication].  It generalizes
+   mechanisms for all CoAP services.  This document introduces only the
+   discovery of DoC services.
 
    This document specifies "docpath" as a single-valued SvcParamKey that
    is mandatory for DoC SVCB records.  If the "docpath" SvcParamKey is
@@ -456,13 +459,14 @@ Table of Contents
    Internet media type "application/dns-message" to be the mnemonic 553
    — based on the port assignment of DNS.  This media type is defined as
    in Section 6 of [RFC8484], i.e., a single DNS message encoded in the
-   DNS on-the-wire format [RFC1035].  Both DoC client and DoC server
-   MUST be able to parse contents in the "application/dns-message"
-   Content-Format.  For the purposes of this document, only OPCODE 0
-   (Query) is supported for DNS messages.  Future work might provide
-   specifications and considerations for other values of OPCODE.  Unless
+   DNS on-the-wire format [STD13].  Both DoC client and DoC server MUST
+   be able to parse contents in the "application/dns-message" Content-
+   Format.  This document only specifies OPCODE 0 (Query) for DNS over
+   CoAP messages.  Future documents can provide considerations for
+   additional OPCODEs or extend its specification (e.g. by describing
+   whether other CoAP codes need to be used for which OPCODE).  Unless
    another error takes precedence, a DoC server uses RCODE = 4, NotImp
-   [RFC1035], in its response to a query with an OPCODE that it does not
+   [STD13], in its response to a query with an OPCODE that it does not
    implement (see also Section 4.3.3).
 
 4.2.  DNS Queries in CoAP Requests
@@ -474,7 +478,7 @@ Table of Contents
 
    Since CoAP provides reliability at the message layer (e.g., through
    Confirmable messages) the retransmission mechanism of the DNS
-   protocol as defined in [RFC1035] is not needed.
+   protocol as defined in [STD13] is not needed.
 
 4.2.1.  Request Format
 
@@ -498,7 +502,7 @@ Table of Contents
    somewhere else.  In any instance, a DoC server MUST copy the ID from
    the query in its response to that query.
 
-4.2.3.  Examples
+4.2.3.  Example
 
    The following example illustrates the usage of a CoAP message to
    resolve "example.org.  IN AAAA" based on the URI
@@ -509,12 +513,12 @@ Table of Contents
    Content-Format: 553 (application/dns-message)
    Accept: 553 (application/dns-message)
    Payload (binary):
-     00 00 01 20 00 01 00 00 00 00 00 00 07 65 78 61
+     00 00 01 00 00 01 00 00 00 00 00 00 07 65 78 61
      6d 70 6c 65 03 6f 72 67 00 00 1c 00 01
 
    Payload (human-readable):
      ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
-     ;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
+     ;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
 
      ;; QUESTION SECTION:
      ;example.org.             IN      AAAA
@@ -535,9 +539,9 @@ Table of Contents
 4.3.1.  Response Codes and Handling DNS and CoAP errors
 
    A DNS response indicates either success or failure in the RCODE of
-   the DNS header (see Section 4.1.1 of [RFC1035]).  It is RECOMMENDED
-   that CoAP responses that carry a parseable DNS response use a 2.05
-   (Content) response code.
+   the DNS header (see [STD13]).  It is RECOMMENDED that CoAP responses
+   that carry a parseable DNS response use a 2.05 (Content) response
+   code.
 
    CoAP responses using non-successful response codes MUST NOT contain a
    DNS response and MUST only be used for errors in the CoAP layer or
@@ -606,17 +610,17 @@ Table of Contents
 
    A successful response:
 
-   2.05 Content
-   Content-Format: 553 (application/dns-message)
-   Max-Age: 58719
-   Payload (human-readable):
-     ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
-     ;; flags: qr rd ad; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ARCOUNT: 0
+  2.05 Content
+  Content-Format: 553 (application/dns-message)
+  Max-Age: 58719
+  Payload (human-readable):
+    ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
+    ;; flags: qr rd ad; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
 
-     ;; QUESTION SECTION:
-     ;example.org.                 IN      AAAA
-     ;; ANSWER SECTION:
-     ;example.org.         79689   IN      AAAA    2001:db8:1:0:1:2:3:4
+    ;; QUESTION SECTION:
+    ;example.org.                 IN      AAAA
+    ;; ANSWER SECTION:
+    ;example.org.         79689   IN      AAAA    2001:db8:1:0:1:2:3:4
 
    When a DNS error – NxDomain (RCODE = 3) for "does.not.exist" in this
    case – is noted in the DNS response, the CoAP response still
@@ -639,7 +643,7 @@ Table of Contents
    Content-Format: 553 (application/dns-message)
    Payload (human-readable):
      ;; ->>Header<<- opcode: UPDATE, status: NOTIMP, id: 0
-     ;; flags: qr ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ARCOUNT: 0
+     ;; flags: qr ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
 
      ;; QUERY SECTION:
      ;example.org.                 IN      AAAA
@@ -817,7 +821,7 @@ Table of Contents
    communicate upstream with both confidentiality and integrity (e.g.,
    DNS over QUIC [RFC9250]), but, while recommended, this is opaque to
    the DoC client on the protocol level.  Record integrity can also be
-   ensured upstream using DNSSEC [RFC9364].
+   ensured upstream using DNSSEC [BCP237].
 
    A DoC client may not be able to perform DNSSEC validation, e.g., due
    to code size constraints, or due to the size of the responses.  It
@@ -825,7 +829,7 @@ Table of Contents
    is expressed is out of the scope of this document.  For instance, a
    DoC client may be, configured to use a particular credential by which
    it recognizes an eligible DoC server.  That information can also
-   imply trust in the DNSSEC validation by that server.
+   imply trust in the DNSSEC validation by that DoC server.
 
 9.  IANA Considerations
 
@@ -893,10 +897,6 @@ Table of Contents
               alpn-05, 11 August 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
               coap-dtls-alpn-05>.
-
-   [RFC1035]  Mockapetris, P., "Domain names - implementation and
-              specification", STD 13, RFC 1035, DOI 10.17487/RFC1035,
-              November 1987, <https://www.rfc-editor.org/rfc/rfc1035>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -970,6 +970,18 @@ Table of Contents
               1.3", RFC 9147, DOI 10.17487/RFC9147, April 2022,
               <https://www.rfc-editor.org/rfc/rfc9147>.
 
+   [STD13]    Internet Standard 13,
+              <https://www.rfc-editor.org/info/std13>.
+              At the time of writing, this STD comprises the following:
+
+              Mockapetris, P., "Domain names - concepts and facilities",
+              STD 13, RFC 1034, DOI 10.17487/RFC1034, November 1987,
+              <https://www.rfc-editor.org/info/rfc1034>.
+
+              Mockapetris, P., "Domain names - implementation and
+              specification", STD 13, RFC 1035, DOI 10.17487/RFC1035,
+              November 1987, <https://www.rfc-editor.org/info/rfc1035>.
+
 10.2.  Informative References
 
    [BCP219]   Best Current Practice 219,
@@ -979,6 +991,14 @@ Table of Contents
               Hoffman, P. and K. Fujiwara, "DNS Terminology", BCP 219,
               RFC 9499, DOI 10.17487/RFC9499, March 2024,
               <https://www.rfc-editor.org/info/rfc9499>.
+
+   [BCP237]   Best Current Practice 237,
+              <https://www.rfc-editor.org/info/bcp237>.
+              At the time of writing, this BCP comprises the following:
+
+              Hoffman, P., "DNS Security Extensions (DNSSEC)", BCP 237,
+              RFC 9364, DOI 10.17487/RFC9364, February 2023,
+              <https://www.rfc-editor.org/info/rfc9364>.
 
    [DoC-paper]
               Lenders, M., Amsüss, C., Gündogan, C., Nawrocki, M.,
@@ -1082,10 +1102,6 @@ Table of Contents
               Dedicated QUIC Connections", RFC 9250,
               DOI 10.17487/RFC9250, May 2022,
               <https://www.rfc-editor.org/rfc/rfc9250>.
-
-   [RFC9364]  Hoffman, P., "DNS Security Extensions (DNSSEC)", BCP 237,
-              RFC 9364, DOI 10.17487/RFC9364, February 2023,
-              <https://www.rfc-editor.org/rfc/rfc9364>.
 
    [RFC9460]  Schwartz, B., Bishop, M., and E. Nygren, "Service Binding
               and Parameter Specification via the DNS (SVCB and HTTPS
