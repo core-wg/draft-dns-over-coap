@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 15 February 2026                                               
+Expires: 21 February 2026                                               
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                          14 August 2025
+                                                          20 August 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 February 2026.
+   This Internet-Draft will expire on 21 February 2026.
 
 Copyright Notice
 
@@ -697,7 +697,7 @@ Table of Contents
 5.3.  Mapping DoC to DoH
 
    This document provides no specification on how to map between DoC and
-   DoH, e.g., at a CoAP-to-HTTP-proxy, such a direct mapping is NOT
+   DoH, e.g., at a CoAP-to-HTTP-proxy; such a direct mapping is NOT
    RECOMMENDED: rewriting the FETCH method (Section 4.2) and the TTL
    rewriting (Section 4.3.2) as specified in this draft would be non-
    trivial.  It is RECOMMENDED to use a DNS forwarder to map between DoC
