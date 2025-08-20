@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 15 February 2026                                               
+Expires: 21 February 2026                                               
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                          14 August 2025
+                                                          20 August 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 February 2026.
+   This Internet-Draft will expire on 21 February 2026.
 
 Copyright Notice
 
@@ -146,7 +146,7 @@ Table of Contents
    [RFC8484] (DoH).  DoC, however, aims for deployment in the
    constrained Internet of Things (IoT), which usually conflicts with
    the requirements introduced by HTTPS.  Constrained IoT devices may be
-   restricted in memory, power consumption, link layer frame sizes,
+   restricted in memory, power consumption, link-layer frame sizes,
    throughput, and latency.  They may only have a handful kilobytes of
    both RAM and ROM.  They may sleep for long durations of time, after
    which they need to refresh the named resources they know about.  Name
