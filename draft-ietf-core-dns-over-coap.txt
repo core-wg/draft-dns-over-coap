@@ -282,9 +282,10 @@ Table of Contents
    exploration of the challenges here.
 
    This document is not an SVCB mapping document for the CoAP schemes as
-   defined in Section 2.4.3 of [RFC9460].  A full SVCB mapping is being
-   prepared in [I-D.ietf-core-transport-indication], generalizing
-   mechanisms that are introduced in this document for discovery of DoC.
+   defined in Section 2.4.3 of [RFC9460].  A full SVCB mapping is
+   specified in [I-D.ietf-core-transport-indication].  It generalizes
+   mechanisms for all CoAP services.  This document introduces only the
+   discovery of DoC services.
 
    This document specifies "docpath" as a single-valued SvcParamKey that
    is mandatory for DoC SVCB records.  If the "docpath" SvcParamKey is
@@ -512,12 +513,12 @@ Table of Contents
    Content-Format: 553 (application/dns-message)
    Accept: 553 (application/dns-message)
    Payload (binary):
-     00 00 01 20 00 01 00 00 00 00 00 00 07 65 78 61
+     00 00 01 00 00 01 00 00 00 00 00 00 07 65 78 61
      6d 70 6c 65 03 6f 72 67 00 00 1c 00 01
 
    Payload (human-readable):
      ;; ->>Header<<- opcode: QUERY, status: NOERROR, id: 0
-     ;; flags: rd ad; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
+     ;; flags: rd; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0
 
      ;; QUESTION SECTION:
      ;example.org.             IN      AAAA
