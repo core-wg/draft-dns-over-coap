@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 21 February 2026                                               
+Expires: 26 February 2026                                               
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                          20 August 2025
+                                                          25 August 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 February 2026.
+   This Internet-Draft will expire on 26 February 2026.
 
 Copyright Notice
 
@@ -342,10 +342,10 @@ Table of Contents
    through the provided records in order of their priority.
 
    *  If the "alpn" SvcParam value for the service is "coap", a CoAP
-      request for CoAP over TLS MUST be constructed.  If it is "co", a
-      CoAP request for CoAP over DTLS MUST be constructed.  Any other
-      SvcParamKeys specifying a transport are out of the scope of this
-      document.
+      request for CoAP over TLS MUST be constructed [RFC8323].  If it is
+      "co", a CoAP request for CoAP over DTLS MUST be constructed
+      [I-D.ietf-core-coap-dtls-alpn].  Any other SvcParamKeys specifying
+      a transport are out of the scope of this document.
 
    *  The destination address for the request SHOULD be taken from
       additional information about the target, e.g., from an AAAA record
@@ -393,7 +393,7 @@ Table of Contents
    // private use range of SvcParamKeys) throughout this section.
    // Before publication, please replace ff 0a with the hexadecimal
    // representation of the final value assigned by IANA in this
-   // section.
+   // section.  Please remove this paragraph after that.
 
    A typical SVCB resource record response for a DoC server at the root
    path "/" of the server looks like the following (the "docpath"
@@ -702,12 +702,12 @@ Table of Contents
 5.3.  Mapping DoC to DoH
 
    This document provides no specification on how to map between DoC and
-   DoH, e.g., at a CoAP-to-HTTP-proxy.  In fact, such a direct mapping
-   is NOT RECOMMENDED: rewriting the FETCH method (Section 4.2) and the
-   TTL rewriting (Section 4.3.2) as specified in this draft would be
-   non-trivial.  It is RECOMMENDED to use a DNS forwarder to map between
-   DoC and DoH, as would be the case for mapping between any other pair
-   of DNS transports.
+   DoH, e.g., at a CoAP-to-HTTP-proxy; such a direct mapping is NOT
+   RECOMMENDED: rewriting the FETCH method (Section 4.2) and the TTL
+   rewriting (Section 4.3.2) as specified in this draft would be non-
+   trivial.  It is RECOMMENDED to use a DNS forwarder to map between DoC
+   and DoH, as would be the case for mapping between any other pair of
+   DNS transports.
 
 6.  Considerations for Unprotected Use
 
@@ -720,7 +720,7 @@ Table of Contents
    protection against off-path poisoning attacks is achieved by using
    random large token values for unprotected CoAP requests.  If a DoC
    message is unprotected it MUST use a random token of at least 2 bytes
-   length to mitigate this kind of poisoning attacks.
+   length to mitigate this kind of poisoning attack.
 
 7.  Implementation Status
 
