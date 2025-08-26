@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 26 February 2026                                               
+Expires: 27 February 2026                                               
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                          25 August 2025
+                                                          26 August 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 February 2026.
+   This Internet-Draft will expire on 27 February 2026.
 
 Copyright Notice
 
@@ -669,24 +669,26 @@ Table of Contents
    The DoC server SHOULD provide Observe capabilities on its DoC
    resource and do as follows.
 
-   If the CoAP request indicates that the DoC client wants to observe a
-   resource record, a DoC server MAY use a DNS Subscribe message instead
-   of a classic DNS query to fetch the information on behalf of a DoC
-   client.  If this is not supported by the DoC server, it MUST act as
-   if the DoC resource were not observable.
+   A DoC server MAY subscribe to DNS push notifications, which involves
+   sending a DNS Subscribe message (see (Section 6.2 of [RFC8765]),
+   instead of a classic DNS query to fetch the information on behalf of
+   a DoC client.  This is particularly useful when a CoAP request
+   indicates that the DoC client wants to observe a resource record, or
+   when a short-lived record is requested frequently.  After the list of
+   observers for a particular DNS query has become empty (by explicit or
+   implicit cancellation of the observation as per Section 3.6 of
+   [RFC7641]), and no other reason to subscribe to that request is
+   present, the DoC server SHOULD cancel the corresponding subscription.
+   This can involve sending an DNS Unsubscribe message or closing the
+   session (see Section 6.4 of [RFC8765]).
 
    Whenever the DoC server receives a DNS Push message from the DNS
    infrastructure for an observed resource record, the DoC server sends
    an appropriate Observe notification response to the DoC client.
 
-   If no more DoC clients observe a resource record for which the DoC
-   server has an open subscription, the DoC server MUST use a DNS
-   Unsubscribe message to close its subscription to the resource record
-   as well.
-
-   A DoC server can still provide Observe capabilities to its DoC
-   resource without providing this proxying to DNS Push, e.g., if it
-   receives new information on a record through other means.
+   A server that cannot proxy to DNS Push (or any other means of
+   obtaining new records) should not send the response as a notification
+   (i.e., it should not send the Observe option).
 
 5.2.  OSCORE
 
