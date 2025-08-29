@@ -1059,7 +1059,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Lenders, et al.</td>
-<td class="center">Expires 27 February 2026</td>
+<td class="center">Expires 2 March 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1072,12 +1072,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-core-dns-over-coap-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-08-26" class="published">26 August 2025</time>
+<time datetime="2025-08-29" class="published">29 August 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-02-27">27 February 2026</time></dd>
+<dd class="expires"><time datetime="2026-03-02">2 March 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1146,7 +1146,7 @@ constrained devices in the Internet of Things (IoT).<a href="#section-abstract-1
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 27 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 2 March 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1566,7 +1566,7 @@ Paths with longer segments cannot be advertised with the "docpath" SvcParam and 
 of 0 or more docpath-segments.
 The root path "/" is represented by 0 docpath-segments, i.e., an empty list.
 The same considerations for the "," and "" characters in docpath-segments for zone-file
-implementations as for the alpn-ids in an "alpn" SvcParam <span class="bcp14">MAY</span> apply (<span><a href="https://rfc-editor.org/rfc/rfc9460#section-7.1.1" class="relref">Section 7.1.1</a> of [<a href="#RFC9460" class="cite xref">RFC9460</a>]</span>).<a href="#section-3.2-7" class="pilcrow">¶</a></p>
+implementations as for the alpn-ids in an "alpn" SvcParam apply (<span><a href="https://rfc-editor.org/rfc/rfc9460#section-7.1.1" class="relref">Section 7.1.1</a> of [<a href="#RFC9460" class="cite xref">RFC9460</a>]</span>).<a href="#section-3.2-7" class="pilcrow">¶</a></p>
 <p id="section-3.2-8">The wire-format value for "docpath" consists of 0 or more sequences of octets prefixed by their
 respective length as a single octet.
 We call this single octet the length octet.
@@ -1586,8 +1586,9 @@ option, provided the docpath-segments are all of a length between 0 and 12 octet
 Likewise, it can be transferred into a URI path-abempty form by replacing each length octet with the "/" character
 None of the abovementioned prevent longer docpath-segments than the considered, they just make the
 translation harder, as they require to make space for the longer delimiters, in turn requiring to move octets.<a href="#section-3.2-9" class="pilcrow">¶</a></p>
-<p id="section-3.2-10">To use the service binding from an SVCB RR, the DoC client <span class="bcp14">MUST</span> send a DoC request constructed from the SvcParams including "docpath".
-The construction algorithm for DoC requests is as follows, going through the provided records in order of their priority.<a href="#section-3.2-10" class="pilcrow">¶</a></p>
+<p id="section-3.2-10">To use the service binding from an SVCB RR or DNR Encrypted DNS option, the DoC client <span class="bcp14">MUST</span> send a DoC request constructed from the SvcParams including "docpath".
+The construction algorithm for DoC requests is as follows, going through the provided records in order of their priority.
+For the purposes of this algorithm, the DoC client is assumed to be SVCB-optional (see <span><a href="https://rfc-editor.org/rfc/rfc9460#section-3" class="relref">Section 3</a> of [<a href="#RFC9460" class="cite xref">RFC9460</a>]</span>).<a href="#section-3.2-10" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2-11.1">
             <p id="section-3.2-11.1.1">If the "alpn" SvcParam value for the service is "coap", a CoAP request for CoAP over TLS <span class="bcp14">MUST</span> be constructed <span>[<a href="#RFC8323" class="cite xref">RFC8323</a>]</span>.
@@ -1619,7 +1620,7 @@ or by setting the Uri-Host option on each request.<a href="#section-3.2-11.4.1" 
 </li>
           <li class="normal" id="section-3.2-11.6">
             <p id="section-3.2-11.6.1">If the request constructed this way receives a response, the same SVCB record <span class="bcp14">MUST</span> be used for construction of future DoC queries.
-If not, or if the endpoint becomes unreachable, the algorithm <span class="bcp14">SHOULD</span> be repeated with the SVCB record with the next highest priority.<a href="#section-3.2-11.6.1" class="pilcrow">¶</a></p>
+If not, or if the endpoint becomes unreachable, the algorithm repeats with the SVCB RR or DNR Encrypted DNS option with the next highest Service Priority as a fallback (see Sections <a href="https://rfc-editor.org/rfc/rfc9460#section-2.4.1" class="relref">2.4.1</a> and <a href="https://rfc-editor.org/rfc/rfc9460#section-3" class="relref">3</a> of <span>[<a href="#RFC9460" class="cite xref">RFC9460</a>]</span>).<a href="#section-3.2-11.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-3.2-12">A more generalized construction algorithm for any CoAP request can be found in <span>[<a href="#I-D.ietf-core-transport-indication" class="cite xref">I-D.ietf-core-transport-indication</a>]</span>.<a href="#section-3.2-12" class="pilcrow">¶</a></p>
@@ -1787,8 +1788,8 @@ Payload (human-readable):
 DNS responses are provided in the body of the CoAP response, i.e., it is also possible to transfer them using block-wise transfer <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>]</span>.
 A DoC server <span class="bcp14">MUST</span> be able to produce responses in the "application/dns-message"
 Content-Format (for details, see <a href="#sec_content-format" class="auto internal xref">Section 4.1</a>) when requested.
-A DoC client <span class="bcp14">MUST</span> be able to understand responses in the "application/dns-message" Content-Format
-when it does not send an Accept option.
+The use of the Accept option in the request is optional.
+However, all DoC clients <span class="bcp14">MUST</span> be able to parse a "application/dns-message" response (see also <a href="#sec_content-format" class="auto internal xref">Section 4.1</a>).
 Any response Content-Format other than "application/dns-message" <span class="bcp14">MUST</span> be indicated with
 the Content-Format option by the DoC server.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 <div id="response-codes-and-handling-dns-and-coap-errors">

@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 27 February 2026                                               
+Expires: 2 March 2026                                                   
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                          26 August 2025
+                                                          29 August 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 February 2026.
+   This Internet-Draft will expire on 2 March 2026.
 
 Copyright Notice
 
@@ -307,7 +307,7 @@ Table of Contents
    root path "/" is represented by 0 docpath-segments, i.e., an empty
    list.  The same considerations for the "," and "" characters in
    docpath-segments for zone-file implementations as for the alpn-ids in
-   an "alpn" SvcParam MAY apply (Section 7.1.1 of [RFC9460]).
+   an "alpn" SvcParam apply (Section 7.1.1 of [RFC9460]).
 
    The wire-format value for "docpath" consists of 0 or more sequences
    of octets prefixed by their respective length as a single octet.  We
@@ -336,10 +336,12 @@ Table of Contents
    translation harder, as they require to make space for the longer
    delimiters, in turn requiring to move octets.
 
-   To use the service binding from an SVCB RR, the DoC client MUST send
-   a DoC request constructed from the SvcParams including "docpath".
-   The construction algorithm for DoC requests is as follows, going
-   through the provided records in order of their priority.
+   To use the service binding from an SVCB RR or DNR Encrypted DNS
+   option, the DoC client MUST send a DoC request constructed from the
+   SvcParams including "docpath".  The construction algorithm for DoC
+   requests is as follows, going through the provided records in order
+   of their priority.  For the purposes of this algorithm, the DoC
+   client is assumed to be SVCB-optional (see Section 3 of [RFC9460]).
 
    *  If the "alpn" SvcParam value for the service is "coap", a CoAP
       request for CoAP over TLS MUST be constructed [RFC8323].  If it is
@@ -379,8 +381,9 @@ Table of Contents
    *  If the request constructed this way receives a response, the same
       SVCB record MUST be used for construction of future DoC queries.
       If not, or if the endpoint becomes unreachable, the algorithm
-      SHOULD be repeated with the SVCB record with the next highest
-      priority.
+      repeats with the SVCB RR or DNR Encrypted DNS option with the next
+      highest Service Priority as a fallback (see Sections 2.4.1 and 3
+      of [RFC9460]).
 
    A more generalized construction algorithm for any CoAP request can be
    found in [I-D.ietf-core-transport-indication].
@@ -530,11 +533,11 @@ Table of Contents
    response, i.e., it is also possible to transfer them using block-wise
    transfer [RFC7959].  A DoC server MUST be able to produce responses
    in the "application/dns-message" Content-Format (for details, see
-   Section 4.1) when requested.  A DoC client MUST be able to understand
-   responses in the "application/dns-message" Content-Format when it
-   does not send an Accept option.  Any response Content-Format other
-   than "application/dns-message" MUST be indicated with the Content-
-   Format option by the DoC server.
+   Section 4.1) when requested.  The use of the Accept option in the
+   request is optional.  However, all DoC clients MUST be able to parse
+   a "application/dns-message" response (see also Section 4.1).  Any
+   response Content-Format other than "application/dns-message" MUST be
+   indicated with the Content-Format option by the DoC server.
 
 4.3.1.  Response Codes and Handling DNS and CoAP errors
 
