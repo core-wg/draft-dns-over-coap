@@ -754,6 +754,39 @@ Change Log
 
 [^remove-changelog]: RFC Ed.: Please remove this section before publication.
 
+Since [draft-ietf-core-dns-over-coap-17]
+----------------------------------------
+- Address Roman Danyliw's COMMENT:
+    - Remove unused RFC8742 reference
+- Address Vladimír Čunát's DNSDIR review
+    - Address Éric Vyncke' COMMENT:
+    - Mention OPCODE 0 in Abstract and Introduction
+    - Reference to STD13 instead of RFC1035
+    - Provide extension pointers for future documents on other OPCODES
+    - Use only singular for example section if there is only one example
+    - Improvements on DNSSEC
+    - Hyphenate link-layer as modifier to frame
+- Address Paul Wouters's DISCUSS and COMMENT:
+    - Remove unnecessary and confusing ad flag from query example
+    - Phrase full SVCB mapping sentence more neutrally
+- Address Gorry Fairhurst's COMMENT:
+    - Add note (in addition to the `RFC Ed.:`) about paragraph removal
+    - Add references for "coap" and "co" ALPN to SvcParam algorithm
+    - Address Gorry's nits
+- Address Gorry Fairhurst's DISCUSS:
+    - Update push notifications
+    - observation: Do not use normative language
+- Address Orie Steele's COMMENT:
+    - Automatic configuration MUST only be done from a trusted source
+    - Remove confusing and unnecessary MAY
+    - Remove normative repeat of SvcParam algorithm by citing RFC 9461
+    - Fix wording around Accept option
+- Address Deb Cooley's COMMENT:
+    - Group (D)TLS references
+    - Automatic configuration MUST only be done from a trusted source
+    - Fix wording about unpredictable ID and spoofing
+    - Remove confusing "e.g."
+
 Since [draft-ietf-core-dns-over-coap-16]
 ----------------------------------------
 - Mention TLS as possible protection mechanism in abstract and intro
@@ -904,6 +937,7 @@ Since [draft-lenders-dns-over-coap-04]
 
 The authors of this document want to thank Mike Bishop, Carsten Bormann, Elwyn B. Davies, Esko Dijk, Thomas Fossati, Mikolai Gütschow, Todd Herr, Tommy Pauly, Ben Schwartz, Marco Tiloca, and Tim Wicinski for their feedback and comments.
 
+[draft-ietf-core-dns-over-coap-17]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-17
 [draft-ietf-core-dns-over-coap-16]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-16
 [draft-ietf-core-dns-over-coap-15]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-15
 [draft-ietf-core-dns-over-coap-14]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-14
