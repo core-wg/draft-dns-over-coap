@@ -5,6 +5,7 @@ draft-ietf-core-dns-over-coap.xml
 Gemfile.lock
 /.gems/
 *.html
+/.idea/
 /lib
 /.*.mk
 /node_modules/
