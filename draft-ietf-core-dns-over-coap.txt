@@ -255,7 +255,7 @@ Table of Contents
    automatic configuration, e.g., using a CoRE resource directory
    [RFC9176], DHCP or Router Advertisement options [RFC9463], or
    discovery of designated resolvers [RFC9462].  Automatic configuration
-   SHOULD only be done from a trusted source.
+   MUST only be done from a trusted source.
 
 3.1.  Discovery by Resource Type
 
