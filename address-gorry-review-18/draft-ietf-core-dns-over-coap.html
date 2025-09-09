@@ -1938,9 +1938,8 @@ As such, error handling (if any) needs to be resolved between the DoC server and
 <p id="section-5.1-4">Whenever the DoC server receives a DNS Push message from the DNS
 infrastructure for an observed resource record, the DoC server sends an appropriate Observe notification response
 to the DoC client.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
-<p id="section-5.1-5">A server that cannot proxy to DNS Push (or any other means of obtaining new records) <span class="bcp14">SHOULD</span> respond with a plain response message (i.e., without the Observe option) to a registration attempt.
-Observe notification for other purposes, however, are still possible.
-For instance, if the DoC server wants to notify about a change to a record it is the authoritative name server for, e.g., a new IP address for the name.<a href="#section-5.1-5" class="pilcrow">¶</a></p>
+<p id="section-5.1-5">A server that responds with notifications (i.e., sends the Observe option) needs to have means of obtaining current resource records.
+This may happen through DNS Push, but also by upstream polling or implicit circumstances (e.g., if the DoC server is the authoritative name server for the record and wants to notify about changes).<a href="#section-5.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="oscore">
