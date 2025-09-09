@@ -165,13 +165,13 @@ To avoid the resource requirements of DTLS or TLS on top of UDP (e.g., introduce
              /
             /
            CoAP request
-+------+   [DNS query]   +------+   DNS query     .---------------.
-| DoC  |---------------->| DoC  |--- --- --- --->|      DNS        |
-|Client|<----------------|Server|<--- --- --- ---| Infrastructure  |
-+------+  CoAP response  +------+  DNS response   '---------------'
++------+   [DNS query]   +------+------+   DNS query     .---------------.
+| DoC  |---------------->| DoC  | DNS  |--- --- --- --->|      DNS        |
+|Client|<----------------|Server|Client|<--- --- --- ---| Infrastructure  |
++------+  CoAP response  +------+------+  DNS response   '---------------'
           [DNS response]
-   \                        /\                                 /
-    '-----DNS over CoAP----'  '--DNS over UDP/HTTPS/QUIC/...--'
+   \                           / \                                     /
+    '------DNS over CoAP------'   '----DNS over UDP/HTTPS/QUIC/...----'
 
 ~~~
 {: #fig-overview-arch title="Basic DoC architecture"}
