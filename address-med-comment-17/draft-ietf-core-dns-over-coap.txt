@@ -276,7 +276,7 @@ Table of Contents
 
    A DoC server can also be discovered using Service Binding (SVCB)
    Resource Records (RR) [RFC9460] [RFC9461] from a pre-established DNS
-   transport (e.g., an unencrypted local resolver) or Discovery of
+   service (e.g., an unencrypted local resolver) or Discovery of
    Network-designated Resolvers (DNR) Service Parameters [RFC9463] via
    DHCP or Router Advertisements.  [RFC8323] defines the Application-
    Layer Protocol Negotiation (ALPN) ID for CoAP over TLS servers and
