@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 21 February 2026                                               
+Expires: 13 March 2026                                                  
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                          20 August 2025
+                                                        9 September 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 February 2026.
+   This Internet-Draft will expire on 13 March 2026.
 
 Copyright Notice
 
@@ -179,31 +179,32 @@ Table of Contents
    [RFC9250]), DoC allows for lightweight message protection based on
    OSCORE.
 
-                 . FETCH coaps://[2001:db8::1]/
-                /
-               /
-              CoAP request
-   +------+   [DNS query]   +------+   DNS query     .---------------.
-   | DoC  |---------------->| DoC  |--- --- --- --->|      DNS        |
-   |Client|<----------------|Server|<--- --- --- ---| Infrastructure  |
-   +------+  CoAP response  +------+  DNS response   '---------------'
-             [DNS response]
-      \                        /\                                 /
-       '-----DNS over CoAP----'  '--DNS over UDP/HTTPS/QUIC/...--'
+              . FETCH coaps://[2001:db8::1]/
+             /
+            /
+           CoAP request
++------+   [DNS query]   +------+------+   DNS query     .---------------.
+| DoC  |---------------->| DoC  | DNS  |--- --- --- --->|      DNS        |
+|Client|<----------------|Server|Client|<--- --- --- ---| Infrastructure  |
++------+  CoAP response  +------+------+  DNS response   '---------------'
+          [DNS response]
+   \                           / \                                     /
+    '------DNS over CoAP------'   '----DNS over UDP/HTTPS/QUIC/...----'
 
-                      Figure 1: Basic DoC architecture
+                   Figure 1: Basic DoC architecture
 
    The most important components of DoC can be seen in Figure 1: a DoC
    client tries to resolve DNS information by sending DNS queries
-   carried within CoAP requests to a DoC server.  That DoC server is a
-   DNS client (i.e., a stub or recursive resolver) that resolves DNS
-   information by using other DNS transports such as DNS over UDP
-   [STD13], DNS over HTTPS [RFC8484], or DNS over QUIC [RFC9250] when
-   communicating with the upstream DNS infrastructure.  Using that
-   information, the DoC server then replies to the queries of the DoC
-   client with DNS responses carried within CoAP responses.  A DoC
-   server MAY also serve as DNSSEC validator to provide DNSSEC
-   validation to the more constrained DoC clients.
+   carried within CoAP requests to a DoC server.  That DoC server can be
+   the authoritive name server for the queried record or a DNS client
+   (i.e., a stub or recursive resolver) that resolves DNS information by
+   using other DNS transports such as DNS over UDP [STD13], DNS over
+   HTTPS [RFC8484], or DNS over QUIC [RFC9250] when communicating with
+   the upstream DNS infrastructure.  Using that information, the DoC
+   server then replies to the queries of the DoC client with DNS
+   responses carried within CoAP responses.  A DoC server MAY also serve
+   as DNSSEC validator to provide DNSSEC validation to the more
+   constrained DoC clients.
 
    Note that this specification is distinct from DoH, since the CoAP-
    specific FETCH method [RFC8132] is used.  This has the benefit of
@@ -1102,9 +1103,9 @@ Table of Contents
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
               Identifiers", Work in Progress, Internet-Draft, draft-
-              ietf-core-href-23, 7 July 2025,
+              ietf-core-href-24, 30 August 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              href-23>.
+              href-24>.
 
    [I-D.ietf-core-transport-indication]
               Amsüss, C. and M. S. Lenders, "CoAP Transport Indication",
