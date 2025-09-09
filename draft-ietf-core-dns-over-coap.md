@@ -555,16 +555,16 @@ DNS Push Notifications {{-dns-push}} provides the capability to asynchronously n
 However, it results in additional overhead, which conflicts with constrained resources.
 This is the reason why it is RECOMMENDED to use CoAP Observe {{-coap-observe}} instead of DNS Push
 in the DoC domain.
+This is particularly useful if a short-lived record is requested frequently.
 The DoC server SHOULD provide Observe capabilities on its DoC resource and do as follows.
 
-A DoC server
-MAY subscribe to DNS push notifications,
-which involves sending a DNS Subscribe message (see ({{Section 6.2 of -dns-push}}),
+If a DoC clients wants to observe a resource record, a DoC server can respond with a notification
+and add the client to its list of observers for that resource in accordance to {{-coap-observe}}.
+The DoC server MAY subscribe to DNS push notifications for that record.
+This involves sending a DNS Subscribe message (see ({{Section 6.2 of -dns-push}}),
 instead of a classic DNS query to fetch the
-information on behalf of a DoC client.
-This is particularly useful
-when a CoAP request indicates that the DoC client wants to observe a resource record,
-or when a short-lived record is requested frequently.
+information on behalf of the DoC client.
+
 After the list of observers for a particular DNS query has become empty
 (by explicit or implicit cancellation of the observation as per {{Section 3.6 of -coap-observe}}),
 and no other reason to subscribe to that request is present,
