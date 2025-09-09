@@ -575,8 +575,8 @@ Whenever the DoC server receives a DNS Push message from the DNS
 infrastructure for an observed resource record, the DoC server sends an appropriate Observe notification response
 to the DoC client.
 
-A server that cannot proxy to DNS Push (or any other means of obtaining new records) should not send the response as a notification
-(i.e., it should not send the Observe option).
+A server that responds with notifications (i.e., sends the Observe option) needs to have means of obtaining current resource records.
+This may happen through DNS Push, but also by upstream polling or implicit circumstances (e.g., if the DoC server is the authoritative name server for the record and wants to notify about changes).
 
 OSCORE
 ------
