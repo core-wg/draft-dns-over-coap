@@ -1584,9 +1584,11 @@ B.19.  Since draft-lenders-dns-over-coap-04
 Acknowledgments
 
    The authors of this document want to thank Mike Bishop, Carsten
-   Bormann, Elwyn B.  Davies, Esko Dijk, Thomas Fossati, Mikolai
-   Gütschow, Todd Herr, Tommy Pauly, Ben Schwartz, Marco Tiloca, and Tim
-   Wicinski for their feedback and comments.
+   Bormann, Mohamed Boucadair, Deb Cooley, Vladimír Čunát, Roman
+   Danyliw, Elwyn B.  Davies, Esko Dijk, Gorry Fairhurst, Thomas
+   Fossati, Mikolai Gütschow, Todd Herr, Tommy Pauly, Ben Schwartz, Orie
+   Steele, Marco Tiloca, Éric Vyncke, Tim Wicinski, and Paul Wouters for
+   their feedback and comments.
 
 Authors' Addresses
 
