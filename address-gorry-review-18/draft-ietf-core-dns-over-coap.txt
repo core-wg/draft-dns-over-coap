@@ -234,12 +234,12 @@ Table of Contents
    realize the Representational State Transfer (REST) architecture
    [REST] in a suitable form for such constrained nodes.
 
-   If the DoC server provides Observe capabilities, it is a "subject" as
-   defined in [RFC7641], Section 1.2.  This includes administering a
-   "list of observers".  DoC clients using these capabilities are
-   "observers" as defined in [RFC7641], Section 1.2 in that case.  A
-   "notification" is a CoAP response message with an Observer option,
-   see [RFC7641], Section 4.2.
+   A DoC server can provide Observe capabilities as defined in
+   [RFC7641], Section 1.2.  As part of that, it administers a "list of
+   observers".  DoC clients using these capabilities are "observers" as
+   defined in [RFC7641], Section 1.2 in that case.  A "notification" is
+   a CoAP response message with an Observer option, see [RFC7641],
+   Section 4.2.
 
    The terms "payload" and "body" are used as defined in [RFC7959],
    Section 2.  Note that, when block-wise transfer is not used, the
@@ -681,13 +681,13 @@ Table of Contents
    frequently.  The DoC server SHOULD provide Observe capabilities on
    its DoC resource and do as follows.
 
-   If a DoC clients wants to observe a resource record, a DoC server
-   acts as subject and adds the client to its list of observers for that
-   resource in accordance to [RFC7641].  The DoC server MAY subscribe to
-   DNS push notifications for that record.  This involves sending a DNS
-   Subscribe message (see (Section 6.2 of [RFC8765]), instead of a
-   classic DNS query to fetch the information on behalf of the DoC
-   client.
+   If a DoC clients wants to observe a resource record, a DoC server can
+   respond with a notification and add the client to its list of
+   observers for that resource in accordance to [RFC7641].  The DoC
+   server MAY subscribe to DNS push notifications for that record.  This
+   involves sending a DNS Subscribe message (see (Section 6.2 of
+   [RFC8765]), instead of a classic DNS query to fetch the information
+   on behalf of the DoC client.
 
    After the list of observers for a particular DNS query has become
    empty (by explicit or implicit cancellation of the observation as per

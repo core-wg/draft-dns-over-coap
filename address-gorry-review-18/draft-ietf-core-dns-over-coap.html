@@ -1507,8 +1507,8 @@ A "DoC resource" is a CoAP resource <span>[<a href="#RFC7252" class="cite xref">
 DNS information is called a "DoC client".<a href="#section-2-3" class="pilcrow">¶</a></p>
 <p id="section-2-4">The term "constrained nodes" is used as defined in <span>[<a href="#RFC7228" class="cite xref">RFC7228</a>]</span>.
 <span>[<a href="#RFC6690" class="cite xref">RFC6690</a>]</span> describes that "Constrained RESTful Environments (CoRE)" realize the Representational State Transfer (REST) architecture <span>[<a href="#REST" class="cite xref">REST</a>]</span> in a suitable form for such constrained nodes.<a href="#section-2-4" class="pilcrow">¶</a></p>
-<p id="section-2-5">If the DoC server provides Observe capabilities, it is a "subject" as defined in <span>[<a href="#RFC7641" class="cite xref">RFC7641</a>], <a href="https://rfc-editor.org/rfc/rfc7641#section-1.2" class="relref">Section 1.2</a></span>.
-This includes administering a "list of observers".
+<p id="section-2-5">A DoC server can provide Observe capabilities as defined in <span>[<a href="#RFC7641" class="cite xref">RFC7641</a>], <a href="https://rfc-editor.org/rfc/rfc7641#section-1.2" class="relref">Section 1.2</a></span>.
+As part of that, it administers a "list of observers".
 DoC clients using these capabilities are "observers" as defined in <span>[<a href="#RFC7641" class="cite xref">RFC7641</a>], <a href="https://rfc-editor.org/rfc/rfc7641#section-1.2" class="relref">Section 1.2</a></span> in that case.
 A "notification" is a CoAP response message with an Observer option, see <span>[<a href="#RFC7641" class="cite xref">RFC7641</a>], <a href="https://rfc-editor.org/rfc/rfc7641#section-4.2" class="relref">Section 4.2</a></span>.<a href="#section-2-5" class="pilcrow">¶</a></p>
 <p id="section-2-6">The terms "payload" and "body" are used as defined in <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>], <a href="https://rfc-editor.org/rfc/rfc7959#section-2" class="relref">Section 2</a></span>.
@@ -1922,8 +1922,8 @@ This is the reason why it is <span class="bcp14">RECOMMENDED</span> to use CoAP 
 in the DoC domain.
 This is particularly useful if a short-lived record is requested frequently.
 The DoC server <span class="bcp14">SHOULD</span> provide Observe capabilities on its DoC resource and do as follows.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2">If a DoC clients wants to observe a resource record, a DoC server acts as subject and
-adds the client to its list of observers for that resource in accordance to <span>[<a href="#RFC7641" class="cite xref">RFC7641</a>]</span>.
+<p id="section-5.1-2">If a DoC clients wants to observe a resource record, a DoC server can respond with a notification
+and add the client to its list of observers for that resource in accordance to <span>[<a href="#RFC7641" class="cite xref">RFC7641</a>]</span>.
 The DoC server <span class="bcp14">MAY</span> subscribe to DNS push notifications for that record.
 This involves sending a DNS Subscribe message (see (<span><a href="https://rfc-editor.org/rfc/rfc8765#section-6.2" class="relref">Section 6.2</a> of [<a href="#RFC8765" class="cite xref">RFC8765</a>]</span>),
 instead of a classic DNS query to fetch the
