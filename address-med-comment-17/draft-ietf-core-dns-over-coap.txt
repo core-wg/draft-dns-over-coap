@@ -284,9 +284,9 @@ Table of Contents
    CoAP over DTLS servers.  DoC servers that use only OSCORE [RFC8613]
    and Ephemeral Diffie-Hellman Over COSE (EDHOC) [RFC9528] (with COSE
    abbreviating "Concise Binary Object Notation (CBOR) Object Signing
-   and Encryption" [RFC9052]) for security cannot be discovered using
-   SVCB RR or DNR.  Specifying an alternate discovery mechanism is out
-   of scope of this document.
+   and Encryption" [RFC9052]) to support security cannot be discovered
+   using these SVCB RR or DNR mechanisms.  Specifying an alternate
+   discovery mechanism is out of scope of this document.
 
    This document is not an SVCB mapping document for the CoAP schemes as
    defined in Section 2.4.3 of [RFC9460].  A full SVCB mapping is
