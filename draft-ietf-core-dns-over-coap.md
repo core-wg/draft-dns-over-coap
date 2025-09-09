@@ -242,8 +242,8 @@ For discovery of the DoC resource through a link mechanism that allows describin
 It can be used to identify a generic DNS resolver that is available to the client.
 
 ## Discovery using SVCB Resource Records or DNR
-A DoC server can also be discovered using Service Binding (SVCB) Resource Records (RR) {{-svcb}} {{-svcb-dns}} or Discovery of Network-designated Resolvers (DNR)
-Service Parameters {{-dnr}}.
+A DoC server can also be discovered using Service Binding (SVCB) Resource Records (RR) {{-svcb}} {{-svcb-dns}} resolved via another DNS service (e.g., provided by an unencrypted local resolver) or Discovery of Network-designated Resolvers (DNR)
+Service Parameters {{-dnr}} via DHCP or Router Advertisements.
 {{-coap-tcp}} defines the Application-Layer Protocol Negotiation (ALPN) ID for CoAP over TLS servers and {{-coap-dtls-alpn}} defines the ALPN ID for CoAP over DTLS servers.
 DoC servers that use only OSCORE {{-oscore}} and Ephemeral Diffie-Hellman Over COSE (EDHOC) {{-edhoc}} (with COSE abbreviating "Concise Binary Object Notation (CBOR) Object Signing and Encryption" {{?RFC9052}}) to support security cannot be discovered using these SVCB RR or DNR mechanisms.
 Specifying an alternate discovery mechanism is out of scope of this document.
@@ -305,8 +305,9 @@ For the purposes of this algorithm, the DoC client is assumed to be SVCB-optiona
 - If the "alpn" SvcParam value for the service is "coap", a CoAP request for CoAP over TLS MUST be constructed {{-coap-tcp}}.
   If it is "co", a CoAP request for CoAP over DTLS MUST be constructed {{-coap-dtls-alpn}}.
   Any other SvcParamKeys specifying a transport are out of the scope of this document.
-- The destination address for the request SHOULD be taken from additional information about the target, e.g., from an AAAA record associated with the target name or from an "ipv6hint" SvcParam value.
-  As a fallback, an address MAY be queried for the target name of the SVCB record.
+- The destination address for the request SHOULD be taken from additional information about the target.
+  This may include (1) A or AAAA RRs associated with the target name and delivered with the SVCB RR (see {{-ddr}}), (2) "ipv4hint" or "ipv6hint" SvcParams from the SVCB RR (see {{-svcb-dns}}), or (3) from IPv4 or IPv6 addresses provided if DNR {{-dnr}} is used.
+  As a fallback, an address MAY be queried for the target name of the SVCB record from another DNS service.
 - The destination port for the request MUST be taken from the "port" SvcParam value, if present.
   Otherwise, take the default port of the CoAP transport, e.g., with regards to this specification TCP port 5684 for "coap" or UDP port 5684 for "co".
   This document introduces no limitations on the ports that can be used.
