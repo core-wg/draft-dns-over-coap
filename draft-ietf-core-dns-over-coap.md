@@ -798,6 +798,22 @@ Change Log
 
 [^remove-changelog]: RFC Ed.: Please remove this section before publication.
 
+Since [draft-ietf-core-dns-over-coap-18]
+----------------------------------------
+- Address Address Mohamed Boucadair's COMMENT:
+    - Add Operational Considerations Section
+    - Make SVCB references normative
+    - Remove redundant requirement on parsing application/dns-message
+    - Remove contradicting statement and outdated reference about ALPN
+    - Add DNS client to Fig. 1
+    - Clarify recursion termination in the CoAP realm
+    - Clarify where addresses are coming from with DDR/DNR
+- Address Gorry Fairhurst's follow-up DISCUSS:
+    - Refer to Observe terminology in Section 2
+    - Clarify registration
+    - Provide alternative observation examples
+    - Clarify that error handling is in the hands of the DoC server
+
 Since [draft-ietf-core-dns-over-coap-17]
 ----------------------------------------
 - Address Roman Danyliw's COMMENT:
@@ -981,6 +997,7 @@ Since [draft-lenders-dns-over-coap-04]
 
 The authors of this document want to thank Mike Bishop, Carsten Bormann, Elwyn B. Davies, Esko Dijk, Thomas Fossati, Mikolai Gütschow, Todd Herr, Tommy Pauly, Ben Schwartz, Marco Tiloca, and Tim Wicinski for their feedback and comments.
 
+[draft-ietf-core-dns-over-coap-18]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-18
 [draft-ietf-core-dns-over-coap-17]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-17
 [draft-ietf-core-dns-over-coap-16]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-16
 [draft-ietf-core-dns-over-coap-15]: https://datatracker.ietf.org/doc/html/draft-ietf-core-dns-over-coap-15
