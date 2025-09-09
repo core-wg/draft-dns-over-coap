@@ -211,6 +211,10 @@ DNS information is called a "DoC client".
 The term "constrained nodes" is used as defined in {{-constr-nodes}}.
 {{-core-link-format}} describes that "Constrained RESTful Environments (CoRE)" realize the Representational State Transfer (REST) architecture {{REST}} in a suitable form for such constrained nodes.
 
+A DoC server can provide Observe capabilities as defined in {{-coap-observe, Section 1.2}}.
+As part of that, it administers a "list of observers".
+DoC clients using these capabilities are "observers" as defined in {{-coap-observe, Section 1.2}} in that case.
+A "notification" is a CoAP response message with an Observer option, see {{-coap-observe, Section 4.2}}.
 
 The terms "payload" and "body" are used as defined in {{-coap-blockwise, Section 2}}.
 Note that, when block-wise transfer is not used, the terms "payload" and "body" are to be understood as equal.
