@@ -180,7 +180,7 @@ To avoid the resource requirements of DTLS or TLS on top of UDP (e.g., introduce
 The most important components of DoC can be seen in {{fig-overview-arch}}: a DoC
 client tries to resolve DNS information by sending DNS queries carried within
 CoAP requests to a DoC server.
-That DoC server is a DNS client (i.e., a stub or recursive resolver) that resolves DNS information by using other DNS transports such
+That DoC server can be the authoritive name server for the queried record or a DNS client (i.e., a stub or recursive resolver) that resolves DNS information by using other DNS transports such
 as DNS over UDP {{-dns}}, DNS over HTTPS {{-doh}}, or DNS over QUIC {{-doq}} when communicating with the upstream
 DNS infrastructure.
 Using that information, the DoC server then replies to the queries of the DoC client with DNS
