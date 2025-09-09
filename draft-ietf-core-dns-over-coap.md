@@ -570,6 +570,8 @@ After the list of observers for a particular DNS query has become empty
 and no other reason to subscribe to that request is present,
 the DoC server SHOULD cancel the corresponding subscription.
 This can involve sending an DNS Unsubscribe message or closing the session (see {{Section 6.4 of -dns-push}}).
+As there is no CoAP observer anymore from the perspective of the DoC server, a failure to do so cannot be communicated back to any DoC observer.
+As such, error handling (if any) needs to be resolved between the DoC server and the upstream DNS infrastructure.
 
 Whenever the DoC server receives a DNS Push message from the DNS
 infrastructure for an observed resource record, the DoC server sends an appropriate Observe notification response
