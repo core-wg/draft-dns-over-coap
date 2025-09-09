@@ -275,18 +275,18 @@ Table of Contents
 3.2.  Discovery using SVCB Resource Records or DNR
 
    A DoC server can also be discovered using Service Binding (SVCB)
-   Resource Records (RR) [RFC9460] [RFC9461] from a pre-established DNS
-   service (e.g., an unencrypted local resolver) or Discovery of
-   Network-designated Resolvers (DNR) Service Parameters [RFC9463] via
-   DHCP or Router Advertisements.  [RFC8323] defines the Application-
-   Layer Protocol Negotiation (ALPN) ID for CoAP over TLS servers and
-   [I-D.ietf-core-coap-dtls-alpn] defines the ALPN ID for CoAP over DTLS
-   servers.  DoC servers which use only OSCORE [RFC8613] and Ephemeral
-   Diffie-Hellman Over COSE (EDHOC) [RFC9528] (with COSE abbreviating
-   "Concise Binary Object Notation (CBOR) Object Signing and Encryption"
-   [RFC9052]) for security currently cannot be discovered using SVCB RR
-   or DNR.  Specifying an alternate discovery mechanism is out of scope
-   of this document.
+   Resource Records (RR) [RFC9460] [RFC9461] resolved via another DNS
+   service (e.g., provided by an unencrypted local resolver) or
+   Discovery of Network-designated Resolvers (DNR) Service Parameters
+   [RFC9463] via DHCP or Router Advertisements.  [RFC8323] defines the
+   Application-Layer Protocol Negotiation (ALPN) ID for CoAP over TLS
+   servers and [I-D.ietf-core-coap-dtls-alpn] defines the ALPN ID for
+   CoAP over DTLS servers.  DoC servers that use only OSCORE [RFC8613]
+   and Ephemeral Diffie-Hellman Over COSE (EDHOC) [RFC9528] (with COSE
+   abbreviating "Concise Binary Object Notation (CBOR) Object Signing
+   and Encryption" [RFC9052]) for security cannot be discovered using
+   SVCB RR or DNR.  Specifying an alternate discovery mechanism is out
+   of scope of this document.
 
    This document is not an SVCB mapping document for the CoAP schemes as
    defined in Section 2.4.3 of [RFC9460].  A full SVCB mapping is
@@ -361,7 +361,7 @@ Table of Contents
       from the SVCB RR (see [RFC9461]), or (3) from IPv4 or IPv6
       addresses provided if DNR [RFC9463] is used.  As a fallback, an
       address MAY be queried for the target name of the SVCB record from
-      another pre-established DNS service.
+      another DNS service.
 
    *  The destination port for the request MUST be taken from the "port"
       SvcParam value, if present.  Otherwise, take the default port of
@@ -898,8 +898,8 @@ Table of Contents
 
 10.1.  Co-existence of different DNS and CoAP transports
 
-   Many other DNS transports may co-exist on the DoC server, such as DNS
-   over UDP [STD13], DNS over (D)TLS [RFC7858] [RFC8094], DNS over HTTPS
+   Many DNS transports may co-exist on the DoC server, such as DNS over
+   UDP [STD13], DNS over (D)TLS [RFC7858] [RFC8094], DNS over HTTPS
    [RFC8484], or DNS over QUIC [RFC9250].  In principle, transports
    employing channel or object security should be preferred.  In
    constrained scenarios, DNS over CoAP is preferable to DNS over DTLS.
