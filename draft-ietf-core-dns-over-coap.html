@@ -17,24 +17,24 @@ by (D)TLS-Secured CoAP (CoAPS) or Object Security for Constrained RESTful
 Environments (OSCORE) to provide encrypted DNS message exchange for
 constrained devices in the Internet of Things (IoT). 
     " name="description">
-<meta content="xml2rfc 3.30.0" name="generator">
+<meta content="xml2rfc 3.30.1" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="CoRE" name="keyword">
 <meta content="CoAP" name="keyword">
 <meta content="DNS" name="keyword">
 <meta content="draft-ietf-core-dns-over-coap-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.30.0
+  xml2rfc 3.30.1
     Python 3.12.11
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
     lxml 5.3.1
-    platformdirs 4.3.8
+    platformdirs 4.4.0
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.4
+    requests 2.32.5
     setuptools 80.9.0
     wcwidth 0.2.13
 -->
@@ -1055,11 +1055,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">DoC</td>
-<td class="right">August 2025</td>
+<td class="right">September 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Lenders, et al.</td>
-<td class="center">Expires 2 March 2026</td>
+<td class="center">Expires 13 March 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1072,12 +1072,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-core-dns-over-coap-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-08-29" class="published">29 August 2025</time>
+<time datetime="2025-09-09" class="published">9 September 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-03-02">2 March 2026</time></dd>
+<dd class="expires"><time datetime="2026-03-13">13 March 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1146,7 +1146,7 @@ constrained devices in the Internet of Things (IoT).<a href="#section-abstract-1
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 2 March 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 13 March 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1507,10 +1507,14 @@ A "DoC resource" is a CoAP resource <span>[<a href="#RFC7252" class="cite xref">
 DNS information is called a "DoC client".<a href="#section-2-3" class="pilcrow">¶</a></p>
 <p id="section-2-4">The term "constrained nodes" is used as defined in <span>[<a href="#RFC7228" class="cite xref">RFC7228</a>]</span>.
 <span>[<a href="#RFC6690" class="cite xref">RFC6690</a>]</span> describes that "Constrained RESTful Environments (CoRE)" realize the Representational State Transfer (REST) architecture <span>[<a href="#REST" class="cite xref">REST</a>]</span> in a suitable form for such constrained nodes.<a href="#section-2-4" class="pilcrow">¶</a></p>
-<p id="section-2-5">The terms "payload" and "body" are used as defined in <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>], <a href="https://rfc-editor.org/rfc/rfc7959#section-2" class="relref">Section 2</a></span>.
-Note that, when block-wise transfer is not used, the terms "payload" and "body" are to be understood as equal.<a href="#section-2-5" class="pilcrow">¶</a></p>
-<p id="section-2-6">For better readability, in the examples in this document the binary payload and resource records are shown in a hexadecimal representation as well as a human-readable format.
-In the actual message sent and received, however, they are encoded in the binary message format defined in <span>[<a href="#STD13" class="cite xref">STD13</a>]</span>.<a href="#section-2-6" class="pilcrow">¶</a></p>
+<p id="section-2-5">A DoC server can provide Observe capabilities as defined in <span>[<a href="#RFC7641" class="cite xref">RFC7641</a>], <a href="https://rfc-editor.org/rfc/rfc7641#section-1.2" class="relref">Section 1.2</a></span>.
+As part of that, it administers a "list of observers".
+DoC clients using these capabilities are "observers" as defined in <span>[<a href="#RFC7641" class="cite xref">RFC7641</a>], <a href="https://rfc-editor.org/rfc/rfc7641#section-1.2" class="relref">Section 1.2</a></span> in that case.
+A "notification" is a CoAP response message with an Observer option, see <span>[<a href="#RFC7641" class="cite xref">RFC7641</a>], <a href="https://rfc-editor.org/rfc/rfc7641#section-4.2" class="relref">Section 4.2</a></span>.<a href="#section-2-5" class="pilcrow">¶</a></p>
+<p id="section-2-6">The terms "payload" and "body" are used as defined in <span>[<a href="#RFC7959" class="cite xref">RFC7959</a>], <a href="https://rfc-editor.org/rfc/rfc7959#section-2" class="relref">Section 2</a></span>.
+Note that, when block-wise transfer is not used, the terms "payload" and "body" are to be understood as equal.<a href="#section-2-6" class="pilcrow">¶</a></p>
+<p id="section-2-7">For better readability, in the examples in this document the binary payload and resource records are shown in a hexadecimal representation as well as a human-readable format.
+In the actual message sent and received, however, they are encoded in the binary message format defined in <span>[<a href="#STD13" class="cite xref">STD13</a>]</span>.<a href="#section-2-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec_doc-server-selection">
@@ -1916,25 +1920,26 @@ the server.<a href="#section-4.3.3-8" class="pilcrow">¶</a></p>
 However, it results in additional overhead, which conflicts with constrained resources.
 This is the reason why it is <span class="bcp14">RECOMMENDED</span> to use CoAP Observe <span>[<a href="#RFC7641" class="cite xref">RFC7641</a>]</span> instead of DNS Push
 in the DoC domain.
+This is particularly useful if a short-lived record is requested frequently.
 The DoC server <span class="bcp14">SHOULD</span> provide Observe capabilities on its DoC resource and do as follows.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2">A DoC server
-<span class="bcp14">MAY</span> subscribe to DNS push notifications,
-which involves sending a DNS Subscribe message (see (<span><a href="https://rfc-editor.org/rfc/rfc8765#section-6.2" class="relref">Section 6.2</a> of [<a href="#RFC8765" class="cite xref">RFC8765</a>]</span>),
+<p id="section-5.1-2">If a DoC clients wants to observe a resource record, a DoC server can respond with a notification
+and add the client to its list of observers for that resource in accordance to <span>[<a href="#RFC7641" class="cite xref">RFC7641</a>]</span>.
+The DoC server <span class="bcp14">MAY</span> subscribe to DNS push notifications for that record.
+This involves sending a DNS Subscribe message (see (<span><a href="https://rfc-editor.org/rfc/rfc8765#section-6.2" class="relref">Section 6.2</a> of [<a href="#RFC8765" class="cite xref">RFC8765</a>]</span>),
 instead of a classic DNS query to fetch the
-information on behalf of a DoC client.
-This is particularly useful
-when a CoAP request indicates that the DoC client wants to observe a resource record,
-or when a short-lived record is requested frequently.
-After the list of observers for a particular DNS query has become empty
+information on behalf of the DoC client.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.1-3">After the list of observers for a particular DNS query has become empty
 (by explicit or implicit cancellation of the observation as per <span><a href="https://rfc-editor.org/rfc/rfc7641#section-3.6" class="relref">Section 3.6</a> of [<a href="#RFC7641" class="cite xref">RFC7641</a>]</span>),
 and no other reason to subscribe to that request is present,
 the DoC server <span class="bcp14">SHOULD</span> cancel the corresponding subscription.
-This can involve sending an DNS Unsubscribe message or closing the session (see <span><a href="https://rfc-editor.org/rfc/rfc8765#section-6.4" class="relref">Section 6.4</a> of [<a href="#RFC8765" class="cite xref">RFC8765</a>]</span>).<a href="#section-5.1-2" class="pilcrow">¶</a></p>
-<p id="section-5.1-3">Whenever the DoC server receives a DNS Push message from the DNS
+This can involve sending an DNS Unsubscribe message or closing the session (see <span><a href="https://rfc-editor.org/rfc/rfc8765#section-6.4" class="relref">Section 6.4</a> of [<a href="#RFC8765" class="cite xref">RFC8765</a>]</span>).
+As there is no CoAP observer anymore from the perspective of the DoC server, a failure to do so cannot be communicated back to any DoC observer.
+As such, error handling (if any) needs to be resolved between the DoC server and the upstream DNS infrastructure.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.1-4">Whenever the DoC server receives a DNS Push message from the DNS
 infrastructure for an observed resource record, the DoC server sends an appropriate Observe notification response
-to the DoC client.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.1-4">A server that cannot proxy to DNS Push (or any other means of obtaining new records) should not send the response as a notification
-(i.e., it should not send the Observe option).<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+to the DoC client.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<p id="section-5.1-5">A server that responds with notifications (i.e., sends the Observe option) needs to have means of obtaining current resource records.
+This may happen through DNS Push, but also by upstream polling or implicit circumstances (e.g., if the DoC server is the authoritative name server for the record and wants to notify about changes).<a href="#section-5.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="oscore">
@@ -2309,7 +2314,7 @@ The definition of this parameter can be found in <a href="#sec_doc-server-select
 <dd class="break"></dd>
 <dt id="I-D.ietf-core-href">[I-D.ietf-core-href]</dt>
         <dd>
-<span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"Constrained Resource Identifiers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-href-23</span>, <time datetime="2025-07-07" class="refDate">7 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-href-23">https://datatracker.ietf.org/doc/html/draft-ietf-core-href-23</a>&gt;</span>. </dd>
+<span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"Constrained Resource Identifiers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-href-24</span>, <time datetime="2025-08-30" class="refDate">30 August 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-href-24">https://datatracker.ietf.org/doc/html/draft-ietf-core-href-24</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-core-transport-indication">[I-D.ietf-core-transport-indication]</dt>
         <dd>
