@@ -5,14 +5,14 @@
 CoRE                                                       M. S. Lenders
 Internet-Draft                                                TU Dresden
 Intended status: Standards Track                               C. Amsüss
-Expires: 13 March 2026                                                  
+Expires: 14 March 2026                                                  
                                                              C. Gündoğan
                                                         NeuralAgent GmbH
                                                            T. C. Schmidt
                                                              HAW Hamburg
                                                              M. Wählisch
                                         TU Dresden & Barkhausen Institut
-                                                        9 September 2025
+                                                       10 September 2025
 
 
                           DNS over CoAP (DoC)
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 March 2026.
+   This Internet-Draft will expire on 14 March 2026.
 
 Copyright Notice
 
@@ -1586,9 +1586,9 @@ Acknowledgments
    The authors of this document want to thank Mike Bishop, Carsten
    Bormann, Mohamed Boucadair, Deb Cooley, Vladimír Čunát, Roman
    Danyliw, Elwyn B.  Davies, Esko Dijk, Gorry Fairhurst, Thomas
-   Fossati, Mikolai Gütschow, Todd Herr, Tommy Pauly, Ben Schwartz, Orie
-   Steele, Marco Tiloca, Éric Vyncke, Tim Wicinski, and Paul Wouters for
-   their feedback and comments.
+   Fossati, Mikolai Gütschow, Todd Herr, Tommy Pauly, Jan Romann, Ben
+   Schwartz, Orie Steele, Marco Tiloca, Éric Vyncke, Tim Wicinski, and
+   Paul Wouters for their feedback and comments.
 
 Authors' Addresses
 
