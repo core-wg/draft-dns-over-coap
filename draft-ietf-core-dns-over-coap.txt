@@ -345,7 +345,7 @@ Table of Contents
    transferable into a sequence of CoAP Uri-Path options by mapping each
    length octet into the Option Delta and Option Length of the
    corresponding CoAP Uri-Path option, provided the docpath-segments are
-   all of a length between 0 and 11 octets (see [RFC7252], Section 3.1).
+   all of a length between 0 and 12 octets (see [RFC7252], Section 3.1).
    Likewise, it can be transferred into a URI path-abempty form by
    replacing each length octet with the "/" character None of the
    abovementioned prevent longer docpath-segments than the considered,

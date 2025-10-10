@@ -1614,7 +1614,7 @@ representation in CRIs <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-
 (<code>0x60</code> as an octet, see <span>[<a href="#RFC8949" class="cite xref">RFC8949</a>]</span>).
 Furthermore, it is easily transferable into a sequence of CoAP Uri-Path options by
 mapping each length octet into the Option Delta and Option Length of the corresponding CoAP Uri-Path
-option, provided the docpath-segments are all of a length between 0 and 11 octets (see <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>], <a href="https://rfc-editor.org/rfc/rfc7252#section-3.1" class="relref">Section 3.1</a></span>).
+option, provided the docpath-segments are all of a length between 0 and 12 octets (see <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>], <a href="https://rfc-editor.org/rfc/rfc7252#section-3.1" class="relref">Section 3.1</a></span>).
 Likewise, it can be transferred into a URI path-abempty form by replacing each length octet with the "/" character
 None of the abovementioned prevent longer docpath-segments than the considered, they just make the
 translation harder, as they require to make space for the longer delimiters, in turn requiring to move octets.<a href="#section-3.2-9" class="pilcrow">¶</a></p>
