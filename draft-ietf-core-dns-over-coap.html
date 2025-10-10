@@ -1597,7 +1597,7 @@ Paths with longer segments cannot be advertised with the "docpath" SvcParam and 
 <p id="section-3.2-7">The presentation format value of "docpath" <span class="bcp14">SHALL</span> be a comma-separated list (<span><a href="https://rfc-editor.org/rfc/rfc9460#appendix-A.1" class="relref">Appendix A.1</a> of [<a href="#RFC9460" class="cite xref">RFC9460</a>]</span>)
 of 0 or more docpath-segments.
 The root path "/" is represented by 0 docpath-segments, i.e., an empty list.
-The same considerations for the "," and "" characters in docpath-segments for zone-file
+The same considerations for the "," and "\" characters in docpath-segments for zone-file
 implementations as for the alpn-ids in an "alpn" SvcParam apply (<span><a href="https://rfc-editor.org/rfc/rfc9460#section-7.1.1" class="relref">Section 7.1.1</a> of [<a href="#RFC9460" class="cite xref">RFC9460</a>]</span>).<a href="#section-3.2-7" class="pilcrow">¶</a></p>
 <p id="section-3.2-8">The wire-format value for "docpath" consists of 0 or more sequences of octets prefixed by their
 respective length as a single octet.

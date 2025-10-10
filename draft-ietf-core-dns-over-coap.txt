@@ -321,7 +321,7 @@ Table of Contents
    The presentation format value of "docpath" SHALL be a comma-separated
    list (Appendix A.1 of [RFC9460]) of 0 or more docpath-segments.  The
    root path "/" is represented by 0 docpath-segments, i.e., an empty
-   list.  The same considerations for the "," and "" characters in
+   list.  The same considerations for the "," and "\" characters in
    docpath-segments for zone-file implementations as for the alpn-ids in
    an "alpn" SvcParam apply (Section 7.1.1 of [RFC9460]).
 
