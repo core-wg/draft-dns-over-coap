@@ -287,7 +287,7 @@ The root path "/" is represented by 0 length-value pairs, i.e., SvcParamValue le
 
 Note that this format uses the same encoding as the "alpn" SvcParam and can reuse the
 decoders and encoders for that SvcParam with the adaption that a length of zero is allowed.
-As long as each docpath-segment is of length 0 and 24 octets, it is easily transferred into the path
+As long as each docpath-segment is of a length between 0 and 23 octets, it is easily transferred into the path
 representation in CRIs {{-cri}} by masking each length octet with the CBOR text string major type 3
 (`0x60` as an octet, see {{-cbor}}).
 Furthermore, it is easily transferable into a sequence of CoAP Uri-Path options by
